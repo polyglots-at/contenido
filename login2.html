@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro en Polyglots</title>
+  <style>
+    /* Estilos generales */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+      line-height: 0.2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Encabezado */
+    .header {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .header img {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 20px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* Formulario de registro */
+    .register-form {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center; /* Centra el contenido del formulario */
+    }
+
+    .register-form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .register-form .submit-button {
+      padding: 10px;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #4caf50;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      text-transform: uppercase;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: block; /* Ocupa todo el ancho del contenedor */
+      margin: 0 auto; /* Centra horizontalmente */
+    }
+
+    .register-form .submit-button:hover {
+      background-color: #2e7d32;
+      transform: scale(1.1);
+    }
+
+    /* Botón de Google */
+    .google-button {
+      padding: 10px;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #4285f4; /* Color de Google */
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      text-transform: uppercase;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-top: 15px;
+      display: block; /* Ocupa todo el ancho del contenedor */
+      margin: 0 auto; /* Centra horizontalmente */
+    }
+
+    .google-button:hover {
+      background-color: #3578e5; /* Color de Google más oscuro */
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Encabezado -->
+    <div class="header">
+      <img src="https://polyglots-at.github.io/at/polyglots.jpg" alt="Logo de la Plataforma">
+    </div>
+
+    <!-- Formulario de registro -->
+    <form class="register-form" id="register-form">
+      <input type="email" id="email" placeholder="Correo Electrónico" required>
+      <input type="password" id="password" placeholder="Contraseña" required>
+      <input type="password" id="confirm-password" placeholder="Confirmar Contraseña" required>
+      <button type="submit" class="submit-button" id="register-button">Registrarse</button>
+    </form>
+
+    <!-- Botón de inicio de sesión con Google -->
+    <button class="google-button" id="login-google">Entrar con Google</button>
+
+  </div>
+
+  <!-- Incluye las bibliotecas de Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+  <!-- Tu código JavaScript para la autenticación -->
+  <script>
+    // Inicializa Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyCQICCJvKwkwyns0BdrdNOzwUAE_2ESOn4",
+      authDomain: "polyglots-at.firebaseapp.com",
+      projectId: "polyglots-at",
+      storageBucket: "polyglots-at.firebasestorage.app",
+      messagingSenderId: "962913161343",
+      appId: "1:962913161343:web:1637f488eabe902ce82f4a",
+      measurementId: "G-TY4XEKHRHL"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Obtén referencias a los botones
+    const registerButton = document.getElementById('register-button');
+    const loginGoogleButton = document.getElementById('login-google');
+
+    // Maneja el clic en el botón de registro
+    registerButton.addEventListener('click', (event) => {
+      event.preventDefault(); // Evita que el formulario se envíe normalmente
+
+      // Obtén los datos del formulario
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      // Verifica que las contraseñas coincidan
+      if (password !== confirmPassword) {
+        alert("Las contraseñas no coinciden.");
+        return;
+      }
+
+      // Crea un nuevo usuario con Firebase
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // El usuario se ha registrado correctamente
+          const user = userCredential.user;
+          console.log("Usuario registrado:", user);
+          // Redirige al usuario a la página principal o a otra página
+          window.location.href = 'index.html'; // Reemplaza 'index.html' con la URL de tu página principal
+        })
+        .catch((error) => {
+          // Error al registrarse
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error("Error de registro:", errorCode, errorMessage);
+          // Muestra un mensaje de error al usuario
+          alert("Error al registrarse: " + errorMessage);
+        });
+    });
+
+    // Maneja el clic en el botón de inicio de sesión con Google
+    loginGoogleButton.addEventListener('click', () => {
+      // Inicia sesión con Firebase
+      firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
+        .then((result) => {
+          // El usuario ha iniciado sesión correctamente
+          const user = result.user;
+          console.log("Usuario autenticado:", user);
+          // Redirige al usuario a la página principal o a otra página
+          window.location.href = 'index.html'; // Reemplaza 'index.html' con la URL de tu página principal
+        })
+        .catch((error) => {
+          // Error al iniciar sesión
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error("Error de autenticación:", errorCode, errorMessage);
+          // Muestra un mensaje de error al usuario
+          alert("Error al iniciar sesión: " + errorMessage);
+        });
+    });
+  </script>
+</body>
+</html>
