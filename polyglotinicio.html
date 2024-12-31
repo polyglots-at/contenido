@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienvenidos a la Plataforma de Idiomas</title>
+  <style>
+    /* Estilos generales */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+      line-height: 0.2;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Encabezado */
+    .header {
+      margin-bottom: 30px;
+    }
+
+    .header img {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 20px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* Botón de inicio */
+    .start-button {
+      margin-top: 20px;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      color: #fff;
+      background-color: #4caf50;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      text-transform: uppercase;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .start-button:hover {
+      background-color: #2e7d32;
+      transform: scale(1.1);
+    }
+
+    /* Sección de botones destacados */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .feature {
+      width: 150px;
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+
+    .feature img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+    }
+
+    .feature p {
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+
+    /* Pie de página */
+    .footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #ddd;
+    }
+
+    .footer a {
+      color: #fff;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+      color: #4caf50;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Encabezado -->
+    <div class="header">
+      <img src="https://polyglots-at.github.io/at/polyglots.jpg" alt="Logo de la Plataforma">
+      <h1>Polyglots</h1>
+    </div>
+
+    <!-- Botón de inicio -->
+    <button class="start-button" onclick="location.href='main.html'">Registrarse</button>
+    <button class="start-button" onclick="location.href='main.html'">Iniciar Sesión</button>
+    <!-- Sección de botones destacados -->
+    <div class="features">
+      <div class="feature">
+        <img src="https://polyglots-at.github.io/at/video.png" alt="Video">
+        <p>Videos Educativos</p>
+      </div>
+      <div class="feature">
+        <img src="https://polyglots-at.github.io/at/contenido.png" alt="Contenido">
+        <p>Material Didáctico</p>
+      </div>
+      <div class="feature">
+        <img src="https://polyglots-at.github.io/at/fonetica.png" alt="Fonética">
+        <p>Ejercicios de Fonética</p>
+      </div>
+      <div class="feature">
+        <img src="https://polyglots-at.github.io/at/gramatica.png" alt="Gramática">
+        <p>Lecciones de Gramática</p>
+      </div>
+      <div class="feature">
+        <img src="https://polyglots-at.github.io/at/practica.png" alt="Práctica">
+        <p>Práctica Interactiva</p>
+      </div>
+    </div>
+
+    <!-- Pie de página -->
+    <div class="footer">
+      <p>&copy; 2024 Polyglots</p>
+    </div>
+  </div>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyCQICCJvKwkwyns0BdrdNOzwUAE_2ESOn4",
+      authDomain: "polyglots-at.firebaseapp.com",
+      projectId: "polyglots-at",
+      storageBucket: "polyglots-at.firebasestorage.app",
+      messagingSenderId: "962913161343",
+      appId: "1:962913161343:web:1637f488eabe902ce82f4a",
+      measurementId: "G-TY4XEKHRHL"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+</body>
+</html>
