@@ -115,9 +115,6 @@
     </div>
 
     <!-- Formulario de inicio de sesión -->
-    <form class="login-form" onsubmit="return validarClave()">
-      <input type="email" placeholder="Correo Electrónico" required>
-      <input type="password" placeholder="Contraseña" id="password" required>
       <a href="https://polyglots-at.github.io/contenido/niveles.html">
         <button type="button" class="submit-button">Entrar</button>
       </a>
@@ -129,14 +126,6 @@
   </div>
 
   <script>
-    function validarClave() {
-      const clave = document.getElementById('password').value;
-      if (clave !== 'APRENDER2025') {
-        alert('Contraseña incorrecta. Por favor, intenta nuevamente.');
-        return false;
-      }
-      return true;
-    }
   </script>
 </body>
 </html>
