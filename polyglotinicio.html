@@ -164,7 +164,7 @@
 
     // Inicia sesión con Google
     function signInWithGoogle() {
-      firebase.auth().signInWithRedirect(provider)
+      firebase.auth().signInWithPopup(provider)
         .then((result) => {
           // El usuario inició sesión correctamente
           const user = result.user;
