@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bienvenidos a la Plataforma de Idiomas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqk1w2/knoG80k332eYXYlOjLiPF4t60aUM/zOaNqCg7IA5+WvJ5g/hS+OiGYtdno6tZ5S0I/o=" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     /* Estilos generales */
     * {
@@ -49,60 +50,55 @@
       letter-spacing: 2px;
     }
 
-    /* Botón de inicio */
-    .start-button {
+    /* Formulario de inicio de sesión */
+    .login-form {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       margin-top: 20px;
-      padding: 15px 30px;
-      font-size: 1.2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .login-form .submit-button {
+      padding: 10px;
+      font-size: 1rem;
       color: #fff;
       background-color: #4caf50;
       border: none;
       border-radius: 25px;
       cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease;
       text-transform: uppercase;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      margin-bottom: 10px; /* Espacio entre botones */
     }
 
-    .start-button:hover {
+    .login-form .submit-button:hover {
       background-color: #2e7d32;
       transform: scale(1.1);
     }
 
-    /* Sección de botones destacados */
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-      margin-top: 40px;
+    /* Botón de Google */
+    .google-button {
+      background-color: #4285f4; /* Color de Google */
+      color: #fff;
     }
 
-    .feature {
-      width: 150px;
-      text-align: center;
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .feature:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-      transform: scale(1.1);
-    }
-
-    .feature img {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 10px;
-      border-radius: 50%;
-    }
-
-    .feature p {
-      font-size: 1rem;
-      margin-top: 10px;
+    .google-button i {
+      margin-right: 10px; /* Espacio entre el icono y el texto */
     }
 
     /* Pie de página */
@@ -128,63 +124,81 @@
     <!-- Encabezado -->
     <div class="header">
       <img src="https://polyglots-at.github.io/at/polyglots.jpg" alt="Logo de la Plataforma">
-      <h1>Polyglots</h1>
+      <h1>Bienvenidos a Polyglots</h1>
     </div>
 
-    <!-- Botón de inicio -->
-    <button class="start-button" onclick="location.href='main.html'">Registrarse</button>
-    <button class="start-button" onclick="location.href='main.html'">Iniciar Sesión</button>
-    <!-- Sección de botones destacados -->
-    <div class="features">
-      <div class="feature">
-        <img src="https://polyglots-at.github.io/at/video.png" alt="Video">
-        <p>Videos Educativos</p>
-      </div>
-      <div class="feature">
-        <img src="https://polyglots-at.github.io/at/contenido.png" alt="Contenido">
-        <p>Material Didáctico</p>
-      </div>
-      <div class="feature">
-        <img src="https://polyglots-at.github.io/at/fonetica.png" alt="Fonética">
-        <p>Ejercicios de Fonética</p>
-      </div>
-      <div class="feature">
-        <img src="https://polyglots-at.github.io/at/gramatica.png" alt="Gramática">
-        <p>Lecciones de Gramática</p>
-      </div>
-      <div class="feature">
-        <img src="https://polyglots-at.github.io/at/practica.png" alt="Práctica">
-        <p>Práctica Interactiva</p>
-      </div>
-    </div>
+    <!-- Formulario de inicio de sesión -->
+    <form class="login-form">
+      <input type="email" id="email" placeholder="Correo Electrónico" required>
+      <input type="password" id="password" placeholder="Contraseña" required>
+      <button type="submit" class="submit-button" onclick="signInWithEmailAndPassword()">Iniciar sesión con contraseña</button>
+      <button type="button" onclick="signInWithGoogle()" class="submit-button google-button">
+        <i class="fab fa-google"></i> Iniciar sesión con Google
+      </button>
+    </form>
 
     <!-- Pie de página -->
     <div class="footer">
       <p>&copy; 2024 Polyglots</p>
     </div>
   </div>
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-  
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script>
+    // Inicializa Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyCQICCJvKwkwyns0BdrdNOzwUAE_2ESOn4",
       authDomain: "polyglots-at.firebaseapp.com",
       projectId: "polyglots-at",
       storageBucket: "polyglots-at.firebasestorage.app",
       messagingSenderId: "962913161343",
-      appId: "1:962913161343:web:1637f488eabe902ce82f4a",
-      measurementId: "G-TY4XEKHRHL"
+      appId: "1:962913161343:web:4389c04072558567e82f4a",
+      measurementId: "G-7ETP44D3BC"
     };
-  
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Crea un proveedor de Google
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    // Inicia sesión con Google
+    function signInWithGoogle() {
+      firebase.auth().signInWithRedirect(provider)
+        .then((result) => {
+          // El usuario inició sesión correctamente
+          const user = result.user;
+          console.log("Usuario inició sesión:", user);
+          // Redirige al usuario a la página de niveles
+          window.location.href = "https://polyglots-at.github.io/contenido/niveles.html";
+        })
+        .catch((error) => {
+          // Maneja el error
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error("Error al iniciar sesión:", errorCode, errorMessage);
+        });
+    }
+
+    // Inicia sesión con correo electrónico y contraseña
+    function signInWithEmailAndPassword() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // El usuario inició sesión correctamente
+          const user = userCredential.user;
+          console.log("Usuario inició sesión:", user);
+          // Redirige al usuario a la página de niveles
+          window.location.href = "https://polyglots-at.github.io/contenido/niveles.html";
+        })
+        .catch((error) => {
+          // Maneja el error
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error("Error al iniciar sesión:", errorCode, errorMessage);
+        });
+    }
   </script>
 </body>
 </html>
