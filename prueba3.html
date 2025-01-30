@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro en Polyglots</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Contenedor principal */
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Encabezado */
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid #fff;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Formulario de registro */
+        .register-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .register-form input,
+        .register-form .submit-button,
+        .google-button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1px; /* Espacio entre elementos */
+        }
+
+        .register-form input {
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .register-form input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .register-form input:focus {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.02);
+        }
+
+        .register-form .submit-button {
+            background-color: #4caf50;
+        }
+
+        .register-form .submit-button:hover {
+            background-color: #2e7d32;
+            transform: scale(1.05);
+        }
+
+        .google-button {
+            background-color: #4285f4;
+        }
+
+        .google-button:hover {
+            background-color: #3578e5;
+            transform: scale(1.05);
+        }
+
+        .google-button img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Enlace adicional */
+        .additional-link {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .additional-link a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: opacity 0.3s ease;
+        }
+
+        .additional-link a:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://polyglots-at.github.io/at/polyglots.jpg" alt="Logo de Polyglots">
+            <h1>Regístrate</h1>
+        </div>
+
+        <form class="register-form" id="register-form">
+            <input type="email" id="email" placeholder="Correo Electrónico" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <input type="password" id="confirm-password" placeholder="Confirmar Contraseña" required>
+            <button type="submit" class="submit-button" id="register-button">Registrarse</button>
+            <button class="google-button" id="login-google">
+                <img src="https://polyglots-at.github.io/contenido/logogoogle.jpg" alt="Logo de Google">
+                Entrar con Google
+            </button>
+        </form>
+
+
+        <p class="additional-link">
+            ¿Ya tienes una cuenta? <a href="#">Inicia sesión</a>
+        </p>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+    <script>
+        // ... (código de inicialización de Firebase)
+
+        // ... (código de observador de autenticación)
+
+        // Obtén referencias a los botones
+        const registerButton = document.getElementById('register-button');
+        const loginGoogleButton = document.getElementById('login-google');
+
+        // ... (código para el botón de registro)
+
+        // Maneja el clic en el botón de inicio de sesión con Google
+        loginGoogleButton.addEventListener('click', () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    const user = result.user;
+                    console.log("Usuario autenticado:", user);
+                    window.location.href = 'index.html';
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error("Error de autenticación:", errorCode, errorMessage);
+
+                    // Manejo de errores más específico
+                    if (errorCode === 'auth/popup-closed-by-user') {
+                        alert("La ventana de autenticación se cerró. Intenta de nuevo.");
+                    } else if (errorCode === 'auth/account-exists-with-different-credential') {
+                        alert("Ya existe una cuenta con este correo electrónico pero con un proveedor diferente. Inicia sesión con el proveedor correspondiente.");
+                    } else if (errorCode === 'auth/cancelled-popup-request') {
+                        alert("Solicitud de inicio de sesión cancelada.");
+                    } else {
+                        alert("Error al iniciar sesión: " + errorMessage);
+                    }
+                });
+        });
+    </script>
+</body>
+
+</html>
