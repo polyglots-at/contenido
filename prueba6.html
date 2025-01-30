@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polyglots</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d1f2d;
+            background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+            color: white;
+            margin: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        #container {
+            width: 100%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .session {
+            width: 100%;
+            display: none;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .session:first-child {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0%;; /* Aumenta el espacio entre elementos */
+        }
+
+        .words-container {
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Aumenta el espacio entre palabra y pronunciación */
+        }
+
+        .word {
+            font-size: 24px;
+            color: #3498db;
+            padding: 10px 20px; /* Ajusta el padding */
+            border-radius: 10px; /* Ajusta el border-radius */
+            background-color: rgba(52, 152, 219, 0.3);
+        }
+
+        .pronunciation {
+            font-size: 24px;
+            color: #f39c12;
+            padding: 10px 20px; /* Ajusta el padding */
+            border-radius: 10px; /* Ajusta el border-radius */
+            background-color: rgba(243, 156, 18, 0.3);
+        }
+
+        .pronunciation::before {
+            content: "";
+        }
+
+        .pronunciation::after {
+            content: "";
+        }
+
+        .meaning {
+            font-size: 24px;
+            color: #2ecc71;
+            padding: 10px 20px; /* Ajusta el padding */
+            border-radius: 10px; /* Ajusta el border-radius */
+            background-color: rgba(46, 204, 113, 0.3);
+        }
+
+        .symbol {
+            display: none;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #50c878;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 10px 20px;
+        }
+
+        button:hover {
+            background-color: #45b469;
+        }
+
+        .nav-button {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-button:hover {
+            transform: scale(1.2);
+        }
+
+        #prev {
+            position: absolute;
+            left: 10px;
+            top: 50%; /* Vuelve a la posición original */
+            transform: translateY(-50%); /* Centra verticalmente */
+        }
+
+        #next {
+            position: absolute;
+            right: 10px;
+            top: 50%; /* Vuelve a la posición original */
+            transform: translateY(-50%); /* Centra verticalmente */
+        }
+
+        #exit {
+            position: absolute;
+            right: 10px;
+            bottom: 10px; /* Ajusta la posición vertical */
+            background-color: #e74c3c;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #exit:hover {
+            background-color: #c0392b;
+        }
+
+        #exit a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+    <script>
+        var index = 0;
+        var sessions;
+
+        function iniciar() {
+            sessions = document.getElementsByClassName("session");
+            updateSession();
+        }
+
+        function nextSession() {
+            index = (index + 1) % sessions.length;
+            updateSession();
+        }
+
+        function prevSession() {
+            index = (index - 1 + sessions.length) % sessions.length;
+            updateSession();
+        }
+
+        function updateSession() {
+            for (var i = 0; i < sessions.length; i++) {
+                if (i == index) {
+                    sessions[i].style.display = "block";
+                    var audio = sessions[i].getElementsByTagName("audio")[0];
+                    audio.play();
+                } else {
+                    sessions[i].style.display = "none";
+                }
+            }
+        }
+
+        function exitLesson() {
+            // Aquí puedes agregar la lógica para salir de la lección.
+            // Por ejemplo, podrías redirigir a otra página o cerrar la ventana.
+            alert("Saliendo de la lección..."); // Mensaje de ejemplo
+        }
+    </script>
+</head>
+
+<body onload="iniciar()">
+    <div id="container">
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/I.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">I</p>
+                    <p class="pronunciation">Ái</p>
+                </div>
+                <p class="meaning">Yo</p>
+            </div>
+        </div>
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/you.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">You</p>
+                    <p class="pronunciation">Iú</p>
+                </div>
+                <p class="meaning">Tú</p>
+            </div>
+        </div>
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/He.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">He
+                        <p class="pronunciation">Jí</p>
+                </div>
+                <p class="meaning">Él</p>
+            </div>
+        </div>
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/She.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">She</p>
+                    <p class="pronunciation">Shí</p>
+                </div>
+                <p class="meaning">Ella</p>
+            </div>
+        </div>
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/It.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">It</p>
+                    <p class="pronunciation">Ét</p>
+                </div>
+                <p class="meaning">Lo, es, esto, este o esta</p>
+            </div>
+        </div>
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/we.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">We</p>
+                    <p class="pronunciation">Wí</p>
+                </div>
+                <p class="meaning">Nosotros (as)</p>
+            </div>
+        </div>
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/They.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">They</p>
+                    <p class="pronunciation">Théi</p>
+                </div>
+                <p class="meaning">Ellos (as)</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="nav-button" id="prev" onclick="prevSession()">❮</button>
+            <button class="nav-button" id="next" onclick="nextSession()">❯</button>
+            <button id="exit" onclick="exitLesson()">
+                <a href="#">X</a> </button>
+        </div>
+
+    </div>
+    <script>
+        var index = 0;
+        var sessions;
+
+        function iniciar() {
+            sessions = document.getElementsByClassName("session");
+            updateSession();
+        }
+
+        function nextSession() {
+            index = (index + 1) % sessions.length;
+            updateSession();
+        }
+
+        function prevSession() {
+            index = (index - 1 + sessions.length) % sessions.length;
+            updateSession();
+        }
+
+        function updateSession() {
+            for (var i = 0; i < sessions.length; i++) {
+                if (i == index) {
+                    sessions[i].style.display = "block";
+                    var audio = sessions[i].getElementsByTagName("audio")[0];
+                    audio.play();
+                } else {
+                    sessions[i].style.display = "none";
+                }
+            }
+        }
+
+        function exitLesson() {
+            // Aquí puedes agregar la lógica para salir de la lección.
+            // Por ejemplo, podrías redirigir a otra página o cerrar la ventana.
+            alert("Saliendo de la lección..."); // Mensaje de ejemplo
+        }
+    </script>
+</body>
+
+</html>
