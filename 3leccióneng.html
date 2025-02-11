@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de idiomas</title>
+    <style>
+        /* Estilos Generales (consistentes con las páginas anteriores) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centra verticalmente el contenido */
+        }
+
+        /* Header */
+        header {
+            background: #000033;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+            font-weight: bold;
+        }
+
+        .menu a:hover {
+            opacity: 0.8;
+        }
+
+        /* Contenido Principal */
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centra horizontalmente el contenido */
+            padding: 120px 2rem 2rem;
+            max-width: 1200px;
+            width: 100%;
+            text-align: center; 
+        }
+
+        .main-title {
+            margin-bottom: 3rem;
+        }
+
+        /* Círculos de Cursos */
+        .courses-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .course-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .circle {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            margin-right: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px); 
+        }
+
+        .circle:hover {
+            transform: scale(1.1);
+            border-color: #340899;
+        }
+
+        .circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .circle:hover img {
+            transform: scale(1.05);
+        }
+
+        .circle p {
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+
+        /* Notificaciones */
+        .notification {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); 
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        } 
+
+        .notification iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        .notification button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .notification.active {
+            display: flex;
+        }
+
+        /* Ajustes para accesibilidad */
+        button, a {
+            font-family: inherit;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://polyglots-at.github.io/at/polyglots.jpg" alt="Logo"> 
+        </div>
+        <nav class="menu">
+            <a href="https://polyglots-at.github.io/cursos">Inicio</a>
+            <a href="https://polyglots-at.github.io/lecciones"> <<< </a>
+
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1 class="main-title">3. Oraciones Afirmativas</h1>
+    
+        <div class="courses-grid">
+            <a href="#" onclick="showNotification('notification2')" class="circle" title="contenido">
+                <img src="https://polyglots-at.github.io/at/contenido.png" alt="contenido">
+                <p>contenido</p>
+            </a>
+            <a href="#" onclick="showNotification('notification3')" class="circle" title="fonetica">
+                <img src="https://polyglots-at.github.io/at/fonetica.png" alt="fonetica">
+                <p>fonetica</p>
+            </a>
+            <a href="#" onclick="showNotification('notification4')" class="circle" title="gramatica">
+                <img src="https://polyglots-at.github.io/at/gramatica.png" alt="gramatica">
+                <p>gramatica</p>
+            </a>
+           
+        </div>
+    </div>
+
+    <div id="notification2" class="notification">
+        <iframe src="https://polyglotsat.wordpress.com/3-oraciones-afirmativas/"></iframe>
+        <button onclick="hideNotification('notification2')">Cerrar</button>
+    </div>
+    <div id="notification3" class="notification">
+        <iframe src="https://polyglots-at.github.io/contenido/fon3eng.html"></iframe>
+        <button onclick="hideNotification('notification3')">Cerrar</button>
+    </div>
+    <div id="notification4" class="notification">
+        <iframe src="https://polyglots-at.github.io/contenido/gram3eng.html"></iframe>
+        <button onclick="hideNotification('notification4')">Cerrar</button>
+    </div>
+    <div id="notification5" class="notification">
+        <iframe src="https://polyglots-at.github.io/contenido/practverbotobe.html"></iframe>
+        <button onclick="hideNotification('notification5')">Cerrar</button>
+    </div>
+    <script>
+        function showNotification(id) {
+            document.getElementById(id).classList.add('active');
+        }
+        function hideNotification(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+    </script>
+  </body>
+</html>
+
+
