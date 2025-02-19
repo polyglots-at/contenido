@@ -1,0 +1,379 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polyglots</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d1f2d;
+            background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+            color: white;
+            margin: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        #container {
+            width: 100%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .session {
+            width: 100%;
+            display: none;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .session:first-child {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0%;; /* Aumenta el espacio entre elementos */
+        }
+
+        .words-container {
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Aumenta el espacio entre palabra y pronunciación */
+        }
+
+        .word {
+            font-size: 24px;
+            color: #3498db;
+            padding: 10px 20px; /* Ajusta el padding */
+            border-radius: 10px; /* Ajusta el border-radius */
+            background-color: rgba(52, 152, 219, 0.3);
+        }
+
+        .pronunciation {
+            font-size: 24px;
+            color: #f39c12;
+            padding: 10px 20px; /* Ajusta el padding */
+            border-radius: 10px; /* Ajusta el border-radius */
+            background-color: rgba(243, 156, 18, 0.3);
+        }
+
+        .pronunciation::before {
+            content: "";
+        }
+
+        .pronunciation::after {
+            content: "";
+        }
+
+        .meaning {
+            font-size: 24px;
+            color: #2ecc71;
+            padding: 10px 20px; /* Ajusta el padding */
+            border-radius: 10px; /* Ajusta el border-radius */
+            background-color: rgba(46, 204, 113, 0.3);
+        }
+
+        .symbol {
+            display: none;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #50c878;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 10px 20px;
+        }
+
+        button:hover {
+            background-color: #45b469;
+        }
+
+        .nav-button {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-button:hover {
+            transform: scale(1.2);
+        }
+
+        #prev {
+            position: absolute;
+            left: 10px;
+            top: 50%; /* Vuelve a la posición original */
+            transform: translateY(-50%); /* Centra verticalmente */
+        }
+
+        #next {
+            position: absolute;
+            right: 10px;
+            top: 50%; /* Vuelve a la posición original */
+            transform: translateY(-50%); /* Centra verticalmente */
+        }
+
+        #exit {
+            position: absolute;
+            right: 10px;
+            bottom: 10px; /* Ajusta la posición vertical */
+            background-color: #e74c3c;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #exit:hover {
+            background-color: #c0392b;
+        }
+
+        #exit a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .practice-input {
+        width: 94%;
+        padding: 15px;
+        margin: 20px 0;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 2px solid #3498db;
+        border-radius: 10px;
+        color: white;
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .practice-input:focus {
+        outline: none;
+        border-color: #2ecc71;
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .practice-input::placeholder {
+        color: #95a5a6;
+    }
+    </style>
+    <script>
+        var index = 0;
+        var sessions;
+
+        function iniciar() {
+            sessions = document.getElementsByClassName("session");
+            updateSession();
+        }
+
+        function nextSession() {
+            index = (index + 1) % sessions.length;
+            updateSession();
+        }
+
+        function prevSession() {
+            index = (index - 1 + sessions.length) % sessions.length;
+            updateSession();
+        }
+
+        function updateSession() {
+            for (var i = 0; i < sessions.length; i++) {
+                if (i == index) {
+                    sessions[i].style.display = "block";
+                    var audio = sessions[i].getElementsByTagName("audio")[0];
+                    audio.play();
+                } else {
+                    sessions[i].style.display = "none";
+                }
+            }
+        }
+
+        function exitLesson() {
+            // Aquí puedes agregar la lógica para salir de la lección.
+            // Por ejemplo, podrías redirigir a otra página o cerrar la ventana.
+            alert("Saliendo de la lección..."); // Mensaje de ejemplo
+        }
+
+        
+    </script>
+</head>
+
+<body onload="iniciar()">
+    <div id="container">
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/Iwanttobuyabook.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">I want to buy a book.</p>
+                    <p class="pronunciation">Ai uant tu bai e buk.</p>
+                </div>
+                <p class="meaning">Quiero comprar un libro.</p>
+            </div>
+       
+        <input type="text" class="practice-input" placeholder="Escribe la frase aquí">
+   
+        </div>
+        
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/sheateanorange.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">She ate an orange.</p>
+                    <p class="pronunciation">Shi eit an oranch.</p>
+                </div>
+                <p class="meaning">Ella comió una naranja.</p>
+            </div>
+             
+        <input type="text" class="practice-input" placeholder="Escribe la frase aquí">
+        </div>
+        
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/Ilikethebookyougaveme..mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">I like the book you gave me.</p>
+                    <p class="pronunciation">Ai laik de buk iu gueiv mi.</p>
+                </div>
+                <p class="meaning">Me gusta el libro que me diste.</p>
+            </div>
+             
+        <input type="text" class="practice-input" placeholder="Escribe la frase aquí">
+        </div>
+        
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/thesunisshining.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">The sun is shining.</p>
+                    <p class="pronunciation">De san is shaining.</p>
+                </div>
+                <p class="meaning">El sol está brillando.</p>
+            </div>
+             
+        <input type="text" class="practice-input" placeholder="Escribe la frase aquí">
+        </div>
+        
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/Sheisthebestplayerotheteam.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">She is the best player on the team.</p>
+                    <p class="pronunciation">Shi is de best pleier on de tim.</p>
+                </div>
+                <p class="meaning">Ella es la mejor jugadora del equipo.</p>
+            </div>
+             
+        <input type="text" class="practice-input" placeholder="Escribe la frase aquí">
+        </div>
+        
+        <div class="session">
+          <audio src="https://polyglots-at.github.io/at/Hewenttothestore.mp3" controls=""></audio>
+          <div class="content">
+            <div class="words-container">
+              <p class="word">He went to the store.</p>
+              <p class="pronunciation">Ji went tu de stor.</p>
+            </div>
+            <p class="meaning">Él fue a la tienda.</p>
+          </div>
+           
+        <input type="text" class="practice-input" placeholder="Escribe la frase aquí">
+        </div>
+
+        <div class="controls">
+            <button class="nav-button" id="prev" onclick="prevSession()">❮</button>
+            <button class="nav-button" id="next" onclick="nextSession()">❯</button>      
+        </div>
+
+    </div>
+    <script>
+        var index = 0;
+        var sessions;
+
+        function iniciar() {
+            sessions = document.getElementsByClassName("session");
+            updateSession();
+        }
+
+        function nextSession() {
+            index = (index + 1) % sessions.length;
+            updateSession();
+        }
+
+        function prevSession() {
+            index = (index - 1 + sessions.length) % sessions.length;
+            updateSession();
+        }
+
+        function updateSession() {
+            for (var i = 0; i < sessions.length; i++) {
+                if (i == index) {
+                    sessions[i].style.display = "block";
+                    var audio = sessions[i].getElementsByTagName("audio")[0];
+                    audio.play();
+                } else {
+                    sessions[i].style.display = "none";
+                }
+            }
+        }
+
+        function exitLesson() {
+            // Aquí puedes agregar la lógica para salir de la lección.
+            // Por ejemplo, podrías redirigir a otra página o cerrar la ventana.
+            alert("Saliendo de la lección..."); // Mensaje de ejemplo
+        }
+    </script>
+</body>
+
+</html>
