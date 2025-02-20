@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Sentence Builder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a202c; /* More modern dark background */
+            color: #f0f0f0; /* Lighter text color */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+
+
+        }
+
+        #container {
+            width: 90%;
+            max-width: 800px;
+            background-color: rgba(26, 32, 44, 0.8); /* Semi-transparent dark background */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Softer shadow */
+           
+        }
+
+        .session {
+            display: none;
+            opacity: 0; /* For smoother transitions */
+            transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out; /* Added transform */
+            justify-content: center
+        }
+
+        .active-session {
+            display: block;
+            opacity: 1;
+            transform: translateY(0); /* Start at original position */
+        }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(26, 32, 44, 0.5); /* Semi-transparent dark background */
+            border-radius: 10px;
+            justify-content: center
+        }
+
+        .word-btn {
+            background: #6366f1; /* Modern purple color */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add shadow to buttons */
+           
+        }
+
+        .word-btn:hover {
+            background: #7e80f9; /* Lighter purple on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .sentence-container {
+            min-height: 80px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 5px;
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            cursor: pointer;
+            justify-content: center;
+        }
+
+        .sentence-word {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px); /* Add a subtle blur */
+        }
+
+        .sentence-word:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .feedback {
+            font-size: 18px;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s; /* Smooth transitions for feedback */
+        }
+
+        .correct {
+            background: rgba(50, 200, 100, 0.5); /* More subtle green */
+            color: #2ecc71;
+        }
+
+        .incorrect {
+            background: rgba(230, 80, 80, 0.5); /* More subtle red */
+            color: #e74c3c;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        button {
+            background: #50c878;
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .try-again {
+            background: #f39c12;
+        }
+
+        .nav-button {
+            background: none;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border: 1px solid #6366f1; /* Added border */
+            color: #6366f1; /* Match the purple color */
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: rgba(99, 102, 241, 0.2); /* Subtle hover effect */
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+                      
+        <div class="session active-session" data-target="the">
+            <div class="content">
+                <h2>Él vio la película</h2>
+                <h2><h2>A: He saw __ movie</h2></h2>
+                <div class="word-bank" data-words="thes,the,a,an,this"></div>
+                <div class="sentence-container"></div>
+                <div class="action-buttons">
+                    <button onclick="verifySentence(this)">Verify</button>
+                    <button class="try-again" onclick="tryAgain(this)">Try Again</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        <div class="session" data-target="a">
+            <div class="content">
+                <h2>Quiero comprar un Libro</h2>
+                <h2>I want to buy _ book</h2>
+                <div class="word-bank" data-words="a,an,the, this"></div>
+                <div class="sentence-container"></div>
+                <div class="action-buttons">
+                    <button onclick="verifySentence(this)">Verify</button>
+                    <button class="try-again" onclick="tryAgain(this)">Try Again</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+     
+                      
+            <div class="session" data-target="this">
+                <div class="content">
+                    <h2>Él vio esta película</h2>
+                    <h2><h2>A: He saw __ movie</h2></h2>
+                    <div class="word-bank" data-words="thes,the,a,an,this"></div>
+                    <div class="sentence-container"></div>
+                    <div class="action-buttons">
+                        <button onclick="verifySentence(this)">Verify</button>
+                        <button class="try-again" onclick="tryAgain(this)">Try Again</button>
+                    </div>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+        
+        <div class="session" data-target="an">
+            <div class="content">
+                <h2>Ella comió una naranja</h2>
+                <h2><h2>She ate __ orange</h2></h2>
+                <div class="word-bank" data-words="the,an,a,as"></div>
+                <div class="sentence-container"></div>
+                <div class="action-buttons">
+                    <button onclick="verifySentence(this)">Verify</button>
+                    <button class="try-again" onclick="tryAgain(this)">Try Again</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        
+        <div class="session" data-target="this">
+            <div class="content">
+                <h2>Quiero comprar este Libro</h2>
+                <h2>I want to buy _ book</h2>
+                <div class="word-bank" data-words="a,an,the, this"></div>
+                <div class="sentence-container"></div>
+                <div class="action-buttons">
+                    <button onclick="verifySentence(this)">Verify</button>
+                    <button class="try-again" onclick="tryAgain(this)">Try Again</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        
+        <div class="session" data-target="the">
+            <div class="content">
+                <h2>Es la casa antigua</h2>
+                <h2>It’s __ old house.</h2>
+          
+                <div class="word-bank" data-words="this,the,a,an,this"></div>
+                <div class="sentence-container"></div>
+                <div class="action-buttons">
+                    <button onclick="verifySentence(this)">Verify</button>
+                    <button class="try-again" onclick="tryAgain(this)">Try Again</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+          
+        <div class="session" data-target="this">
+            <div class="content">
+                <h2>Ella comió esta naranja</h2>
+                <h2><h2>She ate -- orange</h2></h2>
+                <div class="word-bank" data-words="the,an,a,as,this"></div>
+                <div class="sentence-container"></div>
+                <div class="action-buttons">
+                    <button onclick="verifySentence(this)">Verify</button>
+                    <button class="try-again" onclick="tryAgain(this)">Try Again</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+        
+        <div class="session" data-target="a">
+            <div class="content">
+                <h2>Él vio una película</h2>
+                <h2><h2>A: He saw __ movie</h2></h2>
+                <div class="word-bank" data-words="this,the,a,an,this"></div>
+                <div class="sentence-container"></div>
+                <div class="action-buttons">
+                    <button onclick="verifySentence(this)">Verify</button>
+                    <button class="try-again" onclick="tryAgain(this)">Try Again</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+        
+        <div class="session" data-target="the">
+            <div class="content">
+                <h2>Ella comió la naranja</h2>
+                <h2><h2>She ate __ orange</h2></h2>
+                <div class="word-bank" data-words="the,an,a,as"></div>
+                <div class="sentence-container"></div>
+                <div class="action-buttons">
+                    <button onclick="verifySentence(this)">Verify</button>
+                    <button class="try-again" onclick="tryAgain(this)">Try Again</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+
+        <div class="session" data-target="an">
+            <div class="content">
+                <h2>Es una casa antigua</h2>
+                <h2>It’s __ old house.</h2>
+          
+                <div class="word-bank" data-words="this,the,a,an,this"></div>
+                <div class="sentence-container"></div>
+                <div class="action-buttons">
+                    <button onclick="verifySentence(this)">Verify</button>
+                    <button class="try-again" onclick="tryAgain(this)">Try Again</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div class="session" data-target="the">
+            <div class="content">
+                <h2>Quiero comprar el Libro</h2>
+                <h2>I want to buy _ book</h2>
+                <div class="word-bank" data-words="a,an,the, this"></div>
+                <div class="sentence-container"></div>
+                <div class="action-buttons">
+                    <button onclick="verifySentence(this)">Verify</button>
+                    <button class="try-again" onclick="tryAgain(this)">Try Again</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+        </div>
+        
+      
+  
+        
+     
+
+
+
+        
+       
+
+
+
+
+
+
+
+
+
+
+
+    
+        <div class="controls">
+            <button class="nav-button" onclick="prevSession()">❮</button>
+            <button class="nav-button" onclick="nextSession()">❯</button>
+        </div>
+    </div>
+
+        <script>
+            let currentSession = 0;
+            const sessions = document.querySelectorAll('.session');
+    
+            function initializeSession(sessionIndex) {
+                const session = sessions[sessionIndex];
+                session.classList.add('active-session');
+                
+                const wordBank = session.querySelector('.word-bank');
+                const words = wordBank.dataset.words.split(',');
+                
+                // Limpiar y crear botones de palabras
+                wordBank.innerHTML = words
+                    .map(word => `<button class="word-btn">${word.trim()}</button>`)
+                    .join('');
+    
+                // Configurar clics para palabras
+                wordBank.querySelectorAll('.word-btn').forEach(btn => {
+                    btn.onclick = (e) => {
+                        const word = document.createElement('span');
+                        word.className = 'sentence-word';
+                        word.textContent = e.target.textContent;
+                        word.onclick = () => word.remove();
+                        session.querySelector('.sentence-container').appendChild(word);
+                    };
+                });
+            }
+    
+            function verifySentence(button) {
+                const session = button.closest('.session');
+                const sentenceContainer = session.querySelector('.sentence-container');
+                const feedback = session.querySelector('.feedback');
+                
+                const formedSentence = [...sentenceContainer.children]
+                    .map(word => word.textContent)
+                    .join(' ');
+    
+                const targetSentence = session.dataset.target;
+                const isCorrect = formedSentence === targetSentence;
+    
+                feedback.innerHTML = isCorrect 
+                    ? '✓ Approved - Correct Sentence!' 
+                    : `✗ Rejected - Correct answer: <strong>"${targetSentence}"</strong>`;
+                
+                feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            }
+    
+            function tryAgain(button) {
+                const session = button.closest('.session');
+                session.querySelector('.sentence-container').innerHTML = '';
+                session.querySelector('.feedback').className = 'feedback';
+            }
+    
+            function nextSession() {
+                sessions[currentSession].classList.remove('active-session');
+                currentSession = (currentSession + 1) % sessions.length;
+                initializeSession(currentSession);
+            }
+    
+            function prevSession() {
+                sessions[currentSession].classList.remove('active-session');
+                currentSession = (currentSession - 1 + sessions.length) % sessions.length;
+                initializeSession(currentSession);
+            }
+    
+            // Inicializar primera sesión
+            initializeSession(0);
+        </script>
+</body>
+
+</html>
