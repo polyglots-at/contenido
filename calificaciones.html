@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Calificaciones</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Times New Roman', serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid white;
+            padding: 8px;
+            text-align: center;
+        }
+        .aprobado {
+            color: green;
+        }
+        .reprobado {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Evaluación 1</th>
+                <th>Evaluación 2</th>
+                <th>Evaluación 3</th>
+                <th>Evaluación 4</th>
+                <th>Evaluación 5</th>
+                <th>Evaluación 6</th>
+                <th>Nota Final</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Juan Pérez</td>
+                <td>18</td>
+                <td>17</td>
+                <td>19</td>
+                <td>16</td>
+                <td>18</td>
+                <td>19</td>
+                <td>17.8</td>
+                <td class="aprobado">✔</td>
+            </tr>
+            <tr>
+                <td>María García</td>
+                <td>15</td>
+                <td>14</td>
+                <td>16</td>
+                <td>13</td>
+                <td>15</td>
+                <td>16</td>
+                <td>14.8</td>
+                <td class="reprobado">✘</td>
+            </tr>
+            <tr>
+                <td>Carlos Rodríguez</td>
+                <td>20</td>
+                <td>19</td>
+                <td>20</td>
+                <td>18</td>
+                <td>19</td>
+                <td>20</td>
+                <td>19.3</td>
+                <td class="aprobado">✔</td>
+            </tr>
+            <tr>
+                <td>Ana Martínez</td>
+                <td>17</td>
+                <td>16</td>
+                <td>18</td>
+                <td>15</td>
+                <td>17</td>
+                <td>18</td>
+                <td>17.2</td>
+                <td class="aprobado">✔</td>
+            </tr>
+            <tr>
+                 <td>Luis Sánchez</td>
+                <td>14</td>
+                <td>13</td>
+                <td>15</td>
+                <td>12</td>
+                <td>14</td>
+                <td>15</td>
+                <td>13.8</td>
+                <td class="reprobado">✘</td>
+            </tr>
+            <tr>
+                <td>Laura Fernández</td>
+                <td>19</td>
+                <td>18</td>
+                <td>20</td>
+                <td>17</td>
+                <td>19</td>
+                <td>20</td>
+                <td>18.8</td>
+                <td class="aprobado">✔</td>
+            </tr>
+            <tr>
+                <td>Pedro López</td>
+                <td>16</td>
+                <td>15</td>
+                <td>17</td>
+                <td>14</td>
+                <td>16</td>
+                <td>17</td>
+                <td>--</td>
+                <td class="reprobado">--</td>
+            </tr>
+            <tr>
+                <td>Sofía Díaz</td>
+                <td>20</td>
+                <td>20</td>
+                <td>19</td>
+                <td>19</td>
+                <td>20</td>
+                <td>19</td>
+                <td>--</td>
+                <td class="aprobado">--</td>
+            </tr>
+            <tr>
+                <td>Diego Gómez</td>
+                <td>18</td>
+                <td>17</td>
+                <td>19</td>
+                <td>16</td>
+                <td>18</td>
+                <td>19</td>
+                <td>--</td>
+                <td class="aprobado">--</td>
+            </tr>
+            <tr>
+                <td>Elena Ruiz</td>
+                <td>15</td>
+                <td>14</td>
+                <td>16</td>
+                <td>13</td>
+                <td>15</td>
+                <td>16</td>
+                <td>--</td>
+                <td class="reprobado">--</td>
+            </tr>
+            <tr>
+                <td>Javier Torres</td>
+                <td>20</td>
+                <td>19</td>
+                <td>20</td>
+                <td>18</td>
+                <td>19</td>
+                <td>20</td>
+                <td>--</td>
+                <td class="aprobado">--</td>
+            </tr>
+            <tr>
+                <td>Isabel Jiménez</td>
+                <td>17</td>
+                <td>16</td>
+                <td>18</td>
+                <td>15</td>
+                <td>17</td>
+                <td>18</td>
+                <td>--</td>
+                <td class="aprobado">--</td>
+            </tr>
+            <tr>
+                <td>Roberto Castro</td>
+                <td>14</td>
+                <td>13</td>
+                <td>15</td>
+                <td>12</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td class="reprobado">--</td>
+            </tr>
+            <tr>
+                <td>Carmen Herrera</td>
+                <td>19</td>
+                <td>18</td>
+                <td>20</td>
+                <td>17</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td class="aprobado">--</td>
+            </tr>
+             <tr>
+                <td>Evelyn Delgado</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td class="reprobado">--</td>
+
+                <tr>
+                    <td>Angelica Fuentes</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td class="reprobado">--</td>
+
+                    <tr>
+                        <td>Barbara Fuentes</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td class="reprobado">--</td>
+
+                        <tr>
+                            <td>Ana Montes</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td class="reprobado">--</td>
+
+                            <tr>
+                                <td>Ana Patiño</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td class="reprobado">--</td>
+
+                                
+
+
+
+                                <tr>
+                                    <td>Glendys Morales</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td class="reprobado">--</td>
+
+
+                                    
+                                    
+
+
+
+                
+
+                            
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
