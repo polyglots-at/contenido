@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adjetivos en Inglés - Polyglots</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d1f2d;
+            background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+            color: white;
+            margin: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 15px;
+        }
+
+        #container {
+            width: 100%;
+            max-width: 550px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .session {
+            width: 100%;
+            display: none;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .session:first-child {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .words-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .word {
+            font-size: 26px;
+            color: #3498db;
+            padding: 10px 18px;
+            border-radius: 10px;
+            background-color: rgba(52, 152, 219, 0.3);
+            margin: 3px;
+        }
+
+        .pronunciation {
+            font-size: 26px;
+            color: #87CEEB;
+            padding: 10px 18px;
+            border-radius: 10px;
+            background-color: rgba(135, 206, 235, 0.3);
+            margin: 3px;
+        }
+
+        .meaning {
+            font-size: 26px;
+            color: #2ecc71;
+            padding: 10px 18px;
+            border-radius: 10px;
+            background-color: rgba(46, 204, 113, 0.3);
+            margin: 3px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #50c878;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 10px 18px;
+        }
+
+        button:hover {
+            background-color: #45b469;
+        }
+
+        .nav-button {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-button:hover {
+            transform: scale(1.2);
+        }
+
+        #prev {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        #next {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .practice-input {
+            width: 90%;
+            padding: 15px;
+            margin: 20px 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .practice-input:focus {
+            outline: none;
+            border-color: #2ecc71;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .practice-input::placeholder {
+            color: #95a5a6;
+            font-size: 16px;
+        }
+        
+        .example {
+            font-size: 20px;
+            color: #50c878;
+            padding: 8px 15px;
+            border-radius: 8px;
+            background-color: rgba(80, 200, 120, 0.2);
+            margin-top: 5px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .translation {
+            font-size: 18px;
+            color: #87CEEB;
+            padding: 8px 15px;
+            border-radius: 8px;
+            background-color: rgba(135, 206, 235, 0.2);
+            margin-top: 5px;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        .example-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .adjective-explanation {
+            font-size: 16px;
+            color: #f39c12;
+            padding: 8px 15px;
+            border-radius: 8px;
+            background-color: rgba(243, 156, 18, 0.2);
+            margin-top: 5px;
+            text-align: center;
+            font-style: italic;
+            max-width: 90%;
+        }
+        
+        .intro-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .intro-title {
+            font-size: 24px;
+            color: #3498db;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .intro-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        
+        .intro-list {
+            text-align: left;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .intro-list li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .usage-example {
+            background: rgba(52, 152, 219, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 3px solid #3498db;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <!-- Sesión Introductoria -->
+        <div class="session">
+            <div class="intro-container">
+                <div class="intro-title">¿Qué son los Adjetivos en Inglés?</div>
+                <div class="intro-text">
+                    Los adjetivos son palabras que <strong>describen o modifican</strong> a los sustantivos. Nos ayudan a dar más información sobre personas, lugares, cosas o ideas.
+                </div>
+                <div class="intro-text">
+                    <strong>Posición de los adjetivos:</strong> En inglés, los adjetivos generalmente van <strong>antes del sustantivo</strong> que describen.
+                </div>
+                
+                <div class="usage-example">
+                    <div class="example">A <strong>red</strong> car</div>
+                    <div class="translation">Un coche <strong>rojo</strong></div>
+                </div>
+                
+                <div class="intro-text">
+                    También pueden ir <strong>después del verbo "to be"</strong> para describir el sujeto:
+                </div>
+                
+                <div class="usage-example">
+                    <div class="example">The car is <strong>red</strong></div>
+                    <div class="translation">El coche es <strong>rojo</strong></div>
+                </div>
+                
+                <div class="intro-text">
+                    <strong>Tipos de adjetivos que aprenderás:</strong>
+                </div>
+                <ul class="intro-list">
+                    <li><strong>Adjetivos de Calidad:</strong> good, bad</li>
+                    <li><strong>Adjetivos de Tamaño:</strong> big, small</li>
+                    <li><strong>Adjetivos de Emoción:</strong> happy, sad</li>
+                    <li><strong>Adjetivos de Color:</strong> red, blue</li>
+                </ul>
+            </div>
+            <div class="practice-input" style="background-color: rgba(52, 152, 219, 0.3); text-align: center; font-style: italic;">
+                Presiona "Siguiente" para comenzar con los adjetivos
+            </div>
+        </div>
+
+        <!-- Adjetivos Básicos -->
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/adjectives/good.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">Good</p>
+                    <p class="pronunciation">gud</p>
+                </div>
+                <p class="meaning">Bueno / Buena</p>
+                <div class="adjective-explanation">Describe calidad positiva</div>
+                <div class="example-container">
+                    <p class="example">This is a good book</p>
+                    <p class="translation">Este es un buen libro</p>
+                </div>
+            </div>
+            <input type="text" class="practice-input" placeholder="Escribe 'good' aquí">
+        </div>
+        
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/adjectives/bad.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">Bad</p>
+                    <p class="pronunciation">bad</p>
+                </div>
+                <p class="meaning">Malo / Mala</p>
+                <div class="adjective-explanation">Describe calidad negativa</div>
+                <div class="example-container">
+                    <p class="example">That is a bad idea</p>
+                    <p class="translation">Esa es una mala idea</p>
+                </div>
+            </div>
+            <input type="text" class="practice-input" placeholder="Escribe 'bad' aquí">
+        </div>
+        
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/adjectives/big.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">Big</p>
+                    <p class="pronunciation">big</p>
+                </div>
+                <p class="meaning">Grande</p>
+                <div class="adjective-explanation">Describe tamaño grande</div>
+                <div class="example-container">
+                    <p class="example">It is a big house</p>
+                    <p class="translation">Es una casa grande</p>
+                </div>
+            </div>
+            <input type="text" class="practice-input" placeholder="Escribe 'big' aquí">
+        </div>
+        
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/adjectives/small.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">Small</p>
+                    <p class="pronunciation">smol</p>
+                </div>
+                <p class="meaning">Pequeño / Pequeña</p>
+                <div class="adjective-explanation">Describe tamaño pequeño</div>
+                <div class="example-container">
+                    <p class="example">She has a small car</p>
+                    <p class="translation">Ella tiene un coche pequeño</p>
+                </div>
+            </div>
+            <input type="text" class="practice-input" placeholder="Escribe 'small' aquí">
+        </div>
+
+        <!-- Adjetivos de Personalidad -->
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/adjectives/happy.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">Happy</p>
+                    <p class="pronunciation">japi</p>
+                </div>
+                <p class="meaning">Feliz / Contento</p>
+                <div class="adjective-explanation">Describe estado emocional positivo</div>
+                <div class="example-container">
+                    <p class="example">I am happy today</p>
+                    <p class="translation">Estoy feliz hoy</p>
+                </div>
+            </div>
+            <input type="text" class="practice-input" placeholder="Escribe 'happy' aquí">
+        </div>
+        
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/adjectives/sad.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">Sad</p>
+                    <p class="pronunciation">sad</p>
+                </div>
+                <p class="meaning">Triste</p>
+                <div class="adjective-explanation">Describe estado emocional negativo</div>
+                <div class="example-container">
+                    <p class="example">He is sad</p>
+                    <p class="translation">Él está triste</p>
+                </div>
+            </div>
+            <input type="text" class="practice-input" placeholder="Escribe 'sad' aquí">
+        </div>
+
+        <!-- Adjetivos de Color -->
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/adjectives/red.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">Red</p>
+                    <p class="pronunciation">red</p>
+                </div>
+                <p class="meaning">Rojo / Roja</p>
+                <div class="adjective-explanation">Describe el color rojo</div>
+                <div class="example-container">
+                    <p class="example">The apple is red</p>
+                    <p class="translation">La manzana es roja</p>
+                </div>
+            </div>
+            <input type="text" class="practice-input" placeholder="Escribe 'red' aquí">
+        </div>
+        
+        <div class="session">
+            <audio src="https://polyglots-at.github.io/at/adjectives/blue.mp3" controls></audio>
+            <div class="content">
+                <div class="words-container">
+                    <p class="word">Blue</p>
+                    <p class="pronunciation">blu</p>
+                </div>
+                <p class="meaning">Azul</p>
+                <div class="adjective-explanation">Describe el color azul</div>
+                <div class="example-container">
+                    <p class="example">My shirt is blue</p>
+                    <p class="translation">Mi camisa es azul</p>
+                </div>
+            </div>
+            <input type="text" class="practice-input" placeholder="Escribe 'blue' aquí">
+        </div>
+
+        <div class="controls">
+            <button class="nav-button" id="prev" onclick="prevSession()">❮</button>
+            <button class="nav-button" id="next" onclick="nextSession()">❯</button>      
+        </div>
+
+    </div>
+    <script>
+        var index = 0;
+        var sessions;
+
+        function iniciar() {
+            sessions = document.getElementsByClassName("session");
+            updateSession();
+        }
+
+        function nextSession() {
+            index = (index + 1) % sessions.length;
+            updateSession();
+        }
+
+        function prevSession() {
+            index = (index - 1 + sessions.length) % sessions.length;
+            updateSession();
+        }
+
+        function updateSession() {
+            for (var i = 0; i < sessions.length; i++) {
+                if (i == index) {
+                    sessions[i].style.display = "block";
+                    var audio = sessions[i].getElementsByTagName("audio")[0];
+                    if(audio) audio.play();
+                } else {
+                    sessions[i].style.display = "none";
+                }
+            }
+        }
+
+        // Iniciar la aplicación cuando la página cargue
+        window.onload = iniciar;
+    </script>
+</body>
+
+</html>
