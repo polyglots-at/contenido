@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artículos en Inglés - Polyglots</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d1f2d;
+            background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 700px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .page-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Estilos para el contenido teórico */
+        .content-session {
+            padding: 20px;
+        }
+
+        .intro-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-title {
+            font-size: 28px;
+            color: #3498db;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .intro-text {
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #ecf0f1;
+        }
+
+        .intro-list {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .intro-list li {
+            margin-bottom: 12px;
+            line-height: 1.5;
+            color: #ecf0f1;
+        }
+
+        .usage-example {
+            background: rgba(52, 152, 219, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .example {
+            font-size: 22px;
+            color: #50c878;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .translation {
+            font-size: 18px;
+            color: #87CEEB;
+            padding: 8px 0;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .note {
+            font-size: 15px;
+            color: #f39c12;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: rgba(243, 156, 18, 0.2);
+            margin-top: 8px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .article-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .article-table th {
+            background: rgba(52, 152, 219, 0.3);
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .article-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .article-table tr:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .highlight {
+            color: #f39c12;
+            font-weight: 600;
+        }
+
+        .special-box {
+            background: rgba(243, 156, 18, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #f39c12;
+        }
+
+        .special-title {
+            color: #f39c12;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        /* Botones de navegación */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 16px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .prev-btn {
+            background: linear-gradient(145deg, #95a5a6, #7f8c8d);
+            color: white;
+        }
+
+        .prev-btn:hover {
+            background: linear-gradient(145deg, #7f8c8d, #6c7b7d);
+            transform: translateY(-2px);
+        }
+
+        .next-btn {
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            color: white;
+        }
+
+        .next-btn:hover {
+            background: linear-gradient(145deg, #27ae60, #219653);
+            transform: translateY(-2px);
+        }
+
+        /* Puntuación */
+        .score-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border: 2px solid #f39c12;
+        }
+
+        .score-value {
+            color: #f39c12;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        /* Página de práctica */
+        .practice-page {
+            padding: 20px;
+        }
+
+        .practice-title {
+            font-size: 26px;
+            color: #f39c12;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .practice-question {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .question-text {
+            font-size: 18px;
+            color: #ecf0f1;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .hint {
+            font-size: 14px;
+            color: #95a5a6;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .practice-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .practice-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .practice-option {
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+        }
+
+        .practice-option:hover {
+            background-color: rgba(52, 152, 219, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .practice-option.selected {
+            background-color: rgba(52, 152, 219, 0.5);
+            border-color: #2ecc71;
+            font-weight: 600;
+        }
+
+        .practice-option.correct {
+            background-color: rgba(46, 204, 113, 0.3);
+            border-color: #2ecc71;
+            color: #2ecc71;
+        }
+
+        .practice-option.incorrect {
+            background-color: rgba(231, 76, 60, 0.3);
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .check-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(145deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .check-btn:hover {
+            background: linear-gradient(145deg, #2980b9, #1f6396);
+            transform: translateY(-2px);
+        }
+
+        .validation-container {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            animation: slideIn 0.5s ease-out;
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .correct-validation {
+            background: linear-gradient(145deg, rgba(46, 204, 113, 0.3), rgba(39, 174, 96, 0.2));
+            border: 2px solid #2ecc71;
+            border-left: 6px solid #2ecc71;
+        }
+
+        .incorrect-validation {
+            background: linear-gradient(145deg, rgba(231, 76, 60, 0.3), rgba(192, 57, 43, 0.2));
+            border: 2px solid #e74c3c;
+            border-left: 6px solid #e74c3c;
+        }
+
+        /* Página de resultados finales */
+        .results-page {
+            text-align: center;
+            padding: 40px 20px;
+            animation: celebration 2s ease-in-out;
+        }
+
+        @keyframes celebration {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .checkmark {
+            font-size: 100px;
+            color: #2ecc71;
+            margin-bottom: 25px;
+            animation: bounce 1.5s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-15px); }
+        }
+
+        .congrats-title {
+            font-size: 36px;
+            color: #2ecc71;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .congrats-message {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #87CEEB;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 2px solid #3498db;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            color: #f39c12;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #95a5a6;
+        }
+
+        .final-message {
+            font-style: italic;
+            color: #50c878;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(80, 200, 120, 0.2);
+            border-radius: 12px;
+            border-left: 4px solid #50c878;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .progress-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .progress-text {
+            color: #95a5a6;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* Contenedor para repaso */
+        .review-box {
+            background: rgba(155, 89, 182, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #9b59b6;
+        }
+
+        .review-title {
+            color: #9b59b6;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .review-content {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #ecf0f1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Puntuación -->
+    <div class="score-display">
+        Puntuación: <span class="score-value" id="score">0</span> puntos
+    </div>
+
+    <!-- PÁGINA 1: INTRODUCCIÓN A LOS ARTÍCULOS -->
+    <div class="page-container active" id="page1">
+        <div class="content-session">
+            <div class="intro-container">
+                <div class="intro-title">📚 Los Artículos en Inglés</div>
+                <div class="intro-text">
+                    Los artículos son palabras que <strong>preceden a los sustantivos</strong> para indicar si nos referimos a algo específico o general. En inglés existen dos tipos de artículos: <strong>definidos</strong> y <strong>indefinidos</strong>.
+                </div>
+                
+                <div class="intro-text">
+                    <strong>Resumen de los artículos en inglés:</strong>
+                </div>
+                
+                <table class="article-table">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Artículo</th>
+                            <th>Uso</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Indefinido</strong></td>
+                            <td><span class="highlight">A</span></td>
+                            <td>Singular - consonante</td>
+                            <td>A book (un libro)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Indefinido</strong></td>
+                            <td><span class="highlight">An</span></td>
+                            <td>Singular - vocal</td>
+                            <td>An apple (una manzana)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Definido</strong></td>
+                            <td><span class="highlight">The</span></td>
+                            <td>Singular y plural</td>
+                            <td>The book (el libro)<br>The books (los libros)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="usage-example">
+                    <div class="example">"I see <strong>a</strong> dog." → Cualquier perro</div>
+                    <div class="example">"I see <strong>the</strong> dog." → Un perro específico</div>
+                    <div class="translation">("Veo un perro" vs "Veo el perro")</div>
+                </div>
+                
+                <div class="intro-text">
+                    <strong>Regla fundamental:</strong>
+                </div>
+                
+                <ul class="intro-list">
+                    <li><strong>"A"</strong> se usa antes de palabras que comienzan con <strong>sonido de consonante</strong></li>
+                    <li><strong>"An"</strong> se usa antes de palabras que comienzan con <strong>sonido de vocal</strong></li>
+                    <li><strong>"The"</strong> se usa cuando hablamos de algo específico o ya conocido</li>
+                </ul>
+                
+                <div class="review-box">
+                    <div class="review-title">💡 Repaso de la lección anterior</div>
+                    <div class="review-content">
+                        Recuerda: <strong>"I am a student"</strong> usa el artículo "a" porque "student" comienza con sonido de consonante. ¡Seguiremos practicando esto!
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn next-btn" onclick="goToPage(2)">Continuar a Práctica Básica ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 2: PRÁCTICA BÁSICA DE ARTÍCULOS -->
+    <div class="page-container" id="page2">
+        <div class="practice-page">
+            <div class="practice-title">📝 Práctica: Artículos Básicos</div>
+            
+            <div class="hint">Recuerda: "a" para consonantes, "an" para vocales</div>
+            
+            <!-- Pregunta 1 -->
+            <div class="practice-question" data-question="1">
+                <div class="question-text">1. Completa la oración: "I am ___ student"</div>
+                <div class="hint">(Recuerda la lección anterior sobre "to be")</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">a</div>
+                    <div class="practice-option" data-correct="false">an</div>
+                    <div class="practice-option" data-correct="false">the</div>
+                    <div class="practice-option" data-correct="false">- (sin artículo)</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(1)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation1"></div>
+            </div>
+            
+            <!-- Pregunta 2 -->
+            <div class="practice-question" data-question="2">
+                <div class="question-text">2. ¿Cuál es correcto? "She has ___ apple"</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">a</div>
+                    <div class="practice-option" data-correct="true">an</div>
+                    <div class="practice-option" data-correct="false">the</div>
+                    <div class="practice-option" data-correct="false">-</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(2)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation2"></div>
+            </div>
+            
+            <!-- Pregunta 3 -->
+            <div class="practice-question" data-question="3">
+                <div class="question-text">3. Completa: "We need ___ umbrella because it's raining"</div>
+                <div class="hint">"umbrella" comienza con sonido de vocal</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">a</div>
+                    <div class="practice-option" data-correct="true">an</div>
+                    <div class="practice-option" data-correct="false">the</div>
+                    <div class="practice-option" data-correct="false">-</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(3)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation3"></div>
+            </div>
+            
+            <!-- Pregunta 4 -->
+            <div class="practice-question" data-question="4">
+                <div class="question-text">4. Escoge la opción correcta: "He is ___ honest man"</div>
+                <div class="hint">¡Cuidado! "honest" comienza con H muda (sonido de vocal)</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">a</div>
+                    <div class="practice-option" data-correct="true">an</div>
+                    <div class="practice-option" data-correct="false">the</div>
+                    <div class="practice-option" data-correct="false">-</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(4)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation4"></div>
+            </div>
+            
+            <!-- Pregunta 5 -->
+            <div class="practice-question" data-question="5">
+                <div class="question-text">5. ¿Cuál artículo falta? "___ cat on the roof is black"</div>
+                <div class="hint">Es un gato específico (el del techo)</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">A</div>
+                    <div class="practice-option" data-correct="false">An</div>
+                    <div class="practice-option" data-correct="true">The</div>
+                    <div class="practice-option" data-correct="false">-</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(5)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation5"></div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(1)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(3)">Continuar a Uso Avanzado ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 3: USO AVANZADO Y EXCEPCIONES -->
+    <div class="page-container" id="page3">
+        <div class="content-session">
+            <div class="intro-container">
+                <div class="intro-title">🎯 Uso Avanzado de los Artículos</div>
+                
+                <div class="intro-text">
+                    <strong>El artículo definido "THE":</strong>
+                </div>
+                
+                <ul class="intro-list">
+                    <li>Se usa con <strong>objetos únicos</strong>: The sun, the moon, the Earth</li>
+                    <li>Con <strong>países en plural</strong>: The United States, the Netherlands</li>
+                    <li>Con <strong>instrumentos musicales</strong>: I play the piano</li>
+                    <li>Con <strong>ríos, mares, océanos</strong>: The Amazon, the Pacific Ocean</li>
+                    <li>Cuando <strong>ya mencionamos algo</strong>: I bought a book. The book is interesting.</li>
+                </ul>
+                
+                <div class="intro-text">
+                    <strong>Cuando NO usar artículo:</strong>
+                </div>
+                
+                <ul class="intro-list">
+                    <li>Con <strong>nombres propios</strong> (personas, ciudades): Maria, London</li>
+                    <li>Con <strong>países en singular</strong> (excepto excepciones): Spain, France</li>
+                    <li>Con <strong>lenguas</strong>: I speak English</li>
+                    <li>Con <strong>materias académicas</strong>: I study mathematics</li>
+                    <li>Con <strong>comidas en general</strong>: I eat breakfast at 8:00</li>
+                </ul>
+                
+                <div class="special-box">
+                    <div class="special-title">⚠️ Casos Especiales y Excepciones</div>
+                    <div class="intro-text">
+                        <strong>Sonido vs. Letra:</strong> Usamos "an" basándonos en el SONIDO, no la letra:
+                    </div>
+                    <ul class="intro-list">
+                        <li><strong>"an hour"</strong> (h muda - suena "our")</li>
+                        <li><strong>"a university"</strong> (u suena como "you")</li>
+                        <li><strong>"a European"</strong> (eu suena como "you")</li>
+                        <li><strong>"an FBI agent"</strong> (F se pronuncia "ef")</li>
+                    </ul>
+                </div>
+                
+                <div class="usage-example">
+                    <div class="example">"I need <strong>an</strong> hour to finish" vs "I need <strong>a</strong> university degree"</div>
+                    <div class="translation">("Necesito una hora para terminar" vs "Necesito un título universitario")</div>
+                </div>
+                
+                <div class="review-box">
+                    <div class="review-title">🔗 Conexión con lecciones anteriores</div>
+                    <div class="review-content">
+                        <strong>Pronombres + Artículos:</strong> "He is a doctor. The doctor works at the hospital."<br>
+                        Primero usamos "a" (indefinido), luego "the" (definido) porque ya sabemos de qué doctor hablamos.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(2)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(4)">Continuar a Práctica Avanzada ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 4: PRÁCTICA AVANZADA -->
+    <div class="page-container" id="page4">
+        <div class="practice-page">
+            <div class="practice-title">📝 Práctica Avanzada: Artículos</div>
+            
+            <div class="hint">¡Atención! Estas preguntas combinan artículos con lo aprendido anteriormente</div>
+            
+            <!-- Pregunta 6 -->
+            <div class="practice-question" data-question="6">
+                <div class="question-text">6. Completa la oración: "She is ___ European artist"</div>
+                <div class="hint">Recuerda: "European" suena como "you-ropean"</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">a</div>
+                    <div class="practice-option" data-correct="false">an</div>
+                    <div class="practice-option" data-correct="false">the</div>
+                    <div class="practice-option" data-correct="false">-</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(6)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation6"></div>
+            </div>
+            
+            <!-- Pregunta 7 -->
+            <div class="practice-question" data-question="7">
+                <div class="question-text">7. ¿Cuál es correcto? "They speak ___ English very well"</div>
+                <div class="hint">Recuerda: con lenguas no usamos artículo</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">a</div>
+                    <div class="practice-option" data-correct="false">an</div>
+                    <div class="practice-option" data-correct="false">the</div>
+                    <div class="practice-option" data-correct="true">-</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(7)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation7"></div>
+            </div>
+            
+            <!-- Pregunta 8 -->
+            <div class="practice-question" data-question="8">
+                <div class="question-text">8. Escoge: "I saw ___ movie yesterday. ___ movie was excellent!"</div>
+                <div class="hint">Primero es indefinido (cualquier película), luego definido (esa película específica)</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">a / The</div>
+                    <div class="practice-option" data-correct="false">an / The</div>
+                    <div class="practice-option" data-correct="false">the / A</div>
+                    <div class="practice-option" data-correct="false">- / The</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(8)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation8"></div>
+            </div>
+            
+            <!-- Pregunta 9 -->
+            <div class="practice-question" data-question="9">
+                <div class="question-text">9. Completa: "___ sun rises in ___ east"</div>
+                <div class="hint">"sun" es único, "east" es una dirección específica</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">A / an</div>
+                    <div class="practice-option" data-correct="true">The / the</div>
+                    <div class="practice-option" data-correct="false">The / a</div>
+                    <div class="practice-option" data-correct="false">- / -</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(9)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation9"></div>
+            </div>
+            
+            <!-- Pregunta 10 -->
+            <div class="practice-question" data-question="10">
+                <div class="question-text">10. ¿Cómo se dice? "Mi hermano es un estudiante universitario"</div>
+                <div class="hint">Traduce toda la oración incluyendo el verbo "to be"</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">My brother is an university student</div>
+                    <div class="practice-option" data-correct="true">My brother is a university student</div>
+                    <div class="practice-option" data-correct="false">My brother is the university student</div>
+                    <div class="practice-option" data-correct="false">My brother is university student</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(10)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation10"></div>
+            </div>
+            
+            <!-- Pregunta 11 -->
+            <div class="practice-question" data-question="11">
+                <div class="question-text">11. Completa: "We need to buy ___ milk and ___ eggs"</div>
+                <div class="hint">Sustantivos incontables y plurales en sentido general</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">- / -</div>
+                    <div class="practice-option" data-correct="false">a / some</div>
+                    <div class="practice-option" data-correct="false">the / the</div>
+                    <div class="practice-option" data-correct="false">an / -</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(11)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation11"></div>
+            </div>
+            
+            <!-- Pregunta 12 -->
+            <div class="practice-question" data-question="12">
+                <div class="question-text">12. Traduce: "Ella es una actriz honesta y trabaja en el teatro"</div>
+                <div class="hint">Combinación de todo: pronombre, verbo to be, artículos, vocabulario</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">She is a honest actress and works in theater</div>
+                    <div class="practice-option" data-correct="true">She is an honest actress and works in the theater</div>
+                    <div class="practice-option" data-correct="false">She is the honest actress and works in a theater</div>
+                    <div class="practice-option" data-correct="false">She is honest actress and works in the theater</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(12)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation12"></div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(3)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(5)">Ver Mis Resultados ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 5: RESULTADOS FINALES -->
+    <div class="page-container" id="page5">
+        <div class="results-page">
+            <div class="checkmark">🏆</div>
+            <div class="congrats-title">¡EXCELENTE TRABAJO!</div>
+            
+            <div class="congrats-message">
+                Has completado exitosamente la lección sobre <strong>Artículos en Inglés</strong>. 
+                <br>Ahora dominas una de las partes más importantes de la gramática inglesa.
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="final-correct">0</div>
+                    <div class="stat-label">Respuestas Correctas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="final-score-total">0</div>
+                    <div class="stat-label">Puntos Totales</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="final-percentage">0%</div>
+                    <div class="stat-label">Porcentaje</div>
+                </div>
+            </div>
+            
+            <div class="final-message">
+                <strong>Lo que has aprendido en esta lección:</strong><br>
+                1. La diferencia entre artículos definidos (the) e indefinidos (a/an)<br>
+                2. Cuándo usar "a" vs "an" (basado en el sonido, no la letra)<br>
+                3. Excepciones importantes como "an hour" vs "a university"<br>
+                4. Cuándo NO usar artículo (nombres propios, lenguas, etc.)<br>
+                5. Cómo combinar artículos con pronombres y el verbo "to be"<br><br>
+                
+                <strong>Consejo final:</strong> Practica identificando si las palabras comienzan con sonido de vocal o consonante. Esto es clave para usar correctamente "a" y "an".
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(4)">← Volver a Práctica</button>
+                <button class="nav-btn next-btn" onclick="restartCourse()" style="background: linear-gradient(145deg, #9b59b6, #8e44ad);">
+                    🔄 Repetir Lección Completa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentPage = 1;
+        let totalPages = 5;
+        let score = 0;
+        let correctAnswers = 0;
+        let totalQuestions = 12;
+        let selectedOptions = {};
+        let questionChecked = {};
+
+        // Inicializar cuando se carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            updateScore();
+            setupEventListeners();
+        });
+
+        // Configurar event listeners para opciones de práctica
+        function setupEventListeners() {
+            const options = document.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionContainer = this.closest('.practice-question');
+                    const questionId = questionContainer.getAttribute('data-question');
+                    
+                    // Remover selección anterior en esta pregunta
+                    const parent = this.parentElement;
+                    const siblings = parent.querySelectorAll('.practice-option');
+                    siblings.forEach(sibling => {
+                        sibling.classList.remove('selected');
+                    });
+                    
+                    // Seleccionar esta opción
+                    this.classList.add('selected');
+                    selectedOptions[questionId] = this;
+                    
+                    // Ocultar validación previa si existe
+                    const validationId = `validation${questionId}`;
+                    const validationContainer = document.getElementById(validationId);
+                    if (validationContainer) {
+                        validationContainer.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Ir a una página específica
+        function goToPage(pageNumber) {
+            // Ocultar página actual
+            const current = document.querySelector('.page-container.active');
+            if (current) {
+                current.classList.remove('active');
+            }
+            
+            // Mostrar página solicitada
+            currentPage = pageNumber;
+            const targetPage = document.getElementById(`page${pageNumber}`);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            
+            // Si es la última página, actualizar resultados
+            if (currentPage === totalPages) {
+                updateFinalResults();
+            }
+            
+            // Desplazar al inicio de la página
+            window.scrollTo(0, 0);
+        }
+
+        // Verificar respuesta de una pregunta
+        function checkAnswer(questionId) {
+            const selectedOption = selectedOptions[questionId];
+            const validationContainer = document.getElementById(`validation${questionId}`);
+            
+            if (!selectedOption) {
+                showValidation(questionId, false, "Por favor, selecciona una opción antes de verificar.");
+                return;
+            }
+            
+            const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+            
+            // Mostrar todas las opciones correctas/incorrectas
+            const options = selectedOption.parentElement.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                if (option.getAttribute('data-correct') === 'true') {
+                    option.classList.add('correct');
+                } else if (option === selectedOption && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (isCorrect) {
+                if (!questionChecked[questionId]) {
+                    score += 10;
+                    correctAnswers++;
+                    questionChecked[questionId] = true;
+                }
+                
+                let explanation = getExplanation(questionId, true);
+                showValidation(questionId, true, `¡Correcto! ${explanation}`);
+                
+            } else {
+                let correctOptionText = "";
+                const options = selectedOption.parentElement.querySelectorAll('.practice-option');
+                options.forEach(option => {
+                    if (option.getAttribute('data-correct') === 'true') {
+                        correctOptionText = option.textContent;
+                    }
+                });
+                
+                let explanation = getExplanation(questionId, false, correctOptionText);
+                showValidation(questionId, false, `Incorrecto. ${explanation}`);
+            }
+            
+            // Actualizar puntuación
+            updateScore();
+        }
+
+        // Obtener explicación para preguntas de opción múltiple
+        function getExplanation(questionId, isCorrect, correctOption = "") {
+            const explanations = {
+                1: isCorrect ? 
+                    "¡Perfecto! 'A student' porque 'student' comienza con sonido de consonante." : 
+                    `"Student" comienza con sonido de consonante (s), por eso usamos "a".`,
+                
+                2: isCorrect ? 
+                    "¡Exacto! 'An apple' porque 'apple' comienza con sonido de vocal." : 
+                    `"Apple" comienza con sonido de vocal (a), por eso usamos "an".`,
+                
+                3: isCorrect ? 
+                    "¡Correcto! 'An umbrella' - la 'u' en 'umbrella' suena como vocal." : 
+                    `"Umbrella" comienza con sonido de vocal (am-brel-la), usamos "an".`,
+                
+                4: isCorrect ? 
+                    "¡Muy bien! 'An honest' - la H es muda, suena 'onest'." : 
+                    `"Honest" tiene H muda, suena como vocal, por eso usamos "an".`,
+                
+                5: isCorrect ? 
+                    "¡Excelente! 'The cat' porque hablamos del gato específico en el techo." : 
+                    `Es un gato específico (el del techo), por eso usamos "the".`,
+                
+                6: isCorrect ? 
+                    "¡Perfecto! 'A European' porque 'European' suena 'you-ropean' (comienza con sonido Y)." : 
+                    `"European" suena como 'you-ropean' (sonido de Y, que es consonante), usamos "a".`,
+                
+                7: isCorrect ? 
+                    "¡Correcto! No usamos artículo con nombres de lenguas." : 
+                    `Con nombres de lenguas (English, Spanish, French) no usamos artículo.`,
+                
+                8: isCorrect ? 
+                    "¡Excelente! Primero 'a movie' (cualquier película), luego 'the movie' (esa película específica)." : 
+                    `Primero es indefinido (a), luego definido (the) porque ya sabemos de qué película hablamos.`,
+                
+                9: isCorrect ? 
+                    "¡Muy bien! 'The sun' (único) y 'the east' (dirección específica)." : 
+                    `"The sun" porque hay un solo sol, y "the east" es una dirección cardinal específica.`,
+                
+                10: isCorrect ? 
+                    "¡Perfecto! 'A university student' porque 'university' suena 'you-niversity'." : 
+                    `"University" suena como 'you-niversity' (sonido Y), por eso usamos "a".`,
+                
+                11: isCorrect ? 
+                    "¡Exacto! No usamos artículo con sustantivos incontables (milk) y plurales generales (eggs)." : 
+                    `Con sustantivos incontables y plurales en sentido general, no usamos artículo.`,
+                
+                12: isCorrect ? 
+                    "¡Excelente combinación! 'An honest' (H muda) y 'the theater' (lugar específico)." : 
+                    `"Honest actress" necesita "an" (H muda), y "the theater" es el lugar específico donde trabaja.`
+            };
+            
+            return explanations[questionId] || (isCorrect ? "¡Respuesta correcta!" : `La respuesta correcta es: ${correctOption}`);
+        }
+
+        // Mostrar validación con explicación
+        function showValidation(questionId, isCorrect, message) {
+            const validationContainer = document.getElementById(`validation${questionId}`);
+            
+            validationContainer.innerHTML = `
+                <div style="color: ${isCorrect ? '#2ecc71' : '#e74c3c'}; font-size: 20px; font-weight: 600; margin-bottom: 10px; text-align: center;">
+                    ${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}
+                </div>
+                <div style="color: #ecf0f1; font-size: 16px; line-height: 1.6; margin-bottom: 15px; text-align: center;">
+                    ${message}
+                </div>
+                ${!isCorrect ? `
+                    <div style="background: rgba(243, 156, 18, 0.1); padding: 15px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #f39c12;">
+                        <div style="color: #f39c12; font-weight: 600; margin-bottom: 8px; text-align: center;">💡 Para recordar:</div>
+                        <div style="color: #bdc3c7; font-size: 15px; line-height: 1.5; text-align: center;">${getStudyTip(questionId)}</div>
+                    </div>
+                ` : ''}
+            `;
+            
+            validationContainer.className = `validation-container ${isCorrect ? 'correct-validation' : 'incorrect-validation'}`;
+            validationContainer.style.display = 'block';
+            
+            // Desplazar para mostrar la validación
+            validationContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Consejos de estudio según la pregunta
+        function getStudyTip(questionId) {
+            const tips = {
+                1: "Recuerda: 'A' para sonidos de consonante, 'an' para sonidos de vocal. ¡Practica diciendo las palabras en voz alta!",
+                2: "Las vocales en inglés: A, E, I, O, U. 'Apple' comienza con A, por eso 'an apple'.",
+                3: "No te fijes solo en la letra, fíjate en el SONIDO. 'Umbrella' suena 'am-brel-la' (vocal).",
+                4: "Palabras con H muda: hour, honest, honor, heir. Todas usan 'an'.",
+                5: "Usa 'the' cuando hablas de algo específico que ya conoces o que es único.",
+                6: "Palabras que comienzan con 'eu-' o 'u-' generalmente suenan como 'you-': European, university, uniform.",
+                7: "No uses artículo con: nombres propios, lenguas, materias académicas, deportes (en general).",
+                8: "Estructura común: Primero mencionas algo (a/an), luego te refieres a eso específicamente (the).",
+                9: "Usa 'the' con: objetos únicos (sun, moon), direcciones (north, south), mares, ríos, instrumentos musicales.",
+                10: "'University' es una excepción común. Suena 'you-niversity', no 'ooniversity'.",
+                11: "Sustantivos incontables (water, milk, sugar) y plurales generales no llevan artículo.",
+                12: "Combina todo: pronombre + verbo to be + artículo + sustantivo. ¡La práctica hace al maestro!"
+            };
+            
+            return tips[questionId] || "Revisa la lección y vuelve a intentarlo. ¡Tú puedes!";
+        }
+
+        // Actualizar puntuación en pantalla
+        function updateScore() {
+            document.getElementById('score').textContent = score;
+        }
+
+        // Actualizar resultados finales
+        function updateFinalResults() {
+            document.getElementById('final-correct').textContent = correctAnswers;
+            document.getElementById('final-score-total').textContent = score;
+            const percentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+            document.getElementById('final-percentage').textContent = percentage + '%';
+        }
+
+        // Reiniciar curso completo
+        function restartCourse() {
+            // Reiniciar variables
+            currentPage = 1;
+            score = 0;
+            correctAnswers = 0;
+            selectedOptions = {};
+            questionChecked = {};
+            
+            // Ir a la primera página
+            goToPage(1);
+            
+            // Limpiar selecciones
+            const options = document.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Ocultar todas las validaciones
+            const validations = document.querySelectorAll('.validation-container');
+            validations.forEach(validation => {
+                validation.style.display = 'none';
+                validation.innerHTML = '';
+            });
+            
+            // Restablecer puntuación
+            updateScore();
+        }
+    </script>
+</body>
+</html>

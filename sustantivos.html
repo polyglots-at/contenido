@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustantivos en Inglés - Polyglots</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d1f2d;
+            background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 850px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .page-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-session {
+            padding: 20px;
+        }
+
+        .intro-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid #9b59b6;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-title {
+            font-size: 28px;
+            color: #9b59b6;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .intro-text {
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #ecf0f1;
+        }
+
+        .intro-list {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .intro-list li {
+            margin-bottom: 12px;
+            line-height: 1.5;
+            color: #ecf0f1;
+        }
+
+        .usage-example {
+            background: rgba(155, 89, 182, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .example {
+            font-size: 22px;
+            color: #50c878;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .translation {
+            font-size: 18px;
+            color: #87CEEB;
+            padding: 8px 0;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .note {
+            font-size: 15px;
+            color: #f39c12;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: rgba(243, 156, 18, 0.2);
+            margin-top: 8px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .noun-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .noun-table th {
+            background: rgba(155, 89, 182, 0.3);
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 2px solid #9b59b6;
+        }
+
+        .noun-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .noun-table tr:hover {
+            background: rgba(155, 89, 182, 0.1);
+        }
+
+        .highlight {
+            color: #f39c12;
+            font-weight: 600;
+        }
+
+        .special-box {
+            background: rgba(243, 156, 18, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #f39c12;
+        }
+
+        .special-title {
+            color: #f39c12;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 16px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .prev-btn {
+            background: linear-gradient(145deg, #95a5a6, #7f8c8d);
+            color: white;
+        }
+
+        .prev-btn:hover {
+            background: linear-gradient(145deg, #7f8c8d, #6c7b7d);
+            transform: translateY(-2px);
+        }
+
+        .next-btn {
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            color: white;
+        }
+
+        .next-btn:hover {
+            background: linear-gradient(145deg, #27ae60, #219653);
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border: 2px solid #f39c12;
+        }
+
+        .score-value {
+            color: #f39c12;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .practice-page {
+            padding: 20px;
+        }
+
+        .practice-title {
+            font-size: 26px;
+            color: #f39c12;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .practice-question {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .question-text {
+            font-size: 18px;
+            color: #ecf0f1;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .hint {
+            font-size: 14px;
+            color: #95a5a6;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .practice-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .practice-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .practice-option {
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid #9b59b6;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+        }
+
+        .practice-option:hover {
+            background-color: rgba(155, 89, 182, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .practice-option.selected {
+            background-color: rgba(155, 89, 182, 0.5);
+            border-color: #2ecc71;
+            font-weight: 600;
+        }
+
+        .practice-option.correct {
+            background-color: rgba(46, 204, 113, 0.3);
+            border-color: #2ecc71;
+            color: #2ecc71;
+        }
+
+        .practice-option.incorrect {
+            background-color: rgba(231, 76, 60, 0.3);
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .check-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(145deg, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .check-btn:hover {
+            background: linear-gradient(145deg, #8e44ad, #7d3c98);
+            transform: translateY(-2px);
+        }
+
+        .validation-container {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            animation: slideIn 0.5s ease-out;
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .correct-validation {
+            background: linear-gradient(145deg, rgba(46, 204, 113, 0.3), rgba(39, 174, 96, 0.2));
+            border: 2px solid #2ecc71;
+            border-left: 6px solid #2ecc71;
+        }
+
+        .incorrect-validation {
+            background: linear-gradient(145deg, rgba(231, 76, 60, 0.3), rgba(192, 57, 43, 0.2));
+            border: 2px solid #e74c3c;
+            border-left: 6px solid #e74c3c;
+        }
+
+        .results-page {
+            text-align: center;
+            padding: 40px 20px;
+            animation: celebration 2s ease-in-out;
+        }
+
+        @keyframes celebration {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .checkmark {
+            font-size: 100px;
+            color: #2ecc71;
+            margin-bottom: 25px;
+            animation: bounce 1.5s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-15px); }
+        }
+
+        .congrats-title {
+            font-size: 36px;
+            color: #2ecc71;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .congrats-message {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #87CEEB;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 2px solid #9b59b6;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            color: #f39c12;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #95a5a6;
+        }
+
+        .final-message {
+            font-style: italic;
+            color: #50c878;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(80, 200, 120, 0.2);
+            border-radius: 12px;
+            border-left: 4px solid #50c878;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .comparison-box {
+            background: rgba(231, 76, 60, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #e74c3c;
+        }
+
+        .comparison-title {
+            color: #e74c3c;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .review-box {
+            background: rgba(155, 89, 182, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #9b59b6;
+        }
+
+        .review-title {
+            color: #9b59b6;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .noun-visual {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 25px 0;
+        }
+
+        .noun-card {
+            background: rgba(155, 89, 182, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #9b59b6;
+            width: 180px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .noun-card:hover {
+            transform: translateY(-5px);
+            background: rgba(155, 89, 182, 0.3);
+        }
+
+        .noun-english {
+            font-size: 20px;
+            color: #9b59b6;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .noun-spanish {
+            font-size: 16px;
+            color: #ecf0f1;
+        }
+
+        .noun-type {
+            font-size: 14px;
+            color: #f39c12;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .order-box {
+            background: rgba(46, 204, 113, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #2ecc71;
+        }
+
+        .order-title {
+            color: #2ecc71;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .order-step {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .step-number {
+            background: #f39c12;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+
+        .step-text {
+            flex: 1;
+        }
+
+        .plural-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .plural-table th {
+            background: rgba(52, 152, 219, 0.3);
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .plural-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .plural-table tr:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .irregular-list {
+            background: rgba(231, 76, 60, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .common-tag { background: #3498db; color: white; }
+        .proper-tag { background: #9b59b6; color: white; }
+        .countable-tag { background: #2ecc71; color: white; }
+        .uncountable-tag { background: #e74c3c; color: white; }
+        .collective-tag { background: #f39c12; color: white; }
+        .abstract-tag { background: #1abc9c; color: white; }
+    </style>
+</head>
+<body>
+    <!-- Puntuación -->
+    <div class="score-display">
+        Puntuación: <span class="score-value" id="score">0</span> puntos
+    </div>
+
+    <!-- PÁGINA 1: INTRODUCCIÓN A LOS SUSTANTIVOS -->
+    <div class="page-container active" id="page1">
+        <div class="content-session">
+            <div class="intro-container">
+                <div class="intro-title">📚 Los Sustantivos en Inglés</div>
+                
+                <div class="intro-text">
+                    Los sustantivos (nouns) son palabras que nombran <strong>personas, lugares, cosas, animales o ideas</strong>. 
+                    Son el núcleo de cualquier oración en inglés y español.
+                </div>
+
+                <div class="noun-visual">
+                    <div class="noun-card">
+                        <div class="noun-english">Teacher</div>
+                        <div class="noun-spanish">Profesor/a</div>
+                        <div class="noun-type">Persona</div>
+                    </div>
+                    <div class="noun-card">
+                        <div class="noun-english">London</div>
+                        <div class="noun-spanish">Londres</div>
+                        <div class="noun-type">Lugar</div>
+                    </div>
+                    <div class="noun-card">
+                        <div class="noun-english">Book</div>
+                        <div class="noun-spanish">Libro</div>
+                        <div class="noun-type">Cosa</div>
+                    </div>
+                    <div class="noun-card">
+                        <div class="noun-english">Dog</div>
+                        <div class="noun-spanish">Perro</div>
+                        <div class="noun-type">Animal</div>
+                    </div>
+                    <div class="noun-card">
+                        <div class="noun-english">Love</div>
+                        <div class="noun-spanish">Amor</div>
+                        <div class="noun-type">Idea/Abstracto</div>
+                    </div>
+                </div>
+
+                <div class="intro-text">
+                    <strong>Tipos principales de sustantivos:</strong>
+                </div>
+
+                <table class="noun-table">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Definición</th>
+                            <th>Ejemplos</th>
+                            <th>Características</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="category-tag common-tag">Comunes</span></td>
+                            <td>Nombran personas, lugares o cosas en general</td>
+                            <td><span class="highlight">city, woman, car</span></td>
+                            <td>No se capitalizan</td>
+                        </tr>
+                        <tr>
+                            <td><span class="category-tag proper-tag">Propios</span></td>
+                            <td>Nombran personas, lugares o cosas específicas</td>
+                            <td><span class="highlight">London, Maria, Toyota</span></td>
+                            <td>Siempre con mayúscula</td>
+                        </tr>
+                        <tr>
+                            <td><span class="category-tag countable-tag">Contables</span></td>
+                            <td>Se pueden contar (singular y plural)</td>
+                            <td><span class="highlight">book → books, car → cars</span></td>
+                            <td>Usan "a/an" en singular</td>
+                        </tr>
+                        <tr>
+                            <td><span class="category-tag uncountable-tag">Incontables</span></td>
+                            <td>No se pueden contar (solo singular)</td>
+                            <td><span class="highlight">water, information, advice</span></td>
+                            <td>No usan "a/an", no tienen plural</td>
+                        </tr>
+                        <tr>
+                            <td><span class="category-tag collective-tag">Colectivos</span></td>
+                            <td>Nombran grupos de personas o cosas</td>
+                            <td><span class="highlight">family, team, police</span></td>
+                            <td>Singular o plural según contexto</td>
+                        </tr>
+                        <tr>
+                            <td><span class="category-tag abstract-tag">Abstractos</span></td>
+                            <td>Nombran ideas, emociones, conceptos</td>
+                            <td><span class="highlight">love, freedom, happiness</span></td>
+                            <td>No se pueden tocar o ver</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="comparison-box">
+                    <div class="comparison-title">⚡ Diferencia Español vs Inglés</div>
+                    <div class="intro-text">
+                        <strong>En español:</strong> Los sustantivos tienen género (masculino/femenino)<br>
+                        <strong>Ejemplo:</strong> "el libro" (m), "la casa" (f)<br><br>
+                        
+                        <strong>En inglés:</strong> Los sustantivos NO tienen género gramatical<br>
+                        <strong>Ejemplo:</strong> "<strong>the book</strong>" (neutro), "<strong>the house</strong>" (neutro)<br><br>
+                        
+                        <strong>Excepción:</strong> Algunos sustantivos de personas/animals: actor/actress, waiter/waitress.
+                    </div>
+                </div>
+
+                <div class="special-box">
+                    <div class="special-title">🎯 Reglas Básicas de los Sustantivos</div>
+                    <div class="intro-text">
+                        1. <strong>Mayúsculas:</strong> Solo nombres propios (London, Maria)<br>
+                        2. <strong>Artículos:</strong> "a/an" para singulares contables, "the" para específicos<br>
+                        3. <strong>Plurales:</strong> Generalmente +s, pero hay excepciones<br>
+                        4. <strong>Sin género:</strong> No cambian por masculino/femenino<br>
+                        5. <strong>Posición:</strong> Generalmente después del artículo/adjetivo
+                    </div>
+                </div>
+
+                <div class="review-box">
+                    <div class="review-title">🔗 Conexión con lo Aprendido</div>
+                    <div class="intro-text">
+                        Recuerda nuestra estructura SVO:<br>
+                        • <strong>Sujeto:</strong> Generalmente un sustantivo → "<span class="highlight">The student</span> studies"<br>
+                        • <strong>Verbo:</strong> Acción o estado<br>
+                        • <strong>Objeto:</strong> Generalmente un sustantivo → "The student reads <span class="highlight">a book</span>"<br><br>
+                        
+                        Los sustantivos son los <strong>actores principales</strong> en las oraciones.
+                    </div>
+                </div>
+
+                <div class="usage-example">
+                    <div class="example">"The intelligent student from Madrid reads interesting books every day"</div>
+                    <div class="translation">"El estudiante inteligente de Madrid lee libros interesantes cada día"</div>
+                    <div class="note">
+                        <strong>Sustantivos en la oración:</strong><br>
+                        • <strong>Student</strong> (sujeto) - sustantivo común contable<br>
+                        • <strong>Madrid</strong> (complemento) - sustantivo propio<br>
+                        • <strong>Books</strong> (objeto) - sustantivo común contable en plural<br>
+                        • <strong>Day</strong> (complemento) - sustantivo común contable
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn next-btn" onclick="goToPage(2)">Continuar a Práctica ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 2: PRÁCTICA BÁSICA -->
+    <div class="page-container" id="page2">
+        <div class="practice-page">
+            <div class="practice-title">📝 Práctica Básica: Sustantivos</div>
+            
+            <div class="hint">Identifica y clasifica los diferentes tipos de sustantivos</div>
+
+            <!-- Pregunta 1 -->
+            <div class="practice-question" data-question="1">
+                <div class="question-text">1. ¿Qué tipo de sustantivo es "London"?</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">Común contable</div>
+                    <div class="practice-option" data-correct="true">Propio</div>
+                    <div class="practice-option" data-correct="false">Abstracto</div>
+                    <div class="practice-option" data-correct="false">Colectivo</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(1)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation1"></div>
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div class="practice-question" data-question="2">
+                <div class="question-text">2. ¿Cuál de estos sustantivos es INCONTABLE?</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">Apple</div>
+                    <div class="practice-option" data-correct="false">Book</div>
+                    <div class="practice-option" data-correct="true">Water</div>
+                    <div class="practice-option" data-correct="false">Car</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(2)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation2"></div>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div class="practice-question" data-question="3">
+                <div class="question-text">3. ¿Cómo se dice "información" en inglés?</div>
+                <div class="hint">Es un sustantivo incontable en inglés</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">Information</div>
+                    <div class="practice-option" data-correct="false">An information</div>
+                    <div class="practice-option" data-correct="false">Informations</div>
+                    <div class="practice-option" data-correct="false">Some informations</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(3)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation3"></div>
+            </div>
+
+            <!-- Pregunta 4 -->
+            <div class="practice-question" data-question="4">
+                <div class="question-text">4. ¿Cuál es el plural correcto de "city"?</div>
+                <div class="hint">Sustantivo terminado en consonante + y</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">citys</div>
+                    <div class="practice-option" data-correct="false">cityes</div>
+                    <div class="practice-option" data-correct="true">cities</div>
+                    <div class="practice-option" data-correct="false">citiez</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(4)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation4"></div>
+            </div>
+
+            <!-- Pregunta 5 -->
+            <div class="practice-question" data-question="5">
+                <div class="question-text">5. ¿Qué tipo de sustantivo es "team" en "The team is playing"?</div>
+                <div class="hint">Se refiere a un grupo de personas</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">Abstracto</div>
+                    <div class="practice-option" data-correct="true">Colectivo</div>
+                    <div class="practice-option" data-correct="false">Propio</div>
+                    <div class="practice-option" data-correct="false">Incontable</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(5)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation5"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(1)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(3)">Continuar a Plurales ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 3: PLURALES Y REGLAS ESPECIALES -->
+    <div class="page-container" id="page3">
+        <div class="content-session">
+            <div class="intro-container">
+                <div class="intro-title">🔤 Formación de Plurales en Inglés</div>
+
+                <div class="intro-text">
+                    La mayoría de los sustantivos contables forman el plural añadiendo <strong>"-s"</strong>, 
+                    pero hay muchas reglas especiales y excepciones importantes.
+                </div>
+
+                <div class="order-box">
+                    <div class="order-title">📋 Reglas de Formación de Plurales</div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">
+                            <strong>Regla básica:</strong> Añadir <strong>"-s"</strong><br>
+                            <span class="highlight">cat → cats, book → books, car → cars</span>
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">
+                            <strong>Terminados en s, sh, ch, x, z:</strong> Añadir <strong>"-es"</strong><br>
+                            <span class="highlight">bus → buses, dish → dishes, box → boxes</span>
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">
+                            <strong>Terminados en consonante + y:</strong> Cambiar <strong>"y" → "ies"</strong><br>
+                            <span class="highlight">city → cities, baby → babies, family → families</span>
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">
+                            <strong>Terminados en vocal + y:</strong> Añadir <strong>"-s"</strong><br>
+                            <span class="highlight">boy → boys, day → days, key → keys</span>
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">5</div>
+                        <div class="step-text">
+                            <strong>Terminados en f o fe:</strong> Cambiar <strong>"f/fe" → "ves"</strong><br>
+                            <span class="highlight">wife → wives, leaf → leaves, knife → knives</span>
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">6</div>
+                        <div class="step-text">
+                            <strong>Terminados en o:</strong> Generalmente <strong>"-es"</strong> pero hay excepciones<br>
+                            <span class="highlight">potato → potatoes, tomato → tomatoes</span><br>
+                            <span class="highlight">photo → photos, piano → pianos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="special-box">
+                    <div class="special-title">⚠️ Plurales Irregulares IMPORTANTES</div>
+                    <div class="irregular-list">
+                        <div class="intro-text">
+                            <strong>Estos NO siguen reglas - ¡MEMORÍZALOS!</strong><br><br>
+                            
+                            <table class="plural-table">
+                                <thead>
+                                    <tr>
+                                        <th>Singular</th>
+                                        <th>Plural</th>
+                                        <th>Traducción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="highlight">man</span></td>
+                                        <td><span class="highlight">men</span></td>
+                                        <td>hombre/hombres</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="highlight">woman</span></td>
+                                        <td><span class="highlight">women</span></td>
+                                        <td>mujer/mujeres</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="highlight">child</span></td>
+                                        <td><span class="highlight">children</span></td>
+                                        <td>niño/niños</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="highlight">foot</span></td>
+                                        <td><span class="highlight">feet</span></td>
+                                        <td>pie/pies</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="highlight">tooth</span></td>
+                                        <td><span class="highlight">teeth</span></td>
+                                        <td>diente/dientes</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="highlight">mouse</span></td>
+                                        <td><span class="highlight">mice</span></td>
+                                        <td>ratón/ratones</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="highlight">person</span></td>
+                                        <td><span class="highlight">people</span></td>
+                                        <td>persona/personas</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="intro-text">
+                    <strong>Nota sobre sustantivos incontables:</strong> Algunos parecen plurales pero son singulares.<br>
+                    <span class="highlight">news, mathematics, physics, economics</span> → Siempre van con verbo en singular.
+                </div>
+
+                <div class="usage-example">
+                    <div class="example">"The children are playing with three mice in the garden"</div>
+                    <div class="translation">"Los niños están jugando con tres ratones en el jardín"</div>
+                    <div class="note">
+                        <strong>Plurales irregulares:</strong><br>
+                        • child → children (no childs)<br>
+                        • mouse → mice (no mouses)<br>
+                        <strong>Verbo plural:</strong> "are" porque "children" es plural
+                    </div>
+                </div>
+
+                <div class="comparison-box">
+                    <div class="comparison-title">📚 Sustantivos que NO existen en plural</div>
+                    <div class="intro-text">
+                        <strong>Estos sustantivos son SIEMPRE singulares en inglés:</strong><br><br>
+                        
+                        • <strong>Information</strong> (NO informations)<br>
+                        • <strong>Advice</strong> (NO advices)<br>
+                        • <strong>Furniture</strong> (NO furnitures)<br>
+                        • <strong>Luggage</strong> (NO luggages)<br>
+                        • <strong>News</strong> (SIEMPRE singular: The news <strong>is</strong> good)<br>
+                        • <strong>Money</strong> (NO moneys)<br><br>
+                        
+                        <strong>Para contar:</strong> Usamos "piece of" → "a piece of advice", "two pieces of furniture"
+                    </div>
+                </div>
+
+                <div class="review-box">
+                    <div class="review-title">💡 Consejos para Recordar</div>
+                    <div class="intro-text">
+                        1. <strong>Practica con frases:</strong> No memorices solo palabras sueltas<br>
+                        2. <strong>Los 7 irregulares:</strong> man, woman, child, foot, tooth, mouse, person<br>
+                        3. <strong>No traduzcas literalmente:</strong> "informations" no existe<br>
+                        4. <strong>Cuidado con "-s":</strong> Algunos terminan en -s pero son singulares (news, mathematics)
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(2)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(4)">Continuar a Práctica Avanzada ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 4: PRÁCTICA AVANZADA -->
+    <div class="page-container" id="page4">
+        <div class="practice-page">
+            <div class="practice-title">📝 Práctica Avanzada: Sustantivos</div>
+
+            <div class="hint">Combina todo lo aprendido: tipos, plurales, contables/incontables</div>
+
+            <!-- Pregunta 6 -->
+            <div class="practice-question" data-question="6">
+                <div class="question-text">6. ¿Cuál es el plural correcto de "woman"?</div>
+                <div class="hint">Es un plural irregular importante</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">womans</div>
+                    <div class="practice-option" data-correct="false">womens</div>
+                    <div class="practice-option" data-correct="true">women</div>
+                    <div class="practice-option" data-correct="false">womanes</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(6)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation6"></div>
+            </div>
+
+            <!-- Pregunta 7 -->
+            <div class="practice-question" data-question="7">
+                <div class="question-text">7. Completa: "I need some ___ for my research" (información)</div>
+                <div class="hint">Recuerda: información es incontable en inglés</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">informations</div>
+                    <div class="practice-option" data-correct="true">information</div>
+                    <div class="practice-option" data-correct="false">an information</div>
+                    <div class="practice-option" data-correct="false">many informations</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(7)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation7"></div>
+            </div>
+
+            <!-- Pregunta 8 -->
+            <div class="practice-question" data-question="8">
+                <div class="question-text">8. ¿Cuál es el plural de "knife"?</div>
+                <div class="hint">Terminado en "fe" - regla especial</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">knifes</div>
+                    <div class="practice-option" data-correct="true">knives</div>
+                    <div class="practice-option" data-correct="false">knifees</div>
+                    <div class="practice-option" data-correct="false">knife</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(8)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation8"></div>
+            </div>
+
+            <!-- Pregunta 9 -->
+            <div class="practice-question" data-question="9">
+                <div class="question-text">9. Identifica el sustantivo incontable:</div>
+                <div class="hint">Uno de estos no se puede contar</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">apple</div>
+                    <div class="practice-option" data-correct="false">book</div>
+                    <div class="practice-option" data-correct="false">student</div>
+                    <div class="practice-option" data-correct="true">furniture</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(9)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation9"></div>
+            </div>
+
+            <!-- Pregunta 10 -->
+            <div class="practice-question" data-question="10">
+                <div class="question-text">10. Completa: "The ___ are on the table" (llaves)</div>
+                <div class="hint">Key termina en vocal + y</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">keies</div>
+                    <div class="practice-option" data-correct="false">keys</div>
+                    <div class="practice-option" data-correct="true">keys</div>
+                    <div class="practice-option" data-correct="false">keyes</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(10)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation10"></div>
+            </div>
+
+            <!-- Pregunta 11 -->
+            <div class="practice-question" data-question="11">
+                <div class="question-text">11. Traduce: "Dos hombres y tres mujeres"</div>
+                <div class="hint">Ambos son plurales irregulares</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">Two mans and three womans</div>
+                    <div class="practice-option" data-correct="true">Two men and three women</div>
+                    <div class="practice-option" data-correct="false">Two men and three womans</div>
+                    <div class="practice-option" data-correct="false">Two mens and three womens</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(11)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation11"></div>
+            </div>
+
+            <!-- Pregunta 12 -->
+            <div class="practice-question" data-question="12">
+                <div class="question-text">12. ¿Cuál oración es correcta?</div>
+                <div class="hint">Recuerda: "news" es singular en inglés</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">The news are good today</div>
+                    <div class="practice-option" data-correct="false">The new are good today</div>
+                    <div class="practice-option" data-correct="true">The news is good today</div>
+                    <div class="practice-option" data-correct="false">A news is good today</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(12)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation12"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(3)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(5)">Ver Mis Resultados ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 5: RESULTADOS FINALES -->
+    <div class="page-container" id="page5">
+        <div class="results-page">
+            <div class="checkmark">📚</div>
+            <div class="congrats-title">¡DOMINAS LOS SUSTANTIVOS!</div>
+
+            <div class="congrats-message">
+                Has aprendido a identificar y usar <strong>todos los tipos de sustantivos en inglés</strong>.<br>
+                Ahora puedes nombrar el mundo con precisión.
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="final-correct">0</div>
+                    <div class="stat-label">Respuestas Correctas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="final-score-total">0</div>
+                    <div class="stat-label">Puntos Totales</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="final-percentage">0%</div>
+                    <div class="stat-label">Porcentaje</div>
+                </div>
+            </div>
+
+            <div class="final-message">
+                <strong>Resumen de lo aprendido sobre sustantivos:</strong><br>
+                1. <strong>Tipos principales:</strong> Comunes, propios, contables, incontables, colectivos, abstractos<br>
+                2. <strong>Sin género:</strong> No tienen masculino/femenino como en español<br>
+                3. <strong>Plurales regulares:</strong> +s, +es, y→ies, f/fe→ves<br>
+                4. <strong>Plurales irregulares:</strong> man→men, woman→women, child→children, mouse→mice, etc.<br>
+                5. <strong>Incontables importantes:</strong> information, advice, furniture, news (¡siempre singular!)<br>
+                6. <strong>Mayúsculas:</strong> Solo para nombres propios<br><br>
+
+                <strong>Consejo final:</strong> Practica identificando sustantivos cuando leas en inglés. 
+                ¿Es contable o incontable? ¿Común o propio? ¿Cuál es su plural?
+            </div>
+
+            <div class="special-box">
+                <div class="special-title">🌟 Tu Progreso en Polyglots</div>
+                <div class="intro-text">
+                    <strong>Ya dominas:</strong><br>
+                    ✅ <strong>Sustantivos:</strong> Tipos, plurales, uso correcto<br>
+                    ✅ <strong>Adjetivos:</strong> Posición, orden, descripciones<br>
+                    ⏳ <strong>Próximamente:</strong> Verbos, adverbios, preposiciones...<br><br>
+                    
+                    <strong>Recuerda:</strong> Los sustantivos son los pilares de las oraciones.<br>
+                    Un buen dominio de los sustantivos + adjetivos = ¡Comunicación básica completa!
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(4)">← Volver a Práctica</button>
+                <button class="nav-btn next-btn" onclick="restartCourse()" style="background: linear-gradient(145deg, #9b59b6, #8e44ad);">
+                    🔄 Repetir Lección Completa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentPage = 1;
+        let totalPages = 5;
+        let score = 0;
+        let correctAnswers = 0;
+        let totalQuestions = 12;
+        let selectedOptions = {};
+        let questionChecked = {};
+
+        // Inicializar cuando se carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            updateScore();
+            setupEventListeners();
+        });
+
+        // Configurar event listeners para opciones de práctica
+        function setupEventListeners() {
+            const options = document.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionContainer = this.closest('.practice-question');
+                    const questionId = questionContainer.getAttribute('data-question');
+                    
+                    // Remover selección anterior en esta pregunta
+                    const parent = this.parentElement;
+                    const siblings = parent.querySelectorAll('.practice-option');
+                    siblings.forEach(sibling => {
+                        sibling.classList.remove('selected');
+                    });
+                    
+                    // Seleccionar esta opción
+                    this.classList.add('selected');
+                    selectedOptions[questionId] = this;
+                    
+                    // Ocultar validación previa si existe
+                    const validationId = `validation${questionId}`;
+                    const validationContainer = document.getElementById(validationId);
+                    if (validationContainer) {
+                        validationContainer.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Ir a una página específica
+        function goToPage(pageNumber) {
+            // Ocultar página actual
+            const current = document.querySelector('.page-container.active');
+            if (current) {
+                current.classList.remove('active');
+            }
+            
+            // Mostrar página solicitada
+            currentPage = pageNumber;
+            const targetPage = document.getElementById(`page${pageNumber}`);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            
+            // Si es la última página, actualizar resultados
+            if (currentPage === totalPages) {
+                updateFinalResults();
+            }
+            
+            // Desplazar al inicio de la página
+            window.scrollTo(0, 0);
+        }
+
+        // Verificar respuesta de una pregunta
+        function checkAnswer(questionId) {
+            const selectedOption = selectedOptions[questionId];
+            const validationContainer = document.getElementById(`validation${questionId}`);
+            
+            if (!selectedOption) {
+                showValidation(questionId, false, "Por favor, selecciona una opción antes de verificar.");
+                return;
+            }
+            
+            const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+            
+            // Mostrar todas las opciones correctas/incorrectas
+            const options = selectedOption.parentElement.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                if (option.getAttribute('data-correct') === 'true') {
+                    option.classList.add('correct');
+                } else if (option === selectedOption && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (isCorrect) {
+                if (!questionChecked[questionId]) {
+                    score += 10;
+                    correctAnswers++;
+                    questionChecked[questionId] = true;
+                }
+                
+                let explanation = getExplanation(questionId, true);
+                showValidation(questionId, true, `¡Correcto! ${explanation}`);
+                
+            } else {
+                let correctOptionText = "";
+                const options = selectedOption.parentElement.querySelectorAll('.practice-option');
+                options.forEach(option => {
+                    if (option.getAttribute('data-correct') === 'true') {
+                        correctOptionText = option.textContent;
+                    }
+                });
+                
+                let explanation = getExplanation(questionId, false, correctOptionText);
+                showValidation(questionId, false, `Incorrecto. ${explanation}`);
+            }
+            
+            // Actualizar puntuación
+            updateScore();
+        }
+
+        // Obtener explicación para preguntas
+        function getExplanation(questionId, isCorrect, correctOption = "") {
+            const explanations = {
+                1: isCorrect ? 
+                    "¡Exacto! 'London' es un nombre propio (siempre con mayúscula)." : 
+                    "'London' es un nombre propio porque se refiere a una ciudad específica.",
+                
+                2: isCorrect ? 
+                    "¡Correcto! 'Water' es incontable - no decimos 'a water' o 'two waters'." : 
+                    "'Water' es incontable. Los otros son contables: an apple, a book, a car.",
+                
+                3: isCorrect ? 
+                    "¡Perfecto! 'Information' es incontable en inglés. Nunca 'informations'." : 
+                    "'Information' es SIEMPRE singular en inglés. No existe 'informations'.",
+                
+                4: isCorrect ? 
+                    "¡Excelente! City → cities (consonante + y cambia a -ies)." : 
+                    "Consonante + y: cambia y → ies. City → cities, baby → babies.",
+                
+                5: isCorrect ? 
+                    "¡Muy bien! 'Team' es un sustantivo colectivo (grupo de personas)." : 
+                    "'Team' es un sustantivo colectivo porque se refiere a un grupo.",
+                
+                6: isCorrect ? 
+                    "¡Perfecto! Woman → women (plural irregular importante)." : 
+                    "Plural irregular: woman → women (como man → men).",
+                
+                7: isCorrect ? 
+                    "¡Correcto! 'Information' es incontable. 'Some information' es correcto." : 
+                    "'Information' es incontable. Nunca 'informations' ni 'an information'.",
+                
+                8: isCorrect ? 
+                    "¡Exacto! Knife → knives (terminado en -fe cambia a -ves)." : 
+                    "Terminado en -fe: cambia a -ves. Knife → knives, wife → wives.",
+                
+                9: isCorrect ? 
+                    "¡Excelente! 'Furniture' es incontable. No decimos 'a furniture'." : 
+                    "'Furniture' es incontable. Los otros son contables.",
+                
+                10: isCorrect ? 
+                    "¡Muy bien! Key → keys (vocal + y solo añade -s)." : 
+                    "Vocal + y: solo añade -s. Key → keys, boy → boys.",
+                
+                11: isCorrect ? 
+                    "¡Perfecto! Man → men y woman → women (ambos irregulares)." : 
+                    "Dos plurales irregulares: man → men, woman → women.",
+                
+                12: isCorrect ? 
+                    "¡Excelente! 'News' es singular en inglés: 'The news is...'" : 
+                    "'News' termina en -s pero es SINGULAR en inglés."
+            };
+            
+            return explanations[questionId] || (isCorrect ? "¡Respuesta correcta!" : `La respuesta correcta es: ${correctOption}`);
+        }
+
+        // Mostrar validación con explicación
+        function showValidation(questionId, isCorrect, message) {
+            const validationContainer = document.getElementById(`validation${questionId}`);
+            
+            validationContainer.innerHTML = `
+                <div style="color: ${isCorrect ? '#2ecc71' : '#e74c3c'}; font-size: 20px; font-weight: 600; margin-bottom: 10px; text-align: center;">
+                    ${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}
+                </div>
+                <div style="color: #ecf0f1; font-size: 16px; line-height: 1.6; margin-bottom: 15px; text-align: center;">
+                    ${message}
+                </div>
+                ${!isCorrect ? `
+                    <div style="background: rgba(243, 156, 18, 0.1); padding: 15px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #f39c12;">
+                        <div style="color: #f39c12; font-weight: 600; margin-bottom: 8px; text-align: center;">💡 Para recordar:</div>
+                        <div style="color: #bdc3c7; font-size: 15px; line-height: 1.5; text-align: center;">${getStudyTip(questionId)}</div>
+                    </div>
+                ` : ''}
+            `;
+            
+            validationContainer.className = `validation-container ${isCorrect ? 'correct-validation' : 'incorrect-validation'}`;
+            validationContainer.style.display = 'block';
+            
+            // Desplazar para mostrar la validación
+            validationContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Consejos de estudio
+        function getStudyTip(questionId) {
+            const tips = {
+                1: "Nombres propios: personas específicas, ciudades, países, marcas. Siempre con mayúscula.",
+                2: "Incontables: water, information, advice, furniture, money. No usan 'a/an' ni tienen plural.",
+                3: "Information = información (siempre singular). Advice = consejo (siempre singular).",
+                4: "Regla: consonante + y → ies. Ejemplos: city→cities, baby→babies, family→families.",
+                5: "Colectivos: team, family, police, staff. Se refieren a grupos.",
+                6: "7 irregulares principales: man→men, woman→women, child→children, foot→feet, tooth→teeth, mouse→mice, person→people.",
+                7: "Para incontables: some information, a piece of information, a lot of information.",
+                8: "Terminados en -f/-fe: cambian a -ves. knife→knives, wife→wives, leaf→leaves.",
+                9: "Furniture = muebles (incontable). Para contar: a piece of furniture, two pieces of furniture.",
+                10: "Vocal + y: solo añade -s. boy→boys, day→days, key→keys, toy→toys.",
+                11: "Man→men, woman→women. ¡Pronunciación diferente! /mæn/ → /men/, /ˈwʊmən/ → /ˈwɪmɪn/.",
+                12: "News = noticias (siempre singular). Mathematics, physics, economics también son singulares."
+            };
+            
+            return tips[questionId] || "Recuerda practicar los plurales irregulares y los sustantivos incontables.";
+        }
+
+        // Actualizar puntuación
+        function updateScore() {
+            document.getElementById('score').textContent = score;
+        }
+
+        // Actualizar resultados finales
+        function updateFinalResults() {
+            document.getElementById('final-correct').textContent = correctAnswers;
+            document.getElementById('final-score-total').textContent = score;
+            const percentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+            document.getElementById('final-percentage').textContent = percentage + '%';
+        }
+
+        // Reiniciar curso completo
+        function restartCourse() {
+            // Reiniciar variables
+            currentPage = 1;
+            score = 0;
+            correctAnswers = 0;
+            selectedOptions = {};
+            questionChecked = {};
+            
+            // Ir a la primera página
+            goToPage(1);
+            
+            // Limpiar selecciones
+            const options = document.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Ocultar todas las validaciones
+            const validations = document.querySelectorAll('.validation-container');
+            validations.forEach(validation => {
+                validation.style.display = 'none';
+                validation.innerHTML = '';
+            });
+            
+            // Restablecer puntuación
+            updateScore();
+        }
+    </script>
+</body>
+</html>

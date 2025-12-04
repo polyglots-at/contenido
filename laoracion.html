@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estructura de la Oración en Inglés - Polyglots</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d1f2d;
+            background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 750px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .page-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilos de contenido */
+        .content-session {
+            padding: 20px;
+        }
+
+        .intro-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-title {
+            font-size: 28px;
+            color: #3498db;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .intro-text {
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #ecf0f1;
+        }
+
+        .intro-list {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .intro-list li {
+            margin-bottom: 12px;
+            line-height: 1.5;
+            color: #ecf0f1;
+        }
+
+        .usage-example {
+            background: rgba(52, 152, 219, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .example {
+            font-size: 22px;
+            color: #50c878;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .translation {
+            font-size: 18px;
+            color: #87CEEB;
+            padding: 8px 0;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .note {
+            font-size: 15px;
+            color: #f39c12;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: rgba(243, 156, 18, 0.2);
+            margin-top: 8px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .structure-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .structure-table th {
+            background: rgba(52, 152, 219, 0.3);
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .structure-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .structure-table tr:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .highlight {
+            color: #f39c12;
+            font-weight: 600;
+        }
+
+        .special-box {
+            background: rgba(243, 156, 18, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #f39c12;
+        }
+
+        .special-title {
+            color: #f39c12;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        /* Botones de navegación */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 16px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .prev-btn {
+            background: linear-gradient(145deg, #95a5a6, #7f8c8d);
+            color: white;
+        }
+
+        .prev-btn:hover {
+            background: linear-gradient(145deg, #7f8c8d, #6c7b7d);
+            transform: translateY(-2px);
+        }
+
+        .next-btn {
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            color: white;
+        }
+
+        .next-btn:hover {
+            background: linear-gradient(145deg, #27ae60, #219653);
+            transform: translateY(-2px);
+        }
+
+        /* Puntuación */
+        .score-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border: 2px solid #f39c12;
+        }
+
+        .score-value {
+            color: #f39c12;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        /* Página de práctica */
+        .practice-page {
+            padding: 20px;
+        }
+
+        .practice-title {
+            font-size: 26px;
+            color: #f39c12;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .practice-question {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .question-text {
+            font-size: 18px;
+            color: #ecf0f1;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .hint {
+            font-size: 14px;
+            color: #95a5a6;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .practice-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .practice-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .practice-option {
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+        }
+
+        .practice-option:hover {
+            background-color: rgba(52, 152, 219, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .practice-option.selected {
+            background-color: rgba(52, 152, 219, 0.5);
+            border-color: #2ecc71;
+            font-weight: 600;
+        }
+
+        .practice-option.correct {
+            background-color: rgba(46, 204, 113, 0.3);
+            border-color: #2ecc71;
+            color: #2ecc71;
+        }
+
+        .practice-option.incorrect {
+            background-color: rgba(231, 76, 60, 0.3);
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .check-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(145deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .check-btn:hover {
+            background: linear-gradient(145deg, #2980b9, #1f6396);
+            transform: translateY(-2px);
+        }
+
+        .validation-container {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            animation: slideIn 0.5s ease-out;
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .correct-validation {
+            background: linear-gradient(145deg, rgba(46, 204, 113, 0.3), rgba(39, 174, 96, 0.2));
+            border: 2px solid #2ecc71;
+            border-left: 6px solid #2ecc71;
+        }
+
+        .incorrect-validation {
+            background: linear-gradient(145deg, rgba(231, 76, 60, 0.3), rgba(192, 57, 43, 0.2));
+            border: 2px solid #e74c3c;
+            border-left: 6px solid #e74c3c;
+        }
+
+        /* Página de resultados */
+        .results-page {
+            text-align: center;
+            padding: 40px 20px;
+            animation: celebration 2s ease-in-out;
+        }
+
+        @keyframes celebration {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .checkmark {
+            font-size: 100px;
+            color: #2ecc71;
+            margin-bottom: 25px;
+            animation: bounce 1.5s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-15px); }
+        }
+
+        .congrats-title {
+            font-size: 36px;
+            color: #2ecc71;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .congrats-message {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #87CEEB;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 2px solid #3498db;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            color: #f39c12;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #95a5a6;
+        }
+
+        .final-message {
+            font-style: italic;
+            color: #50c878;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(80, 200, 120, 0.2);
+            border-radius: 12px;
+            border-left: 4px solid #50c878;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        /* Cajas especiales */
+        .comparison-box {
+            background: rgba(231, 76, 60, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #e74c3c;
+        }
+
+        .comparison-title {
+            color: #e74c3c;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .review-box {
+            background: rgba(52, 152, 219, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #3498db;
+        }
+
+        .review-title {
+            color: #3498db;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        /* Visualización de estructura */
+        .sentence-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .part-box {
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .subject-box {
+            background: rgba(52, 152, 219, 0.3);
+            border: 2px solid #3498db;
+        }
+
+        .verb-box {
+            background: rgba(46, 204, 113, 0.3);
+            border: 2px solid #2ecc71;
+        }
+
+        .object-box {
+            background: rgba(155, 89, 182, 0.3);
+            border: 2px solid #9b59b6;
+        }
+
+        .arrow {
+            font-size: 24px;
+            color: #f39c12;
+        }
+    </style>
+</head>
+<body>
+    <!-- Puntuación -->
+    <div class="score-display">
+        Puntuación: <span class="score-value" id="score">0</span> puntos
+    </div>
+
+    <!-- PÁGINA 1: INTRODUCCIÓN A LA ESTRUCTURA DEL INGLÉS -->
+    <div class="page-container active" id="page1">
+        <div class="content-session">
+            <div class="intro-container">
+                <div class="intro-title">🏗️ La Estructura Fundamental del Inglés</div>
+                
+                <div class="intro-text">
+                    El inglés es un idioma con una estructura <strong>rígida y predecible</strong>. 
+                    A diferencia del español, donde podemos cambiar el orden de las palabras, 
+                    en inglés <strong>el orden es sagrado</strong> y cambia completamente el significado.
+                </div>
+
+                <div class="sentence-visual">
+                    <div class="part-box subject-box">SUJETO</div>
+                    <div class="arrow">→</div>
+                    <div class="part-box verb-box">VERBO</div>
+                    <div class="arrow">→</div>
+                    <div class="part-box object-box">OBJETO</div>
+                </div>
+
+                <div class="intro-text">
+                    <strong>Fórmula básica: SVO (Sujeto - Verbo - Objeto)</strong>
+                </div>
+
+                <table class="structure-table">
+                    <thead>
+                        <tr>
+                            <th>Español (Flexible)</th>
+                            <th>Inglés (Rígido)</th>
+                            <th>Traducción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Yo como manzanas</td>
+                            <td><span class="highlight">I eat apples</span></td>
+                            <td>✅ CORRECTO</td>
+                        </tr>
+                        <tr>
+                            <td>Como yo manzanas</td>
+                            <td>Eat I apples</td>
+                            <td>❌ INCORRECTO</td>
+                        </tr>
+                        <tr>
+                            <td>Manzanas como yo</td>
+                            <td>Apples eat I</td>
+                            <td>❌ INCORRECTO</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="comparison-box">
+                    <div class="comparison-title">⚡ La Gran Diferencia</div>
+                    <div class="intro-text">
+                        <strong>En español:</strong> Podemos decir "Como manzanas", "Manzanas como", "Yo manzanas como"<br>
+                        <strong>En inglés:</strong> Solo <span class="highlight">"I eat apples"</span> es correcto.<br><br>
+                        El sujeto (I) <strong>siempre</strong> va primero, luego el verbo (eat), luego el objeto (apples).
+                    </div>
+                </div>
+
+                <div class="special-box">
+                    <div class="special-title">🎯 Regla de Oro del Inglés</div>
+                    <div class="intro-text">
+                        1. <strong>El sujeto es obligatorio</strong> (no como en español)<br>
+                        2. <strong>El orden SVO es sagrado</strong><br>
+                        3. <strong>Cambiar el orden cambia el significado</strong>
+                    </div>
+                </div>
+
+                <div class="review-box">
+                    <div class="review-title">🔗 Conexión con lo Aprendido</div>
+                    <div class="intro-text">
+                        Esto explica por qué en las lecciones anteriores insistimos tanto en:<br>
+                        • <strong>Pronombres personales</strong> (siempre necesitas un sujeto)<br>
+                        • <strong>Verbo "to be"</strong> (siempre después del sujeto)<br>
+                        • <strong>Artículos</strong> (con el objeto, no con el sujeto)
+                    </div>
+                </div>
+
+                <div class="usage-example">
+                    <div class="example">"The student studies English every day"</div>
+                    <div class="translation">"El estudiante estudia inglés todos los días"</div>
+                    <div class="note">
+                        Sujeto (The student) + Verbo (studies) + Objeto (English) + Complemento (every day)
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn next-btn" onclick="goToPage(2)">Continuar a Práctica ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 2: PRÁCTICA BÁSICA -->
+    <div class="page-container" id="page2">
+        <div class="practice-page">
+            <div class="practice-title">📝 Práctica Básica: Identificando SVO</div>
+            
+            <div class="hint">Identifica las partes de la oración según la estructura SVO</div>
+
+            <!-- Pregunta 1 -->
+            <div class="practice-question" data-question="1">
+                <div class="question-text">1. En la oración "Maria reads books", ¿cuál es el SUJETO?</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">Maria</div>
+                    <div class="practice-option" data-correct="false">reads</div>
+                    <div class="practice-option" data-correct="false">books</div>
+                    <div class="practice-option" data-correct="false">Maria reads</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(1)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation1"></div>
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div class="practice-question" data-question="2">
+                <div class="question-text">2. En "The cat drinks milk", ¿cuál es el OBJETO?</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">The cat</div>
+                    <div class="practice-option" data-correct="false">drinks</div>
+                    <div class="practice-option" data-correct="true">milk</div>
+                    <div class="practice-option" data-correct="false">The</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(2)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation2"></div>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div class="practice-question" data-question="3">
+                <div class="question-text">3. ¿Cuál oración tiene la estructura SVO correcta?</div>
+                <div class="hint">Recuerda: Sujeto → Verbo → Objeto</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">Speaks English Maria</div>
+                    <div class="practice-option" data-correct="true">Maria speaks English</div>
+                    <div class="practice-option" data-correct="false">English Maria speaks</div>
+                    <div class="practice-option" data-correct="false">Speaks Maria English</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(3)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation3"></div>
+            </div>
+
+            <!-- Pregunta 4 -->
+            <div class="practice-question" data-question="4">
+                <div class="question-text">4. Traduce al inglés: "Los estudiantes aprenden matemáticas"</div>
+                <div class="hint">Sujeto: Los estudiantes → The students, Verbo: aprenden → learn, Objeto: matemáticas → mathematics</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">The students learn mathematics</div>
+                    <div class="practice-option" data-correct="false">Learn the students mathematics</div>
+                    <div class="practice-option" data-correct="false">Mathematics learn the students</div>
+                    <div class="practice-option" data-correct="false">The students mathematics learn</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(4)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation4"></div>
+            </div>
+
+            <!-- Pregunta 5 -->
+            <div class="practice-question" data-question="5">
+                <div class="question-text">5. ¿Qué falta en esta oración? "___ watches television every night"</div>
+                <div class="hint">En inglés, el sujeto es obligatorio</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">Un sujeto (He, She, John, etc.)</div>
+                    <div class="practice-option" data-correct="false">Un artículo</div>
+                    <div class="practice-option" data-correct="false">Un adjetivo</div>
+                    <div class="practice-option" data-correct="false">Un adverbio</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(5)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation5"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(1)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(3)">Continuar a Estructuras Complejas ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 3: ESTRUCTURAS COMPLEJAS -->
+    <div class="page-container" id="page3">
+        <div class="content-session">
+            <div class="intro-container">
+                <div class="intro-title">🧩 Estructuras Complejas del Inglés</div>
+
+                <div class="intro-text">
+                    Ahora que dominas SVO, veamos cómo se forman las <strong>preguntas</strong> y <strong>negaciones</strong>.
+                </div>
+
+                <div class="special-box">
+                    <div class="special-title">❓ Estructura de Preguntas (Questions)</div>
+                    <div class="intro-text">
+                        <strong>Con verbos normales:</strong> Auxiliar + Sujeto + Verbo principal<br>
+                        <strong>Ejemplo:</strong> "<span class="highlight">Do</span> <span class="highlight">you</span> <span class="highlight">speak</span> English?"<br><br>
+                        
+                        <strong>Con verbo "to be":</strong> Verbo "to be" + Sujeto<br>
+                        <strong>Ejemplo:</strong> "<span class="highlight">Are</span> <span class="highlight">you</span> a student?"
+                    </div>
+                </div>
+
+                <div class="special-box">
+                    <div class="special-title">🚫 Estructura de Negaciones (Negatives)</div>
+                    <div class="intro-text">
+                        <strong>Con verbos normales:</strong> Sujeto + Auxiliar + NOT + Verbo principal<br>
+                        <strong>Ejemplo:</strong> "I <span class="highlight">do not</span> speak Chinese"<br><br>
+                        
+                        <strong>Con verbo "to be":</strong> Sujeto + "to be" + NOT<br>
+                        <strong>Ejemplo:</strong> "She <span class="highlight">is not</span> a doctor"
+                    </div>
+                </div>
+
+                <table class="structure-table">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Fórmula</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Afirmativa</strong></td>
+                            <td>S + V + O</td>
+                            <td>You speak English</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Negativa</strong></td>
+                            <td>S + aux + NOT + V + O</td>
+                            <td>You <span class="highlight">do not</span> speak Chinese</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pregunta</strong></td>
+                            <td>Aux + S + V + O</td>
+                            <td><span class="highlight">Do</span> you speak English?</td>
+                        </tr>
+                        <tr>
+                            <td><strong>"To be" Negativa</strong></td>
+                            <td>S + to be + NOT</td>
+                            <td>I <span class="highlight">am not</span> a teacher</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="review-box">
+                    <div class="review-title">🎯 Patrones Clave para Memorizar</div>
+                    <div class="intro-list">
+                        <li><strong>Preguntas:</strong> Auxiliar al principio</li>
+                        <li><strong>Negaciones:</strong> NOT después del auxiliar o "to be"</li>
+                        <li><strong>"To be":</strong> Es especial - no necesita auxiliar para preguntas/negaciones</li>
+                        <li><strong>Verbos normales:</strong> Necesitan "do/does" para preguntas y negaciones</li>
+                    </div>
+                </div>
+
+                <div class="usage-example">
+                    <div class="example">Transformación completa:</div>
+                    <div class="example">Afirmativa: "She eats pizza"</div>
+                    <div class="example">Negativa: "She does not eat pizza"</div>
+                    <div class="example">Pregunta: "Does she eat pizza?"</div>
+                    <div class="translation">(Ella come pizza / Ella no come pizza / ¿Ella come pizza?)</div>
+                </div>
+
+                <div class="note">
+                    <strong>Nota:</strong> Observa cómo en la negación y pregunta usamos "does" (para she/he/it) 
+                    y el verbo principal vuelve a su forma base "eat" (sin -s).
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(2)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(4)">Continuar a Práctica Avanzada ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 4: PRÁCTICA AVANZADA -->
+    <div class="page-container" id="page4">
+        <div class="practice-page">
+            <div class="practice-title">📝 Práctica Avanzada: Todo Junto</div>
+
+            <div class="hint">Combina todo lo aprendido: SVO + Preguntas + Negaciones</div>
+
+            <!-- Pregunta 6 -->
+            <div class="practice-question" data-question="6">
+                <div class="question-text">6. ¿Cuál es la pregunta correcta para "He is a teacher"?</div>
+                <div class="hint">Recuerda: Con "to be", el verbo va al inicio en preguntas</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">He is a teacher?</div>
+                    <div class="practice-option" data-correct="true">Is he a teacher?</div>
+                    <div class="practice-option" data-correct="false">Does he is a teacher?</div>
+                    <div class="practice-option" data-correct="false">He a teacher is?</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(6)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation6"></div>
+            </div>
+
+            <!-- Pregunta 7 -->
+            <div class="practice-question" data-question="7">
+                <div class="question-text">7. Convierte a negativa: "They study French"</div>
+                <div class="hint">Necesitas el auxiliar "do" + "not" (para "they")</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">They do not study French</div>
+                    <div class="practice-option" data-correct="false">They not study French</div>
+                    <div class="practice-option" data-correct="false">No they study French</div>
+                    <div class="practice-option" data-correct="false">They study not French</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(7)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation7"></div>
+            </div>
+
+            <!-- Pregunta 8 -->
+            <div class="practice-question" data-question="8">
+                <div class="question-text">8. Ordena correctamente: "English / We / speak / every day"</div>
+                <div class="hint">Sujeto (We) → Verbo (speak) → Objeto (English) → Complemento (every day)</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">English We speak every day</div>
+                    <div class="practice-option" data-correct="false">Speak We English every day</div>
+                    <div class="practice-option" data-correct="true">We speak English every day</div>
+                    <div class="practice-option" data-correct="false">We English speak every day</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(8)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation8"></div>
+            </div>
+
+            <!-- Pregunta 9 -->
+            <div class="practice-question" data-question="9">
+                <div class="question-text">9. ¿Cuál es la traducción correcta de "Mi hermana no es doctora"?</div>
+                <div class="hint">Hermana = sister, doctora = doctor, "no es" = is not/isn't</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">My sister not is a doctor</div>
+                    <div class="practice-option" data-correct="true">My sister is not a doctor</div>
+                    <div class="practice-option" data-correct="false">My sister no is doctor</div>
+                    <div class="practice-option" data-correct="false">Is not my sister a doctor</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(9)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation9"></div>
+            </div>
+
+            <!-- Pregunta 10 -->
+            <div class="practice-question" data-question="10">
+                <div class="question-text">10. Completa: "___ you have ___ sister?"</div>
+                <div class="hint">Pregunta → auxiliar "Do", "sister" → comienza con sonido de consonante</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">Are / an</div>
+                    <div class="practice-option" data-correct="true">Do / a</div>
+                    <div class="practice-option" data-correct="false">Is / a</div>
+                    <div class="practice-option" data-correct="false">Do / the</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(10)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation10"></div>
+            </div>
+
+            <!-- Pregunta 11 -->
+            <div class="practice-question" data-question="11">
+                <div class="question-text">11. Corrige el error: "She no speaks Italian"</div>
+                <div class="hint">Para negar en presente con "she": does + not + verbo base</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">She does not speak Italian</div>
+                    <div class="practice-option" data-correct="false">She not speaks Italian</div>
+                    <div class="practice-option" data-correct="false">No she speaks Italian</div>
+                    <div class="practice-option" data-correct="false">She speaks no Italian</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(11)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation11"></div>
+            </div>
+
+            <!-- Pregunta 12 -->
+            <div class="practice-question" data-question="12">
+                <div class="question-text">12. Traduce: "¿Estudian ellos español en la escuela?"</div>
+                <div class="hint">Pregunta → "Do" al inicio, "ellos" → they, "español" → Spanish, "en la escuela" → at school</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">They study Spanish at school?</div>
+                    <div class="practice-option" data-correct="true">Do they study Spanish at school?</div>
+                    <div class="practice-option" data-correct="false">Study they Spanish at school?</div>
+                    <div class="practice-option" data-correct="false">They do study Spanish at school?</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(12)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation12"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(3)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(5)">Ver Mis Resultados ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 5: RESULTADOS FINALES -->
+    <div class="page-container" id="page5">
+        <div class="results-page">
+            <div class="checkmark">🏗️</div>
+            <div class="congrats-title">¡FUNDAMENTOS ESTABLECIDOS!</div>
+
+            <div class="congrats-message">
+                Has comprendido la <strong>estructura fundamental del inglés</strong>.<br>
+                Ahora tienes los cimientos para construir cualquier oración correctamente.
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="final-correct">0</div>
+                    <div class="stat-label">Respuestas Correctas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="final-score-total">0</div>
+                    <div class="stat-label">Puntos Totales</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="final-percentage">0%</div>
+                    <div class="stat-label">Porcentaje</div>
+                </div>
+            </div>
+
+            <div class="final-message">
+                <strong>Lo que has dominado en esta lección:</strong><br>
+                1. <strong>La estructura SVO</strong> (Sujeto-Verbo-Objeto)<br>
+                2. <strong>La rigidez del inglés</strong> vs la flexibilidad del español<br>
+                3. <strong>Formación de preguntas</strong> con auxiliares<br>
+                4. <strong>Formación de negaciones</strong> con "not"<br>
+                5. <strong>La diferencia entre verbos normales y "to be"</strong><br><br>
+
+                <strong>Consejo final:</strong> Cuando dudes sobre cómo formar una oración en inglés, 
+                piensa siempre en SVO. Es tu fórmula mágica para el 90% de las oraciones.
+            </div>
+
+            <div class="special-box">
+                <div class="special-title">🔮 Tu Nueva Mentalidad para el Inglés</div>
+                <div class="intro-text">
+                    De ahora en adelante, cuando pienses en inglés:<br>
+                    <strong>1. Identifica el sujeto</strong> → ¿Quién?<br>
+                    <strong>2. Identifica el verbo</strong> → ¿Qué acción?<br>
+                    <strong>3. Identifica el objeto</strong> → ¿Qué recibe la acción?<br>
+                    <strong>4. Ponlos en ese orden exacto</strong> → Sujeto → Verbo → Objeto
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(4)">← Volver a Práctica</button>
+                <button class="nav-btn next-btn" onclick="restartCourse()" style="background: linear-gradient(145deg, #9b59b6, #8e44ad);">
+                    🔄 Repetir Lección Completa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentPage = 1;
+        let totalPages = 5;
+        let score = 0;
+        let correctAnswers = 0;
+        let totalQuestions = 12;
+        let selectedOptions = {};
+        let questionChecked = {};
+
+        // Inicializar cuando se carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            updateScore();
+            setupEventListeners();
+        });
+
+        // Configurar event listeners para opciones de práctica
+        function setupEventListeners() {
+            const options = document.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionContainer = this.closest('.practice-question');
+                    const questionId = questionContainer.getAttribute('data-question');
+                    
+                    // Remover selección anterior en esta pregunta
+                    const parent = this.parentElement;
+                    const siblings = parent.querySelectorAll('.practice-option');
+                    siblings.forEach(sibling => {
+                        sibling.classList.remove('selected');
+                    });
+                    
+                    // Seleccionar esta opción
+                    this.classList.add('selected');
+                    selectedOptions[questionId] = this;
+                    
+                    // Ocultar validación previa si existe
+                    const validationId = `validation${questionId}`;
+                    const validationContainer = document.getElementById(validationId);
+                    if (validationContainer) {
+                        validationContainer.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Ir a una página específica
+        function goToPage(pageNumber) {
+            // Ocultar página actual
+            const current = document.querySelector('.page-container.active');
+            if (current) {
+                current.classList.remove('active');
+            }
+            
+            // Mostrar página solicitada
+            currentPage = pageNumber;
+            const targetPage = document.getElementById(`page${pageNumber}`);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            
+            // Si es la última página, actualizar resultados
+            if (currentPage === totalPages) {
+                updateFinalResults();
+            }
+            
+            // Desplazar al inicio de la página
+            window.scrollTo(0, 0);
+        }
+
+        // Verificar respuesta de una pregunta
+        function checkAnswer(questionId) {
+            const selectedOption = selectedOptions[questionId];
+            const validationContainer = document.getElementById(`validation${questionId}`);
+            
+            if (!selectedOption) {
+                showValidation(questionId, false, "Por favor, selecciona una opción antes de verificar.");
+                return;
+            }
+            
+            const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+            
+            // Mostrar todas las opciones correctas/incorrectas
+            const options = selectedOption.parentElement.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                if (option.getAttribute('data-correct') === 'true') {
+                    option.classList.add('correct');
+                } else if (option === selectedOption && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (isCorrect) {
+                if (!questionChecked[questionId]) {
+                    score += 10;
+                    correctAnswers++;
+                    questionChecked[questionId] = true;
+                }
+                
+                let explanation = getExplanation(questionId, true);
+                showValidation(questionId, true, `¡Correcto! ${explanation}`);
+                
+            } else {
+                let correctOptionText = "";
+                const options = selectedOption.parentElement.querySelectorAll('.practice-option');
+                options.forEach(option => {
+                    if (option.getAttribute('data-correct') === 'true') {
+                        correctOptionText = option.textContent;
+                    }
+                });
+                
+                let explanation = getExplanation(questionId, false, correctOptionText);
+                showValidation(questionId, false, `Incorrecto. ${explanation}`);
+            }
+            
+            // Actualizar puntuación
+            updateScore();
+        }
+
+        // Obtener explicación para preguntas
+        function getExplanation(questionId, isCorrect, correctOption = "") {
+            const explanations = {
+                1: isCorrect ? 
+                    "¡Exacto! 'Maria' es el sujeto (quién realiza la acción de leer)." : 
+                    "El sujeto es quien realiza la acción. En 'Maria reads books', el sujeto es 'Maria'.",
+                
+                2: isCorrect ? 
+                    "¡Correcto! 'milk' es el objeto (lo que recibe la acción de beber)." : 
+                    "El objeto es lo que recibe la acción. En 'The cat drinks milk', el objeto es 'milk'.",
+                
+                3: isCorrect ? 
+                    "¡Perfecto! 'Maria speaks English' sigue exactamente la estructura SVO." : 
+                    "La estructura correcta es siempre: Sujeto (Maria) → Verbo (speaks) → Objeto (English).",
+                
+                4: isCorrect ? 
+                    "¡Excelente! Mantuviste el orden SVO en la traducción." : 
+                    "La traducción debe mantener: Sujeto (The students) → Verbo (learn) → Objeto (mathematics).",
+                
+                5: isCorrect ? 
+                    "¡Muy bien! En inglés el sujeto es obligatorio, no se puede omitir como en español." : 
+                    "En inglés siempre necesitas un sujeto. La oración completa sería algo como 'He watches television'.",
+                
+                6: isCorrect ? 
+                    "¡Perfecto! Con 'to be', las preguntas se forman: Verbo 'to be' + Sujeto." : 
+                    "Con el verbo 'to be', las preguntas se forman: Verbo + Sujeto + Resto. 'Is he a teacher?'",
+                
+                7: isCorrect ? 
+                    "¡Correcto! Para negar en presente con 'they': they + do + not + verbo base." : 
+                    "Para negar en presente simple: Sujeto + do/does + not + verbo base. 'They do not study French'.",
+                
+                8: isCorrect ? 
+                    "¡Exacto! 'We speak English every day' sigue perfectamente SVO + complemento." : 
+                    "El orden correcto es: Sujeto (We) → Verbo (speak) → Objeto (English) → Complemento (every day).",
+                
+                9: isCorrect ? 
+                    "¡Muy bien! Con 'to be', la negación es: Sujeto + 'to be' + NOT + complemento." : 
+                    "'No es' se traduce como 'is not' o 'isn't'. 'My sister is not a doctor'.",
+                
+                10: isCorrect ? 
+                    "¡Excelente! 'Do' para preguntas en presente, 'a' porque 'sister' empieza con sonido de consonante." : 
+                    "Preguntas en presente: Do/Does + sujeto + verbo. 'Sister' necesita 'a' (no 'an').",
+                
+                11: isCorrect ? 
+                    "¡Perfecto! Para tercera persona singular: She/He/It + does + not + verbo base." : 
+                    "Para negar con 'she': She + does + not + verbo base. 'She does not speak Italian'.",
+                
+                12: isCorrect ? 
+                    "¡Excelente! Preguntas en inglés siempre empiezan con auxiliar (Do/Does/Are/Is)." : 
+                    "Las preguntas en presente simple: Do/Does + sujeto + verbo + objeto + complemento."
+            };
+            
+            return explanations[questionId] || (isCorrect ? "¡Respuesta correcta!" : `La respuesta correcta es: ${correctOption}`);
+        }
+
+        // Mostrar validación con explicación
+        function showValidation(questionId, isCorrect, message) {
+            const validationContainer = document.getElementById(`validation${questionId}`);
+            
+            validationContainer.innerHTML = `
+                <div style="color: ${isCorrect ? '#2ecc71' : '#e74c3c'}; font-size: 20px; font-weight: 600; margin-bottom: 10px; text-align: center;">
+                    ${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}
+                </div>
+                <div style="color: #ecf0f1; font-size: 16px; line-height: 1.6; margin-bottom: 15px; text-align: center;">
+                    ${message}
+                </div>
+                ${!isCorrect ? `
+                    <div style="background: rgba(243, 156, 18, 0.1); padding: 15px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #f39c12;">
+                        <div style="color: #f39c12; font-weight: 600; margin-bottom: 8px; text-align: center;">💡 Para recordar:</div>
+                        <div style="color: #bdc3c7; font-size: 15px; line-height: 1.5; text-align: center;">${getStudyTip(questionId)}</div>
+                    </div>
+                ` : ''}
+            `;
+            
+            validationContainer.className = `validation-container ${isCorrect ? 'correct-validation' : 'incorrect-validation'}`;
+            validationContainer.style.display = 'block';
+            
+            // Desplazar para mostrar la validación
+            validationContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Consejos de estudio
+        function getStudyTip(questionId) {
+            const tips = {
+                1: "Recuerda: SUJETO = quien hace la acción. Siempre al inicio de la oración en inglés.",
+                2: "OBJETO = lo que recibe la acción. Va después del verbo en la estructura SVO.",
+                3: "Visualiza mentalmente: [PERSONA] + [ACCIÓN] + [COSA]. Ese es el orden sagrado.",
+                4: "Al traducir: 1. Identifica sujeto, 2. Identifica verbo, 3. Identifica objeto, 4. Ponlos en SVO.",
+                5: "Esta es la diferencia más grande entre español e inglés: en inglés el sujeto es OBLIGATORIO.",
+                6: "Con 'to be': Para preguntas → verbo primero. Para afirmaciones → sujeto primero.",
+                7: "Para negar: Sujeto + DO/DOES + NOT + verbo base. Nunca uses solo 'no'.",
+                8: "Practica mentalmente: Yo hablo inglés → I speak English. Siempre sujeto-verbo-objeto.",
+                9: "'No es' = 'is not'. El orden inglés es matemático: Sujeto + is + not + complemento.",
+                10: "Regla de preguntas: Auxiliar primero. Regla de artículos: 'a' antes de consonantes, 'an' antes de vocales (sonido).",
+                11: "Para tercera persona singular (he/she/it): does + not + verbo base. ¡Quita la 's' del verbo!",
+                12: "Tu mente debe cambiar: ¿Estudian? → Do they study? El auxiliar marca la pregunta."
+            };
+            
+            return tips[questionId] || "Visualiza la estructura SVO. Sujeto → Verbo → Objeto. ¡Esa es la clave del inglés!";
+        }
+
+        // Actualizar puntuación
+        function updateScore() {
+            document.getElementById('score').textContent = score;
+        }
+
+        // Actualizar resultados finales
+        function updateFinalResults() {
+            document.getElementById('final-correct').textContent = correctAnswers;
+            document.getElementById('final-score-total').textContent = score;
+            const percentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+            document.getElementById('final-percentage').textContent = percentage + '%';
+        }
+
+        // Reiniciar curso completo
+        function restartCourse() {
+            // Reiniciar variables
+            currentPage = 1;
+            score = 0;
+            correctAnswers = 0;
+            selectedOptions = {};
+            questionChecked = {};
+            
+            // Ir a la primera página
+            goToPage(1);
+            
+            // Limpiar selecciones
+            const options = document.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Ocultar todas las validaciones
+            const validations = document.querySelectorAll('.validation-container');
+            validations.forEach(validation => {
+                validation.style.display = 'none';
+                validation.innerHTML = '';
+            });
+            
+            // Restablecer puntuación
+            updateScore();
+        }
+    </script>
+</body>
+</html>

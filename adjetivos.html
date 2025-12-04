@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adjetivos en Inglés - Polyglots</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d1f2d;
+            background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+            color: white;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 750px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .page-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilos de contenido */
+        .content-session {
+            padding: 20px;
+        }
+
+        .intro-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-title {
+            font-size: 28px;
+            color: #3498db;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .intro-text {
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #ecf0f1;
+        }
+
+        .intro-list {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .intro-list li {
+            margin-bottom: 12px;
+            line-height: 1.5;
+            color: #ecf0f1;
+        }
+
+        .usage-example {
+            background: rgba(52, 152, 219, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .example {
+            font-size: 22px;
+            color: #50c878;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .translation {
+            font-size: 18px;
+            color: #87CEEB;
+            padding: 8px 0;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .note {
+            font-size: 15px;
+            color: #f39c12;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: rgba(243, 156, 18, 0.2);
+            margin-top: 8px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .adjective-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .adjective-table th {
+            background: rgba(52, 152, 219, 0.3);
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .adjective-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .adjective-table tr:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .highlight {
+            color: #f39c12;
+            font-weight: 600;
+        }
+
+        .special-box {
+            background: rgba(243, 156, 18, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #f39c12;
+        }
+
+        .special-title {
+            color: #f39c12;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        /* Botones de navegación */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 16px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        .prev-btn {
+            background: linear-gradient(145deg, #95a5a6, #7f8c8d);
+            color: white;
+        }
+
+        .prev-btn:hover {
+            background: linear-gradient(145deg, #7f8c8d, #6c7b7d);
+            transform: translateY(-2px);
+        }
+
+        .next-btn {
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            color: white;
+        }
+
+        .next-btn:hover {
+            background: linear-gradient(145deg, #27ae60, #219653);
+            transform: translateY(-2px);
+        }
+
+        /* Puntuación */
+        .score-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border: 2px solid #f39c12;
+        }
+
+        .score-value {
+            color: #f39c12;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        /* Página de práctica */
+        .practice-page {
+            padding: 20px;
+        }
+
+        .practice-title {
+            font-size: 26px;
+            color: #f39c12;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .practice-question {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #f39c12;
+        }
+
+        .question-text {
+            font-size: 18px;
+            color: #ecf0f1;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .hint {
+            font-size: 14px;
+            color: #95a5a6;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .practice-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .practice-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .practice-option {
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+        }
+
+        .practice-option:hover {
+            background-color: rgba(52, 152, 219, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .practice-option.selected {
+            background-color: rgba(52, 152, 219, 0.5);
+            border-color: #2ecc71;
+            font-weight: 600;
+        }
+
+        .practice-option.correct {
+            background-color: rgba(46, 204, 113, 0.3);
+            border-color: #2ecc71;
+            color: #2ecc71;
+        }
+
+        .practice-option.incorrect {
+            background-color: rgba(231, 76, 60, 0.3);
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .check-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(145deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .check-btn:hover {
+            background: linear-gradient(145deg, #2980b9, #1f6396);
+            transform: translateY(-2px);
+        }
+
+        .validation-container {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            animation: slideIn 0.5s ease-out;
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .correct-validation {
+            background: linear-gradient(145deg, rgba(46, 204, 113, 0.3), rgba(39, 174, 96, 0.2));
+            border: 2px solid #2ecc71;
+            border-left: 6px solid #2ecc71;
+        }
+
+        .incorrect-validation {
+            background: linear-gradient(145deg, rgba(231, 76, 60, 0.3), rgba(192, 57, 43, 0.2));
+            border: 2px solid #e74c3c;
+            border-left: 6px solid #e74c3c;
+        }
+
+        /* Página de resultados */
+        .results-page {
+            text-align: center;
+            padding: 40px 20px;
+            animation: celebration 2s ease-in-out;
+        }
+
+        @keyframes celebration {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .checkmark {
+            font-size: 100px;
+            color: #2ecc71;
+            margin-bottom: 25px;
+            animation: bounce 1.5s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-15px); }
+        }
+
+        .congrats-title {
+            font-size: 36px;
+            color: #2ecc71;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .congrats-message {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #87CEEB;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 2px solid #3498db;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            color: #f39c12;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #95a5a6;
+        }
+
+        .final-message {
+            font-style: italic;
+            color: #50c878;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(80, 200, 120, 0.2);
+            border-radius: 12px;
+            border-left: 4px solid #50c878;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        /* Cajas especiales */
+        .comparison-box {
+            background: rgba(231, 76, 60, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #e74c3c;
+        }
+
+        .comparison-title {
+            color: #e74c3c;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .review-box {
+            background: rgba(52, 152, 219, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #3498db;
+        }
+
+        .review-title {
+            color: #3498db;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        /* Visualización de adjetivos */
+        .adjective-visual {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 25px 0;
+        }
+
+        .adjective-card {
+            background: rgba(155, 89, 182, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #9b59b6;
+            width: 150px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .adjective-card:hover {
+            transform: translateY(-5px);
+            background: rgba(155, 89, 182, 0.3);
+        }
+
+        .adjective-english {
+            font-size: 20px;
+            color: #9b59b6;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .adjective-spanish {
+            font-size: 16px;
+            color: #ecf0f1;
+        }
+
+        /* Orden de adjetivos */
+        .order-box {
+            background: rgba(46, 204, 113, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #2ecc71;
+        }
+
+        .order-title {
+            color: #2ecc71;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .order-step {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .step-number {
+            background: #f39c12;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+
+        .step-text {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Puntuación -->
+    <div class="score-display">
+        Puntuación: <span class="score-value" id="score">0</span> puntos
+    </div>
+
+    <!-- PÁGINA 1: INTRODUCCIÓN A LOS ADJETIVOS -->
+    <div class="page-container active" id="page1">
+        <div class="content-session">
+            <div class="intro-container">
+                <div class="intro-title">🎨 Los Adjetivos en Inglés</div>
+                
+                <div class="intro-text">
+                    Los adjetivos son palabras que <strong>describen o modifican sustantivos</strong>. 
+                    Nos dicen cómo es alguien o algo: color, tamaño, forma, personalidad, etc.
+                </div>
+
+                <div class="adjective-visual">
+                    <div class="adjective-card">
+                        <div class="adjective-english">Big</div>
+                        <div class="adjective-spanish">Grande</div>
+                    </div>
+                    <div class="adjective-card">
+                        <div class="adjective-english">Red</div>
+                        <div class="adjective-spanish">Rojo</div>
+                    </div>
+                    <div class="adjective-card">
+                        <div class="adjective-english">Happy</div>
+                        <div class="adjective-spanish">Feliz</div>
+                    </div>
+                    <div class="adjective-card">
+                        <div class="adjective-english">Beautiful</div>
+                        <div class="adjective-spanish">Hermoso</div>
+                    </div>
+                </div>
+
+                <div class="intro-text">
+                    <strong>Posición del adjetivo en inglés:</strong>
+                </div>
+
+                <table class="adjective-table">
+                    <thead>
+                        <tr>
+                            <th>Situación</th>
+                            <th>Posición</th>
+                            <th>Ejemplo</th>
+                            <th>Traducción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Antes del sustantivo</td>
+                            <td>Adjetivo + Sustantivo</td>
+                            <td><span class="highlight">A big house</span></td>
+                            <td>Una casa grande</td>
+                        </tr>
+                        <tr>
+                            <td>Después de "to be"</td>
+                            <td>Sujeto + "to be" + Adjetivo</td>
+                            <td><span class="highlight">The house is big</span></td>
+                            <td>La casa es grande</td>
+                        </tr>
+                        <tr>
+                            <td>Después de verbos de percepción</td>
+                            <td>Verbo + Adjetivo</td>
+                            <td><span class="highlight">It looks beautiful</span></td>
+                            <td>Se ve hermoso</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="comparison-box">
+                    <div class="comparison-title">⚡ Diferencia Español vs Inglés</div>
+                    <div class="intro-text">
+                        <strong>En español:</strong> El adjetivo generalmente va <strong>después</strong> del sustantivo<br>
+                        <strong>Ejemplo:</strong> "Una casa <strong>grande</strong>"<br><br>
+                        
+                        <strong>En inglés:</strong> El adjetivo generalmente va <strong>antes</strong> del sustantivo<br>
+                        <strong>Ejemplo:</strong> "<strong>A big</strong> house"<br><br>
+                        
+                        <strong>Excepción:</strong> Cuando usamos el verbo "to be", el adjetivo va después.
+                    </div>
+                </div>
+
+                <div class="special-box">
+                    <div class="special-title">🎯 Reglas Básicas de los Adjetivos</div>
+                    <div class="intro-text">
+                        1. <strong>No tienen género:</strong> "big" sirve para masculino y femenino<br>
+                        2. <strong>No tienen número:</strong> "big" sirve para singular y plural<br>
+                        3. <strong>No cambian:</strong> Siempre mantienen la misma forma<br>
+                        4. <strong>Van antes del sustantivo:</strong> A diferencia del español
+                    </div>
+                </div>
+
+                <div class="review-box">
+                    <div class="review-title">🔗 Conexión con lo Aprendido</div>
+                    <div class="intro-text">
+                        Recuerda nuestra estructura SVO:<br>
+                        • <strong>Sujeto:</strong> Puede llevar adjetivo → "The <span class="highlight">big</span> cat"<br>
+                        • <strong>Verbo:</strong> "to be" + adjetivo → "The cat <span class="highlight">is big</span>"<br>
+                        • <strong>Objeto:</strong> Puede llevar adjetivo → "I have a <span class="highlight">red</span> car"
+                    </div>
+                </div>
+
+                <div class="usage-example">
+                    <div class="example">"She has a beautiful new dress"</div>
+                    <div class="translation">"Ella tiene un vestido nuevo hermoso"</div>
+                    <div class="note">
+                        En inglés: Adjetivo (beautiful) + Adjetivo (new) + Sustantivo (dress)<br>
+                        En español: Sustantivo (vestido) + Adjetivo (nuevo) + Adjetivo (hermoso)
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn next-btn" onclick="goToPage(2)">Continuar a Práctica ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 2: PRÁCTICA BÁSICA -->
+    <div class="page-container" id="page2">
+        <div class="practice-page">
+            <div class="practice-title">📝 Práctica Básica: Adjetivos</div>
+            
+            <div class="hint">Recuerda: En inglés, el adjetivo va ANTES del sustantivo</div>
+
+            <!-- Pregunta 1 -->
+            <div class="practice-question" data-question="1">
+                <div class="question-text">1. ¿Cómo se dice "un coche rojo" en inglés?</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">A car red</div>
+                    <div class="practice-option" data-correct="true">A red car</div>
+                    <div class="practice-option" data-correct="false">Red a car</div>
+                    <div class="practice-option" data-correct="false">Car a red</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(1)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation1"></div>
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div class="practice-question" data-question="2">
+                <div class="question-text">2. En "The happy children play", ¿dónde está el adjetivo?</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">Antes del sustantivo (happy children)</div>
+                    <div class="practice-option" data-correct="false">Después del sustantivo (children happy)</div>
+                    <div class="practice-option" data-correct="false">Después del verbo (play happy)</div>
+                    <div class="practice-option" data-correct="false">No hay adjetivo</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(2)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation2"></div>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div class="practice-question" data-question="3">
+                <div class="question-text">3. Completa: "My sister is ___" (inteligente)</div>
+                <div class="hint">Con el verbo "to be", el adjetivo va después</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">intelligent</div>
+                    <div class="practice-option" data-correct="false">an intelligent</div>
+                    <div class="practice-option" data-correct="false">intelligent a</div>
+                    <div class="practice-option" data-correct="false">the intelligent</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(3)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation3"></div>
+            </div>
+
+            <!-- Pregunta 4 -->
+            <div class="practice-question" data-question="4">
+                <div class="question-text">4. ¿Cuál es correcto? "I have ___"</div>
+                <div class="hint">¿Cómo se dice "dos gatos pequeños"?</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">two cats small</div>
+                    <div class="practice-option" data-correct="true">two small cats</div>
+                    <div class="practice-option" data-correct="false">small two cats</div>
+                    <div class="practice-option" data-correct="false">cats two small</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(4)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation4"></div>
+            </div>
+
+            <!-- Pregunta 5 -->
+            <div class="practice-question" data-question="5">
+                <div class="question-text">5. Traduce: "El libro viejo es interesante"</div>
+                <div class="hint">Dos adjetivos: "viejo" (old) antes de "libro", "interesante" después de "is"</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">The old book is interesting</div>
+                    <div class="practice-option" data-correct="false">The book old is interesting</div>
+                    <div class="practice-option" data-correct="false">Old the book is interesting</div>
+                    <div class="practice-option" data-correct="false">The book is old interesting</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(5)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation5"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(1)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(3)">Continuar a Adjetivos Múltiples ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 3: ADJETIVOS MÚLTIPLES Y ORDEN -->
+    <div class="page-container" id="page3">
+        <div class="content-session">
+            <div class="intro-container">
+                <div class="intro-title">🧩 Orden de los Adjetivos Múltiples</div>
+
+                <div class="intro-text">
+                    Cuando tenemos <strong>varios adjetivos</strong> describiendo un sustantivo, 
+                    deben seguir un <strong>orden específico</strong> en inglés.
+                </div>
+
+                <div class="order-box">
+                    <div class="order-title">📋 Orden de los Adjetivos (OSASCOMP)</div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">
+                            <strong>Opinión:</strong> beautiful, ugly, nice, terrible
+                            <div class="hint">(qué piensas)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">
+                            <strong>Tamaño:</strong> big, small, tall, short
+                            <div class="hint">(qué tan grande)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">
+                            <strong>Edad:</strong> old, new, young, ancient
+                            <div class="hint">(qué tan viejo)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">
+                            <strong>Forma:</strong> round, square, rectangular
+                            <div class="hint">(qué forma tiene)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">5</div>
+                        <div class="step-text">
+                            <strong>Color:</strong> red, blue, green, black
+                            <div class="hint">(de qué color)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">6</div>
+                        <div class="step-text">
+                            <strong>Origen:</strong> Spanish, French, Chinese, American
+                            <div class="hint">(de dónde es)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">7</div>
+                        <div class="step-text">
+                            <strong>Material:</strong> wooden, plastic, gold, silk
+                            <div class="hint">(de qué está hecho)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">8</div>
+                        <div class="step-text">
+                            <strong>Propósito:</strong> sleeping (bag), running (shoes)
+                            <div class="hint">(para qué sirve)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="intro-text">
+                    <strong>Mnemotécnica:</strong> <span class="highlight">OSASCOMP</span><br>
+                    Opinión - Tamaño - Edad - Forma - Color - Origen - Material - Propósito
+                </div>
+
+                <div class="usage-example">
+                    <div class="example">"A beautiful small old round red Italian wooden music box"</div>
+                    <div class="translation">"Una hermosa pequeña vieja redonda roja italiana de madera caja de música"</div>
+                    <div class="note">
+                        Opinión (beautiful) → Tamaño (small) → Edad (old) → Forma (round) → 
+                        Color (red) → Origen (Italian) → Material (wooden) → Propósito (music) → Sustantivo (box)
+                    </div>
+                </div>
+
+                <div class="special-box">
+                    <div class="special-title">💡 Reglas Prácticas</div>
+                    <div class="intro-text">
+                        1. <strong>No uses más de 3 adjetivos</strong> seguidos (suena antinatural)<br>
+                        2. <strong>Usa comas</strong> entre adjetivos del mismo tipo<br>
+                        3. <strong>No uses "and"</strong> antes del último adjetivo (a diferencia del español)<br>
+                        4. <strong>Practica con ejemplos reales</strong>, no memorices todo el orden
+                    </div>
+                </div>
+
+                <div class="review-box">
+                    <div class="review-title">🎯 Ejemplos Comunes</div>
+                    <div class="intro-text">
+                        • "<span class="highlight">A beautiful big old</span> house"<br>
+                        • "<span class="highlight">Two small round red</span> apples"<br>
+                        • "<span class="highlight">My new black leather</span> jacket"<br>
+                        • "<span class="highlight">An expensive French silk</span> dress"
+                    </div>
+                </div>
+
+                <div class="comparison-box">
+                    <div class="comparison-title">⚠️ Cuidado con el Español</div>
+                    <div class="intro-text">
+                        <strong>En español:</strong> "Una hermosa casa grande y vieja"<br>
+                        <strong>En inglés:</strong> "<span class="highlight">A beautiful big old house</span>"<br><br>
+                        
+                        Nota: En inglés NO decimos "and" entre adjetivos (a menos que sean del mismo tipo).
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(2)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(4)">Continuar a Práctica Avanzada ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 4: PRÁCTICA AVANZADA -->
+    <div class="page-container" id="page4">
+        <div class="practice-page">
+            <div class="practice-title">📝 Práctica Avanzada: Adjetivos</div>
+
+            <div class="hint">Combina todo lo aprendido: posición, orden, y conexión con lecciones anteriores</div>
+
+            <!-- Pregunta 6 -->
+            <div class="practice-question" data-question="6">
+                <div class="question-text">6. ¿Cuál es el orden correcto? "I have ___ car"</div>
+                <div class="hint">Recuerda OSASCOMP: Opinión → Color → Origen</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">a Japanese red beautiful</div>
+                    <div class="practice-option" data-correct="false">a red Japanese beautiful</div>
+                    <div class="practice-option" data-correct="true">a beautiful red Japanese</div>
+                    <div class="practice-option" data-correct="false">beautiful a red Japanese</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(6)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation6"></div>
+            </div>
+
+            <!-- Pregunta 7 -->
+            <div class="practice-question" data-question="7">
+                <div class="question-text">7. Completa: "She is wearing ___ dress"</div>
+                <div class="hint">Orden: Opinión (elegant) → Color (blue) → Material (silk)</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">a blue elegant silk</div>
+                    <div class="practice-option" data-correct="false">a silk blue elegant</div>
+                    <div class="practice-option" data-correct="true">an elegant blue silk</div>
+                    <div class="practice-option" data-correct="false">an elegant silk blue</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(7)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation7"></div>
+            </div>
+
+            <!-- Pregunta 8 -->
+            <div class="practice-question" data-question="8">
+                <div class="question-text">8. Traduce: "Los estudiantes inteligentes estudian mucho"</div>
+                <div class="hint">Sujeto con adjetivo: "The intelligent students", luego verbo y complemento</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">The students intelligent study a lot</div>
+                    <div class="practice-option" data-correct="true">The intelligent students study a lot</div>
+                    <div class="practice-option" data-correct="false">Intelligent the students study a lot</div>
+                    <div class="practice-option" data-correct="false">The students study intelligent a lot</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(8)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation8"></div>
+            </div>
+
+            <!-- Pregunta 9 -->
+            <div class="practice-question" data-question="9">
+                <div class="question-text">9. ¿Cuál oración es correcta?</div>
+                <div class="hint">Recuerda: Adjetivo antes del sustantivo, "to be" + adjetivo después</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">The house big is expensive</div>
+                    <div class="practice-option" data-correct="false">The big house expensive is</div>
+                    <div class="practice-option" data-correct="true">The big house is expensive</div>
+                    <div class="practice-option" data-correct="false">Big the house is expensive</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(9)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation9"></div>
+            </div>
+
+            <!-- Pregunta 10 -->
+            <div class="practice-question" data-question="10">
+                <div class="question-text">10. Completa: "We bought ___ tables for the office"</div>
+                <div class="hint">Orden: Cantidad → Tamaño → Color → Material</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">three brown large wooden</div>
+                    <div class="practice-option" data-correct="true">three large brown wooden</div>
+                    <div class="practice-option" data-correct="false">large three brown wooden</div>
+                    <div class="practice-option" data-correct="false">three wooden brown large</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(10)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation10"></div>
+            </div>
+
+            <!-- Pregunta 11 -->
+            <div class="practice-question" data-question="11">
+                <div class="question-text">11. Corrige el error: "I have a car new red"</div>
+                <div class="hint">Orden correcto: Artículo → Adjetivo (edad) → Adjetivo (color) → Sustantivo</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">I have a new red car</div>
+                    <div class="practice-option" data-correct="false">I have new a red car</div>
+                    <div class="practice-option" data-correct="false">I have a red new car</div>
+                    <div class="practice-option" data-correct="false">I have red a new car</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(11)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation11"></div>
+            </div>
+
+            <!-- Pregunta 12 -->
+            <div class="practice-question" data-question="12">
+                <div class="question-text">12. Traduce: "Mi amigo francés tiene un perro pequeño y juguetón"</div>
+                <div class="hint">Dos partes: "Mi amigo francés" y "un perro pequeño y juguetón"</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">My French friend has a dog small and playful</div>
+                    <div class="practice-option" data-correct="true">My French friend has a small playful dog</div>
+                    <div class="practice-option" data-correct="false">My friend French has a small and playful dog</div>
+                    <div class="practice-option" data-correct="false">French my friend has a playful small dog</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(12)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation12"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(3)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(5)">Ver Mis Resultados ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 5: RESULTADOS FINALES -->
+    <div class="page-container" id="page5">
+        <div class="results-page">
+            <div class="checkmark">🎨</div>
+            <div class="congrats-title">¡COLOREA TU INGLÉS!</div>
+
+            <div class="congrats-message">
+                Has dominado los <strong>adjetivos en inglés</strong>.<br>
+                Ahora puedes describir el mundo con precisión y color.
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="final-correct">0</div>
+                    <div class="stat-label">Respuestas Correctas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="final-score-total">0</div>
+                    <div class="stat-label">Puntos Totales</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="final-percentage">0%</div>
+                    <div class="stat-label">Porcentaje</div>
+                </div>
+            </div>
+
+            <div class="final-message">
+                <strong>Lo que has aprendido sobre adjetivos:</strong><br>
+                1. <strong>Posición:</strong> Antes del sustantivo (¡al revés que en español!)<br>
+                2. <strong>Con "to be":</strong> Después del verbo para describir<br>
+                3. <strong>Sin cambios:</strong> No tienen género ni número<br>
+                4. <strong>Orden múltiple:</strong> OSASCOMP (Opinión → Tamaño → Edad → Forma → Color → Origen → Material → Propósito)<br>
+                5. <strong>Sin "and":</strong> No uses "y" entre adjetivos en inglés<br><br>
+
+                <strong>Consejo final:</strong> Practica describiendo cosas a tu alrededor en inglés. 
+                "A small black phone", "The big blue sky", "My comfortable old chair".
+            </div>
+
+            <div class="special-box">
+                <div class="special-title">🌈 Tu Inglés Ahora Tiene Color</div>
+                <div class="intro-text">
+                    Antes: "I have a car"<br>
+                    Ahora: "I have a <strong>beautiful new red Italian</strong> car"<br><br>
+                    
+                    Antes: "She is a teacher"<br>
+                    Ahora: "She is an <strong>intelligent young Spanish</strong> teacher"<br><br>
+                    
+                    ¡Los adjetivos transforman tu inglés de básico a vibrante!
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(4)">← Volver a Práctica</button>
+                <button class="nav-btn next-btn" onclick="restartCourse()" style="background: linear-gradient(145deg, #9b59b6, #8e44ad);">
+                    🔄 Repetir Lección Completa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentPage = 1;
+        let totalPages = 5;
+        let score = 0;
+        let correctAnswers = 0;
+        let totalQuestions = 12;
+        let selectedOptions = {};
+        let questionChecked = {};
+
+        // Inicializar cuando se carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            updateScore();
+            setupEventListeners();
+        });
+
+        // Configurar event listeners para opciones de práctica
+        function setupEventListeners() {
+            const options = document.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionContainer = this.closest('.practice-question');
+                    const questionId = questionContainer.getAttribute('data-question');
+                    
+                    // Remover selección anterior en esta pregunta
+                    const parent = this.parentElement;
+                    const siblings = parent.querySelectorAll('.practice-option');
+                    siblings.forEach(sibling => {
+                        sibling.classList.remove('selected');
+                    });
+                    
+                    // Seleccionar esta opción
+                    this.classList.add('selected');
+                    selectedOptions[questionId] = this;
+                    
+                    // Ocultar validación previa si existe
+                    const validationId = `validation${questionId}`;
+                    const validationContainer = document.getElementById(validationId);
+                    if (validationContainer) {
+                        validationContainer.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Ir a una página específica
+        function goToPage(pageNumber) {
+            // Ocultar página actual
+            const current = document.querySelector('.page-container.active');
+            if (current) {
+                current.classList.remove('active');
+            }
+            
+            // Mostrar página solicitada
+            currentPage = pageNumber;
+            const targetPage = document.getElementById(`page${pageNumber}`);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            
+            // Si es la última página, actualizar resultados
+            if (currentPage === totalPages) {
+                updateFinalResults();
+            }
+            
+            // Desplazar al inicio de la página
+            window.scrollTo(0, 0);
+        }
+
+        // Verificar respuesta de una pregunta
+        function checkAnswer(questionId) {
+            const selectedOption = selectedOptions[questionId];
+            const validationContainer = document.getElementById(`validation${questionId}`);
+            
+            if (!selectedOption) {
+                showValidation(questionId, false, "Por favor, selecciona una opción antes de verificar.");
+                return;
+            }
+            
+            const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+            
+            // Mostrar todas las opciones correctas/incorrectas
+            const options = selectedOption.parentElement.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                if (option.getAttribute('data-correct') === 'true') {
+                    option.classList.add('correct');
+                } else if (option === selectedOption && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (isCorrect) {
+                if (!questionChecked[questionId]) {
+                    score += 10;
+                    correctAnswers++;
+                    questionChecked[questionId] = true;
+                }
+                
+                let explanation = getExplanation(questionId, true);
+                showValidation(questionId, true, `¡Correcto! ${explanation}`);
+                
+            } else {
+                let correctOptionText = "";
+                const options = selectedOption.parentElement.querySelectorAll('.practice-option');
+                options.forEach(option => {
+                    if (option.getAttribute('data-correct') === 'true') {
+                        correctOptionText = option.textContent;
+                    }
+                });
+                
+                let explanation = getExplanation(questionId, false, correctOptionText);
+                showValidation(questionId, false, `Incorrecto. ${explanation}`);
+            }
+            
+            // Actualizar puntuación
+            updateScore();
+        }
+
+        // Obtener explicación para preguntas
+        function getExplanation(questionId, isCorrect, correctOption = "") {
+            const explanations = {
+                1: isCorrect ? 
+                    "¡Exacto! En inglés el adjetivo va ANTES del sustantivo: 'red car'." : 
+                    "En inglés: adjetivo + sustantivo. 'A red car' (no 'a car red').",
+                
+                2: isCorrect ? 
+                    "¡Correcto! 'Happy' va antes de 'children' (adjetivo + sustantivo)." : 
+                    "En inglés, el adjetivo generalmente va ANTES del sustantivo: 'happy children'.",
+                
+                3: isCorrect ? 
+                    "¡Perfecto! Con el verbo 'to be', el adjetivo va después: 'is intelligent'." : 
+                    "Con 'to be': sujeto + 'to be' + adjetivo. 'My sister is intelligent'.",
+                
+                4: isCorrect ? 
+                    "¡Excelente! 'Two small cats' - cantidad, luego adjetivo, luego sustantivo." : 
+                    "Orden: cantidad (two) → adjetivo (small) → sustantivo (cats).",
+                
+                5: isCorrect ? 
+                    "¡Muy bien! 'The old book' (adjetivo antes) y 'is interesting' (después de 'to be')." : 
+                    "Dos partes: 1. The old book (adjetivo antes), 2. is interesting (adjetivo después de 'to be').",
+                
+                6: isCorrect ? 
+                    "¡Perfecto! OSASCOMP: Opinión (beautiful) → Color (red) → Origen (Japanese)." : 
+                    "Orden correcto: Opinión → Color → Origen. 'A beautiful red Japanese car'.",
+                
+                7: isCorrect ? 
+                    "¡Correcto! Opinión (elegant) → Color (blue) → Material (silk). ¡Y 'an' porque 'elegant' empieza con vocal!" : 
+                    "Orden: Opinión → Color → Material. 'An elegant blue silk dress'.",
+                
+                8: isCorrect ? 
+                    "¡Excelente! 'The intelligent students' - adjetivo antes del sustantivo, luego verbo y complemento." : 
+                    "Sujeto con adjetivo: adjetivo + sustantivo. 'The intelligent students study a lot'.",
+                
+                9: isCorrect ? 
+                    "¡Muy bien! 'The big house' (adjetivo antes) y 'is expensive' (adjetivo después de 'to be')." : 
+                    "Dos partes correctas: 1. The big house, 2. is expensive.",
+                
+                10: isCorrect ? 
+                    "¡Exacto! Cantidad (three) → Tamaño (large) → Color (brown) → Material (wooden)." : 
+                    "Orden: Cantidad → Tamaño → Color → Material. 'Three large brown wooden tables'.",
+                
+                11: isCorrect ? 
+                    "¡Perfecto! Artículo (a) → Edad (new) → Color (red) → Sustantivo (car)." : 
+                    "Orden correcto: a + new + red + car. Edad antes de color.",
+                
+                12: isCorrect ? 
+                    "¡Excelente combinación! 'My French friend' y 'a small playful dog' - ¡sin 'and'!" : 
+                    "Dos partes: 1. My French friend (origen después), 2. a small playful dog (sin 'and')."
+            };
+            
+            return explanations[questionId] || (isCorrect ? "¡Respuesta correcta!" : `La respuesta correcta es: ${correctOption}`);
+        }
+
+        // Mostrar validación con explicación
+        function showValidation(questionId, isCorrect, message) {
+            const validationContainer = document.getElementById(`validation${questionId}`);
+            
+            validationContainer.innerHTML = `
+                <div style="color: ${isCorrect ? '#2ecc71' : '#e74c3c'}; font-size: 20px; font-weight: 600; margin-bottom: 10px; text-align: center;">
+                    ${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}
+                </div>
+                <div style="color: #ecf0f1; font-size: 16px; line-height: 1.6; margin-bottom: 15px; text-align: center;">
+                    ${message}
+                </div>
+                ${!isCorrect ? `
+                    <div style="background: rgba(243, 156, 18, 0.1); padding: 15px; border-radius: 8px; margin-top: 10px; border-left: 3px solid #f39c12;">
+                        <div style="color: #f39c12; font-weight: 600; margin-bottom: 8px; text-align: center;">💡 Para recordar:</div>
+                        <div style="color: #bdc3c7; font-size: 15px; line-height: 1.5; text-align: center;">${getStudyTip(questionId)}</div>
+                    </div>
+                ` : ''}
+            `;
+            
+            validationContainer.className = `validation-container ${isCorrect ? 'correct-validation' : 'incorrect-validation'}`;
+            validationContainer.style.display = 'block';
+            
+            // Desplazar para mostrar la validación
+            validationContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Consejos de estudio
+        function getStudyTip(questionId) {
+            const tips = {
+                1: "Recuerda: En inglés es AL REVÉS que en español. Adjetivo ANTES del sustantivo.",
+                2: "Regla general: adjetivo + sustantivo. Excepción: con 'to be' es sustantivo + 'to be' + adjetivo.",
+                3: "Con el verbo 'to be', usamos el adjetivo para DESCRIBIR: 'She is tall', 'It is big'.",
+                4: "Orden común: cantidad → adjetivo → sustantivo. 'Two big dogs', 'Three small cats'.",
+                5: "Dos usos del adjetivo: 1. Antes del sustantivo, 2. Después de 'to be'. Practica ambos.",
+                6: "OSASCOMP: Opinión → Tamaño → Edad → Forma → Color → Origen → Material → Propósito.",
+                7: "Cuando un adjetivo empieza con vocal, usamos 'an': an elegant dress, an old house.",
+                8: "Los adjetivos de origen (nacionalidad) van DESPUÉS de otros adjetivos: 'a beautiful Spanish city'.",
+                9: "Piensa en dos partes: 1. El sujeto con adjetivo, 2. El verbo 'to be' con adjetivo.",
+                10: "Los números van SIEMPRE primero. Luego tamaño, luego color, luego material.",
+                11: "Edad antes de color: 'new red car', 'old blue house'. ¡Memoriza este orden!",
+                12: "En inglés NO usamos 'y' entre adjetivos: 'a small playful dog' (no 'small and playful')."
+            };
+            
+            return tips[questionId] || "Recuerda: adjetivo antes del sustantivo, excepto con 'to be'. ¡Practica esta diferencia!";
+        }
+
+        // Actualizar puntuación
+        function updateScore() {
+            document.getElementById('score').textContent = score;
+        }
+
+        // Actualizar resultados finales
+        function updateFinalResults() {
+            document.getElementById('final-correct').textContent = correctAnswers;
+            document.getElementById('final-score-total').textContent = score;
+            const percentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+            document.getElementById('final-percentage').textContent = percentage + '%';
+        }
+
+        // Reiniciar curso completo
+        function restartCourse() {
+            // Reiniciar variables
+            currentPage = 1;
+            score = 0;
+            correctAnswers = 0;
+            selectedOptions = {};
+            questionChecked = {};
+            
+            // Ir a la primera página
+            goToPage(1);
+            
+            // Limpiar selecciones
+            const options = document.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Ocultar todas las validaciones
+            const validations = document.querySelectorAll('.validation-container');
+            validations.forEach(validation => {
+                validation.style.display = 'none';
+                validation.innerHTML = '';
+            });
+            
+            // Restablecer puntuación
+            updateScore();
+        }
+    </script>
+</body>
+</html>
