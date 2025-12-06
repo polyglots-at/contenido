@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preposiciones de Lugar y Tiempo - Polyglots</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d1f2d;
+            background-image: url("https://www.transparenttextures.com/patterns/dark-matter.png");
+            color: white;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+            margin: 10px auto;
+        }
+
+        @media (max-width: 600px) {
+            .page-container {
+                padding: 15px;
+                margin: 5px;
+            }
+        }
+
+        .page-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-session {
+            padding: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .content-session {
+                padding: 10px;
+            }
+        }
+
+        .intro-container {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #1abc9c;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 600px) {
+            .intro-container {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+        }
+
+        .intro-title {
+            font-size: 24px;
+            color: #1abc9c;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .intro-title {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+        }
+
+        .intro-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            color: #ecf0f1;
+        }
+
+        @media (max-width: 600px) {
+            .intro-text {
+                font-size: 15px;
+                line-height: 1.5;
+            }
+        }
+
+        .intro-list {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .intro-list li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            color: #ecf0f1;
+            font-size: 15px;
+        }
+
+        .usage-example {
+            background: rgba(26, 188, 156, 0.15);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+            border-left: 3px solid #1abc9c;
+        }
+
+        @media (max-width: 600px) {
+            .usage-example {
+                padding: 10px;
+                margin: 10px 0;
+            }
+        }
+
+        .example {
+            font-size: 18px;
+            color: #50c878;
+            padding: 8px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .example {
+                font-size: 16px;
+            }
+        }
+
+        .translation {
+            font-size: 16px;
+            color: #87CEEB;
+            padding: 6px 0;
+            text-align: center;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            .translation {
+                font-size: 14px;
+            }
+        }
+
+        .note {
+            font-size: 14px;
+            color: #f39c12;
+            padding: 6px 10px;
+            border-radius: 6px;
+            background-color: rgba(243, 156, 18, 0.15);
+            margin-top: 6px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            .note {
+                font-size: 13px;
+                padding: 5px 8px;
+            }
+        }
+
+        .preposition-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .preposition-table {
+                font-size: 13px;
+                margin: 10px 0;
+            }
+        }
+
+        .preposition-table th {
+            background: rgba(26, 188, 156, 0.25);
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            border-bottom: 2px solid #1abc9c;
+        }
+
+        @media (max-width: 600px) {
+            .preposition-table th {
+                padding: 10px 6px;
+                font-size: 13px;
+            }
+        }
+
+        .preposition-table td {
+            padding: 10px 8px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 600px) {
+            .preposition-table td {
+                padding: 8px 6px;
+            }
+        }
+
+        .preposition-table tr:hover {
+            background: rgba(26, 188, 156, 0.08);
+        }
+
+        .highlight {
+            color: #f39c12;
+            font-weight: 600;
+        }
+
+        .special-box {
+            background: rgba(243, 156, 18, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #f39c12;
+        }
+
+        @media (max-width: 600px) {
+            .special-box {
+                padding: 12px;
+                margin: 12px 0;
+            }
+        }
+
+        .special-title {
+            color: #f39c12;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .special-title {
+                font-size: 16px;
+            }
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .nav-buttons {
+                flex-direction: column;
+                gap: 8px;
+                margin-top: 20px;
+            }
+        }
+
+        .nav-btn {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .nav-btn {
+                padding: 12px 15px;
+                font-size: 15px;
+            }
+        }
+
+        .prev-btn {
+            background: linear-gradient(145deg, #7f8c8d, #95a5a6);
+            color: white;
+        }
+
+        .prev-btn:hover {
+            background: linear-gradient(145deg, #6c7b7d, #7f8c8d);
+            transform: translateY(-2px);
+        }
+
+        .next-btn {
+            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            color: white;
+        }
+
+        .next-btn:hover {
+            background: linear-gradient(145deg, #27ae60, #219653);
+            transform: translateY(-2px);
+        }
+
+        .score-display {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            z-index: 1000;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            border: 1px solid #f39c12;
+        }
+
+        @media (max-width: 600px) {
+            .score-display {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-bottom: 15px;
+                width: fit-content;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        .score-value {
+            color: #f39c12;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .practice-page {
+            padding: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .practice-page {
+                padding: 10px;
+            }
+        }
+
+        .practice-title {
+            font-size: 22px;
+            color: #f39c12;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .practice-title {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+        }
+
+        .practice-question {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 3px solid #f39c12;
+        }
+
+        @media (max-width: 600px) {
+            .practice-question {
+                padding: 12px;
+                margin-bottom: 15px;
+            }
+        }
+
+        .question-text {
+            font-size: 16px;
+            color: #ecf0f1;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .question-text {
+                font-size: 15px;
+                margin-bottom: 10px;
+            }
+        }
+
+        .hint {
+            font-size: 13px;
+            color: #95a5a6;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .practice-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .practice-options {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+        }
+
+        .practice-option {
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid #3498db;
+            border-radius: 8px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+        }
+
+        @media (max-width: 600px) {
+            .practice-option {
+                padding: 10px;
+                font-size: 14px;
+                min-height: 45px;
+            }
+        }
+
+        .practice-option:hover {
+            background-color: rgba(52, 152, 219, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .practice-option.selected {
+            background-color: rgba(52, 152, 219, 0.3);
+            border-color: #2ecc71;
+            font-weight: 600;
+        }
+
+        .practice-option.correct {
+            background-color: rgba(46, 204, 113, 0.25);
+            border-color: #2ecc71;
+            color: #2ecc71;
+        }
+
+        .practice-option.incorrect {
+            background-color: rgba(155, 89, 182, 0.25);
+            border-color: #9b59b6;
+            color: #9b59b6;
+        }
+
+        .check-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(145deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .check-btn {
+                padding: 12px;
+                font-size: 15px;
+                margin-top: 10px;
+            }
+        }
+
+        .check-btn:hover {
+            background: linear-gradient(145deg, #2980b9, #1f6396);
+            transform: translateY(-2px);
+        }
+
+        .validation-container {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            animation: slideIn 0.3s ease-out;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .validation-container {
+                padding: 12px;
+                margin-top: 12px;
+            }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .correct-validation {
+            background: linear-gradient(145deg, rgba(46, 204, 113, 0.2), rgba(39, 174, 96, 0.15));
+            border: 1px solid #2ecc71;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .incorrect-validation {
+            background: linear-gradient(145deg, rgba(155, 89, 182, 0.2), rgba(142, 68, 173, 0.15));
+            border: 1px solid #9b59b6;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .results-page {
+            text-align: center;
+            padding: 30px 15px;
+            animation: celebration 1.5s ease-in-out;
+        }
+
+        @media (max-width: 600px) {
+            .results-page {
+                padding: 20px 10px;
+            }
+        }
+
+        @keyframes celebration {
+            0% { transform: scale(0.9); opacity: 0; }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .checkmark {
+            font-size: 70px;
+            color: #2ecc71;
+            margin-bottom: 20px;
+            animation: bounce 1.2s infinite alternate;
+        }
+
+        @media (max-width: 600px) {
+            .checkmark {
+                font-size: 50px;
+                margin-bottom: 15px;
+            }
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-10px); }
+        }
+
+        .congrats-title {
+            font-size: 28px;
+            color: #2ecc71;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 600px) {
+            .congrats-title {
+                font-size: 22px;
+            }
+        }
+
+        .congrats-message {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            color: #87CEEB;
+        }
+
+        @media (max-width: 600px) {
+            .congrats-message {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            border: 1px solid #3498db;
+        }
+
+        @media (max-width: 600px) {
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+                margin: 20px 0;
+            }
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            color: #f39c12;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .stat-number {
+                font-size: 20px;
+            }
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #95a5a6;
+        }
+
+        .final-message {
+            font-style: italic;
+            color: #50c878;
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(80, 200, 120, 0.15);
+            border-radius: 8px;
+            border-left: 3px solid #50c878;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+            .final-message {
+                padding: 12px;
+                font-size: 14px;
+                margin-top: 20px;
+            }
+        }
+
+        .comparison-box {
+            background: rgba(155, 89, 182, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #9b59b6;
+        }
+
+        .comparison-title {
+            color: #9b59b6;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .review-box {
+            background: rgba(52, 152, 219, 0.15);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #3498db;
+        }
+
+        .review-title {
+            color: #3498db;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .preposition-visual {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 600px) {
+            .preposition-visual {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+        }
+
+        .preposition-card {
+            background: rgba(52, 152, 219, 0.15);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #3498db;
+            text-align: center;
+            transition: transform 0.3s ease;
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .preposition-card:hover {
+            transform: translateY(-3px);
+            background: rgba(52, 152, 219, 0.2);
+        }
+
+        .preposition-english {
+            font-size: 18px;
+            color: #3498db;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .preposition-english {
+                font-size: 16px;
+            }
+        }
+
+        .preposition-spanish {
+            font-size: 14px;
+            color: #ecf0f1;
+            margin-bottom: 5px;
+        }
+
+        .preposition-example {
+            font-size: 12px;
+            color: #f39c12;
+            font-style: italic;
+        }
+
+        .order-box {
+            background: rgba(46, 204, 113, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #2ecc71;
+        }
+
+        .order-title {
+            color: #2ecc71;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .order-step {
+            display: flex;
+            align-items: flex-start;
+            margin: 8px 0;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+        }
+
+        .step-number {
+            background: #f39c12;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 12px;
+            flex-shrink: 0;
+            font-size: 14px;
+        }
+
+        .step-text {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .preposition-diagram {
+            width: 100%;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            position: relative;
+            margin: 15px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 600px) {
+            .preposition-diagram {
+                height: 120px;
+            }
+        }
+
+        .diagram-box {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(26, 188, 156, 0.3);
+            border: 2px solid #1abc9c;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .diagram-box {
+                width: 50px;
+                height: 50px;
+                font-size: 14px;
+            }
+        }
+
+        .diagram-label {
+            position: absolute;
+            font-size: 12px;
+            color: #f39c12;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .preposition-category {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .place-tag { background: #3498db; color: white; }
+        .time-tag { background: #9b59b6; color: white; }
+        .movement-tag { background: #2ecc71; color: white; }
+        .position-tag { background: #f39c12; color: white; }
+    </style>
+</head>
+<body>
+    <!-- Puntuación -->
+    <div class="score-display">
+        Puntuación: <span class="score-value" id="score">0</span>
+    </div>
+
+    <!-- PÁGINA 1: INTRODUCCIÓN A PREPOSICIONES -->
+    <div class="page-container active" id="page1">
+        <div class="content-session">
+            <div class="intro-container">
+                <div class="intro-title">📍 Preposiciones de Lugar y Tiempo</div>
+                
+                <div class="intro-text">
+                    Las preposiciones son pequeñas palabras que indican <strong>relaciones espaciales y temporales</strong>.
+                    Nos dicen <strong>dónde</strong> está algo o <strong>cuándo</strong> ocurre.
+                </div>
+
+                <div class="preposition-visual">
+                    <div class="preposition-card">
+                        <div class="preposition-english">In</div>
+                        <div class="preposition-spanish">En/Dentro de</div>
+                        <div class="preposition-example">In the house</div>
+                        <span class="preposition-category place-tag">Lugar</span>
+                        <span class="preposition-category time-tag">Tiempo</span>
+                    </div>
+                    <div class="preposition-card">
+                        <div class="preposition-english">On</div>
+                        <div class="preposition-spanish">Sobre/En</div>
+                        <div class="preposition-example">On the table</div>
+                        <span class="preposition-category place-tag">Lugar</span>
+                        <span class="preposition-category time-tag">Tiempo</span>
+                    </div>
+                    <div class="preposition-card">
+                        <div class="preposition-english">At</div>
+                        <div class="preposition-spanish">En/En (punto)</div>
+                        <div class="preposition-example">At school</div>
+                        <span class="preposition-category place-tag">Lugar</span>
+                        <span class="preposition-category time-tag">Tiempo</span>
+                    </div>
+                    <div class="preposition-card">
+                        <div class="preposition-english">Under</div>
+                        <div class="preposition-spanish">Debajo de</div>
+                        <div class="preposition-example">Under the bed</div>
+                        <span class="preposition-category place-tag">Lugar</span>
+                    </div>
+                </div>
+
+                <div class="intro-text">
+                    <strong>Las 3 preposiciones más importantes:</strong>
+                </div>
+
+                <table class="preposition-table">
+                    <thead>
+                        <tr>
+                            <th>Preposición</th>
+                            <th>Uso en Lugar</th>
+                            <th>Uso en Tiempo</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="highlight">IN</span></td>
+                            <td>Espacios cerrados, países, ciudades</td>
+                            <td>Meses, años, estaciones, partes del día</td>
+                            <td>In Madrid, in July, in the morning</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">ON</span></td>
+                            <td>Superficies, calles, medios de transporte</td>
+                            <td>Días de la semana, fechas específicas</td>
+                            <td>On the wall, on Monday, on May 5th</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">AT</span></td>
+                            <td>Puntos específicos, direcciones</td>
+                            <td>Horas exactas, momentos específicos</td>
+                            <td>At home, at 3 PM, at night</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="preposition-diagram">
+                    <div class="diagram-box" style="top: 20px; left: 20px;">IN</div>
+                    <div class="diagram-label" style="top: 85px; left: 35px;">Espacios amplios<br>Tiempos largos</div>
+                    
+                    <div class="diagram-box" style="top: 20px; left: 120px;">ON</div>
+                    <div class="diagram-label" style="top: 85px; left: 130px;">Superficies<br>Días específicos</div>
+                    
+                    <div class="diagram-box" style="top: 20px; left: 220px;">AT</div>
+                    <div class="diagram-label" style="top: 85px; left: 230px;">Puntos exactos<br>Horas exactas</div>
+                </div>
+
+                <div class="special-box">
+                    <div class="special-title">🎯 Regla Mnemotécnica</div>
+                    <div class="intro-text">
+                        <strong>IN</strong> → Dentro de algo (espacio) o durante algo (tiempo)<br>
+                        <strong>ON</strong> → Sobre algo (superficie) o en un día específico<br>
+                        <strong>AT</strong> → En un punto exacto o hora exacta<br><br>
+                        
+                        Piensa: <strong>IN</strong>side (dentro), <strong>ON</strong> top (encima), <strong>AT</strong> a point (en un punto)
+                    </div>
+                </div>
+
+                <div class="usage-example">
+                    <div class="example">"I live in Madrid, work at an office on Main Street, and have meetings on Monday at 9 AM"</div>
+                    <div class="translation">"Vivo en Madrid, trabajo en una oficina en la Calle Principal y tengo reuniones los lunes a las 9 AM"</div>
+                    <div class="note">
+                        • <strong>IN</strong> Madrid (ciudad)<br>
+                        • <strong>AT</strong> an office (lugar específico)<br>
+                        • <strong>ON</strong> Main Street (calle)<br>
+                        • <strong>ON</strong> Monday (día)<br>
+                        • <strong>AT</strong> 9 AM (hora exacta)
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn next-btn" onclick="goToPage(2)">Continuar a Lugar ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 2: PREPOSICIONES DE LUGAR -->
+    <div class="page-container" id="page2">
+        <div class="content-session">
+            <div class="intro-container">
+                <div class="intro-title">🗺️ Preposiciones de Lugar</div>
+
+                <div class="intro-text">
+                    Indican <strong>dónde</strong> está algo o alguien en relación con otra cosa.
+                </div>
+
+                <div class="preposition-visual">
+                    <div class="preposition-card">
+                        <div class="preposition-english">Between</div>
+                        <div class="preposition-spanish">Entre (dos)</div>
+                        <div class="preposition-example">Between two trees</div>
+                        <span class="preposition-category position-tag">Posición</span>
+                    </div>
+                    <div class="preposition-card">
+                        <div class="preposition-english">Next to</div>
+                        <div class="preposition-spanish">Junto a</div>
+                        <div class="preposition-example">Next to the bank</div>
+                        <span class="preposition-category position-tag">Posición</span>
+                    </div>
+                    <div class="preposition-card">
+                        <div class="preposition-english">Behind</div>
+                        <div class="preposition-spanish">Detrás de</div>
+                        <div class="preposition-example">Behind the house</div>
+                        <span class="preposition-category position-tag">Posición</span>
+                    </div>
+                    <div class="preposition-card">
+                        <div class="preposition-english">In front of</div>
+                        <div class="preposition-spanish">Delante de</div>
+                        <div class="preposition-example">In front of the school</div>
+                        <span class="preposition-category position-tag">Posición</span>
+                    </div>
+                </div>
+
+                <table class="preposition-table">
+                    <thead>
+                        <tr>
+                            <th>Preposición</th>
+                            <th>Significado</th>
+                            <th>Ejemplo</th>
+                            <th>Imagen Mental</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="highlight">in</span></td>
+                            <td>dentro de (espacio cerrado)</td>
+                            <td>in the car, in the room</td>
+                            <td>🚗 dentro del coche</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">on</span></td>
+                            <td>sobre (superficie)</td>
+                            <td>on the table, on the wall</td>
+                            <td>📖 sobre la mesa</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">under</span></td>
+                            <td>debajo de</td>
+                            <td>under the bed, under the bridge</td>
+                            <td>🐱 debajo de la cama</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">behind</span></td>
+                            <td>detrás de</td>
+                            <td>behind the door, behind you</td>
+                            <td>🚪 detrás de la puerta</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">in front of</span></td>
+                            <td>delante de</td>
+                            <td>in front of the TV, in front of me</td>
+                            <td>📺 delante del televisor</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">next to</span></td>
+                            <td>junto a / al lado de</td>
+                            <td>next to the park, next to her</td>
+                            <td>🏞️ junto al parque</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">between</span></td>
+                            <td>entre (dos cosas)</td>
+                            <td>between two houses, between us</td>
+                            <td>🏠 entre dos casas</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">above</span></td>
+                            <td>encima de (sin tocar)</td>
+                            <td>above the clouds, above sea level</td>
+                            <td>☁️ encima de las nubes</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="special-box">
+                    <div class="special-title">⚠️ Diferencias Importantes</div>
+                    <div class="intro-text">
+                        <strong>IN vs. AT en lugares:</strong><br>
+                        • <strong>IN</strong> → Ciudades, países, espacios cerrados: in Paris, in the kitchen<br>
+                        • <strong>AT</strong> → Puntos específicos, eventos: at home, at the party, at work<br><br>
+                        
+                        <strong>ON vs. ABOVE:</strong><br>
+                        • <strong>ON</strong> → Tocando la superficie: on the table<br>
+                        • <strong>ABOVE</strong> → Encima pero sin tocar: above the table (flotando)<br><br>
+                        
+                        <strong>BETWEEN vs. AMONG:</strong><br>
+                        • <strong>BETWEEN</strong> → Entre dos cosas/ personas<br>
+                        • <strong>AMONG</strong> → Entre tres o más cosas/ personas
+                    </div>
+                </div>
+
+                <div class="order-box">
+                    <div class="order-title">📍 Cómo Elegir la Preposición Correcta</div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">
+                            <strong>¿Está dentro de algo?</strong> → Usa <span class="highlight">IN</span><br>
+                            Ejemplo: in the box, in the car, in the house
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">
+                            <strong>¿Está sobre una superficie?</strong> → Usa <span class="highlight">ON</span><br>
+                            Ejemplo: on the table, on the wall, on the floor
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">
+                            <strong>¿Es un punto específico?</strong> → Usa <span class="highlight">AT</span><br>
+                            Ejemplo: at the door, at the station, at home
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">
+                            <strong>¿Hay una relación espacial?</strong> → Usa otras preposiciones<br>
+                            Ejemplo: under the bed, behind you, next to me
+                        </div>
+                    </div>
+                </div>
+
+                <div class="usage-example">
+                    <div class="example">"The cat is under the table, the book is on the shelf, and the keys are in the drawer"</div>
+                    <div class="translation">"El gato está debajo de la mesa, el libro está en el estante y las llaves están en el cajón"</div>
+                    <div class="note">
+                        • <strong>UNDER</strong> → Posición debajo<br>
+                        • <strong>ON</strong> → Sobre una superficie (estante)<br>
+                        • <strong>IN</strong> → Dentro de un espacio cerrado (cajón)
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(1)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(3)">Continuar a Tiempo ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 3: PREPOSICIONES DE TIEMPO -->
+    <div class="page-container" id="page3">
+        <div class="content-session">
+            <div class="intro-container">
+                <div class="intro-title">⏰ Preposiciones de Tiempo</div>
+
+                <div class="intro-text">
+                    Indican <strong>cuándo</strong> ocurre algo. Las tres más importantes son IN, ON, AT.
+                </div>
+
+                <div class="preposition-visual">
+                    <div class="preposition-card">
+                        <div class="preposition-english">In the morning</div>
+                        <div class="preposition-spanish">Por la mañana</div>
+                        <div class="preposition-example">Always use IN</div>
+                        <span class="preposition-category time-tag">Tiempo</span>
+                    </div>
+                    <div class="preposition-card">
+                        <div class="preposition-english">On Monday</div>
+                        <div class="preposition-spanish">El lunes</div>
+                        <div class="preposition-example">Days use ON</div>
+                        <span class="preposition-category time-tag">Tiempo</span>
+                    </div>
+                    <div class="preposition-card">
+                        <div class="preposition-english">At 3 PM</div>
+                        <div class="preposition-spanish">A las 3 PM</div>
+                        <div class="preposition-example">Hours use AT</div>
+                        <span class="preposition-category time-tag">Tiempo</span>
+                    </div>
+                    <div class="preposition-card">
+                        <div class="preposition-english">From...to...</div>
+                        <div class="preposition-spanish">De...a...</div>
+                        <div class="preposition-example">From Monday to Friday</div>
+                        <span class="preposition-category time-tag">Tiempo</span>
+                    </div>
+                </div>
+
+                <table class="preposition-table">
+                    <thead>
+                        <tr>
+                            <th>Preposición</th>
+                            <th>Uso Temporal</th>
+                            <th>Ejemplos</th>
+                            <th>Regla</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="highlight">IN</span></td>
+                            <td>Períodos largos</td>
+                            <td>in July, in 2024, in summer</td>
+                            <td>Meses, años, estaciones</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">ON</span></td>
+                            <td>Días específicos</td>
+                            <td>on Monday, on my birthday</td>
+                            <td>Días, fechas, días festivos</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">AT</span></td>
+                            <td>Momentos exactos</td>
+                            <td>at 3 PM, at night, at noon</td>
+                            <td>Horas, momentos del día</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">FROM...TO</span></td>
+                            <td>Duración</td>
+                            <td>from 9 to 5, from Monday to Friday</td>
+                            <td>Indica inicio y fin</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">DURING</span></td>
+                            <td>Durante</td>
+                            <td>during the movie, during class</td>
+                            <td>Mientras algo ocurre</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">FOR</span></td>
+                            <td>Por (duración)</td>
+                            <td>for two hours, for a week</td>
+                            <td>Cantidad de tiempo</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">SINCE</span></td>
+                            <td>Desde (punto en tiempo)</td>
+                            <td>since 2010, since Monday</td>
+                            <td>Punto de inicio hasta ahora</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="special-box">
+                    <div class="special-title">🎯 Partes del Día: ¿IN, ON o AT?</div>
+                    <div class="intro-text">
+                        <strong>IN the morning/afternoon/evening</strong> → Siempre con IN<br>
+                        <strong>AT night</strong> → Siempre con AT (excepción)<br>
+                        <strong>AT noon/midnight</strong> → Puntos exactos del día<br><br>
+                        
+                        <strong>¿Por qué "at night"?</strong> Porque "night" se considera un momento específico, no un período como morning.
+                    </div>
+                </div>
+
+                <div class="comparison-box">
+                    <div class="comparison-title">📅 Fechas en Inglés vs Español</div>
+                    <div class="intro-text">
+                        <strong>En español:</strong> "El 5 de mayo"<br>
+                        <strong>En inglés:</strong> "<span class="highlight">On May 5th</span>" o "<span class="highlight">On the 5th of May</span>"<br><br>
+                        
+                        <strong>Recuerda:</strong> Siempre <strong>ON</strong> para fechas específicas<br>
+                        • ON May 5th<br>
+                        • ON Christmas Day<br>
+                        • ON my birthday<br>
+                        • ON the weekend (en UK: AT the weekend)<br><br>
+                        
+                        <strong>Sin preposición:</strong> Today, tomorrow, yesterday
+                    </div>
+                </div>
+
+                <div class="order-box">
+                    <div class="order-title">⏰ Cómo Recordar IN, ON, AT para Tiempo</div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">IN</div>
+                        <div class="step-text">
+                            <strong>Períodos LARGOS:</strong><br>
+                            • <strong>IN</strong> + meses (in July)<br>
+                            • <strong>IN</strong> + años (in 2024)<br>
+                            • <strong>IN</strong> + estaciones (in summer)<br>
+                            • <strong>IN</strong> + partes del día (in the morning)
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">ON</div>
+                        <div class="step-text">
+                            <strong>Días ESPECÍFICOS:</strong><br>
+                            • <strong>ON</strong> + días (on Monday)<br>
+                            • <strong>ON</strong> + fechas (on May 5th)<br>
+                            • <strong>ON</strong> + días festivos (on Christmas)<br>
+                            • <strong>ON</strong> + "day" (on my birthday)
+                        </div>
+                    </div>
+                    
+                    <div class="order-step">
+                        <div class="step-number">AT</div>
+                        <div class="step-text">
+                            <strong>Momentos EXACTOS:</strong><br>
+                            • <strong>AT</strong> + horas (at 3 PM)<br>
+                            • <strong>AT</strong> + momentos (at noon)<br>
+                            • <strong>AT</strong> + night (at night)<br>
+                            • <strong>AT</strong> + expresiones (at the moment)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="usage-example">
+                    <div class="example">"I work from 9 to 5, relax in the evening, and usually go to bed at 11"</div>
+                    <div class="translation">"Trabajo de 9 a 5, me relajo por la tarde y usualmente me acuesto a las 11"</div>
+                    <div class="note">
+                        • <strong>FROM...TO</strong> → Duración del trabajo<br>
+                        • <strong>IN</strong> the evening → Período del día<br>
+                        • <strong>AT</strong> 11 → Hora exacta
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(2)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(4)">Continuar a Práctica ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 4: PRÁCTICA -->
+    <div class="page-container" id="page4">
+        <div class="practice-page">
+            <div class="practice-title">📝 Práctica: Preposiciones</div>
+
+            <div class="hint">Elige la preposición correcta para cada situación</div>
+
+            <!-- Pregunta 1 -->
+            <div class="practice-question" data-question="1">
+                <div class="question-text">1. Mi cumpleaños es ___ julio.</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">on</div>
+                    <div class="practice-option" data-correct="false">at</div>
+                    <div class="practice-option" data-correct="true">in</div>
+                    <div class="practice-option" data-correct="false">to</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(1)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation1"></div>
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div class="practice-question" data-question="2">
+                <div class="question-text">2. El libro está ___ la mesa.</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">on</div>
+                    <div class="practice-option" data-correct="false">in</div>
+                    <div class="practice-option" data-correct="false">at</div>
+                    <div class="practice-option" data-correct="false">under</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(2)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation2"></div>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div class="practice-question" data-question="3">
+                <div class="question-text">3. La reunión es ___ las 3 PM ___ lunes.</div>
+                <div class="hint">Dos preposiciones diferentes</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">in / in</div>
+                    <div class="practice-option" data-correct="true">at / on</div>
+                    <div class="practice-option" data-correct="false">on / at</div>
+                    <div class="practice-option" data-correct="false">at / at</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(3)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation3"></div>
+            </div>
+
+            <!-- Pregunta 4 -->
+            <div class="practice-question" data-question="4">
+                <div class="question-text">4. Vivo ___ Madrid ___ España.</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">on / on</div>
+                    <div class="practice-option" data-correct="true">in / in</div>
+                    <div class="practice-option" data-correct="false">at / in</div>
+                    <div class="practice-option" data-correct="false">in / at</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(4)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation4"></div>
+            </div>
+
+            <!-- Pregunta 5 -->
+            <div class="practice-question" data-question="5">
+                <div class="question-text">5. El gato está ___ la cama.</div>
+                <div class="hint">¿Dónde podría estar el gato?</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">under</div>
+                    <div class="practice-option" data-correct="false">on</div>
+                    <div class="practice-option" data-correct="true">in</div>
+                    <div class="practice-option" data-correct="true">next to</div>
+                </div>
+                <div class="note">¡Puede haber más de una respuesta correcta! Elige todas las posibles.</div>
+                <button class="check-btn" onclick="checkAnswer(5)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation5"></div>
+            </div>
+
+            <!-- Pregunta 6 -->
+            <div class="practice-question" data-question="6">
+                <div class="question-text">6. Trabajo ___ 9 ___ 5 ___ la tarde.</div>
+                <div class="hint">Tres preposiciones diferentes</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="false">in / to / in</div>
+                    <div class="practice-option" data-correct="true">from / to / in</div>
+                    <div class="practice-option" data-correct="false">at / at / at</div>
+                    <div class="practice-option" data-correct="false">on / on / on</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(6)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation6"></div>
+            </div>
+
+            <!-- Pregunta 7 -->
+            <div class="practice-question" data-question="7">
+                <div class="question-text">7. Ella está sentada ___ mí y él.</div>
+                <div class="hint">Entre dos personas</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">between</div>
+                    <div class="practice-option" data-correct="false">next to</div>
+                    <div class="practice-option" data-correct="false">in front of</div>
+                    <div class="practice-option" data-correct="false">under</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(7)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation7"></div>
+            </div>
+
+            <!-- Pregunta 8 -->
+            <div class="practice-question" data-question="8">
+                <div class="question-text">8. Las llaves están ___ el cajón.</div>
+                <div class="hint">Dentro de un espacio cerrado</div>
+                <div class="practice-options">
+                    <div class="practice-option" data-correct="true">in</div>
+                    <div class="practice-option" data-correct="false">on</div>
+                    <div class="practice-option" data-correct="false">at</div>
+                    <div class="practice-option" data-correct="false">between</div>
+                </div>
+                <button class="check-btn" onclick="checkAnswer(8)">Verificar Respuesta</button>
+                <div class="validation-container" id="validation8"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(3)">← Volver</button>
+                <button class="nav-btn next-btn" onclick="goToPage(5)">Ver Resultados ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA 5: RESULTADOS FINALES -->
+    <div class="page-container" id="page5">
+        <div class="results-page">
+            <div class="checkmark">📍</div>
+            <div class="congrats-title">¡DOMINAS LAS PREPOSICIONES!</div>
+
+            <div class="congrats-message">
+                Has aprendido a usar <strong>preposiciones de lugar y tiempo</strong> en inglés.<br>
+                Ahora puedes describir dónde están las cosas y cuándo ocurren los eventos.
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="final-correct">0</div>
+                    <div class="stat-label">Respuestas Correctas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="final-score-total">0</div>
+                    <div class="stat-label">Puntos Totales</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="final-percentage">0%</div>
+                    <div class="stat-label">Porcentaje</div>
+                </div>
+            </div>
+
+            <div class="final-message">
+                <strong>Resumen de lo aprendido sobre preposiciones:</strong><br>
+                1. <strong>IN, ON, AT:</strong> Las tres preposiciones más importantes<br>
+                2. <strong>Lugar:</strong> IN (espacios), ON (superficies), AT (puntos)<br>
+                3. <strong>Tiempo:</strong> IN (períodos), ON (días), AT (momentos)<br>
+                4. <strong>Otras de lugar:</strong> under, behind, next to, between, in front of<br>
+                5. <strong>Otras de tiempo:</strong> from...to, during, for, since<br>
+                6. <strong>Excepciones:</strong> at night (no in night), on foot (no by foot)<br><br>
+
+                <strong>Consejo final:</strong> Practica describiendo tu habitación usando preposiciones de lugar.
+                "The bed is against the wall, the desk is under the window, and the books are on the shelf."
+            </div>
+
+            <div class="special-box">
+                <div class="special-title">🌟 Tu Progreso en Polyglots</div>
+                <div class="intro-text">
+                    <strong>Ya dominas:</strong><br>
+                    ✅ <strong>Sustantivos:</strong> Tipos, plurales, uso<br>
+                    ✅ <strong>Adjetivos:</strong> Posición, orden, descripciones<br>
+                    ✅ <strong>Verbos Comunes:</strong> Conjugación, Presente Simple<br>
+                    ✅ <strong>Adverbios de Frecuencia:</strong> Posición, tipos<br>
+                    ✅ <strong>Preposiciones:</strong> Lugar y tiempo básicas<br>
+                    ⏳ <strong>Próximamente:</strong> Preguntas, negaciones, pasado simple...<br><br>
+                    
+                    <strong>¡Ahora puedes construir oraciones completas y precisas!</strong><br>
+                    "The <strong>book</strong> is <strong>on</strong> the <strong>small wooden</strong> table <strong>in</strong> my room <strong>every day</strong>"
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev-btn" onclick="goToPage(4)">← Volver a Práctica</button>
+                <button class="nav-btn next-btn" onclick="restartCourse()" style="background: linear-gradient(145deg, #1abc9c, #16a085);">
+                    🔄 Repetir Lección
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentPage = 1;
+        let totalPages = 5;
+        let score = 0;
+        let correctAnswers = 0;
+        let totalQuestions = 8;
+        let selectedOptions = {};
+        let questionChecked = {};
+
+        // Inicializar cuando se carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            updateScore();
+            setupEventListeners();
+        });
+
+        // Configurar event listeners para opciones de práctica
+        function setupEventListeners() {
+            const options = document.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionContainer = this.closest('.practice-question');
+                    const questionId = questionContainer.getAttribute('data-question');
+                    
+                    // Para pregunta 5 (múltiples respuestas)
+                    if (questionId === '5') {
+                        this.classList.toggle('selected');
+                        if (!selectedOptions[questionId]) {
+                            selectedOptions[questionId] = [];
+                        }
+                        const optionText = this.textContent;
+                        const index = selectedOptions[questionId].indexOf(this);
+                        if (index === -1) {
+                            selectedOptions[questionId].push(this);
+                        } else {
+                            selectedOptions[questionId].splice(index, 1);
+                        }
+                    } else {
+                        // Para preguntas de una sola respuesta
+                        const parent = this.parentElement;
+                        const siblings = parent.querySelectorAll('.practice-option');
+                        siblings.forEach(sibling => {
+                            sibling.classList.remove('selected');
+                        });
+                        
+                        this.classList.add('selected');
+                        selectedOptions[questionId] = this;
+                    }
+                    
+                    // Ocultar validación previa si existe
+                    const validationId = `validation${questionId}`;
+                    const validationContainer = document.getElementById(validationId);
+                    if (validationContainer) {
+                        validationContainer.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Ir a una página específica
+        function goToPage(pageNumber) {
+            // Ocultar página actual
+            const current = document.querySelector('.page-container.active');
+            if (current) {
+                current.classList.remove('active');
+            }
+            
+            // Mostrar página solicitada
+            currentPage = pageNumber;
+            const targetPage = document.getElementById(`page${pageNumber}`);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            
+            // Si es la última página, actualizar resultados
+            if (currentPage === totalPages) {
+                updateFinalResults();
+            }
+            
+            // Desplazar al inicio de la página
+            window.scrollTo(0, 0);
+        }
+
+        // Verificar respuesta de una pregunta
+        function checkAnswer(questionId) {
+            const validationContainer = document.getElementById(`validation${questionId}`);
+            
+            // Pregunta 5 (múltiples respuestas)
+            if (questionId === '5') {
+                const selected = selectedOptions[questionId];
+                if (!selected || selected.length === 0) {
+                    showValidation(questionId, false, "Por favor, selecciona al menos una opción.");
+                    return;
+                }
+                
+                const correctOptions = [];
+                const options = document.querySelectorAll(`[data-question="${questionId}"] .practice-option`);
+                options.forEach(option => {
+                    if (option.getAttribute('data-correct') === 'true') {
+                        correctOptions.push(option);
+                        option.classList.add('correct');
+                    }
+                });
+                
+                // Verificar si todas las seleccionadas son correctas y si se seleccionaron todas las correctas
+                let allCorrect = true;
+                let allCorrectSelected = true;
+                
+                // Verificar que todas las seleccionadas sean correctas
+                selected.forEach(sel => {
+                    if (sel.getAttribute('data-correct') !== 'true') {
+                        allCorrect = false;
+                        sel.classList.add('incorrect');
+                    }
+                });
+                
+                // Verificar que todas las correctas estén seleccionadas
+                correctOptions.forEach(correctOpt => {
+                    if (!selected.includes(correctOpt)) {
+                        allCorrectSelected = false;
+                    }
+                });
+                
+                const isCorrect = allCorrect && allCorrectSelected;
+                
+                if (isCorrect) {
+                    if (!questionChecked[questionId]) {
+                        score += 10;
+                        correctAnswers++;
+                        questionChecked[questionId] = true;
+                    }
+                    showValidation(questionId, true, "¡Perfecto! El gato puede estar under, in o next to la cama.");
+                } else {
+                    showValidation(questionId, false, "Recuerda: El gato puede estar under (debajo), in (dentro) o next to (junto a) la cama. On también sería posible si está sobre la cama.");
+                }
+                
+            } else {
+                // Para preguntas de una sola respuesta
+                const selectedOption = selectedOptions[questionId];
+                
+                if (!selectedOption) {
+                    showValidation(questionId, false, "Por favor, selecciona una opción antes de verificar.");
+                    return;
+                }
+                
+                const isCorrect = selectedOption.getAttribute('data-correct') === 'true';
+                
+                // Mostrar todas las opciones correctas/incorrectas
+                const options = selectedOption.parentElement.querySelectorAll('.practice-option');
+                options.forEach(option => {
+                    option.classList.remove('correct', 'incorrect');
+                    if (option.getAttribute('data-correct') === 'true') {
+                        option.classList.add('correct');
+                    } else if (option === selectedOption && !isCorrect) {
+                        option.classList.add('incorrect');
+                    }
+                });
+                
+                if (isCorrect) {
+                    if (!questionChecked[questionId]) {
+                        score += 10;
+                        correctAnswers++;
+                        questionChecked[questionId] = true;
+                    }
+                    
+                    let explanation = getExplanation(questionId, true);
+                    showValidation(questionId, true, `¡Correcto! ${explanation}`);
+                    
+                } else {
+                    let correctOptionText = "";
+                    const options = selectedOption.parentElement.querySelectorAll('.practice-option');
+                    options.forEach(option => {
+                        if (option.getAttribute('data-correct') === 'true') {
+                            correctOptionText = option.textContent;
+                        }
+                    });
+                    
+                    let explanation = getExplanation(questionId, false, correctOptionText);
+                    showValidation(questionId, false, `Incorrecto. ${explanation}`);
+                }
+            }
+            
+            // Actualizar puntuación
+            updateScore();
+        }
+
+        // Obtener explicación para preguntas
+        function getExplanation(questionId, isCorrect, correctOption = "") {
+            const explanations = {
+                1: isCorrect ? 
+                    "¡Exacto! Los meses usan IN: in July, in August, in December." : 
+                    "Los meses siempre usan IN. La respuesta correcta es 'in'.",
+                
+                2: isCorrect ? 
+                    "¡Correcto! Las superficies usan ON: on the table, on the floor, on the wall." : 
+                    "Para superficies usamos ON. La respuesta correcta es 'on'.",
+                
+                3: isCorrect ? 
+                    "¡Perfecto! Horas usan AT (at 3 PM) y días usan ON (on Monday)." : 
+                    "Horas: AT + hora. Días: ON + día. La respuesta es 'at / on'.",
+                
+                4: isCorrect ? 
+                    "¡Excelente! Ciudades y países usan IN: in Madrid, in Spain." : 
+                    "Ciudades y países siempre usan IN. La respuesta es 'in / in'.",
+                
+                6: isCorrect ? 
+                    "¡Muy bien! FROM...TO para duración, IN para partes del día." : 
+                    "FROM 9 TO 5 (duración), IN the afternoon (parte del día).",
+                
+                7: isCorrect ? 
+                    "¡Perfecto! BETWEEN para dos personas/cosas: between you and me." : 
+                    "Entre dos personas/cosas usamos BETWEEN. La respuesta es 'between'.",
+                
+                8: isCorrect ? 
+                    "¡Excelente! Espacios cerrados usan IN: in the drawer, in the box." : 
+                    "Dentro de espacios cerrados usamos IN. La respuesta es 'in'."
+            };
+            
+            return explanations[questionId] || (isCorrect ? "¡Respuesta correcta!" : `La respuesta correcta es: ${correctOption}`);
+        }
+
+        // Mostrar validación con explicación
+        function showValidation(questionId, isCorrect, message) {
+            const validationContainer = document.getElementById(`validation${questionId}`);
+            
+            validationContainer.innerHTML = `
+                <div style="color: ${isCorrect ? '#2ecc71' : '#9b59b6'}; font-size: 18px; font-weight: 600; margin-bottom: 8px; text-align: center;">
+                    ${isCorrect ? '✅ Correcto' : '⚠️ Incorrecto'}
+                </div>
+                <div style="color: #ecf0f1; font-size: 15px; line-height: 1.5; margin-bottom: 12px; text-align: center;">
+                    ${message}
+                </div>
+                ${!isCorrect ? `
+                    <div style="background: rgba(243, 156, 18, 0.1); padding: 12px; border-radius: 6px; margin-top: 8px; border-left: 3px solid #f39c12;">
+                        <div style="color: #f39c12; font-weight: 600; margin-bottom: 6px; text-align: center;">💡 Para recordar:</div>
+                        <div style="color: #bdc3c7; font-size: 14px; line-height: 1.4; text-align: center;">${getStudyTip(questionId)}</div>
+                    </div>
+                ` : ''}
+            `;
+            
+            validationContainer.className = `validation-container ${isCorrect ? 'correct-validation' : 'incorrect-validation'}`;
+            validationContainer.style.display = 'block';
+            
+            // Desplazar para mostrar la validación
+            validationContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Consejos de estudio
+        function getStudyTip(questionId) {
+            const tips = {
+                1: "IN para meses, años, estaciones: in July, in 2024, in summer.",
+                2: "ON para superficies: on the table, on the wall, on the floor.",
+                3: "AT + hora (at 3 PM). ON + día (on Monday).",
+                4: "IN para ciudades y países: in Madrid, in Spain, in London.",
+                5: "El gato puede estar: under (debajo), in (dentro), next to (junto), on (sobre) la cama.",
+                6: "FROM...TO para duración. IN para partes del día: in the morning/afternoon/evening.",
+                7: "BETWEEN para dos cosas/personas. AMONG para tres o más.",
+                8: "IN para espacios cerrados: in the drawer, in the room, in the car."
+            };
+            
+            return tips[questionId] || "Recuerda: IN (espacios/tiempos largos), ON (superficies/días), AT (puntos/horas).";
+        }
+
+        // Actualizar puntuación
+        function updateScore() {
+            document.getElementById('score').textContent = score;
+        }
+
+        // Actualizar resultados finales
+        function updateFinalResults() {
+            document.getElementById('final-correct').textContent = correctAnswers;
+            document.getElementById('final-score-total').textContent = score;
+            const percentage = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+            document.getElementById('final-percentage').textContent = percentage + '%';
+        }
+
+        // Reiniciar curso completo
+        function restartCourse() {
+            // Reiniciar variables
+            currentPage = 1;
+            score = 0;
+            correctAnswers = 0;
+            selectedOptions = {};
+            questionChecked = {};
+            
+            // Ir a la primera página
+            goToPage(1);
+            
+            // Limpiar selecciones
+            const options = document.querySelectorAll('.practice-option');
+            options.forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Ocultar todas las validaciones
+            const validations = document.querySelectorAll('.validation-container');
+            validations.forEach(validation => {
+                validation.style.display = 'none';
+                validation.innerHTML = '';
+            });
+            
+            // Restablecer puntuación
+            updateScore();
+        }
+    </script>
+</body>
+</html>
