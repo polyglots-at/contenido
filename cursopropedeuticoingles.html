@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-    <title>Curso Propedéutico Inglés · Polyglots</title>
+    <title>Curso de Inglés · Polyglots</title>
     <style>
         * {
             margin: 0;
@@ -33,6 +33,7 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
+        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
@@ -68,6 +69,7 @@
             flex: 1;
         }
 
+        /* ===== TÍTULO PRINCIPAL ===== */
         .main-title {
             text-align: center;
             margin-bottom: 30px;
@@ -100,105 +102,185 @@
             -webkit-text-fill-color: #ffd54f;
         }
 
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin: 30px 0 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid rgba(79, 195, 247, 0.2);
-            color: #b3e5fc;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .section-title:first-of-type {
-            margin-top: 0;
-        }
-
-        .courses-grid {
+        /* ===== MENÚ PRINCIPAL ===== */
+        .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 16px;
-            margin-bottom: 10px;
+            margin: 20px 0;
         }
 
-        .course-item {
+        .menu-card {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-            padding: 12px 8px;
-            border-radius: 20px;
+            justify-content: center;
+            gap: 12px;
+            padding: 30px 20px;
+            border-radius: 24px;
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-decoration: none;
+            color: #f0f7ff;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-height: 140px;
+            text-align: center;
         }
 
-        .course-item:hover {
+        .menu-card:hover {
             transform: translateY(-6px);
             background: rgba(255, 255, 255, 0.08);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
             border-color: rgba(79, 195, 247, 0.3);
         }
 
-        .course-circle {
-            width: 80px;
-            height: 80px;
+        .menu-card .icon {
+            font-size: 2.8rem;
+        }
+
+        .menu-card .label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-card .desc {
+            font-size: 0.85rem;
+            color: #90a4ae;
+        }
+
+        /* Colores únicos para cada menú */
+        .menu-card:nth-child(1) { border-color: rgba(79, 195, 247, 0.2); }
+        .menu-card:nth-child(1):hover { border-color: #4fc3f7; }
+
+        .menu-card:nth-child(2) { border-color: rgba(255, 213, 79, 0.2); }
+        .menu-card:nth-child(2):hover { border-color: #ffd54f; }
+
+        .menu-card:nth-child(3) { border-color: rgba(129, 199, 132, 0.2); }
+        .menu-card:nth-child(3):hover { border-color: #81c784; }
+
+        .menu-card:nth-child(4) { border-color: rgba(206, 147, 216, 0.2); }
+        .menu-card:nth-child(4):hover { border-color: #ce93d8; }
+
+        .menu-card:nth-child(5) { border-color: rgba(255, 138, 101, 0.2); }
+        .menu-card:nth-child(5):hover { border-color: #ff8a65; }
+
+        /* ===== PÁGINAS INTERNAS (ocultas por defecto) ===== */
+        .page {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 25px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .page-header .back-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #f0f7ff;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .page-header .back-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .page-header h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #b3e5fc;
+            flex: 1;
+        }
+
+        /* ===== GRID DE LECCIONES ===== */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 14px;
+        }
+
+        .lesson-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 12px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            text-decoration: none;
+            color: #f0f7ff;
+            transition: all 0.25s ease;
+            text-align: center;
+        }
+
+        .lesson-item:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(79, 195, 247, 0.3);
+        }
+
+        .lesson-item .num {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #1a3a6a, #2a5a9a);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: white;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(79, 195, 247, 0.2);
-            text-decoration: none;
             flex-shrink: 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
-        .course-circle:hover {
-            transform: scale(1.05);
-            border-color: #4fc3f7;
-            box-shadow: 0 0 25px rgba(79, 195, 247, 0.2);
-        }
-
-        /* Colores únicos para cada círculo */
-        .course-item:nth-child(1) .course-circle { background: linear-gradient(135deg, #1a237e, #283593); }
-        .course-item:nth-child(2) .course-circle { background: linear-gradient(135deg, #004d40, #00695c); }
-        .course-item:nth-child(3) .course-circle { background: linear-gradient(135deg, #4a148c, #6a1b9a); }
-        .course-item:nth-child(4) .course-circle { background: linear-gradient(135deg, #b71c1c, #c62828); }
-        .course-item:nth-child(5) .course-circle { background: linear-gradient(135deg, #e65100, #f57c00); }
-        .course-item:nth-child(6) .course-circle { background: linear-gradient(135deg, #1a237e, #0d47a1); }
-        .course-item:nth-child(7) .course-circle { background: linear-gradient(135deg, #004d40, #1b5e20); }
-        .course-item:nth-child(8) .course-circle { background: linear-gradient(135deg, #4a148c, #7b1fa2); }
-        .course-item:nth-child(9) .course-circle { background: linear-gradient(135deg, #b71c1c, #d32f2f); }
-        .course-item:nth-child(10) .course-circle { background: linear-gradient(135deg, #e65100, #ef6c00); }
-        .course-item:nth-child(11) .course-circle { background: linear-gradient(135deg, #1a237e, #1565c0); }
-        .course-item:nth-child(12) .course-circle { background: linear-gradient(135deg, #004d40, #2e7d32); }
-        .course-item:nth-child(13) .course-circle { background: linear-gradient(135deg, #4a148c, #8e24aa); }
-        .course-item:nth-child(14) .course-circle { background: linear-gradient(135deg, #b71c1c, #e53935); }
-        .course-item:nth-child(15) .course-circle { background: linear-gradient(135deg, #e65100, #fb8c00); }
-        .course-item:nth-child(16) .course-circle { background: linear-gradient(135deg, #1a237e, #1976d2); }
-        .course-item:nth-child(17) .course-circle { background: linear-gradient(135deg, #004d40, #388e3c); }
-        .course-item:nth-child(18) .course-circle { background: linear-gradient(135deg, #4a148c, #9c27b0); }
-        .course-item:nth-child(19) .course-circle { background: linear-gradient(135deg, #b71c1c, #f44336); }
-        .course-item:nth-child(20) .course-circle { background: linear-gradient(135deg, #e65100, #ff9800); }
-
-        .course-name {
+        .lesson-item .name {
             font-size: 0.8rem;
             font-weight: 600;
             color: #b3e5fc;
-            text-align: center;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             text-transform: uppercase;
-            line-height: 1.3;
+            line-height: 1.2;
         }
 
+        /* Colores para las lecciones (alternando) */
+        .lesson-item:nth-child(1) .num { background: linear-gradient(135deg, #1a237e, #283593); }
+        .lesson-item:nth-child(2) .num { background: linear-gradient(135deg, #004d40, #00695c); }
+        .lesson-item:nth-child(3) .num { background: linear-gradient(135deg, #4a148c, #6a1b9a); }
+        .lesson-item:nth-child(4) .num { background: linear-gradient(135deg, #b71c1c, #c62828); }
+        .lesson-item:nth-child(5) .num { background: linear-gradient(135deg, #e65100, #f57c00); }
+        .lesson-item:nth-child(6) .num { background: linear-gradient(135deg, #1a237e, #0d47a1); }
+        .lesson-item:nth-child(7) .num { background: linear-gradient(135deg, #004d40, #1b5e20); }
+        .lesson-item:nth-child(8) .num { background: linear-gradient(135deg, #4a148c, #7b1fa2); }
+        .lesson-item:nth-child(9) .num { background: linear-gradient(135deg, #b71c1c, #d32f2f); }
+        .lesson-item:nth-child(10) .num { background: linear-gradient(135deg, #e65100, #ef6c00); }
+        .lesson-item:nth-child(11) .num { background: linear-gradient(135deg, #1a237e, #1565c0); }
+        .lesson-item:nth-child(12) .num { background: linear-gradient(135deg, #004d40, #2e7d32); }
+
+        /* ===== FOOTER ===== */
         .footer {
             text-align: center;
             color: #546e7a;
@@ -208,6 +290,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .container {
                 padding: 18px 14px;
@@ -217,43 +300,77 @@
                 font-size: 1.5rem;
             }
 
-            .courses-grid {
+            .menu-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .menu-card {
+                padding: 20px 14px;
+                min-height: 110px;
+            }
+
+            .menu-card .icon {
+                font-size: 2rem;
+            }
+
+            .menu-card .label {
+                font-size: 0.95rem;
+            }
+
+            .page-header h2 {
+                font-size: 1.3rem;
+            }
+
+            .lessons-grid {
                 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-                gap: 12px;
+                gap: 10px;
             }
 
-            .course-circle {
-                width: 65px;
-                height: 65px;
-                font-size: 1.8rem;
+            .lesson-item .num {
+                width: 42px;
+                height: 42px;
+                font-size: 1.1rem;
             }
 
-            .course-name {
+            .lesson-item .name {
                 font-size: 0.7rem;
-            }
-
-            .section-title {
-                font-size: 1.2rem;
-            }
-
-            .header-title {
-                font-size: 0.9rem;
             }
         }
 
         @media (max-width: 400px) {
-            .courses-grid {
+            .menu-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .menu-card {
+                padding: 14px 10px;
+                min-height: 90px;
+            }
+
+            .menu-card .icon {
+                font-size: 1.6rem;
+            }
+
+            .menu-card .label {
+                font-size: 0.8rem;
+            }
+
+            .menu-card .desc {
+                display: none;
+            }
+
+            .lessons-grid {
                 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                gap: 8px;
             }
 
-            .course-circle {
-                width: 55px;
-                height: 55px;
-                font-size: 1.5rem;
+            .lesson-item .num {
+                width: 36px;
+                height: 36px;
+                font-size: 0.95rem;
             }
 
-            .course-name {
+            .lesson-item .name {
                 font-size: 0.6rem;
             }
         }
@@ -268,120 +385,203 @@
             <a href="https://polyglots-at.github.io/cursos" class="logo">
                 <img src="https://polyglots-at.github.io/ex/logopolyglots.jpg" alt="Logo Polyglots">
             </a>
-            <span class="header-title">📘 Curso Propedéutico</span>
+            <span class="header-title">📘 Curso de Inglés</span>
             <div style="width:50px;"></div>
         </div>
 
-        <!-- ===== TÍTULO PRINCIPAL ===== -->
-        <div class="main-title">
-            <h1>📍 Inglés · Nivel Básico</h1>
-            <p>📱 <span class="highlight">Gira la pantalla</span> para una mejor experiencia en móvil</p>
+        <!-- ============================================================ -->
+        <!-- PÁGINA PRINCIPAL (MENÚ)                                      -->
+        <!-- ============================================================ -->
+        <div id="page-home" class="page active">
+            <div class="main-title">
+                <h1>📍 Inglés · Nivel Básico</h1>
+                <p>📱 <span class="highlight">Gira la pantalla</span> para una mejor experiencia en móvil</p>
+            </div>
+
+            <div class="menu-grid">
+                <!-- 1. Contenido -->
+                <div class="menu-card" onclick="showPage('page-contenido')">
+                    <span class="icon">📖</span>
+                    <span class="label">Contenido</span>
+                    <span class="desc">Estructura de la oración</span>
+                </div>
+
+                <!-- 2. Vocabulario -->
+                <div class="menu-card" onclick="showPage('page-vocabulario')">
+                    <span class="icon">📚</span>
+                    <span class="label">Vocabulario</span>
+                    <span class="desc">Palabras esenciales</span>
+                </div>
+
+                <!-- 3. Conjugaciones -->
+                <div class="menu-card" onclick="showPage('page-conjugaciones')">
+                    <span class="icon">🔤</span>
+                    <span class="label">Conjugaciones</span>
+                    <span class="desc">Verbos y tiempos</span>
+                </div>
+
+                <!-- 4. Actividades -->
+                <div class="menu-card" onclick="showPage('page-actividades')">
+                    <span class="icon">✏️</span>
+                    <span class="label">Actividades</span>
+                    <span class="desc">Ejercicios prácticos</span>
+                </div>
+
+                <!-- 5. Fonética -->
+                <div class="menu-card" onclick="showPage('page-fonetica')">
+                    <span class="icon">🔊</span>
+                    <span class="label">Fonética</span>
+                    <span class="desc">Pronunciación y sonidos</span>
+                </div>
+            </div>
         </div>
 
         <!-- ============================================================ -->
-        <!-- SECCIÓN 1: ESTRUCTURA DE LA ORACIÓN (1-8)                    -->
+        <!-- PÁGINA: CONTENIDO (Estructura de la Oración)                 -->
         <!-- ============================================================ -->
-        <div class="section-title">📖 Estructura de la Oración</div>
-        <div class="courses-grid">
-            <a href="https://polyglots-at.github.io/laoracionprueba" class="course-item">
-                <div class="course-circle">1</div>
-                <span class="course-name">La Oración</span>
-            </a>
-            <a href="https://polyglots-at.github.io/contenido/articulosnv" class="course-item">
-                <div class="course-circle">2</div>
-                <span class="course-name">Artículos</span>
-            </a>
-            <a href="https://polyglots-at.github.io/contenido/sustantivosnv" class="course-item">
-                <div class="course-circle">3</div>
-                <span class="course-name">Sustantivos</span>
-            </a>
-            <a href="https://polyglots-at.github.io/contenido/verbotobenv" class="course-item">
-                <div class="course-circle">4</div>
-                <span class="course-name">Verbo To Be</span>
-            </a>
-            <a href="https://polyglots-at.github.io/contenido/adjetivosnv" class="course-item">
-                <div class="course-circle">5</div>
-                <span class="course-name">Adjetivos</span>
-            </a>
-            <a href="https://polyglots-at.github.io/contenido/verbosenpresentesimplenv" class="course-item">
-                <div class="course-circle">6</div>
-                <span class="course-name">Presente Simple</span>
-            </a>
-            <a href="https://polyglots-at.github.io/contenido/adverbiosnv" class="course-item">
-                <div class="course-circle">7</div>
-                <span class="course-name">Adverbios</span>
-            </a>
-            <a href="https://polyglots-at.github.io/contenido/prepocisionesdelugarytiemponv" class="course-item">
-                <div class="course-circle">8</div>
-                <span class="course-name">Preposiciones</span>
-            </a>
+        <div id="page-contenido" class="page">
+            <div class="page-header">
+                <button class="back-btn" onclick="showPage('page-home')">← Volver</button>
+                <h2>📖 Contenido</h2>
+            </div>
+
+            <div class="lessons-grid">
+                <a href="https://polyglots-at.github.io/laoracionprueba" class="lesson-item">
+                    <span class="num">1</span>
+                    <span class="name">La Oración</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/articulosnv" class="lesson-item">
+                    <span class="num">2</span>
+                    <span class="name">Artículos</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/sustantivosnv" class="lesson-item">
+                    <span class="num">3</span>
+                    <span class="name">Sustantivos</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/verbotobenv" class="lesson-item">
+                    <span class="num">4</span>
+                    <span class="name">Verbo To Be</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/adjetivosnv" class="lesson-item">
+                    <span class="num">5</span>
+                    <span class="name">Adjetivos</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/verbosenpresentesimplenv" class="lesson-item">
+                    <span class="num">6</span>
+                    <span class="name">Presente Simple</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/adverbiosnv" class="lesson-item">
+                    <span class="num">7</span>
+                    <span class="name">Adverbios</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/prepocisionesdelugarytiemponv" class="lesson-item">
+                    <span class="num">8</span>
+                    <span class="name">Preposiciones</span>
+                </a>
+            </div>
         </div>
 
         <!-- ============================================================ -->
-        <!-- SECCIÓN 2: VOCABULARIO (1-12)                                -->
+        <!-- PÁGINA: VOCABULARIO                                          -->
         <!-- ============================================================ -->
-        <div class="section-title">📚 Vocabulario</div>
-        <div class="courses-grid">
-            <!-- 1. Saludos y Presentaciones -->
-            <a href="https://polyglots-at.github.io/contenido/saludosypresentacionesvc" class="course-item">
-                <div class="course-circle">1</div>
-                <span class="course-name">Saludos y Presentaciones</span>
-            </a>
-            <!-- 2. Números -->
-            <a href="https://polyglots-at.github.io/contenido/numerosvc" class="course-item">
-                <div class="course-circle">2</div>
-                <span class="course-name">Números</span>
-            </a>
-            <!-- 3. Días y Estaciones -->
-            <a href="https://polyglots-at.github.io/contenido/diasyestacionesvc" class="course-item">
-                <div class="course-circle">3</div>
-                <span class="course-name">Días y Estaciones</span>
-            </a>
-            <!-- 4. Meses -->
-            <a href="https://polyglots-at.github.io/contenido/mesesvc" class="course-item">
-                <div class="course-circle">4</div>
-                <span class="course-name">Meses</span>
-            </a>
-            <!-- 5. Colores -->
-            <a href="https://polyglots-at.github.io/contenido/coloresvc" class="course-item">
-                <div class="course-circle">5</div>
-                <span class="course-name">Colores</span>
-            </a>
-            <!-- 6. Familia -->
-            <a href="https://polyglots-at.github.io/contenido/familiavc" class="course-item">
-                <div class="course-circle">6</div>
-                <span class="course-name">Familia</span>
-            </a>
-            <!-- 7. Comida y Bebida -->
-            <a href="https://polyglots-at.github.io/contenido/comidaybebidavc" class="course-item">
-                <div class="course-circle">7</div>
-                <span class="course-name">Comida y Bebida</span>
-            </a>
-            <!-- 8. Ropa y Cuerpo -->
-            <a href="https://polyglots-at.github.io/contenido/ropaycuerpovc" class="course-item">
-                <div class="course-circle">8</div>
-                <span class="course-name">Ropa y Cuerpo</span>
-            </a>
-            <!-- 9. Casa y Lugares -->
-            <a href="https://polyglots-at.github.io/contenido/casaylugaresvc" class="course-item">
-                <div class="course-circle">9</div>
-                <span class="course-name">Casa y Lugares</span>
-            </a>
-            <!-- 10. Transporte y Clima -->
-            <a href="https://polyglots-at.github.io/contenido/transporteyclimavc" class="course-item">
-                <div class="course-circle">10</div>
-                <span class="course-name">Transporte y Clima</span>
-            </a>
-            <!-- 11. Animales -->
-            <a href="https://polyglots-at.github.io/contenido/animalesvc" class="course-item">
-                <div class="course-circle">11</div>
-                <span class="course-name">Animales</span>
-            </a>
-            <!-- 12. Ocupaciones -->
-            <a href="https://polyglots-at.github.io/contenido/ocupacionesyprofesionesvc" class="course-item">
-                <div class="course-circle">12</div>
-                <span class="course-name">Ocupaciones</span>
-            </a>
+        <div id="page-vocabulario" class="page">
+            <div class="page-header">
+                <button class="back-btn" onclick="showPage('page-home')">← Volver</button>
+                <h2>📚 Vocabulario</h2>
+            </div>
+
+            <div class="lessons-grid">
+                <a href="https://polyglots-at.github.io/contenido/saludosypresentacionesvc" class="lesson-item">
+                    <span class="num">1</span>
+                    <span class="name">Saludos y Presentaciones</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/numerosvc" class="lesson-item">
+                    <span class="num">2</span>
+                    <span class="name">Números</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/diasyestacionesvc" class="lesson-item">
+                    <span class="num">3</span>
+                    <span class="name">Días y Estaciones</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/mesesvc" class="lesson-item">
+                    <span class="num">4</span>
+                    <span class="name">Meses</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/coloresvc" class="lesson-item">
+                    <span class="num">5</span>
+                    <span class="name">Colores</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/familiavc" class="lesson-item">
+                    <span class="num">6</span>
+                    <span class="name">Familia</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/comidaybebidavc" class="lesson-item">
+                    <span class="num">7</span>
+                    <span class="name">Comida y Bebida</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/ropaycuerpovc" class="lesson-item">
+                    <span class="num">8</span>
+                    <span class="name">Ropa y Cuerpo</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/casaylugaresvc" class="lesson-item">
+                    <span class="num">9</span>
+                    <span class="name">Casa y Lugares</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/transporteyclimavc" class="lesson-item">
+                    <span class="num">10</span>
+                    <span class="name">Transporte y Clima</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/animalesvc" class="lesson-item">
+                    <span class="num">11</span>
+                    <span class="name">Animales</span>
+                </a>
+                <a href="https://polyglots-at.github.io/contenido/ocupacionesyprofesionesvc" class="lesson-item">
+                    <span class="num">12</span>
+                    <span class="name">Ocupaciones</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PÁGINA: CONJUGACIONES                                        -->
+        <!-- ============================================================ -->
+        <div id="page-conjugaciones" class="page">
+            <div class="page-header">
+                <button class="back-btn" onclick="showPage('page-home')">← Volver</button>
+                <h2>🔤 Conjugaciones</h2>
+            </div>
+            <div style="text-align:center; padding:40px 20px; color:#90a4ae;">
+                <p style="font-size:1.2rem;">📝 Próximamente</p>
+                <p style="font-size:0.95rem;">Conjugaciones de verbos regulares e irregulares</p>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PÁGINA: ACTIVIDADES                                          -->
+        <!-- ============================================================ -->
+        <div id="page-actividades" class="page">
+            <div class="page-header">
+                <button class="back-btn" onclick="showPage('page-home')">← Volver</button>
+                <h2>✏️ Actividades</h2>
+            </div>
+            <div style="text-align:center; padding:40px 20px; color:#90a4ae;">
+                <p style="font-size:1.2rem;">📝 Próximamente</p>
+                <p style="font-size:0.95rem;">Ejercicios interactivos para practicar</p>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PÁGINA: FONÉTICA                                             -->
+        <!-- ============================================================ -->
+        <div id="page-fonetica" class="page">
+            <div class="page-header">
+                <button class="back-btn" onclick="showPage('page-home')">← Volver</button>
+                <h2>🔊 Fonética</h2>
+            </div>
+            <div style="text-align:center; padding:40px 20px; color:#90a4ae;">
+                <p style="font-size:1.2rem;">📝 Próximamente</p>
+                <p style="font-size:0.95rem;">Pronunciación, sonidos y entonación</p>
+            </div>
         </div>
 
         <!-- ===== FOOTER ===== -->
@@ -390,6 +590,22 @@
         </div>
 
     </div>
+
+    <script>
+        function showPage(pageId) {
+            // Ocultar todas las páginas
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+            // Mostrar la página seleccionada
+            const target = document.getElementById(pageId);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            // Scroll al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 
 </body>
 </html>
