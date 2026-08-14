@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Adverbios Comunes en Inglés · Polyglots</title>
+    <style>
+        /* ===== RESET Y BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #2c5f8a;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            color: #f0f7ff;
+            line-height: 1.6;
+            padding: 15px 12px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            padding: 25px 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border: 2px solid #a3cef1;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1d4b6e;
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            border: 2px solid #9ac7f0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e8f3ff;
+        }
+
+        .score {
+            background: #f4c542;
+            color: #1d3b4f;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 1rem;
+        }
+
+        .score span {
+            font-size: 1.5rem;
+            margin-left: 6px;
+        }
+
+        /* ===== MÓDULOS ===== */
+        .module {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== TARJETAS DE EXPLICACIÓN ===== */
+        .explain-card {
+            background: #e7f0fc;
+            color: #023047;
+            border-radius: 30px;
+            padding: 25px 22px;
+            margin-bottom: 25px;
+            border-left: 12px solid;
+            box-shadow: 0 8px 0 #1b4b6e;
+        }
+
+        .explain-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Colores por tema */
+        .intro-border { border-left-color: #1f7ea3; }
+        .modo-border { border-left-color: #d97706; }
+        .frecuencia-border { border-left-color: #2a8c5a; }
+        .tiempo-border { border-left-color: #9b5fc0; }
+        .lugar-border { border-left-color: #c0392b; }
+        .grado-border { border-left-color: #8e44ad; }
+        .practica-border { border-left-color: #e67e22; }
+
+        .explain-text {
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+
+        .explain-text strong {
+            color: #b45f06;
+        }
+
+        .comparison {
+            background: #d4e6f5;
+            border-radius: 18px;
+            padding: 15px 18px;
+            margin: 14px 0;
+            border-left: 5px solid #f39c12;
+        }
+
+        .comparison strong {
+            color: #b45f06;
+        }
+
+        .example-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: #ffffff90;
+            border-radius: 24px;
+            padding: 16px 18px;
+            margin: 14px 0;
+        }
+
+        .example-item {
+            border-bottom: 1px solid #a0c4e2;
+            padding: 8px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .example-item:last-child {
+            border-bottom: none;
+        }
+
+        .en {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1.05rem;
+        }
+
+        .es {
+            color: #2f506d;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        .note {
+            background: #ffe8c8;
+            border-radius: 18px;
+            padding: 12px 16px;
+            color: #5e3a0c;
+            margin-top: 14px;
+            font-size: 0.98rem;
+        }
+
+        .special-box {
+            background: #f0e6ff;
+            border: 2px solid #9b5fc0;
+            border-radius: 18px;
+            padding: 18px;
+            margin: 14px 0;
+        }
+
+        .special-box .special-title {
+            color: #7b3f9e;
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== TABLAS ===== */
+        .article-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.92rem;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .article-table th {
+            background: rgba(31, 126, 163, 0.25);
+            padding: 10px 6px;
+            font-weight: 700;
+            color: #023047;
+            border-bottom: 2px solid #1f7ea3;
+        }
+
+        .article-table td {
+            padding: 10px 6px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            text-align: center;
+            color: #023047;
+        }
+
+        .article-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .highlight {
+            color: #d97706;
+            font-weight: 700;
+        }
+
+        .adverb-tag {
+            display: inline-block;
+            background: #d97706;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* ===== PRÁCTICA ===== */
+        .practice-box {
+            background: #f6faff;
+            border-radius: 36px;
+            padding: 22px 18px;
+            margin: 25px 0;
+            border: 3px solid #7bb3e0;
+        }
+
+        .practice-title {
+            font-size: 1.5rem;
+            color: #0d4568;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #7bb3e0;
+            padding-bottom: 8px;
+        }
+
+        .question {
+            background: white;
+            border-radius: 28px;
+            padding: 20px 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 0 #9bb8da;
+        }
+
+        .question:last-child {
+            margin-bottom: 0;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #022b41;
+            margin-bottom: 14px;
+        }
+
+        .q-hint {
+            font-size: 0.9rem;
+            color: #6b7f8f;
+            text-align: center;
+            margin-bottom: 12px;
+            font-style: italic;
+            background: #f0f6fc;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .options {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+        }
+
+        .option {
+            background: #e1effb;
+            border: 3px solid #7fb0da;
+            border-radius: 40px;
+            padding: 14px 6px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #013753;
+            cursor: pointer;
+            transition: 0.1s ease;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .option:active {
+            transform: scale(0.96);
+        }
+
+        .option.selected {
+            background: #b1d6ff;
+            border-color: #1f6396;
+            font-weight: 700;
+        }
+
+        .option.correct {
+            background: #b8e6c0;
+            border-color: #1d8545;
+        }
+
+        .option.incorrect {
+            background: #fbc1c1;
+            border-color: #b34141;
+        }
+
+        .btn-check {
+            background: #1f6396;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 16px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 18px;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.15s;
+        }
+
+        .btn-check:active {
+            transform: scale(0.97);
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 22px;
+            background: #e9f3fb;
+            border-left: 8px solid;
+            color: #001d33;
+            font-size: 0.98rem;
+        }
+
+        .fb-good {
+            border-color: #1d8545;
+            background: #dcf5e3;
+        }
+
+        .fb-bad {
+            border-color: #b34141;
+            background: #ffe1e1;
+        }
+
+        .explanation-detail {
+            font-size: 0.95rem;
+            margin-top: 10px;
+            background: #cde1f2;
+            padding: 12px;
+            border-radius: 14px;
+            line-height: 1.5;
+        }
+
+        /* ===== NAVEGACIÓN ===== */
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0 10px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: #1f4d70;
+            border: 3px solid #aad0f5;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            min-width: 90px;
+            text-align: center;
+            transition: 0.15s;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.96);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            border-color: #7f9fbf;
+            cursor: not-allowed;
+        }
+
+        .dot-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #608bbf;
+            transition: 0.2s;
+        }
+
+        .dot.active {
+            background: #f5d742;
+            box-shadow: 0 0 0 3px #ffd966;
+        }
+
+        .footer {
+            text-align: center;
+            color: #c5e2ff;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESULTADOS ===== */
+        .results-box {
+            background: #eaf3fc;
+            border-radius: 40px;
+            padding: 30px 20px;
+            text-align: center;
+            color: #023b5e;
+        }
+
+        .results-box h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .results-box .big-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d97706;
+            margin: 16px 0;
+        }
+
+        .results-box .final-message {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .results-box .learned-list {
+            text-align: left;
+            background: white;
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            list-style: none;
+        }
+
+        .results-box .learned-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #d4e6f5;
+            font-size: 0.98rem;
+            color: #023047;
+        }
+
+        .results-box .learned-list li:last-child {
+            border-bottom: none;
+        }
+
+        .results-box .learned-list li::before {
+            content: "✅ ";
+        }
+
+        .btn-restart {
+            background: #9b59b6;
+            border: 3px solid #c39bd3;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            margin-top: 10px;
+            transition: 0.15s;
+        }
+
+        .btn-restart:active {
+            transform: scale(0.96);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-10 {
+            margin-top: 10px;
+        }
+
+        /* ===== EJEMPLOS DE ADVERBIOS ===== */
+        .adverb-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .adverb-chip {
+            background: #d4e6f5;
+            padding: 8px 4px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #023047;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <h1>⚡ Adverbios Comunes</h1>
+        <div class="score">Puntos <span id="scoreDisplay">0</span></div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MÓDULO 1: ¿QUÉ SON LOS ADVERBIOS?                             -->
+    <!-- ============================================================ -->
+    <div id="mod1" class="module active">
+        <div class="explain-card intro-border">
+            <h2>📖 1. ¿Qué es un adverbio?</h2>
+            <div class="explain-text">
+                Un <strong>adverbio</strong> es una palabra que describe o modifica un <strong>verbo</strong>, un <strong>adjetivo</strong> u otro adverbio. Nos dicen <strong>cómo, cuándo, dónde o con qué frecuencia</strong> ocurre una acción.
+            </div>
+
+            <div class="comparison">
+                <strong>🔑 Idea clave:</strong> Los adverbios <strong>dan más información</strong> sobre la acción.
+            </div>
+
+            <div class="example-row">
+                <div class="example-item">
+                    <span class="en">She sings <strong>beautifully</strong>.</span>
+                    <span class="es">(Ella canta <strong>hermosamente</strong>)</span>
+                </div>
+                <div class="example-item">
+                    <span class="en">He runs <strong>quickly</strong>.</span>
+                    <span class="es">(Él corre <strong>rápidamente</strong>)</span>
+                </div>
+                <div class="example-item">
+                    <span class="en">They speak <strong>fluently</strong>.</span>
+                    <span class="es">(Ellos hablan <strong>con fluidez</strong>)</span>
+                </div>
+                <div class="example-item">
+                    <span class="en">I <strong>always</strong> study.</span>
+                    <span class="es">(Yo <strong>siempre</strong> estudio)</span>
+                </div>
+            </div>
+
+            <div class="special-box">
+                <div class="special-title">📌 Tipos principales de adverbios</div>
+                <div class="grid-2" style="font-size:0.95rem;">
+                    <div><strong>🔹 Modo</strong> → cómo se hace algo</div>
+                    <div>quickly, slowly, well</div>
+                    <div><strong>🔹 Frecuencia</strong> → con qué frecuencia</div>
+                    <div>always, never, often</div>
+                    <div><strong>🔹 Tiempo</strong> → cuándo ocurre</div>
+                    <div>now, yesterday, soon</div>
+                    <div><strong>🔹 Lugar</strong> → dónde ocurre</div>
+                    <div>here, there, everywhere</div>
+                    <div><strong>🔹 Grado</strong> → qué tanto</div>
+                    <div>very, too, quite</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRÁCTICA 1 -->
+        <div class="practice-box">
+            <div class="practice-title">✏️ Práctica 1 · Identificando adverbios</div>
+
+            <div class="question" id="q1">
+                <div class="q-text">1. ¿Cuál es el adverbio en: "She sings <strong>beautifully</strong>"?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">She</div>
+                    <div class="option" data-correct="false">sings</div>
+                    <div class="option" data-correct="true">beautifully</div>
+                    <div class="option" data-correct="false">sings beautifully</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(1)">Verificar</button>
+                <div class="feedback" id="fb1"></div>
+            </div>
+
+            <div class="question" id="q2">
+                <div class="q-text">2. ¿Qué tipo de adverbio es <strong>"always"</strong>?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">Modo</div>
+                    <div class="option" data-correct="true">Frecuencia</div>
+                    <div class="option" data-correct="false">Lugar</div>
+                    <div class="option" data-correct="false">Tiempo</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(2)">Verificar</button>
+                <div class="feedback" id="fb2"></div>
+            </div>
+        </div>
+
+        <div class="nav-row">
+            <button class="nav-btn" disabled>← anterior</button>
+            <div class="dot-container">
+                <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <button class="nav-btn" onclick="goToModule(2)">siguiente →</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MÓDULO 2: ADVERBIOS DE MODO                                    -->
+    <!-- ============================================================ -->
+    <div id="mod2" class="module">
+        <div class="explain-card modo-border">
+            <h2>🎯 2. Adverbios de Modo</h2>
+            <div class="explain-text">
+                Los adverbios de modo describen <strong>cómo</strong> se realiza una acción. La mayoría terminan en <strong>"-ly"</strong>.
+            </div>
+
+            <table class="article-table">
+                <thead>
+                    <tr>
+                        <th>Adverbio</th>
+                        <th>Significado</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="highlight">Quickly</span></td>
+                        <td>Rápidamente</td>
+                        <td>He runs quickly</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Slowly</span></td>
+                        <td>Lentamente</td>
+                        <td>She walks slowly</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Well</span></td>
+                        <td>Bien</td>
+                        <td>I speak English well</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Badly</span></td>
+                        <td>Mal</td>
+                        <td>He plays badly</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Carefully</span></td>
+                        <td>Cuidadosamente</td>
+                        <td>Drive carefully</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Easily</span></td>
+                        <td>Fácilmente</td>
+                        <td>She learns easily</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="comparison">
+                <strong>⚠️ ¡Ojo!</strong> "Well" es un adverbio de modo, pero no termina en "-ly".
+                <br>Se usa para decir que algo se hace <strong>bien</strong>.
+            </div>
+
+            <div class="example-row">
+                <div class="example-item"><span class="en">She speaks Spanish <strong>fluently</strong>.</span> <span class="es">(con fluidez)</span></div>
+                <div class="example-item"><span class="en">He drives <strong>carefully</strong>.</span> <span class="es">(con cuidado)</span></div>
+                <div class="example-item"><span class="en">They work <strong>hard</strong>.</span> <span class="es">(duro)</span></div>
+                <div class="example-item"><span class="en">I sleep <strong>well</strong>.</span> <span class="es">(bien)</span></div>
+            </div>
+
+            <div class="note">
+                💡 <strong>Regla de posición:</strong> Los adverbios de modo van <strong>después del verbo</strong> o <strong>después del objeto</strong>.
+            </div>
+        </div>
+
+        <!-- PRÁCTICA 2 -->
+        <div class="practice-box">
+            <div class="practice-title">✏️ Práctica 2 · Adverbios de Modo</div>
+
+            <div class="question" id="q3">
+                <div class="q-text">3. Completa: "She runs ___" (rápidamente)</div>
+                <div class="options">
+                    <div class="option" data-correct="false">quick</div>
+                    <div class="option" data-correct="true">quickly</div>
+                    <div class="option" data-correct="false">quicker</div>
+                    <div class="option" data-correct="false">quickly</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(3)">Verificar</button>
+                <div class="feedback" id="fb3"></div>
+            </div>
+
+            <div class="question" id="q4">
+                <div class="q-text">4. Traduce al inglés: <strong>"Ella habla inglés bien"</strong></div>
+                <div class="options">
+                    <div class="option" data-correct="false">She speaks good English</div>
+                    <div class="option" data-correct="true">She speaks English well</div>
+                    <div class="option" data-correct="false">She well speaks English</div>
+                    <div class="option" data-correct="false">She speaks English good</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(4)">Verificar</button>
+                <div class="feedback" id="fb4"></div>
+            </div>
+
+            <div class="question" id="q5">
+                <div class="q-text">5. ¿Cuál es correcto?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">He carefully drives</div>
+                    <div class="option" data-correct="true">He drives carefully</div>
+                    <div class="option" data-correct="false">He drives careful</div>
+                    <div class="option" data-correct="false">Carefully he drives</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(5)">Verificar</button>
+                <div class="feedback" id="fb5"></div>
+            </div>
+        </div>
+
+        <div class="nav-row">
+            <button class="nav-btn" onclick="goToModule(1)">← anterior</button>
+            <div class="dot-container">
+                <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <button class="nav-btn" onclick="goToModule(3)">siguiente →</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MÓDULO 3: ADVERBIOS DE FRECUENCIA                              -->
+    <!-- ============================================================ -->
+    <div id="mod3" class="module">
+        <div class="explain-card frecuencia-border">
+            <h2>🔄 3. Adverbios de Frecuencia</h2>
+            <div class="explain-text">
+                Los adverbios de frecuencia indican <strong>con qué frecuencia</strong> ocurre una acción.
+            </div>
+
+            <table class="article-table">
+                <thead>
+                    <tr>
+                        <th>Adverbio</th>
+                        <th>Frecuencia</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="highlight">Always</span></td>
+                        <td>100% (siempre)</td>
+                        <td>I always study</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Usually</span></td>
+                        <td>90% (normalmente)</td>
+                        <td>She usually walks</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Often</span></td>
+                        <td>70% (a menudo)</td>
+                        <td>We often eat out</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Sometimes</span></td>
+                        <td>50% (a veces)</td>
+                        <td>I sometimes run</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Rarely</span></td>
+                        <td>20% (raramente)</td>
+                        <td>He rarely calls</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Never</span></td>
+                        <td>0% (nunca)</td>
+                        <td>They never smoke</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="special-box">
+                <div class="special-title">📌 Posición de los adverbios de frecuencia</div>
+                <div class="explain-text" style="font-size:1rem;">
+                    <strong>Antes del verbo principal:</strong><br>
+                    "She <strong>always</strong> studies."<br>
+                    <strong>Después del verbo "to be":</strong><br>
+                    "She <strong>is</strong> always happy."<br>
+                    <strong>Entre auxiliar y verbo:</strong><br>
+                    "They <strong>have</strong> never been there."
+                </div>
+            </div>
+
+            <div class="example-row">
+                <div class="example-item"><span class="en">I <strong>always</strong> drink coffee.</span> <span class="es">(siempre)</span></div>
+                <div class="example-item"><span class="en">She <strong>sometimes</strong> eats pizza.</span> <span class="es">(a veces)</span></div>
+                <div class="example-item"><span class="en">We <strong>never</strong> go to the cinema.</span> <span class="es">(nunca)</span></div>
+                <div class="example-item"><span class="en">He <strong>usually</strong> arrives on time.</span> <span class="es">(normalmente)</span></div>
+            </div>
+        </div>
+
+        <!-- PRÁCTICA 3 -->
+        <div class="practice-box">
+            <div class="practice-title">✏️ Práctica 3 · Adverbios de Frecuencia</div>
+
+            <div class="question" id="q6">
+                <div class="q-text">6. Completa: "I ___ eat breakfast" (siempre)</div>
+                <div class="options">
+                    <div class="option" data-correct="false">never</div>
+                    <div class="option" data-correct="true">always</div>
+                    <div class="option" data-correct="false">sometimes</div>
+                    <div class="option" data-correct="false">rarely</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(6)">Verificar</button>
+                <div class="feedback" id="fb6"></div>
+            </div>
+
+            <div class="question" id="q7">
+                <div class="q-text">7. ¿Dónde va el adverbio en: "She is happy" (always)?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">Always she is happy</div>
+                    <div class="option" data-correct="false">She always is happy</div>
+                    <div class="option" data-correct="true">She is always happy</div>
+                    <div class="option" data-correct="false">She is happy always</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(7)">Verificar</button>
+                <div class="feedback" id="fb7"></div>
+            </div>
+
+            <div class="question" id="q8">
+                <div class="q-text">8. Traduce: <strong>"Ellos nunca llegan tarde"</strong></div>
+                <div class="options">
+                    <div class="option" data-correct="false">They arrive never late</div>
+                    <div class="option" data-correct="true">They never arrive late</div>
+                    <div class="option" data-correct="false">Never they arrive late</div>
+                    <div class="option" data-correct="false">They arrive late never</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(8)">Verificar</button>
+                <div class="feedback" id="fb8"></div>
+            </div>
+        </div>
+
+        <div class="nav-row">
+            <button class="nav-btn" onclick="goToModule(2)">← anterior</button>
+            <div class="dot-container">
+                <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <button class="nav-btn" onclick="goToModule(4)">siguiente →</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MÓDULO 4: ADVERBIOS DE TIEMPO                                  -->
+    <!-- ============================================================ -->
+    <div id="mod4" class="module">
+        <div class="explain-card tiempo-border">
+            <h2>⏰ 4. Adverbios de Tiempo</h2>
+            <div class="explain-text">
+                Los adverbios de tiempo indican <strong>cuándo</strong> ocurre una acción.
+            </div>
+
+            <table class="article-table">
+                <thead>
+                    <tr>
+                        <th>Adverbio</th>
+                        <th>Significado</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="highlight">Now</span></td>
+                        <td>Ahora</td>
+                        <td>I am busy now</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Today</span></td>
+                        <td>Hoy</td>
+                        <td>We work today</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Tomorrow</span></td>
+                        <td>Mañana</td>
+                        <td>I will go tomorrow</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Yesterday</span></td>
+                        <td>Ayer</td>
+                        <td>She arrived yesterday</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Soon</span></td>
+                        <td>Pronto</td>
+                        <td>He will come soon</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Late</span></td>
+                        <td>Tarde</td>
+                        <td>She arrived late</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Early</span></td>
+                        <td>Temprano</td>
+                        <td>I wake up early</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="comparison">
+                <strong>📌 Posición:</strong> Los adverbios de tiempo pueden ir al <strong>inicio</strong> o al <strong>final</strong> de la oración.
+            </div>
+
+            <div class="example-row">
+                <div class="example-item"><span class="en"><strong>Yesterday</strong>, I went to school.</span> <span class="es">(Ayer)</span></div>
+                <div class="example-item"><span class="en">I went to school <strong>yesterday</strong>.</span> <span class="es">(Ayer)</span></div>
+                <div class="example-item"><span class="en">She will call you <strong>soon</strong>.</span> <span class="es">(Pronto)</span></div>
+                <div class="example-item"><span class="en"><strong>Today</strong> is a good day.</span> <span class="es">(Hoy)</span></div>
+            </div>
+        </div>
+
+        <!-- PRÁCTICA 4 -->
+        <div class="practice-box">
+            <div class="practice-title">✏️ Práctica 4 · Adverbios de Tiempo</div>
+
+            <div class="question" id="q9">
+                <div class="q-text">9. Completa: "I will call you ___" (mañana)</div>
+                <div class="options">
+                    <div class="option" data-correct="false">yesterday</div>
+                    <div class="option" data-correct="true">tomorrow</div>
+                    <div class="option" data-correct="false">now</div>
+                    <div class="option" data-correct="false">soon</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(9)">Verificar</button>
+                <div class="feedback" id="fb9"></div>
+            </div>
+
+            <div class="question" id="q10">
+                <div class="q-text">10. Traduce: <strong>"Ella llegó tarde"</strong></div>
+                <div class="options">
+                    <div class="option" data-correct="false">She arrived later</div>
+                    <div class="option" data-correct="true">She arrived late</div>
+                    <div class="option" data-correct="false">She late arrived</div>
+                    <div class="option" data-correct="false">She arrives late</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(10)">Verificar</button>
+                <div class="feedback" id="fb10"></div>
+            </div>
+        </div>
+
+        <div class="nav-row">
+            <button class="nav-btn" onclick="goToModule(3)">← anterior</button>
+            <div class="dot-container">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <button class="nav-btn" onclick="goToModule(5)">siguiente →</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MÓDULO 5: ADVERBIOS DE LUGAR                                   -->
+    <!-- ============================================================ -->
+    <div id="mod5" class="module">
+        <div class="explain-card lugar-border">
+            <h2>📍 5. Adverbios de Lugar</h2>
+            <div class="explain-text">
+                Los adverbios de lugar indican <strong>dónde</strong> ocurre una acción.
+            </div>
+
+            <table class="article-table">
+                <thead>
+                    <tr>
+                        <th>Adverbio</th>
+                        <th>Significado</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="highlight">Here</span></td>
+                        <td>Aquí</td>
+                        <td>I live here</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">There</span></td>
+                        <td>Allí / Ahí</td>
+                        <td>He works there</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Everywhere</span></td>
+                        <td>En todas partes</td>
+                        <td>I looked everywhere</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Somewhere</span></td>
+                        <td>En algún lugar</td>
+                        <td>Let's go somewhere</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Nowhere</span></td>
+                        <td>En ningún lugar</td>
+                        <td>I found nowhere</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Inside</span></td>
+                        <td>Dentro</td>
+                        <td>Stay inside</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Outside</span></td>
+                        <td>Fuera</td>
+                        <td>Play outside</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="example-row">
+                <div class="example-item"><span class="en">Please sit <strong>here</strong>.</span> <span class="es">(aquí)</span></div>
+                <div class="example-item"><span class="en">They went <strong>there</strong>.</span> <span class="es">(allí)</span></div>
+                <div class="example-item"><span class="en">She looked <strong>everywhere</strong> for her keys.</span> <span class="es">(en todas partes)</span></div>
+                <div class="example-item"><span class="en">The children are playing <strong>outside</strong>.</span> <span class="es">(fuera)</span></div>
+            </div>
+        </div>
+
+        <!-- PRÁCTICA 5 -->
+        <div class="practice-box">
+            <div class="practice-title">✏️ Práctica 5 · Adverbios de Lugar</div>
+
+            <div class="question" id="q11">
+                <div class="q-text">11. Completa: "I live ___" (aquí)</div>
+                <div class="options">
+                    <div class="option" data-correct="false">there</div>
+                    <div class="option" data-correct="true">here</div>
+                    <div class="option" data-correct="false">somewhere</div>
+                    <div class="option" data-correct="false">nowhere</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(11)">Verificar</button>
+                <div class="feedback" id="fb11"></div>
+            </div>
+
+            <div class="question" id="q12">
+                <div class="q-text">12. Traduce: <strong>"Los niños están jugando fuera"</strong></div>
+                <div class="options">
+                    <div class="option" data-correct="false">The children are playing inside</div>
+                    <div class="option" data-correct="true">The children are playing outside</div>
+                    <div class="option" data-correct="false">The children are playing there</div>
+                    <div class="option" data-correct="false">The children playing outside</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(12)">Verificar</button>
+                <div class="feedback" id="fb12"></div>
+            </div>
+        </div>
+
+        <div class="nav-row">
+            <button class="nav-btn" onclick="goToModule(4)">← anterior</button>
+            <div class="dot-container">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <button class="nav-btn" onclick="goToModule(6)">siguiente →</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MÓDULO 6: ADVERBIOS DE GRADO                                   -->
+    <!-- ============================================================ -->
+    <div id="mod6" class="module">
+        <div class="explain-card grado-border">
+            <h2>📊 6. Adverbios de Grado</h2>
+            <div class="explain-text">
+                Los adverbios de grado indican <strong>qué tanto</strong> o <strong>cuánto</strong> se aplica una cualidad.
+            </div>
+
+            <table class="article-table">
+                <thead>
+                    <tr>
+                        <th>Adverbio</th>
+                        <th>Significado</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="highlight">Very</span></td>
+                        <td>Muy</td>
+                        <td>She is very happy</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Too</span></td>
+                        <td>Demasiado</td>
+                        <td>It's too hot</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Quite</span></td>
+                        <td>Bastante</td>
+                        <td>He is quite tall</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Really</span></td>
+                        <td>Realmente</td>
+                        <td>She is really nice</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">So</span></td>
+                        <td>Tan</td>
+                        <td>I'm so tired</td>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Enough</span></td>
+                        <td>Suficiente</td>
+                        <td>He is tall enough</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="comparison">
+                <strong>📌 Posición:</strong> Los adverbios de grado van <strong>antes</strong> del adjetivo o adverbio que modifican.<br>
+                "She is <strong>very</strong> intelligent."<br>
+                "He runs <strong>too</strong> fast."
+            </div>
+
+            <div class="example-row">
+                <div class="example-item"><span class="en">The movie is <strong>very</strong> good.</span> <span class="es">(muy)</span></div>
+                <div class="example-item"><span class="en">This coffee is <strong>too</strong> hot.</span> <span class="es">(demasiado)</span></div>
+                <div class="example-item"><span class="en">She is <strong>quite</strong> intelligent.</span> <span class="es">(bastante)</span></div>
+                <div class="example-item"><span class="en">He is <strong>really</strong> nice.</span> <span class="es">(realmente)</span></div>
+            </div>
+        </div>
+
+        <!-- PRÁCTICA 6 -->
+        <div class="practice-box">
+            <div class="practice-title">✏️ Práctica 6 · Adverbios de Grado</div>
+
+            <div class="question" id="q13">
+                <div class="q-text">13. Completa: "She is ___ happy" (muy)</div>
+                <div class="options">
+                    <div class="option" data-correct="false">too</div>
+                    <div class="option" data-correct="true">very</div>
+                    <div class="option" data-correct="false">enough</div>
+                    <div class="option" data-correct="false">so</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(13)">Verificar</button>
+                <div class="feedback" id="fb13"></div>
+            </div>
+
+            <div class="question" id="q14">
+                <div class="q-text">14. Traduce: <strong>"Este libro es demasiado difícil"</strong></div>
+                <div class="options">
+                    <div class="option" data-correct="false">This book is very difficult</div>
+                    <div class="option" data-correct="true">This book is too difficult</div>
+                    <div class="option" data-correct="false">This book is quite difficult</div>
+                    <div class="option" data-correct="false">This book is so difficult</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(14)">Verificar</button>
+                <div class="feedback" id="fb14"></div>
+            </div>
+        </div>
+
+        <div class="nav-row">
+            <button class="nav-btn" onclick="goToModule(5)">← anterior</button>
+            <div class="dot-container">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
+            </div>
+            <button class="nav-btn" onclick="goToModule(7)">siguiente →</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MÓDULO 7: PRÁCTICA INTENSIVA - ORACIONES COMPLETAS            -->
+    <!-- ============================================================ -->
+    <div id="mod7" class="module">
+        <div class="explain-card practica-border">
+            <h2>📝 7. Práctica Intensiva</h2>
+            <div class="explain-text">
+                Ahora combina <strong>todos los tipos de adverbios</strong> en oraciones completas.
+            </div>
+
+            <div class="example-row">
+                <div class="example-item"><span class="en">She <strong>always</strong> speaks <strong>clearly</strong>.</span> <span class="es">(frecuencia + modo)</span></div>
+                <div class="example-item"><span class="en">They <strong>never</strong> arrive <strong>late</strong>.</span> <span class="es">(frecuencia + tiempo)</span></div>
+                <div class="example-item"><span class="en">He is <strong>very</strong> tall.</span> <span class="es">(grado)</span></div>
+                <div class="example-item"><span class="en">I will meet you <strong>here</strong> <strong>tomorrow</strong>.</span> <span class="es">(lugar + tiempo)</span></div>
+            </div>
+        </div>
+
+        <!-- PRÁCTICA 7 -->
+        <div class="practice-box">
+            <div class="practice-title">✏️ Práctica 7 · Todo junto</div>
+
+            <div class="question" id="q15">
+                <div class="q-text">15. Completa: "I ___ eat vegetables" (nunca)</div>
+                <div class="options">
+                    <div class="option" data-correct="false">always</div>
+                    <div class="option" data-correct="false">sometimes</div>
+                    <div class="option" data-correct="true">never</div>
+                    <div class="option" data-correct="false">usually</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(15)">Verificar</button>
+                <div class="feedback" id="fb15"></div>
+            </div>
+
+            <div class="question" id="q16">
+                <div class="q-text">16. Traduce: <strong>"Ella habla inglés muy bien"</strong></div>
+                <div class="options">
+                    <div class="option" data-correct="false">She speaks English very good</div>
+                    <div class="option" data-correct="true">She speaks English very well</div>
+                    <div class="option" data-correct="false">She very speaks English well</div>
+                    <div class="option" data-correct="false">She speaks very English well</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(16)">Verificar</button>
+                <div class="feedback" id="fb16"></div>
+            </div>
+
+            <div class="question" id="q17">
+                <div class="q-text">17. ¿Cuál es correcto?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">She is always happy</div>
+                    <div class="option" data-correct="true">She is always happy</div>
+                    <div class="option" data-correct="false">She always is happy</div>
+                    <div class="option" data-correct="false">Always she is happy</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(17)">Verificar</button>
+                <div class="feedback" id="fb17"></div>
+            </div>
+
+            <div class="question" id="q18">
+                <div class="q-text">18. Traduce: <strong>"Él corre muy rápido"</strong></div>
+                <div class="options">
+                    <div class="option" data-correct="false">He runs very fastly</div>
+                    <div class="option" data-correct="true">He runs very fast</div>
+                    <div class="option" data-correct="false">He very runs fast</div>
+                    <div class="option" data-correct="false">He runs fast very</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(18)">Verificar</button>
+                <div class="feedback" id="fb18"></div>
+            </div>
+
+            <div class="question" id="q19">
+                <div class="q-text">19. Completa: "They ___ go to the gym" (a menudo)</div>
+                <div class="options">
+                    <div class="option" data-correct="false">never</div>
+                    <div class="option" data-correct="false">sometimes</div>
+                    <div class="option" data-correct="true">often</div>
+                    <div class="option" data-correct="false">rarely</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(19)">Verificar</button>
+                <div class="feedback" id="fb19"></div>
+            </div>
+
+            <div class="question" id="q20">
+                <div class="q-text">20. Traduce: <strong>"Ayer caminé lentamente a casa"</strong></div>
+                <div class="options">
+                    <div class="option" data-correct="false">Yesterday I walked home slowly</div>
+                    <div class="option" data-correct="true">Yesterday I walked home slowly</div>
+                    <div class="option" data-correct="false">I walked home slowly yesterday</div>
+                    <div class="option" data-correct="false">I walked slowly home yesterday</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(20)">Verificar</button>
+                <div class="feedback" id="fb20"></div>
+            </div>
+        </div>
+
+        <div class="nav-row">
+            <button class="nav-btn" onclick="goToModule(6)">← anterior</button>
+            <div class="dot-container">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
+            </div>
+            <button class="nav-btn" onclick="showResults()">📊 finalizar</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MÓDULO 8: RESULTADOS                                           -->
+    <!-- ============================================================ -->
+    <div id="mod8" class="module">
+        <div class="results-box">
+            <h2>🏆 ¡Felicidades!</h2>
+            <div class="big-score" id="finalScore">0</div>
+            <p style="font-size:1.1rem; font-weight:600;">puntos obtenidos</p>
+
+            <div class="final-message">
+                Has completado exitosamente el módulo de <strong>Adverbios Comunes en Inglés</strong>.<br>
+                Ahora puedes describir acciones con precisión y dar más información en tus oraciones.
+            </div>
+
+            <ul class="learned-list">
+                <li><strong>Modo:</strong> quickly, slowly, well (cómo se hace algo)</li>
+                <li><strong>Frecuencia:</strong> always, never, sometimes (con qué frecuencia)</li>
+                <li><strong>Tiempo:</strong> now, yesterday, tomorrow (cuándo ocurre)</li>
+                <li><strong>Lugar:</strong> here, there, everywhere (dónde ocurre)</li>
+                <li><strong>Grado:</strong> very, too, quite (qué tanto)</li>
+                <li><strong>Posición:</strong> antes del verbo (frecuencia) o después (modo)</li>
+            </ul>
+
+            <div style="background:#d4e6f5; border-radius:18px; padding:16px; margin:16px 0; text-align:left; color:#023047; font-size:1rem;">
+                <strong>💡 Consejo final:</strong> Practica añadiendo adverbios a tus oraciones diarias.<br>
+                "I study" → "I <strong>always</strong> study <strong>hard</strong>."<br>
+                "She speaks" → "She <strong>usually</strong> speaks <strong>clearly</strong>."
+            </div>
+
+            <button class="btn-restart" onclick="restart()">🔄 Repetir lección</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        Polyglots · Aprende inglés fácil
+    </div>
+</div>
+
+<script>
+    // ================================================================
+    // VARIABLES GLOBALES
+    // ================================================================
+    let score = 0;
+    let answered = {};
+
+    // ================================================================
+    // RESPUESTAS CORRECTAS
+    // ================================================================
+    const correctAnswers = {
+        1: 'beautifully',
+        2: 'Frecuencia',
+        3: 'quickly',
+        4: 'She speaks English well',
+        5: 'He drives carefully',
+        6: 'always',
+        7: 'She is always happy',
+        8: 'They never arrive late',
+        9: 'tomorrow',
+        10: 'She arrived late',
+        11: 'here',
+        12: 'The children are playing outside',
+        13: 'very',
+        14: 'This book is too difficult',
+        15: 'never',
+        16: 'She speaks English very well',
+        17: 'She is always happy',
+        18: 'He runs very fast',
+        19: 'often',
+        20: 'Yesterday I walked home slowly'
+    };
+
+    // ================================================================
+    // EVENTOS: selección de opciones
+    // ================================================================
+    document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', function() {
+            const questionDiv = this.closest('.question');
+            if (!questionDiv) return;
+            const qId = questionDiv.id.replace('q', '');
+            questionDiv.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+            this.classList.add('selected');
+            const fb = document.getElementById('fb' + qId);
+            if (fb) fb.innerHTML = '';
+        });
+    });
+
+    // ================================================================
+    // FUNCIÓN PRINCIPAL: verificar respuesta
+    // ================================================================
+    function checkAnswer(qId) {
+        const questionDiv = document.getElementById('q' + qId);
+        if (!questionDiv) return;
+
+        const selected = questionDiv.querySelector('.option.selected');
+        const fbDiv = document.getElementById('fb' + qId);
+
+        if (!selected) {
+            fbDiv.innerHTML = '<span style="color:#b34141;">⚠️ Selecciona una opción primero.</span>';
+            fbDiv.className = 'feedback fb-bad';
+            return;
+        }
+
+        const isCorrect = selected.dataset.correct === 'true';
+        const allOpts = questionDiv.querySelectorAll('.option');
+
+        allOpts.forEach(opt => {
+            opt.classList.remove('correct', 'incorrect');
+            if (opt.dataset.correct === 'true') opt.classList.add('correct');
+            if (opt === selected && !isCorrect) opt.classList.add('incorrect');
+        });
+
+        if (!answered[qId]) {
+            if (isCorrect) score += 10;
+            answered[qId] = true;
+            updateScore();
+        }
+
+        const explanation = getExplanation(qId, isCorrect);
+        const extra = getExtraNote(qId);
+
+        fbDiv.innerHTML = `
+            <strong>${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}</strong><br>
+            ${explanation}
+            <div class="explanation-detail">${extra}</div>
+        `;
+        fbDiv.className = `feedback ${isCorrect ? 'fb-good' : 'fb-bad'}`;
+    }
+
+    // ================================================================
+    // EXPLICACIONES
+    // ================================================================
+    function getExplanation(qId, correct) {
+        const texts = {
+            1: correct ? '"Beautifully" describe cómo canta ella.' : 'El adverbio es "beautifully".',
+            2: correct ? '"Always" indica frecuencia (siempre).' : '"Always" es un adverbio de frecuencia.',
+            3: correct ? '"Quickly" es el adverbio de modo para "rápidamente".' : 'Se usa "quickly" para rápido.',
+            4: correct ? '"Well" es el adverbio correcto, no "good".' : '"Well" es el adverbio, "good" es adjetivo.',
+            5: correct ? 'El adverbio de modo va después del verbo: "drives carefully".' : 'Va después del verbo: "drives carefully".',
+            6: correct ? '"Always" = siempre.' : '"Always" significa siempre.',
+            7: correct ? 'Con "to be", el adverbio va después del verbo.' : '"Always" va después de "is".',
+            8: correct ? '"Never" va antes del verbo "arrive".' : '"Never" va antes del verbo principal.',
+            9: correct ? '"Tomorrow" = mañana.' : '"Tomorrow" es mañana.',
+            10: correct ? '"Late" = tarde. "Later" = más tarde.' : '"Late" es el adverbio correcto.',
+            11: correct ? '"Here" = aquí.' : '"Here" significa aquí.',
+            12: correct ? '"Outside" = fuera.' : '"Outside" es el adverbio de lugar correcto.',
+            13: correct ? '"Very" = muy, modifica a "happy".' : '"Very" significa muy.',
+            14: correct ? '"Too" = demasiado, indica exceso.' : '"Too" significa demasiado.',
+            15: correct ? '"Never" = nunca.' : '"Never" significa nunca.',
+            16: correct ? '"Well" es el adverbio, "good" es adjetivo.' : 'Se usa "well" para describir cómo habla.',
+            17: correct ? 'Con "to be", "always" va después del verbo.' : '"Always" va después de "is".',
+            18: correct ? '"Fast" es adverbio, no "fastly".' : '"Fast" es adverbio sin "-ly".',
+            19: correct ? '"Often" = a menudo.' : '"Often" significa a menudo.',
+            20: correct ? 'El orden es: tiempo + sujeto + verbo + objeto + modo.' : 'El orden correcto es: Yesterday I walked home slowly.'
+        };
+        return texts[qId] || (correct ? 'Correcto.' : 'Revisa la respuesta correcta.');
+    }
+
+    function getExtraNote(qId) {
+        const notes = {
+            1: '💡 Los adverbios de modo describen cómo se hace algo.',
+            2: '💡 Los adverbios de frecuencia responden: ¿con qué frecuencia?',
+            3: '💡 "Quickly" termina en "-ly" como la mayoría de adverbios de modo.',
+            4: '💡 "Well" es adverbio, "good" es adjetivo.',
+            5: '💡 Modo → después del verbo u objeto.',
+            6: '💡 "Always" = 100% de las veces.',
+            7: '💡 Con "to be": sujeto + to be + adverbio.',
+            8: '💡 Frecuencia → antes del verbo principal.',
+            9: '💡 "Tomorrow" = mañana (tiempo futuro).',
+            10: '💡 "Late" = tarde, "later" = más tarde.',
+            11: '💡 "Here" = aquí, "there" = allí.',
+            12: '💡 "Outside" = fuera, "inside" = dentro.',
+            13: '💡 "Very" modifica adjetivos o adverbios.',
+            14: '💡 "Too" indica que algo es excesivo.',
+            15: '💡 "Never" = 0% de las veces.',
+            16: '💡 "Well" describe el verbo "speaks".',
+            17: '💡 Con "to be": adverbio después del verbo.',
+            18: '💡 "Fast" es adverbio sin "-ly".',
+            19: '💡 "Often" = a menudo, frecuencia media-alta.',
+            20: '💡 Tiempo puede ir al inicio o al final.'
+        };
+        return notes[qId] || '💡 Revisa la lección para repasar.';
+    }
+
+    // ================================================================
+    // ACTUALIZAR PUNTUACIÓN
+    // ================================================================
+    function updateScore() {
+        document.getElementById('scoreDisplay').textContent = score;
+    }
+
+    // ================================================================
+    // NAVEGACIÓN ENTRE MÓDULOS
+    // ================================================================
+    function goToModule(mod) {
+        document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+        document.getElementById('mod' + mod).classList.add('active');
+
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((d, i) => {
+            d.classList.toggle('active', i === mod - 1);
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ================================================================
+    // MOSTRAR RESULTADOS
+    // ================================================================
+    function showResults() {
+        document.getElementById('finalScore').textContent = score;
+        goToModule(8);
+    }
+
+    // ================================================================
+    // REINICIAR
+    // ================================================================
+    function restart() {
+        score = 0;
+        answered = {};
+        updateScore();
+
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.classList.remove('selected', 'correct', 'incorrect');
+        });
+        document.querySelectorAll('.feedback').forEach(fb => fb.innerHTML = '');
+
+        goToModule(1);
+    }
+
+    // ================================================================
+    // EXPONER FUNCIONES GLOBALES
+    // ================================================================
+    window.checkAnswer = checkAnswer;
+    window.goToModule = goToModule;
+    window.showResults = showResults;
+    window.restart = restart;
+</script>
+</body>
+</html>
