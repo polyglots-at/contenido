@@ -1,0 +1,1152 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Verbos en Presente Simple · Polyglots</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #2c5f8a;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            color: #f0f7ff;
+            line-height: 1.6;
+            padding: 15px 12px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            padding: 25px 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border: 2px solid #a3cef1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1d4b6e;
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            border: 2px solid #9ac7f0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e8f3ff;
+        }
+
+        .score {
+            background: #f4c542;
+            color: #1d3b4f;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 1rem;
+        }
+
+        .score span {
+            font-size: 1.5rem;
+            margin-left: 6px;
+        }
+
+        .module {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .explain-card {
+            background: #e7f0fc;
+            color: #023047;
+            border-radius: 30px;
+            padding: 25px 22px;
+            margin-bottom: 25px;
+            border-left: 12px solid;
+            box-shadow: 0 8px 0 #1b4b6e;
+        }
+
+        .explain-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .intro-border { border-left-color: #1f7ea3; }
+        .conjugacion-border { border-left-color: #d97706; }
+        .irregulares-border { border-left-color: #c0392b; }
+        .verbos-border { border-left-color: #2a8c5a; }
+        .uso-border { border-left-color: #9b5fc0; }
+        .practica-border { border-left-color: #e67e22; }
+
+        .explain-text {
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+
+        .explain-text strong {
+            color: #b45f06;
+        }
+
+        .note {
+            background: #ffe8c8;
+            border-radius: 18px;
+            padding: 12px 16px;
+            color: #5e3a0c;
+            margin-top: 14px;
+            font-size: 0.98rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .vocab-card {
+            background: #ffffffd0;
+            border-radius: 16px;
+            padding: 12px;
+            text-align: center;
+            border: 2px solid #a0c4e2;
+            transition: 0.15s;
+        }
+
+        .vocab-card .en-word {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1rem;
+        }
+
+        .vocab-card .pronunciation {
+            color: #b45f06;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: #f0e6d0;
+            padding: 2px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 4px 0;
+        }
+
+        .vocab-card .es-word {
+            color: #2f506d;
+            font-size: 0.85rem;
+        }
+
+        .audio-btn {
+            background: #1f6396;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .audio-btn:active {
+            transform: scale(0.9);
+        }
+
+        .audio-btn.playing {
+            background: #2ecc71;
+        }
+
+        .practice-box {
+            background: #f6faff;
+            border-radius: 36px;
+            padding: 22px 18px;
+            margin: 25px 0;
+            border: 3px solid #7bb3e0;
+        }
+
+        .practice-title {
+            font-size: 1.5rem;
+            color: #0d4568;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #7bb3e0;
+            padding-bottom: 8px;
+        }
+
+        .question {
+            background: white;
+            border-radius: 28px;
+            padding: 20px 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 0 #9bb8da;
+        }
+
+        .question:last-child {
+            margin-bottom: 0;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #022b41;
+            margin-bottom: 14px;
+        }
+
+        .q-hint {
+            font-size: 0.9rem;
+            color: #6b7f8f;
+            text-align: center;
+            margin-bottom: 12px;
+            font-style: italic;
+            background: #f0f6fc;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .options {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+        }
+
+        .option {
+            background: #e1effb;
+            border: 3px solid #7fb0da;
+            border-radius: 40px;
+            padding: 14px 6px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #013753;
+            cursor: pointer;
+            transition: 0.1s ease;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .option:active {
+            transform: scale(0.96);
+        }
+
+        .option.selected {
+            background: #b1d6ff;
+            border-color: #1f6396;
+            font-weight: 700;
+        }
+
+        .option.correct {
+            background: #b8e6c0;
+            border-color: #1d8545;
+        }
+
+        .option.incorrect {
+            background: #fbc1c1;
+            border-color: #b34141;
+        }
+
+        .btn-check {
+            background: #1f6396;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 16px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 18px;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.15s;
+        }
+
+        .btn-check:active {
+            transform: scale(0.97);
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 22px;
+            background: #e9f3fb;
+            border-left: 8px solid;
+            color: #001d33;
+            font-size: 0.98rem;
+        }
+
+        .fb-good {
+            border-color: #1d8545;
+            background: #dcf5e3;
+        }
+
+        .fb-bad {
+            border-color: #b34141;
+            background: #ffe1e1;
+        }
+
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0 10px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: #1f4d70;
+            border: 3px solid #aad0f5;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            min-width: 90px;
+            text-align: center;
+            transition: 0.15s;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.96);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            border-color: #7f9fbf;
+            cursor: not-allowed;
+        }
+
+        .dot-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #608bbf;
+            transition: 0.2s;
+        }
+
+        .dot.active {
+            background: #f5d742;
+            box-shadow: 0 0 0 3px #ffd966;
+        }
+
+        .footer {
+            text-align: center;
+            color: #c5e2ff;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .results-box {
+            background: #eaf3fc;
+            border-radius: 40px;
+            padding: 30px 20px;
+            text-align: center;
+            color: #023b5e;
+        }
+
+        .results-box h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .results-box .big-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d97706;
+            margin: 16px 0;
+        }
+
+        .btn-restart {
+            background: #9b59b6;
+            border: 3px solid #c39bd3;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            margin-top: 10px;
+            transition: 0.15s;
+        }
+
+        .btn-restart:active {
+            transform: scale(0.96);
+        }
+
+        .phrase-card {
+            background: #e8f4fd;
+            border-radius: 16px;
+            padding: 14px;
+            border-left: 6px solid #1f7ea3;
+            margin: 8px 0;
+        }
+
+        .phrase-card .en {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1.05rem;
+        }
+
+        .phrase-card .es {
+            color: #2f506d;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .phrase-card .pron {
+            color: #b45f06;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .verb-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.92rem;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .verb-table th {
+            background: rgba(31, 126, 163, 0.25);
+            padding: 10px 6px;
+            font-weight: 700;
+            color: #023047;
+            border-bottom: 2px solid #1f7ea3;
+        }
+
+        .verb-table td {
+            padding: 10px 6px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            text-align: center;
+            color: #023047;
+        }
+
+        .verb-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .highlight {
+            color: #d97706;
+            font-weight: 700;
+        }
+
+        .irregular-tag {
+            display: inline-block;
+            background: #c0392b;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <h1>📝 Verbos en Presente Simple</h1>
+            <div class="score">Puntos <span id="scoreDisplay">0</span></div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 1: INTRODUCCIÓN AL PRESENTE SIMPLE                     -->
+        <!-- ============================================================ -->
+        <div id="mod1" class="module active">
+            <div class="explain-card intro-border">
+                <h2>🎯 1. ¿Qué es el Presente Simple?</h2>
+                <div class="explain-text">
+                    El <strong>Presente Simple</strong> se usa para <strong>rutinas, hábitos, hechos generales y estados permanentes</strong>. Es el tiempo verbal más importante en inglés.
+                </div>
+
+                <div class="grid-2" style="margin:16px 0;">
+                    <div class="vocab-card">
+                        <div class="en-word">💼 Work</div>
+                        <div class="pronunciation">(Guórk)</div>
+                        <div class="es-word">Trabajar</div>
+                        <div style="font-size:0.85rem; color:#2f506d;">I work every day</div>
+                        <button class="audio-btn" onclick="speak('Work')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">📚 Study</div>
+                        <div class="pronunciation">(Stá-di)</div>
+                        <div class="es-word">Estudiar</div>
+                        <div style="font-size:0.85rem; color:#2f506d;">She studies English</div>
+                        <button class="audio-btn" onclick="speak('Study')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">🏠 Live</div>
+                        <div class="pronunciation">(Lív)</div>
+                        <div class="es-word">Vivir</div>
+                        <div style="font-size:0.85rem; color:#2f506d;">We live in Madrid</div>
+                        <button class="audio-btn" onclick="speak('Live')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">❤️ Like</div>
+                        <div class="pronunciation">(Láik)</div>
+                        <div class="es-word">Gustar</div>
+                        <div style="font-size:0.85rem; color:#2f506d;">They like pizza</div>
+                        <button class="audio-btn" onclick="speak('Like')">🔊</button>
+                    </div>
+                </div>
+
+                <div class="comparison" style="background:#d4e6f5; border-radius:18px; padding:15px 18px; margin:14px 0; border-left:5px solid #f39c12;">
+                    <strong>🇪🇸 En español:</strong> Cada persona tiene conjugación diferente.<br>
+                    <strong>🇬🇧 En inglés:</strong> Solo la 3ra persona (he/she/it) cambia.<br>
+                    ¡Ventaja: mucho más simple!
+                </div>
+
+                <div class="note">
+                    💡 <strong>Regla de oro:</strong> I, You, We, They = verbo base. He, She, It = verbo + s/es.
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Introducción</div>
+                <div class="question" id="q1">
+                    <div class="q-text">1. ¿Qué persona NO lleva -s en el Presente Simple?</div>
+                    <div class="options"><div class="option" data-correct="false">He</div><div class="option" data-correct="false">She</div><div class="option" data-correct="true">I</div><div class="option" data-correct="false">It</div></div>
+                    <button class="btn-check" onclick="checkAnswer(1)">Verificar</button><div class="feedback" id="fb1"></div>
+                </div>
+                <div class="question" id="q2">
+                    <div class="q-text">2. ¿Cuál es el Presente Simple de "He + work"?</div>
+                    <div class="options"><div class="option" data-correct="false">he work</div><div class="option" data-correct="true">he works</div><div class="option" data-correct="false">he worked</div><div class="option" data-correct="false">he working</div></div>
+                    <button class="btn-check" onclick="checkAnswer(2)">Verificar</button><div class="feedback" id="fb2"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" disabled>← anterior</button>
+                <div class="dot-container"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(2)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 2: CONJUGACIÓN Y REGLAS                               -->
+        <!-- ============================================================ -->
+        <div id="mod2" class="module">
+            <div class="explain-card conjugacion-border">
+                <h2>📋 2. Conjugación y Reglas</h2>
+                <div class="explain-text">
+                    <strong>¡Solo la 3ra persona cambia!</strong> Aprende las reglas para añadir -s o -es.
+                </div>
+
+                <table class="verb-table">
+                    <thead>
+                        <tr>
+                            <th>Persona</th>
+                            <th>Regla</th>
+                            <th>Ejemplo (work)</th>
+                            <th>Ejemplo (study)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>I, You, We, They</strong></td>
+                            <td>Verbo base</td>
+                            <td>I work</td>
+                            <td>They study</td>
+                        </tr>
+                        <tr>
+                            <td><strong>He, She, It</strong></td>
+                            <td>+s o +es</td>
+                            <td>He <span class="highlight">works</span></td>
+                            <td>She <span class="highlight">studies</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="special-box" style="background:#f0e6ff; border:2px solid #9b5fc0; border-radius:18px; padding:18px; margin:14px 0;">
+                    <div class="special-title" style="color:#7b3f9e; font-weight:700; font-size:1.15rem; margin-bottom:10px; text-align:center;">📌 Reglas de la 3ra Persona (He/She/It)</div>
+                    <div class="explain-text" style="font-size:1rem;">
+                        <strong>1. +s:</strong> work → works, live → lives, like → likes<br>
+                        <strong>2. +es</strong> (verbos en -ch, -sh, -x, -ss, -o): teach → teaches, wash → washes, go → goes<br>
+                        <strong>3. Consonante + y → ies:</strong> study → studies, try → tries<br>
+                        <strong>4. Excepciones:</strong> have → has, do → does
+                    </div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">She teaches English at a university, and her students study hard every day.</div>
+                    <div class="pron">(Shi tí-ches Íng-lish at a iu-ni-vér-si-ti, and jer stiú-dents stá-di jard é-ri dei.)</div>
+                    <div class="es">Ella enseña inglés en una universidad, y sus estudiantes estudian mucho cada día.</div>
+                    <button class="audio-btn" onclick="speak('She teaches English at a university, and her students study hard every day.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Conjugación</div>
+                <div class="question" id="q3">
+                    <div class="q-text">3. Conjuga: "My brother ___ (work) in an office."</div>
+                    <div class="options"><div class="option" data-correct="false">work</div><div class="option" data-correct="true">works</div><div class="option" data-correct="false">worked</div><div class="option" data-correct="false">working</div></div>
+                    <button class="btn-check" onclick="checkAnswer(3)">Verificar</button><div class="feedback" id="fb3"></div>
+                </div>
+                <div class="question" id="q4">
+                    <div class="q-text">4. ¿Cuál es correcto? "She ___ (study) French at university."</div>
+                    <div class="options"><div class="option" data-correct="false">study</div><div class="option" data-correct="true">studies</div><div class="option" data-correct="false">studys</div><div class="option" data-correct="false">studing</div></div>
+                    <button class="btn-check" onclick="checkAnswer(4)">Verificar</button><div class="feedback" id="fb4"></div>
+                </div>
+                <div class="question" id="q5">
+                    <div class="q-text">5. Conjuga: "My cat ___ (like) to sleep all day."</div>
+                    <div class="q-hint">💡 Animal (it) = 3ra persona singular</div>
+                    <div class="options"><div class="option" data-correct="false">like</div><div class="option" data-correct="true">likes</div><div class="option" data-correct="false">liked</div><div class="option" data-correct="false">liking</div></div>
+                    <button class="btn-check" onclick="checkAnswer(5)">Verificar</button><div class="feedback" id="fb5"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(1)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(3)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 3: VERBOS IRREGULARES                                  -->
+        <!-- ============================================================ -->
+        <div id="mod3" class="module">
+            <div class="explain-card irregulares-border">
+                <h2>⚠️ 3. Verbos Irregulares en 3ra Persona</h2>
+                <div class="explain-text">
+                    <strong>¡Estos verbos NO siguen las reglas!</strong> Memorízalos bien.
+                </div>
+
+                <table class="verb-table">
+                    <thead>
+                        <tr>
+                            <th>Verbo Base</th>
+                            <th>3ra Persona (He/She/It)</th>
+                            <th>Ejemplo</th>
+                            <th>Error Común</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="highlight">have</span></td>
+                            <td><span class="highlight">has</span> <span class="irregular-tag">¡Irregular!</span></td>
+                            <td>She has a dog</td>
+                            <td>❌ She have a dog</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">do</span></td>
+                            <td><span class="highlight">does</span> <span class="irregular-tag">¡Irregular!</span></td>
+                            <td>He does his work</td>
+                            <td>❌ He do his work</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">go</span></td>
+                            <td><span class="highlight">goes</span> <span class="irregular-tag">¡Irregular!</span></td>
+                            <td>Maria goes to work</td>
+                            <td>❌ Maria go to work</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="special-box" style="background:#ffe8e8; border:2px solid #c0392b; border-radius:18px; padding:18px; margin:14px 0;">
+                    <div class="special-title" style="color:#c0392b; font-weight:700; font-size:1.15rem; margin-bottom:10px; text-align:center;">🧠 ¡Memoriza estos 3!</div>
+                    <div class="explain-text" style="font-size:1rem; text-align:center;">
+                        <strong>have → has</strong> &nbsp;&nbsp;|&nbsp;&nbsp; <strong>do → does</strong> &nbsp;&nbsp;|&nbsp;&nbsp; <strong>go → goes</strong>
+                    </div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">She has a beautiful house. He does his homework every day. Maria goes to the gym on Mondays.</div>
+                    <div class="pron">(Shi jas a biú-ti-ful jáus. Ji das jis hóum-guórk é-ri dei. Ma-rí-a góus tu de dchim on Món-deis.)</div>
+                    <div class="es">Ella tiene una casa hermosa. Él hace su tarea todos los días. María va al gimnasio los lunes.</div>
+                    <button class="audio-btn" onclick="speak('She has a beautiful house. He does his homework every day. Maria goes to the gym on Mondays.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Irregulares</div>
+                <div class="question" id="q6">
+                    <div class="q-text">6. Conjuga: "My sister ___ (have) two cats."</div>
+                    <div class="options"><div class="option" data-correct="false">have</div><div class="option" data-correct="true">has</div><div class="option" data-correct="false">haves</div><div class="option" data-correct="false">having</div></div>
+                    <button class="btn-check" onclick="checkAnswer(6)">Verificar</button><div class="feedback" id="fb6"></div>
+                </div>
+                <div class="question" id="q7">
+                    <div class="q-text">7. ¿Cuál es correcto? "John ___ to the gym every Monday."</div>
+                    <div class="options"><div class="option" data-correct="false">go</div><div class="option" data-correct="true">goes</div><div class="option" data-correct="false">gos</div><div class="option" data-correct="false">going</div></div>
+                    <button class="btn-check" onclick="checkAnswer(7)">Verificar</button><div class="feedback" id="fb7"></div>
+                </div>
+                <div class="question" id="q8">
+                    <div class="q-text">8. Completa: "She ___ (do) her homework every evening."</div>
+                    <div class="options"><div class="option" data-correct="false">do</div><div class="option" data-correct="true">does</div><div class="option" data-correct="false">dos</div><div class="option" data-correct="false">doing</div></div>
+                    <button class="btn-check" onclick="checkAnswer(8)">Verificar</button><div class="feedback" id="fb8"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(2)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(4)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 4: 50 VERBOS DE USO DIARIO                            -->
+        <!-- ============================================================ -->
+        <div id="mod4" class="module">
+            <div class="explain-card verbos-border">
+                <h2>📚 4. 50 Verbos de Uso Diario</h2>
+                <div class="explain-text">
+                    <strong>¡Los verbos que usarás el 90% del tiempo!</strong>
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">🔹 have</div><div class="pronunciation">(jav)</div><div class="es-word">tener</div><button class="audio-btn" onclick="speak('have')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 do</div><div class="pronunciation">(du)</div><div class="es-word">hacer</div><button class="audio-btn" onclick="speak('do')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 go</div><div class="pronunciation">(góu)</div><div class="es-word">ir</div><button class="audio-btn" onclick="speak('go')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 get</div><div class="pronunciation">(guet)</div><div class="es-word">conseguir/llegar</div><button class="audio-btn" onclick="speak('get')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 make</div><div class="pronunciation">(meik)</div><div class="es-word">hacer/fabricar</div><button class="audio-btn" onclick="speak('make')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 take</div><div class="pronunciation">(teik)</div><div class="es-word">tomar/llevar</div><button class="audio-btn" onclick="speak('take')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 see</div><div class="pronunciation">(sii)</div><div class="es-word">ver</div><button class="audio-btn" onclick="speak('see')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 know</div><div class="pronunciation">(nóu)</div><div class="es-word">saber/conocer</div><button class="audio-btn" onclick="speak('know')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 think</div><div class="pronunciation">(zink)</div><div class="es-word">pensar</div><button class="audio-btn" onclick="speak('think')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 want</div><div class="pronunciation">(uánt)</div><div class="es-word">querer</div><button class="audio-btn" onclick="speak('want')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 need</div><div class="pronunciation">(níid)</div><div class="es-word">necesitar</div><button class="audio-btn" onclick="speak('need')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 like</div><div class="pronunciation">(láik)</div><div class="es-word">gustar</div><button class="audio-btn" onclick="speak('like')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 love</div><div class="pronunciation">(lav)</div><div class="es-word">amar</div><button class="audio-btn" onclick="speak('love')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 work</div><div class="pronunciation">(guórk)</div><div class="es-word">trabajar</div><button class="audio-btn" onclick="speak('work')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 study</div><div class="pronunciation">(stá-di)</div><div class="es-word">estudiar</div><button class="audio-btn" onclick="speak('study')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 teach</div><div class="pronunciation">(tích)</div><div class="es-word">enseñar</div><button class="audio-btn" onclick="speak('teach')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 learn</div><div class="pronunciation">(lérn)</div><div class="es-word">aprender</div><button class="audio-btn" onclick="speak('learn')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 read</div><div class="pronunciation">(riid)</div><div class="es-word">leer</div><button class="audio-btn" onclick="speak('read')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 write</div><div class="pronunciation">(ráit)</div><div class="es-word">escribir</div><button class="audio-btn" onclick="speak('write')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔹 speak</div><div class="pronunciation">(spíik)</div><div class="es-word">hablar</div><button class="audio-btn" onclick="speak('speak')">🔊</button></div>
+                </div>
+
+                <div class="note">
+                    💡 <strong>Consejo:</strong> Aprende los verbos en frases, no solos. "I have a car", "She works hard".
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Verbos</div>
+                <div class="question" id="q9">
+                    <div class="q-text">9. Conjuga: "The teacher ___ (teach) mathematics."</div>
+                    <div class="q-hint">💡 Verbo terminado en -ch</div>
+                    <div class="options"><div class="option" data-correct="false">teach</div><div class="option" data-correct="true">teaches</div><div class="option" data-correct="false">teachis</div><div class="option" data-correct="false">teaching</div></div>
+                    <button class="btn-check" onclick="checkAnswer(9)">Verificar</button><div class="feedback" id="fb9"></div>
+                </div>
+                <div class="question" id="q10">
+                    <div class="q-text">10. Traduce: "Mi padre siempre lee el periódico."</div>
+                    <div class="q-hint">💡 Padre = he, leer = read</div>
+                    <div class="options"><div class="option" data-correct="false">My father always read the newspaper.</div><div class="option" data-correct="true">My father always reads the newspaper.</div><div class="option" data-correct="false">My father always reading the newspaper.</div><div class="option" data-correct="false">My father always is read the newspaper.</div></div>
+                    <button class="btn-check" onclick="checkAnswer(10)">Verificar</button><div class="feedback" id="fb10"></div>
+                </div>
+                <div class="question" id="q11">
+                    <div class="q-text">11. Completa: "Maria ___ (watch) TV in the evening."</div>
+                    <div class="q-hint">💡 Verbo terminado en -ch</div>
+                    <div class="options"><div class="option" data-correct="false">watch</div><div class="option" data-correct="true">watches</div><div class="option" data-correct="false">watchs</div><div class="option" data-correct="false">watching</div></div>
+                    <button class="btn-check" onclick="checkAnswer(11)">Verificar</button><div class="feedback" id="fb11"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(3)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(5)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 5: USO DEL PRESENTE SIMPLE                            -->
+        <!-- ============================================================ -->
+        <div id="mod5" class="module">
+            <div class="explain-card uso-border">
+                <h2>🎯 5. ¿Cuándo usar Presente Simple?</h2>
+                <div class="explain-text">
+                    <strong>Usa Presente Simple en estas 5 situaciones:</strong>
+                </div>
+
+                <div class="grid-2">
+                    <div class="phrase-card">
+                        <div class="en">🔹 Rutinas y hábitos</div>
+                        <div class="pron">(I work from 9 to 5)</div>
+                        <div class="es">Trabajo de 9 a 5</div>
+                        <button class="audio-btn" onclick="speak('I work from 9 to 5.')">🔊</button>
+                    </div>
+                    <div class="phrase-card">
+                        <div class="en">🔹 Hechos generales</div>
+                        <div class="pron">(Water boils at 100°C)</div>
+                        <div class="es">El agua hierve a 100°C</div>
+                        <button class="audio-btn" onclick="speak('Water boils at 100 degrees Celsius.')">🔊</button>
+                    </div>
+                    <div class="phrase-card">
+                        <div class="en">🔹 Estados permanentes</div>
+                        <div class="pron">(She lives in Paris)</div>
+                        <div class="es">Ella vive en París</div>
+                        <button class="audio-btn" onclick="speak('She lives in Paris.')">🔊</button>
+                    </div>
+                    <div class="phrase-card">
+                        <div class="en">🔹 Horarios programados</div>
+                        <div class="pron">(The train leaves at 8 PM)</div>
+                        <div class="es">El tren sale a las 8 PM</div>
+                        <button class="audio-btn" onclick="speak('The train leaves at 8 PM.')">🔊</button>
+                    </div>
+                    <div class="phrase-card">
+                        <div class="en">🔹 Gustos y preferencias</div>
+                        <div class="pron">(They like soccer)</div>
+                        <div class="es">Les gusta el fútbol</div>
+                        <button class="audio-btn" onclick="speak('They like soccer.')">🔊</button>
+                    </div>
+                </div>
+
+                <div class="note">
+                    💡 <strong>Palabras clave:</strong> always, usually, often, sometimes, never, every day/week, on Mondays.
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Uso</div>
+                <div class="question" id="q12">
+                    <div class="q-text">12. ¿Cuál oración es correcta?</div>
+                    <div class="options"><div class="option" data-correct="false">He do his homework.</div><div class="option" data-correct="true">He does his homework.</div><div class="option" data-correct="false">He doing his homework.</div><div class="option" data-correct="false">He to do his homework.</div></div>
+                    <button class="btn-check" onclick="checkAnswer(12)">Verificar</button><div class="feedback" id="fb12"></div>
+                </div>
+                <div class="question" id="q13">
+                    <div class="q-text">13. Traduce: "Nosotros trabajamos y estudiamos cada día."</div>
+                    <div class="q-hint">💡 We = verbo base, cada día = Presente Simple</div>
+                    <div class="options"><div class="option" data-correct="false">We works and studies every day.</div><div class="option" data-correct="true">We work and study every day.</div><div class="option" data-correct="false">We working and studying every day.</div><div class="option" data-correct="false">We worked and studied every day.</div></div>
+                    <button class="btn-check" onclick="checkAnswer(13)">Verificar</button><div class="feedback" id="fb13"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(4)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(6)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 6: PRÁCTICA INTENSIVA                                    -->
+        <!-- ============================================================ -->
+        <div id="mod6" class="module">
+            <div class="explain-card practica-border">
+                <h2>📝 6. Práctica Intensiva</h2>
+                <div class="explain-text">
+                    <strong>Combina todo:</strong> conjugación, verbos irregulares y uso del Presente Simple.
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">I get up at 7, have breakfast, go to work, come home, watch TV, and go to bed at 11.</div>
+                    <div class="pron">(Ái guet ap at séven, jav brék-fast, góu tu guórk, kam jóum, uách tí-vi, and góu tu bed at iléven.)</div>
+                    <div class="es">Me levanto a las 7, desayuno, voy al trabajo, vuelvo a casa, veo la tele y me acuesto a las 11.</div>
+                    <button class="audio-btn" onclick="speak('I get up at 7, have breakfast, go to work, come home, watch TV, and go to bed at 11.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">She usually wakes up early, studies English, and goes to the gym.</div>
+                    <div class="pron">(Shi iú-shua-li uéiks ap ér-li, stá-dis Íng-lish, and góus tu de dchim.)</div>
+                    <div class="es">Ella normalmente se despierta temprano, estudia inglés y va al gimnasio.</div>
+                    <button class="audio-btn" onclick="speak('She usually wakes up early, studies English, and goes to the gym.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica Final</div>
+                <div class="question" id="q14">
+                    <div class="q-text">14. Conjuga: "My sister ___ (have) a new job."</div>
+                    <div class="options"><div class="option" data-correct="false">have</div><div class="option" data-correct="true">has</div><div class="option" data-correct="false">haves</div><div class="option" data-correct="false">having</div></div>
+                    <button class="btn-check" onclick="checkAnswer(14)">Verificar</button><div class="feedback" id="fb14"></div>
+                </div>
+                <div class="question" id="q15">
+                    <div class="q-text">15. Traduce: "Ella normalmente se despierta temprano."</div>
+                    <div class="options"><div class="option" data-correct="false">She usually wake up early.</div><div class="option" data-correct="false">She usually wakes early.</div><div class="option" data-correct="true">She usually wakes up early.</div><div class="option" data-correct="false">She usually waking up early.</div></div>
+                    <button class="btn-check" onclick="checkAnswer(15)">Verificar</button><div class="feedback" id="fb15"></div>
+                </div>
+                <div class="question" id="q16">
+                    <div class="q-text">16. Completa: "They ___ (go) to the park every Sunday."</div>
+                    <div class="options"><div class="option" data-correct="true">go</div><div class="option" data-correct="false">goes</div><div class="option" data-correct="false">gos</div><div class="option" data-correct="false">going</div></div>
+                    <button class="btn-check" onclick="checkAnswer(16)">Verificar</button><div class="feedback" id="fb16"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(5)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="showResults()">📊 finalizar</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 7: RESULTADOS                                           -->
+        <!-- ============================================================ -->
+        <div id="mod7" class="module">
+            <div class="results-box">
+                <h2>🏆 ¡Verbos en Presente Simple dominados!</h2>
+                <div class="big-score" id="finalScore">0</div>
+                <p style="font-size:1.1rem; font-weight:600;">puntos obtenidos</p>
+
+                <div class="final-message" style="font-size:1rem; margin:16px 0;">
+                    Has completado el módulo de <strong>Verbos en Presente Simple</strong>.<br>
+                    Ahora puedes conjugar verbos correctamente y describir rutinas y hábitos en inglés.
+                </div>
+
+                <ul class="learned-list" style="text-align:left; background:white; border-radius:20px; padding:16px 20px; margin:16px 0; list-style:none; color:#023047;">
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Reglas de conjugación: solo he/she/it lleva -s/-es</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ 3 verbos irregulares: have→has, do→does, go→goes</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Reglas de -es: verbos en -ch, -sh, -x, -ss, -o, -y</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ 50 verbos de uso diario</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Usos del Presente Simple: rutinas, hechos, estados</li>
+                    <li style="padding:8px 0;">✅ Pronunciación en español + audio</li>
+                </ul>
+
+                <div style="background:#d4e6f5; border-radius:18px; padding:16px; margin:16px 0; text-align:left; color:#023047; font-size:1rem;">
+                    <strong>💡 Consejo final:</strong> Crea frases sobre tu rutina diaria. "I wake up at 7, have breakfast, go to work...". ¡La práctica hace al maestro!
+                </div>
+
+                <button class="btn-restart" onclick="restart()">🔄 Repetir lección</button>
+            </div>
+        </div>
+
+        <div class="footer">Polyglots · Aprende inglés fácil</div>
+    </div>
+
+    <script>
+        // ================================================================
+        // VARIABLES GLOBALES
+        // ================================================================
+        let score = 0;
+        let answered = {};
+
+        // ================================================================
+        // RESPUESTAS CORRECTAS
+        // ================================================================
+        const correctAnswers = {
+            1: 'I',
+            2: 'he works',
+            3: 'works',
+            4: 'studies',
+            5: 'likes',
+            6: 'has',
+            7: 'goes',
+            8: 'does',
+            9: 'teaches',
+            10: 'My father always reads the newspaper.',
+            11: 'watches',
+            12: 'He does his homework.',
+            13: 'We work and study every day.',
+            14: 'has',
+            15: 'She usually wakes up early.',
+            16: 'go'
+        };
+
+        // ================================================================
+        // AUDIO
+        // ================================================================
+        function speak(text) {
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.85;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            const voices = window.speechSynthesis.getVoices();
+            const femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'));
+            if (femaleVoice) utterance.voice = femaleVoice;
+
+            window.speechSynthesis.speak(utterance);
+
+            const btn = event.target;
+            btn.classList.add('playing');
+            btn.textContent = '🔊';
+            setTimeout(() => {
+                btn.classList.remove('playing');
+                btn.textContent = '🔊';
+            }, 1500);
+        }
+
+        window.speechSynthesis.getVoices();
+
+        // ================================================================
+        // EVENTOS
+        // ================================================================
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                const questionDiv = this.closest('.question');
+                if (!questionDiv) return;
+                const qId = questionDiv.id.replace('q', '');
+                questionDiv.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                const fb = document.getElementById('fb' + qId);
+                if (fb) fb.innerHTML = '';
+            });
+        });
+
+        // ================================================================
+        // CHECK ANSWER
+        // ================================================================
+        function checkAnswer(qId) {
+            const questionDiv = document.getElementById('q' + qId);
+            if (!questionDiv) return;
+
+            const selected = questionDiv.querySelector('.option.selected');
+            const fbDiv = document.getElementById('fb' + qId);
+
+            if (!selected) {
+                fbDiv.innerHTML = '<span style="color:#b34141;">⚠️ Selecciona una opción primero.</span>';
+                fbDiv.className = 'feedback fb-bad';
+                return;
+            }
+
+            const isCorrect = selected.dataset.correct === 'true';
+            const allOpts = questionDiv.querySelectorAll('.option');
+
+            allOpts.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                if (opt.dataset.correct === 'true') opt.classList.add('correct');
+                if (opt === selected && !isCorrect) opt.classList.add('incorrect');
+            });
+
+            if (!answered[qId]) {
+                if (isCorrect) score += 10;
+                answered[qId] = true;
+                updateScore();
+            }
+
+            const explanation = getExplanation(qId, isCorrect);
+
+            fbDiv.innerHTML = `
+                <strong>${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}</strong><br>
+                ${explanation}
+            `;
+            fbDiv.className = `feedback ${isCorrect ? 'fb-good' : 'fb-bad'}`;
+        }
+
+        function getExplanation(qId, correct) {
+            const texts = {
+                1: correct ? '"I" no lleva -s en Presente Simple.' : 'I, You, We, They = verbo base.',
+                2: correct ? '"He works" es la forma correcta.' : 'He/She/It + verbo + s.',
+                3: correct ? '"Works" es la 3ra persona de "work".' : 'He/She/It + work + s.',
+                4: correct ? '"Studies" es la 3ra persona de "study".' : 'Consonante + y → ies.',
+                5: correct ? '"Likes" es la 3ra persona de "like".' : 'It + like + s.',
+                6: correct ? '"Has" es la 3ra persona de "have".' : 'Have → has (irregular).',
+                7: correct ? '"Goes" es la 3ra persona de "go".' : 'Go → goes (irregular).',
+                8: correct ? '"Does" es la 3ra persona de "do".' : 'Do → does (irregular).',
+                9: correct ? '"Teaches" es la 3ra persona de "teach".' : 'Verbos en -ch → +es.',
+                10: correct ? '"Reads" es la 3ra persona de "read".' : 'He + read + s.',
+                11: correct ? '"Watches" es la 3ra persona de "watch".' : 'Verbos en -ch → +es.',
+                12: correct ? '"He does" es la forma correcta.' : 'Do → does (irregular).',
+                13: correct ? '"Work and study" para We.' : 'I, You, We, They = verbo base.',
+                14: correct ? '"Has" es la 3ra persona de "have".' : 'Have → has (irregular).',
+                15: correct ? '"Wakes up" es la 3ra persona.' : 'He/She/It + wake up + s.',
+                16: correct ? '"Go" para They (sin -s).' : 'They + go (verbo base).'
+            };
+            return texts[qId] || (correct ? 'Correcto.' : 'Revisa la respuesta correcta.');
+        }
+
+        function updateScore() {
+            document.getElementById('scoreDisplay').textContent = score;
+        }
+
+        function goToModule(mod) {
+            document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+            document.getElementById('mod' + mod).classList.add('active');
+
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((d, i) => {
+                d.classList.toggle('active', i === mod - 1);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showResults() {
+            document.getElementById('finalScore').textContent = score;
+            goToModule(7);
+        }
+
+        function restart() {
+            score = 0;
+            answered = {};
+            updateScore();
+
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.querySelectorAll('.feedback').forEach(fb => fb.innerHTML = '');
+
+            goToModule(1);
+        }
+
+        window.checkAnswer = checkAnswer;
+        window.goToModule = goToModule;
+        window.showResults = showResults;
+        window.restart = restart;
+        window.speak = speak;
+    </script>
+</body>
+</html>
