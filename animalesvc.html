@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Animales en Inglés · Polyglots</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #2c5f8a;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            color: #f0f7ff;
+            line-height: 1.6;
+            padding: 15px 12px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            padding: 25px 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border: 2px solid #a3cef1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1d4b6e;
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            border: 2px solid #9ac7f0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e8f3ff;
+        }
+
+        .score {
+            background: #f4c542;
+            color: #1d3b4f;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 1rem;
+        }
+
+        .score span {
+            font-size: 1.5rem;
+            margin-left: 6px;
+        }
+
+        .module {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .explain-card {
+            background: #e7f0fc;
+            color: #023047;
+            border-radius: 30px;
+            padding: 25px 22px;
+            margin-bottom: 25px;
+            border-left: 12px solid;
+            box-shadow: 0 8px 0 #1b4b6e;
+        }
+
+        .explain-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .mascotas-border { border-left-color: #d97706; }
+        .granja-border { border-left-color: #2a8c5a; }
+        .salvajes-border { border-left-color: #c0392b; }
+        .marinos-border { border-left-color: #1f7ea3; }
+        .aves-border { border-left-color: #9b5fc0; }
+        .insectos-border { border-left-color: #8e44ad; }
+        .practica-border { border-left-color: #e67e22; }
+
+        .explain-text {
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+
+        .explain-text strong {
+            color: #b45f06;
+        }
+
+        .note {
+            background: #ffe8c8;
+            border-radius: 18px;
+            padding: 12px 16px;
+            color: #5e3a0c;
+            margin-top: 14px;
+            font-size: 0.98rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .vocab-card {
+            background: #ffffffd0;
+            border-radius: 16px;
+            padding: 12px;
+            text-align: center;
+            border: 2px solid #a0c4e2;
+            transition: 0.15s;
+        }
+
+        .vocab-card .en-word {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1rem;
+        }
+
+        .vocab-card .pronunciation {
+            color: #b45f06;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: #f0e6d0;
+            padding: 2px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 4px 0;
+        }
+
+        .vocab-card .es-word {
+            color: #2f506d;
+            font-size: 0.85rem;
+        }
+
+        .audio-btn {
+            background: #1f6396;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .audio-btn:active {
+            transform: scale(0.9);
+        }
+
+        .audio-btn.playing {
+            background: #2ecc71;
+        }
+
+        .practice-box {
+            background: #f6faff;
+            border-radius: 36px;
+            padding: 22px 18px;
+            margin: 25px 0;
+            border: 3px solid #7bb3e0;
+        }
+
+        .practice-title {
+            font-size: 1.5rem;
+            color: #0d4568;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #7bb3e0;
+            padding-bottom: 8px;
+        }
+
+        .question {
+            background: white;
+            border-radius: 28px;
+            padding: 20px 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 0 #9bb8da;
+        }
+
+        .question:last-child {
+            margin-bottom: 0;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #022b41;
+            margin-bottom: 14px;
+        }
+
+        .q-hint {
+            font-size: 0.9rem;
+            color: #6b7f8f;
+            text-align: center;
+            margin-bottom: 12px;
+            font-style: italic;
+            background: #f0f6fc;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .options {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+        }
+
+        .option {
+            background: #e1effb;
+            border: 3px solid #7fb0da;
+            border-radius: 40px;
+            padding: 14px 6px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #013753;
+            cursor: pointer;
+            transition: 0.1s ease;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .option:active {
+            transform: scale(0.96);
+        }
+
+        .option.selected {
+            background: #b1d6ff;
+            border-color: #1f6396;
+            font-weight: 700;
+        }
+
+        .option.correct {
+            background: #b8e6c0;
+            border-color: #1d8545;
+        }
+
+        .option.incorrect {
+            background: #fbc1c1;
+            border-color: #b34141;
+        }
+
+        .btn-check {
+            background: #1f6396;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 16px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 18px;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.15s;
+        }
+
+        .btn-check:active {
+            transform: scale(0.97);
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 22px;
+            background: #e9f3fb;
+            border-left: 8px solid;
+            color: #001d33;
+            font-size: 0.98rem;
+        }
+
+        .fb-good {
+            border-color: #1d8545;
+            background: #dcf5e3;
+        }
+
+        .fb-bad {
+            border-color: #b34141;
+            background: #ffe1e1;
+        }
+
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0 10px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: #1f4d70;
+            border: 3px solid #aad0f5;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            min-width: 90px;
+            text-align: center;
+            transition: 0.15s;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.96);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            border-color: #7f9fbf;
+            cursor: not-allowed;
+        }
+
+        .dot-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #608bbf;
+            transition: 0.2s;
+        }
+
+        .dot.active {
+            background: #f5d742;
+            box-shadow: 0 0 0 3px #ffd966;
+        }
+
+        .footer {
+            text-align: center;
+            color: #c5e2ff;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .results-box {
+            background: #eaf3fc;
+            border-radius: 40px;
+            padding: 30px 20px;
+            text-align: center;
+            color: #023b5e;
+        }
+
+        .results-box h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .results-box .big-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d97706;
+            margin: 16px 0;
+        }
+
+        .btn-restart {
+            background: #9b59b6;
+            border: 3px solid #c39bd3;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            margin-top: 10px;
+            transition: 0.15s;
+        }
+
+        .btn-restart:active {
+            transform: scale(0.96);
+        }
+
+        .phrase-card {
+            background: #e8f4fd;
+            border-radius: 16px;
+            padding: 14px;
+            border-left: 6px solid #1f7ea3;
+            margin: 8px 0;
+        }
+
+        .phrase-card .en {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1.05rem;
+        }
+
+        .phrase-card .es {
+            color: #2f506d;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .phrase-card .pron {
+            color: #b45f06;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .animal-emoji {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <h1>🐾 Animales en Inglés</h1>
+            <div class="score">Puntos <span id="scoreDisplay">0</span></div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 1: MASCOTAS                                             -->
+        <!-- ============================================================ -->
+        <div id="mod1" class="module active">
+            <div class="explain-card mascotas-border">
+                <h2>🐶 1. Mascotas</h2>
+                <div class="explain-text">
+                    <strong>¡Tus amigos peludos!</strong> Las mascotas más comunes.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">🐕 Dog</div><div class="pronunciation">(Dog)</div><div class="es-word">Perro</div><button class="audio-btn" onclick="speak('Dog')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐈 Cat</div><div class="pronunciation">(Kat)</div><div class="es-word">Gato</div><button class="audio-btn" onclick="speak('Cat')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐇 Rabbit</div><div class="pronunciation">(Rá-bit)</div><div class="es-word">Conejo</div><button class="audio-btn" onclick="speak('Rabbit')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐹 Hamster</div><div class="pronunciation">(Jám-ster)</div><div class="es-word">Hámster</div><button class="audio-btn" onclick="speak('Hamster')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐢 Turtle</div><div class="pronunciation">(Tér-tl)</div><div class="es-word">Tortuga</div><button class="audio-btn" onclick="speak('Turtle')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐦 Bird</div><div class="pronunciation">(Berd)</div><div class="es-word">Pájaro</div><button class="audio-btn" onclick="speak('Bird')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐠 Fish</div><div class="pronunciation">(Fish)</div><div class="es-word">Pez</div><button class="audio-btn" onclick="speak('Fish')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐍 Snake</div><div class="pronunciation">(Sneik)</div><div class="es-word">Serpiente</div><button class="audio-btn" onclick="speak('Snake')">🔊</button></div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">I have a dog and a cat.</div><div class="pron">(Ái jav a dog and a kat.)</div><div class="es">Tengo un perro y un gato.</div><button class="audio-btn" onclick="speak('I have a dog and a cat.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">My rabbit is very cute.</div><div class="pron">(Mái rá-bit is vé-ri kiut.)</div><div class="es">Mi conejo es muy lindo.</div><button class="audio-btn" onclick="speak('My rabbit is very cute.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Mascotas</div>
+                <div class="question" id="q1">
+                    <div class="q-text">1. ¿Cómo se dice "Perro" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Cat</div><div class="option" data-correct="true">Dog</div><div class="option" data-correct="false">Rabbit</div><div class="option" data-correct="false">Fish</div></div>
+                    <button class="btn-check" onclick="checkAnswer(1)">Verificar</button><div class="feedback" id="fb1"></div>
+                </div>
+                <div class="question" id="q2">
+                    <div class="q-text">2. ¿Qué significa "Turtle"?</div>
+                    <div class="options"><div class="option" data-correct="false">Conejo</div><div class="option" data-correct="true">Tortuga</div><div class="option" data-correct="false">Serpiente</div><div class="option" data-correct="false">Hámster</div></div>
+                    <button class="btn-check" onclick="checkAnswer(2)">Verificar</button><div class="feedback" id="fb2"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" disabled>← anterior</button>
+                <div class="dot-container"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(2)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 2: ANIMALES DE GRANJA                                   -->
+        <!-- ============================================================ -->
+        <div id="mod2" class="module">
+            <div class="explain-card granja-border">
+                <h2>🐄 2. Animales de Granja</h2>
+                <div class="explain-text">
+                    <strong>¡La vida en la granja!</strong> Animales que viven en el campo.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">🐄 Cow</div><div class="pronunciation">(Káu)</div><div class="es-word">Vaca</div><button class="audio-btn" onclick="speak('Cow')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐷 Pig</div><div class="pronunciation">(Pig)</div><div class="es-word">Cerdo</div><button class="audio-btn" onclick="speak('Pig')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐑 Sheep</div><div class="pronunciation">(Shiip)</div><div class="es-word">Oveja</div><button class="audio-btn" onclick="speak('Sheep')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐐 Goat</div><div class="pronunciation">(Góut)</div><div class="es-word">Cabra</div><button class="audio-btn" onclick="speak('Goat')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐴 Horse</div><div class="pronunciation">(Jors)</div><div class="es-word">Caballo</div><button class="audio-btn" onclick="speak('Horse')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐓 Chicken</div><div class="pronunciation">(Chí-ken)</div><div class="es-word">Pollo / Gallina</div><button class="audio-btn" onclick="speak('Chicken')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦆 Duck</div><div class="pronunciation">(Dak)</div><div class="es-word">Pato</div><button class="audio-btn" onclick="speak('Duck')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐇 Rabbit</div><div class="pronunciation">(Rá-bit)</div><div class="es-word">Conejo</div><button class="audio-btn" onclick="speak('Rabbit')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐖 Piglet</div><div class="pronunciation">(Píg-let)</div><div class="es-word">Cerdito</div><button class="audio-btn" onclick="speak('Piglet')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐤 Chick</div><div class="pronunciation">(Chik)</div><div class="es-word">Pollito</div><button class="audio-btn" onclick="speak('Chick')">🔊</button></div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">The cow gives milk.</div><div class="pron">(De káu guivs milk.)</div><div class="es">La vaca da leche.</div><button class="audio-btn" onclick="speak('The cow gives milk.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">The sheep is white.</div><div class="pron">(De shiip is guáit.)</div><div class="es">La oveja es blanca.</div><button class="audio-btn" onclick="speak('The sheep is white.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Granja</div>
+                <div class="question" id="q3">
+                    <div class="q-text">3. ¿Cómo se dice "Vaca" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Pig</div><div class="option" data-correct="true">Cow</div><div class="option" data-correct="false">Sheep</div><div class="option" data-correct="false">Horse</div></div>
+                    <button class="btn-check" onclick="checkAnswer(3)">Verificar</button><div class="feedback" id="fb3"></div>
+                </div>
+                <div class="question" id="q4">
+                    <div class="q-text">4. ¿Qué animal da leche en una granja?</div>
+                    <div class="options"><div class="option" data-correct="false">Pig</div><div class="option" data-correct="true">Cow</div><div class="option" data-correct="false">Chicken</div><div class="option" data-correct="false">Duck</div></div>
+                    <button class="btn-check" onclick="checkAnswer(4)">Verificar</button><div class="feedback" id="fb4"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(1)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(3)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 3: ANIMALES SALVAJES                                    -->
+        <!-- ============================================================ -->
+        <div id="mod3" class="module">
+            <div class="explain-card salvajes-border">
+                <h2>🦁 3. Animales Salvajes</h2>
+                <div class="explain-text">
+                    <strong>¡La selva y la sabana!</strong> Animales que viven en la naturaleza.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">🦁 Lion</div><div class="pronunciation">(Lái-on)</div><div class="es-word">León</div><button class="audio-btn" onclick="speak('Lion')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐯 Tiger</div><div class="pronunciation">(Tái-ger)</div><div class="es-word">Tigre</div><button class="audio-btn" onclick="speak('Tiger')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐘 Elephant</div><div class="pronunciation">(É-le-fant)</div><div class="es-word">Elefante</div><button class="audio-btn" onclick="speak('Elephant')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐒 Monkey</div><div class="pronunciation">(Mán-ki)</div><div class="es-word">Mono</div><button class="audio-btn" onclick="speak('Monkey')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐻 Bear</div><div class="pronunciation">(Bér)</div><div class="es-word">Oso</div><button class="audio-btn" onclick="speak('Bear')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐺 Wolf</div><div class="pronunciation">(Uulf)</div><div class="es-word">Lobo</div><button class="audio-btn" onclick="speak('Wolf')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦊 Fox</div><div class="pronunciation">(Foks)</div><div class="es-word">Zorro</div><button class="audio-btn" onclick="speak('Fox')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦒 Giraffe</div><div class="pronunciation">(Dchi-ráf)</div><div class="es-word">Jirafa</div><button class="audio-btn" onclick="speak('Giraffe')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦓 Zebra</div><div class="pronunciation">(Zí-bra)</div><div class="es-word">Cebra</div><button class="audio-btn" onclick="speak('Zebra')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦍 Gorilla</div><div class="pronunciation">(Go-rí-la)</div><div class="es-word">Gorila</div><button class="audio-btn" onclick="speak('Gorilla')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦌 Deer</div><div class="pronunciation">(Dír)</div><div class="es-word">Ciervo</div><button class="audio-btn" onclick="speak('Deer')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐗 Wild boar</div><div class="pronunciation">(Uáild bor)</div><div class="es-word">Jabalí</div><button class="audio-btn" onclick="speak('Wild boar')">🔊</button></div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">The lion is the king of the jungle.</div><div class="pron">(De lái-on is de king of de dchán-gol.)</div><div class="es">El león es el rey de la selva.</div><button class="audio-btn" onclick="speak('The lion is the king of the jungle.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">The elephant is very big.</div><div class="pron">(De é-le-fant is vé-ri big.)</div><div class="es">El elefante es muy grande.</div><button class="audio-btn" onclick="speak('The elephant is very big.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Salvajes</div>
+                <div class="question" id="q5">
+                    <div class="q-text">5. ¿Cómo se dice "León" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Tiger</div><div class="option" data-correct="true">Lion</div><div class="option" data-correct="false">Bear</div><div class="option" data-correct="false">Wolf</div></div>
+                    <button class="btn-check" onclick="checkAnswer(5)">Verificar</button><div class="feedback" id="fb5"></div>
+                </div>
+                <div class="question" id="q6">
+                    <div class="q-text">6. ¿Qué animal es el más grande de la tierra?</div>
+                    <div class="options"><div class="option" data-correct="false">Lion</div><div class="option" data-correct="false">Giraffe</div><div class="option" data-correct="true">Elephant</div><div class="option" data-correct="false">Bear</div></div>
+                    <button class="btn-check" onclick="checkAnswer(6)">Verificar</button><div class="feedback" id="fb6"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(2)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(4)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 4: ANIMALES MARINOS                                     -->
+        <!-- ============================================================ -->
+        <div id="mod4" class="module">
+            <div class="explain-card marinos-border">
+                <h2>🐬 4. Animales Marinos</h2>
+                <div class="explain-text">
+                    <strong>¡El mundo bajo el mar!</strong> Animales que viven en el agua.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">🐬 Dolphin</div><div class="pronunciation">(Dól-fin)</div><div class="es-word">Delfín</div><button class="audio-btn" onclick="speak('Dolphin')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐳 Whale</div><div class="pronunciation">(Uél)</div><div class="es-word">Ballena</div><button class="audio-btn" onclick="speak('Whale')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦈 Shark</div><div class="pronunciation">(Shark)</div><div class="es-word">Tiburón</div><button class="audio-btn" onclick="speak('Shark')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐠 Fish</div><div class="pronunciation">(Fish)</div><div class="es-word">Pez</div><button class="audio-btn" onclick="speak('Fish')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐙 Octopus</div><div class="pronunciation">(Ók-to-pus)</div><div class="es-word">Pulpo</div><button class="audio-btn" onclick="speak('Octopus')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦑 Squid</div><div class="pronunciation">(Skuid)</div><div class="es-word">Calamar</div><button class="audio-btn" onclick="speak('Squid')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦀 Crab</div><div class="pronunciation">(Krab)</div><div class="es-word">Cangrejo</div><button class="audio-btn" onclick="speak('Crab')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐚 Shell</div><div class="pronunciation">(Shel)</div><div class="es-word">Concha / Caracol</div><button class="audio-btn" onclick="speak('Shell')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦐 Shrimp</div><div class="pronunciation">(Shrimp)</div><div class="es-word">Camarón</div><button class="audio-btn" onclick="speak('Shrimp')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐠 Starfish</div><div class="pronunciation">(Stár-fish)</div><div class="es-word">Estrella de mar</div><button class="audio-btn" onclick="speak('Starfish')">🔊</button></div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">Dolphins are very intelligent.</div><div class="pron">(Dól-fins ar vé-ri in-té-li-gent.)</div><div class="es">Los delfines son muy inteligentes.</div><button class="audio-btn" onclick="speak('Dolphins are very intelligent.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">The whale is the largest animal.</div><div class="pron">(De uél is de lár-dchest á-ni-mal.)</div><div class="es">La ballena es el animal más grande.</div><button class="audio-btn" onclick="speak('The whale is the largest animal.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Marinos</div>
+                <div class="question" id="q7">
+                    <div class="q-text">7. ¿Cómo se dice "Delfín" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Whale</div><div class="option" data-correct="true">Dolphin</div><div class="option" data-correct="false">Shark</div><div class="option" data-correct="false">Octopus</div></div>
+                    <button class="btn-check" onclick="checkAnswer(7)">Verificar</button><div class="feedback" id="fb7"></div>
+                </div>
+                <div class="question" id="q8">
+                    <div class="q-text">8. ¿Qué animal marino es conocido por ser muy inteligente?</div>
+                    <div class="options"><div class="option" data-correct="false">Shark</div><div class="option" data-correct="true">Dolphin</div><div class="option" data-correct="false">Whale</div><div class="option" data-correct="false">Octopus</div></div>
+                    <button class="btn-check" onclick="checkAnswer(8)">Verificar</button><div class="feedback" id="fb8"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(3)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(5)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 5: AVES                                                -->
+        <!-- ============================================================ -->
+        <div id="mod5" class="module">
+            <div class="explain-card aves-border">
+                <h2>🦅 5. Aves</h2>
+                <div class="explain-text">
+                    <strong>¡Los que vuelan!</strong> Las aves más comunes.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">🦅 Eagle</div><div class="pronunciation">(Íi-gl)</div><div class="es-word">Águila</div><button class="audio-btn" onclick="speak('Eagle')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦉 Owl</div><div class="pronunciation">(Ául)</div><div class="es-word">Búho / Lechuza</div><button class="audio-btn" onclick="speak('Owl')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐦 Sparrow</div><div class="pronunciation">(Spá-rou)</div><div class="es-word">Gorrión</div><button class="audio-btn" onclick="speak('Sparrow')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦜 Parrot</div><div class="pronunciation">(Pá-rot)</div><div class="es-word">Loro / Papagayo</div><button class="audio-btn" onclick="speak('Parrot')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦢 Swan</div><div class="pronunciation">(Suon)</div><div class="es-word">Cisne</div><button class="audio-btn" onclick="speak('Swan')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐦 Penguin</div><div class="pronunciation">(Pén-guin)</div><div class="es-word">Pingüino</div><button class="audio-btn" onclick="speak('Penguin')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦩 Flamingo</div><div class="pronunciation">(Fla-mín-go)</div><div class="es-word">Flamenco</div><button class="audio-btn" onclick="speak('Flamingo')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐦 Crow</div><div class="pronunciation">(Krou)</div><div class="es-word">Cuervo</div><button class="audio-btn" onclick="speak('Crow')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐦 Pigeon</div><div class="pronunciation">(Pí-dchon)</div><div class="es-word">Paloma</div><button class="audio-btn" onclick="speak('Pigeon')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐦 Seagull</div><div class="pronunciation">(Sí-gal)</div><div class="es-word">Gaviota</div><button class="audio-btn" onclick="speak('Seagull')">🔊</button></div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">The eagle flies very high.</div><div class="pron">(De íi-gl fláis vé-ri jái.)</div><div class="es">El águila vuela muy alto.</div><button class="audio-btn" onclick="speak('The eagle flies very high.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">The owl is awake at night.</div><div class="pron">(De ául is a-uéik at náit.)</div><div class="es">El búho está despierto de noche.</div><button class="audio-btn" onclick="speak('The owl is awake at night.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Aves</div>
+                <div class="question" id="q9">
+                    <div class="q-text">9. ¿Cómo se dice "Águila" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Owl</div><div class="option" data-correct="true">Eagle</div><div class="option" data-correct="false">Parrot</div><div class="option" data-correct="false">Swan</div></div>
+                    <button class="btn-check" onclick="checkAnswer(9)">Verificar</button><div class="feedback" id="fb9"></div>
+                </div>
+                <div class="question" id="q10">
+                    <div class="q-text">10. ¿Qué animal vuela y vive en el Polo Sur?</div>
+                    <div class="options"><div class="option" data-correct="false">Eagle</div><div class="option" data-correct="false">Swan</div><div class="option" data-correct="true">Penguin</div><div class="option" data-correct="false">Parrot</div></div>
+                    <button class="btn-check" onclick="checkAnswer(10)">Verificar</button><div class="feedback" id="fb10"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(4)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(6)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 6: INSECTOS Y OTROS ANIMALES                            -->
+        <!-- ============================================================ -->
+        <div id="mod6" class="module">
+            <div class="explain-card insectos-border">
+                <h2>🐝 6. Insectos y Otros Animales</h2>
+                <div class="explain-text">
+                    <strong>¡Los más pequeños!</strong> Insectos y otros animales.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">🐝 Bee</div><div class="pronunciation">(Bii)</div><div class="es-word">Abeja</div><button class="audio-btn" onclick="speak('Bee')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦋 Butterfly</div><div class="pronunciation">(Bá-ter-flai)</div><div class="es-word">Mariposa</div><button class="audio-btn" onclick="speak('Butterfly')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐜 Ant</div><div class="pronunciation">(Ant)</div><div class="es-word">Hormiga</div><button class="audio-btn" onclick="speak('Ant')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🕷️ Spider</div><div class="pronunciation">(Spái-der)</div><div class="es-word">Araña</div><button class="audio-btn" onclick="speak('Spider')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐛 Caterpillar</div><div class="pronunciation">(Ká-ter-pi-lar)</div><div class="es-word">Oruga</div><button class="audio-btn" onclick="speak('Caterpillar')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐞 Ladybug</div><div class="pronunciation">(Léi-di-bag)</div><div class="es-word">Mariquita</div><button class="audio-btn" onclick="speak('Ladybug')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐌 Snail</div><div class="pronunciation">(Snéil)</div><div class="es-word">Caracol</div><button class="audio-btn" onclick="speak('Snail')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐸 Frog</div><div class="pronunciation">(Frog)</div><div class="es-word">Rana</div><button class="audio-btn" onclick="speak('Frog')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦎 Lizard</div><div class="pronunciation">(Lí-zard)</div><div class="es-word">Lagarto</div><button class="audio-btn" onclick="speak('Lizard')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐭 Mouse</div><div class="pronunciation">(Máus)</div><div class="es-word">Ratón</div><button class="audio-btn" onclick="speak('Mouse')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🐀 Rat</div><div class="pronunciation">(Rat)</div><div class="es-word">Rata</div><button class="audio-btn" onclick="speak('Rat')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🦇 Bat</div><div class="pronunciation">(Bat)</div><div class="es-word">Murciélago</div><button class="audio-btn" onclick="speak('Bat')">🔊</button></div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">Butterflies are beautiful insects.</div><div class="pron">(Bá-ter-flais ar biú-ti-ful ín-sekts.)</div><div class="es">Las mariposas son insectos hermosos.</div><button class="audio-btn" onclick="speak('Butterflies are beautiful insects.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Bees make honey.</div><div class="pron">(Biis meik já-ni.)</div><div class="es">Las abejas hacen miel.</div><button class="audio-btn" onclick="speak('Bees make honey.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Insectos</div>
+                <div class="question" id="q11">
+                    <div class="q-text">11. ¿Cómo se dice "Mariposa" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Bee</div><div class="option" data-correct="false">Spider</div><div class="option" data-correct="true">Butterfly</div><div class="option" data-correct="false">Ant</div></div>
+                    <button class="btn-check" onclick="checkAnswer(11)">Verificar</button><div class="feedback" id="fb11"></div>
+                </div>
+                <div class="question" id="q12">
+                    <div class="q-text">12. ¿Qué insecto hace miel?</div>
+                    <div class="options"><div class="option" data-correct="false">Butterfly</div><div class="option" data-correct="true">Bee</div><div class="option" data-correct="false">Spider</div><div class="option" data-correct="false">Ladybug</div></div>
+                    <button class="btn-check" onclick="checkAnswer(12)">Verificar</button><div class="feedback" id="fb12"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(5)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(7)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 7: PRÁCTICA INTENSIVA                                    -->
+        <!-- ============================================================ -->
+        <div id="mod7" class="module">
+            <div class="explain-card practica-border">
+                <h2>📝 7. Práctica Intensiva</h2>
+                <div class="explain-text">
+                    <strong>Combina todo:</strong> mascotas, granja, salvajes, marinos, aves e insectos.
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">I have a dog and a cat at home. My favorite wild animal is the lion. In the sea, I love dolphins.</div>
+                    <div class="pron">(Ái jav a dog and a kat at jóum. Mái féi-vo-rit uáild á-ni-mal is de lái-on. In de sii, ái lav dól-fins.)</div>
+                    <div class="es">Tengo un perro y un gato en casa. Mi animal salvaje favorito es el león. En el mar, amo los delfines.</div>
+                    <button class="audio-btn" onclick="speak('I have a dog and a cat at home. My favorite wild animal is the lion. In the sea, I love dolphins.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">On the farm, there are cows, sheep, and chickens. The horses run fast.</div>
+                    <div class="pron">(On de farm, dér ar káus, shiips, and chí-kens. De jórsis ran fast.)</div>
+                    <div class="es">En la granja, hay vacas, ovejas y pollos. Los caballos corren rápido.</div>
+                    <button class="audio-btn" onclick="speak('On the farm, there are cows, sheep, and chickens. The horses run fast.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica Final</div>
+                <div class="question" id="q13">
+                    <div class="q-text">13. ¿Qué animal es conocido como "el rey de la selva"?</div>
+                    <div class="options"><div class="option" data-correct="false">Tiger</div><div class="option" data-correct="true">Lion</div><div class="option" data-correct="false">Bear</div><div class="option" data-correct="false">Elephant</div></div>
+                    <button class="btn-check" onclick="checkAnswer(13)">Verificar</button><div class="feedback" id="fb13"></div>
+                </div>
+                <div class="question" id="q14">
+                    <div class="q-text">14. ¿Qué animal da leche en la granja?</div>
+                    <div class="options"><div class="option" data-correct="false">Pig</div><div class="option" data-correct="true">Cow</div><div class="option" data-correct="false">Chicken</div><div class="option" data-correct="false">Sheep</div></div>
+                    <button class="btn-check" onclick="checkAnswer(14)">Verificar</button><div class="feedback" id="fb14"></div>
+                </div>
+                <div class="question" id="q15">
+                    <div class="q-text">15. Traduce: "Los delfines son muy inteligentes."</div>
+                    <div class="options"><div class="option" data-correct="false">Dolphins are very big.</div><div class="option" data-correct="false">Dolphins are very fast.</div><div class="option" data-correct="true">Dolphins are very intelligent.</div><div class="option" data-correct="false">Dolphins are very small.</div></div>
+                    <button class="btn-check" onclick="checkAnswer(15)">Verificar</button><div class="feedback" id="fb15"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(6)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span></div>
+                <button class="nav-btn" onclick="showResults()">📊 finalizar</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 8: RESULTADOS                                           -->
+        <!-- ============================================================ -->
+        <div id="mod8" class="module">
+            <div class="results-box">
+                <h2>🏆 ¡Animales dominados!</h2>
+                <div class="big-score" id="finalScore">0</div>
+                <p style="font-size:1.1rem; font-weight:600;">puntos obtenidos</p>
+
+                <div class="final-message" style="font-size:1rem; margin:16px 0;">
+                    Has completado el módulo de <strong>Animales en Inglés</strong>.<br>
+                    Ahora puedes nombrar y describir todo tipo de animales en inglés.
+                </div>
+
+                <ul class="learned-list" style="text-align:left; background:white; border-radius:20px; padding:16px 20px; margin:16px 0; list-style:none; color:#023047;">
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Mascotas (dog, cat, rabbit, fish, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Animales de granja (cow, pig, sheep, horse, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Animales salvajes (lion, tiger, elephant, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Animales marinos (dolphin, whale, shark, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Aves (eagle, owl, parrot, penguin, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Insectos y otros (bee, butterfly, spider, frog, etc.)</li>
+                    <li style="padding:8px 0;">✅ Pronunciación en español + audio</li>
+                </ul>
+
+                <div style="background:#d4e6f5; border-radius:18px; padding:16px; margin:16px 0; text-align:left; color:#023047; font-size:1rem;">
+                    <strong>💡 Consejo final:</strong> Practica describiendo animales. "I have a cat. It is very cute. The cat is black and white."
+                </div>
+
+                <button class="btn-restart" onclick="restart()">🔄 Repetir lección</button>
+            </div>
+        </div>
+
+        <div class="footer">Polyglots · Aprende inglés fácil</div>
+    </div>
+
+    <script>
+        // ================================================================
+        // VARIABLES GLOBALES
+        // ================================================================
+        let score = 0;
+        let answered = {};
+
+        // ================================================================
+        // RESPUESTAS CORRECTAS
+        // ================================================================
+        const correctAnswers = {
+            1: 'Dog',
+            2: 'Tortuga',
+            3: 'Cow',
+            4: 'Cow',
+            5: 'Lion',
+            6: 'Elephant',
+            7: 'Dolphin',
+            8: 'Dolphin',
+            9: 'Eagle',
+            10: 'Penguin',
+            11: 'Butterfly',
+            12: 'Bee',
+            13: 'Lion',
+            14: 'Cow',
+            15: 'Dolphins are very intelligent.'
+        };
+
+        // ================================================================
+        // AUDIO
+        // ================================================================
+        function speak(text) {
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.85;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            const voices = window.speechSynthesis.getVoices();
+            const femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'));
+            if (femaleVoice) utterance.voice = femaleVoice;
+
+            window.speechSynthesis.speak(utterance);
+
+            const btn = event.target;
+            btn.classList.add('playing');
+            btn.textContent = '🔊';
+            setTimeout(() => {
+                btn.classList.remove('playing');
+                btn.textContent = '🔊';
+            }, 1500);
+        }
+
+        window.speechSynthesis.getVoices();
+
+        // ================================================================
+        // EVENTOS
+        // ================================================================
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                const questionDiv = this.closest('.question');
+                if (!questionDiv) return;
+                const qId = questionDiv.id.replace('q', '');
+                questionDiv.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                const fb = document.getElementById('fb' + qId);
+                if (fb) fb.innerHTML = '';
+            });
+        });
+
+        // ================================================================
+        // CHECK ANSWER
+        // ================================================================
+        function checkAnswer(qId) {
+            const questionDiv = document.getElementById('q' + qId);
+            if (!questionDiv) return;
+
+            const selected = questionDiv.querySelector('.option.selected');
+            const fbDiv = document.getElementById('fb' + qId);
+
+            if (!selected) {
+                fbDiv.innerHTML = '<span style="color:#b34141;">⚠️ Selecciona una opción primero.</span>';
+                fbDiv.className = 'feedback fb-bad';
+                return;
+            }
+
+            const isCorrect = selected.dataset.correct === 'true';
+            const allOpts = questionDiv.querySelectorAll('.option');
+
+            allOpts.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                if (opt.dataset.correct === 'true') opt.classList.add('correct');
+                if (opt === selected && !isCorrect) opt.classList.add('incorrect');
+            });
+
+            if (!answered[qId]) {
+                if (isCorrect) score += 10;
+                answered[qId] = true;
+                updateScore();
+            }
+
+            const explanation = getExplanation(qId, isCorrect);
+
+            fbDiv.innerHTML = `
+                <strong>${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}</strong><br>
+                ${explanation}
+            `;
+            fbDiv.className = `feedback ${isCorrect ? 'fb-good' : 'fb-bad'}`;
+        }
+
+        function getExplanation(qId, correct) {
+            const texts = {
+                1: correct ? '"Dog" es perro.' : '"Dog" (Dog) es perro.',
+                2: correct ? '"Turtle" es tortuga.' : '"Turtle" (Tér-tl) es tortuga.',
+                3: correct ? '"Cow" es vaca.' : '"Cow" (Káu) es vaca.',
+                4: correct ? '"Cow" es la vaca, que da leche.' : '"Cow" (Káu) es la vaca que da leche.',
+                5: correct ? '"Lion" es león.' : '"Lion" (Lái-on) es león.',
+                6: correct ? '"Elephant" es el animal terrestre más grande.' : '"Elephant" (É-le-fant) es el más grande.',
+                7: correct ? '"Dolphin" es delfín.' : '"Dolphin" (Dól-fin) es delfín.',
+                8: correct ? '"Dolphin" es conocido por su inteligencia.' : '"Dolphin" (Dól-fin) es muy inteligente.',
+                9: correct ? '"Eagle" es águila.' : '"Eagle" (Íi-gl) es águila.',
+                10: correct ? '"Penguin" vive en el Polo Sur.' : '"Penguin" (Pén-guin) vive en el Polo Sur.',
+                11: correct ? '"Butterfly" es mariposa.' : '"Butterfly" (Bá-ter-flai) es mariposa.',
+                12: correct ? '"Bee" hace miel.' : '"Bee" (Bii) hace miel.',
+                13: correct ? '"Lion" es el rey de la selva.' : '"Lion" (Lái-on) es el rey de la selva.',
+                14: correct ? '"Cow" da leche.' : '"Cow" (Káu) da leche.',
+                15: correct ? '"Dolphins are very intelligent" es correcto.' : '"Intelligent" = inteligente.'
+            };
+            return texts[qId] || (correct ? 'Correcto.' : 'Revisa la respuesta correcta.');
+        }
+
+        function updateScore() {
+            document.getElementById('scoreDisplay').textContent = score;
+        }
+
+        function goToModule(mod) {
+            document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+            document.getElementById('mod' + mod).classList.add('active');
+
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((d, i) => {
+                d.classList.toggle('active', i === mod - 1);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showResults() {
+            document.getElementById('finalScore').textContent = score;
+            goToModule(8);
+        }
+
+        function restart() {
+            score = 0;
+            answered = {};
+            updateScore();
+
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.querySelectorAll('.feedback').forEach(fb => fb.innerHTML = '');
+
+            goToModule(1);
+        }
+
+        window.checkAnswer = checkAnswer;
+        window.goToModule = goToModule;
+        window.showResults = showResults;
+        window.restart = restart;
+        window.speak = speak;
+    </script>
+</body>
+</html>

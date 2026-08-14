@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Meses del Año · Polyglots</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #2c5f8a;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            color: #f0f7ff;
+            line-height: 1.6;
+            padding: 15px 12px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            padding: 25px 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border: 2px solid #a3cef1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1d4b6e;
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            border: 2px solid #9ac7f0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e8f3ff;
+        }
+
+        .score {
+            background: #f4c542;
+            color: #1d3b4f;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 1rem;
+        }
+
+        .score span {
+            font-size: 1.5rem;
+            margin-left: 6px;
+        }
+
+        .module {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .explain-card {
+            background: #e7f0fc;
+            color: #023047;
+            border-radius: 30px;
+            padding: 25px 22px;
+            margin-bottom: 25px;
+            border-left: 12px solid;
+            box-shadow: 0 8px 0 #1b4b6e;
+        }
+
+        .explain-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .meses-border { border-left-color: #2a8c5a; }
+        .estaciones-border { border-left-color: #d97706; }
+        .frases-border { border-left-color: #1f7ea3; }
+        .preguntas-border { border-left-color: #9b5fc0; }
+        .practica-border { border-left-color: #e67e22; }
+
+        .explain-text {
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+
+        .explain-text strong {
+            color: #b45f06;
+        }
+
+        .note {
+            background: #ffe8c8;
+            border-radius: 18px;
+            padding: 12px 16px;
+            color: #5e3a0c;
+            margin-top: 14px;
+            font-size: 0.98rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .vocab-card {
+            background: #ffffffd0;
+            border-radius: 16px;
+            padding: 12px;
+            text-align: center;
+            border: 2px solid #a0c4e2;
+            transition: 0.15s;
+        }
+
+        .vocab-card .en-word {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1.1rem;
+        }
+
+        .vocab-card .pronunciation {
+            color: #b45f06;
+            font-size: 0.95rem;
+            font-weight: 600;
+            background: #f0e6d0;
+            padding: 2px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 4px 0;
+        }
+
+        .vocab-card .es-word {
+            color: #2f506d;
+            font-size: 0.9rem;
+        }
+
+        .audio-btn {
+            background: #1f6396;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .audio-btn:active {
+            transform: scale(0.9);
+        }
+
+        .audio-btn.playing {
+            background: #2ecc71;
+        }
+
+        .practice-box {
+            background: #f6faff;
+            border-radius: 36px;
+            padding: 22px 18px;
+            margin: 25px 0;
+            border: 3px solid #7bb3e0;
+        }
+
+        .practice-title {
+            font-size: 1.5rem;
+            color: #0d4568;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #7bb3e0;
+            padding-bottom: 8px;
+        }
+
+        .question {
+            background: white;
+            border-radius: 28px;
+            padding: 20px 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 0 #9bb8da;
+        }
+
+        .question:last-child {
+            margin-bottom: 0;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #022b41;
+            margin-bottom: 14px;
+        }
+
+        .q-hint {
+            font-size: 0.9rem;
+            color: #6b7f8f;
+            text-align: center;
+            margin-bottom: 12px;
+            font-style: italic;
+            background: #f0f6fc;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .options {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+        }
+
+        .option {
+            background: #e1effb;
+            border: 3px solid #7fb0da;
+            border-radius: 40px;
+            padding: 14px 6px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #013753;
+            cursor: pointer;
+            transition: 0.1s ease;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .option:active {
+            transform: scale(0.96);
+        }
+
+        .option.selected {
+            background: #b1d6ff;
+            border-color: #1f6396;
+            font-weight: 700;
+        }
+
+        .option.correct {
+            background: #b8e6c0;
+            border-color: #1d8545;
+        }
+
+        .option.incorrect {
+            background: #fbc1c1;
+            border-color: #b34141;
+        }
+
+        .btn-check {
+            background: #1f6396;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 16px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 18px;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.15s;
+        }
+
+        .btn-check:active {
+            transform: scale(0.97);
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 22px;
+            background: #e9f3fb;
+            border-left: 8px solid;
+            color: #001d33;
+            font-size: 0.98rem;
+        }
+
+        .fb-good {
+            border-color: #1d8545;
+            background: #dcf5e3;
+        }
+
+        .fb-bad {
+            border-color: #b34141;
+            background: #ffe1e1;
+        }
+
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0 10px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: #1f4d70;
+            border: 3px solid #aad0f5;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            min-width: 90px;
+            text-align: center;
+            transition: 0.15s;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.96);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            border-color: #7f9fbf;
+            cursor: not-allowed;
+        }
+
+        .dot-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #608bbf;
+            transition: 0.2s;
+        }
+
+        .dot.active {
+            background: #f5d742;
+            box-shadow: 0 0 0 3px #ffd966;
+        }
+
+        .footer {
+            text-align: center;
+            color: #c5e2ff;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .results-box {
+            background: #eaf3fc;
+            border-radius: 40px;
+            padding: 30px 20px;
+            text-align: center;
+            color: #023b5e;
+        }
+
+        .results-box h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .results-box .big-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d97706;
+            margin: 16px 0;
+        }
+
+        .btn-restart {
+            background: #9b59b6;
+            border: 3px solid #c39bd3;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            margin-top: 10px;
+            transition: 0.15s;
+        }
+
+        .btn-restart:active {
+            transform: scale(0.96);
+        }
+
+        .phrase-card {
+            background: #e8f4fd;
+            border-radius: 16px;
+            padding: 14px;
+            border-left: 6px solid #1f7ea3;
+            margin: 8px 0;
+        }
+
+        .phrase-card .en {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1.05rem;
+        }
+
+        .phrase-card .es {
+            color: #2f506d;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .phrase-card .pron {
+            color: #b45f06;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <h1>📆 Meses del Año</h1>
+        <div class="score">Puntos <span id="scoreDisplay">0</span></div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PARTE 1: LOS 12 MESES                                         -->
+    <!-- ============================================================ -->
+    <div id="mod1" class="module active">
+        <div class="explain-card meses-border">
+            <h2>📅 1. Los 12 Meses del Año</h2>
+            <div class="explain-text">
+                <strong>¡Aprende todos los meses!</strong> Recuerda que en inglés se escriben con <strong>mayúscula</strong>.
+            </div>
+
+            <div class="grid-3">
+                <div class="vocab-card">
+                    <div class="en-word">January</div>
+                    <div class="pronunciation">(Dchá-niu-e-ri)</div>
+                    <div class="es-word">Enero</div>
+                    <button class="audio-btn" onclick="speak('January')">🔊</button>
+                </div>
+                <div class="vocab-card">
+                    <div class="en-word">February</div>
+                    <div class="pronunciation">(Féb-ru-e-ri)</div>
+                    <div class="es-word">Febrero</div>
+                    <button class="audio-btn" onclick="speak('February')">🔊</button>
+                </div>
+                <div class="vocab-card">
+                    <div class="en-word">March</div>
+                    <div class="pronunciation">(March)</div>
+                    <div class="es-word">Marzo</div>
+                    <button class="audio-btn" onclick="speak('March')">🔊</button>
+                </div>
+                <div class="vocab-card">
+                    <div class="en-word">April</div>
+                    <div class="pronunciation">(Éi-pril)</div>
+                    <div class="es-word">Abril</div>
+                    <button class="audio-btn" onclick="speak('April')">🔊</button>
+                </div>
+                <div class="vocab-card">
+                    <div class="en-word">May</div>
+                    <div class="pronunciation">(Mei)</div>
+                    <div class="es-word">Mayo</div>
+                    <button class="audio-btn" onclick="speak('May')">🔊</button>
+                </div>
+                <div class="vocab-card">
+                    <div class="en-word">June</div>
+                    <div class="pronunciation">(Dchun)</div>
+                    <div class="es-word">Junio</div>
+                    <button class="audio-btn" onclick="speak('June')">🔊</button>
+                </div>
+                <div class="vocab-card">
+                    <div class="en-word">July</div>
+                    <div class="pronunciation">(Dchu-lái)</div>
+                    <div class="es-word">Julio</div>
+                    <button class="audio-btn" onclick="speak('July')">🔊</button>
+                </div>
+                <div class="vocab-card">
+                    <div class="en-word">August</div>
+                    <div class="pronunciation">(Ó-gost)</div>
+                    <div class="es-word">Agosto</div>
+                    <button class="audio-btn" onclick="speak('August')">🔊</button>
+                </div>
+                <div class="vocab-card">
+                    <div class="en-word">September</div>
+                    <div class="pronunciation">(Sep-tém-ber)</div>
+                    <div class="es-word">Septiembre</div>
+                    <button class="audio-btn" onclick="speak('September')">🔊</button>
+                </div>
+                <div class="vocab-card">
+                    <div class="en-word">October</div>
+                    <div class="pronunciation">(Ok-tóu-ber)</div>
+                    <div class="es-word">Octubre</div>
+                    <button class="audio-btn" onclick="speak('October')">🔊</button>
+                </div>
+                <div class="vocab-card">
+                    <div class="en-word">November</div>
+                    <div class="pronunciation">(Nou-vém-ber)</div>
+                    <div class="es-word">Noviembre</div>
+                    <button class="audio-btn" onclick="speak('November')">🔊</button>
+                </div>
+                <div class="vocab-card">
+                    <div class="en-word">December</div>
+                    <div class="pronunciation">(Di-sém-ber)</div>
+                    <div class="es-word">Diciembre</div>
+                    <button class="audio-btn" onclick="speak('December')">🔊</button>
+                </div>
+            </div>
+
+            <div class="note">
+                💡 <strong>Recuerda:</strong> Los meses siempre llevan <strong>mayúscula</strong> en inglés.
+            </div>
+        </div>
+
+        <!-- PRÁCTICA 1 -->
+        <div class="practice-box">
+            <div class="practice-title">✏️ Práctica · Meses</div>
+            <div class="question" id="q1">
+                <div class="q-text">1. ¿Qué mes es "October"?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">Septiembre</div>
+                    <div class="option" data-correct="true">Octubre</div>
+                    <div class="option" data-correct="false">Noviembre</div>
+                    <div class="option" data-correct="false">Diciembre</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(1)">Verificar</button>
+                <div class="feedback" id="fb1"></div>
+            </div>
+            <div class="question" id="q2">
+                <div class="q-text">2. ¿Cómo se dice "Mayo" en inglés?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">June</div>
+                    <div class="option" data-correct="false">March</div>
+                    <div class="option" data-correct="true">May</div>
+                    <div class="option" data-correct="false">April</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(2)">Verificar</button>
+                <div class="feedback" id="fb2"></div>
+            </div>
+        </div>
+
+        <div class="nav-row">
+            <button class="nav-btn" disabled>← anterior</button>
+            <div class="dot-container">
+                <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <button class="nav-btn" onclick="goToModule(2)">siguiente →</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PARTE 2: MESES Y ESTACIONES                                   -->
+    <!-- ============================================================ -->
+    <div id="mod2" class="module">
+        <div class="explain-card estaciones-border">
+            <h2>🌍 2. Meses y Estaciones</h2>
+            <div class="explain-text">
+                <strong>Relaciona cada mes con su estación.</strong> Esto te ayudará a hablar del clima.
+            </div>
+
+            <div class="phrase-card">
+                <div class="en">December, January, February → Winter</div>
+                <div class="pron">(Di-sém-ber, Dchá-niu-e-ri, Féb-ru-e-ri → Uín-ter)</div>
+                <div class="es">Diciembre, Enero, Febrero → Invierno</div>
+                <button class="audio-btn" onclick="speak('December January February Winter')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">March, April, May → Spring</div>
+                <div class="pron">(March, Éi-pril, Mei → Spring)</div>
+                <div class="es">Marzo, Abril, Mayo → Primavera</div>
+                <button class="audio-btn" onclick="speak('March April May Spring')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">June, July, August → Summer</div>
+                <div class="pron">(Dchun, Dchu-lái, Ó-gost → Sá-mer)</div>
+                <div class="es">Junio, Julio, Agosto → Verano</div>
+                <button class="audio-btn" onclick="speak('June July August Summer')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">September, October, November → Autumn</div>
+                <div class="pron">(Sep-tém-ber, Ok-tóu-ber, Nou-vém-ber → Ó-tum)</div>
+                <div class="es">Septiembre, Octubre, Noviembre → Otoño</div>
+                <button class="audio-btn" onclick="speak('September October November Autumn')">🔊</button>
+            </div>
+
+            <div class="note">
+                💡 <strong>Dato:</strong> El año comienza en invierno (en el hemisferio norte). En el sur es al revés.
+            </div>
+        </div>
+
+        <!-- PRÁCTICA 2 -->
+        <div class="practice-box">
+            <div class="practice-title">✏️ Práctica · Estaciones</div>
+            <div class="question" id="q3">
+                <div class="q-text">3. ¿Qué estación tiene los meses "June, July, August"?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">Spring</div>
+                    <div class="option" data-correct="true">Summer</div>
+                    <div class="option" data-correct="false">Autumn</div>
+                    <div class="option" data-correct="false">Winter</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(3)">Verificar</button>
+                <div class="feedback" id="fb3"></div>
+            </div>
+            <div class="question" id="q4">
+                <div class="q-text">4. ¿Qué mes está en otoño?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">May</div>
+                    <div class="option" data-correct="false">July</div>
+                    <div class="option" data-correct="true">October</div>
+                    <div class="option" data-correct="false">January</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(4)">Verificar</button>
+                <div class="feedback" id="fb4"></div>
+            </div>
+        </div>
+
+        <div class="nav-row">
+            <button class="nav-btn" onclick="goToModule(1)">← anterior</button>
+            <div class="dot-container">
+                <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <button class="nav-btn" onclick="goToModule(3)">siguiente →</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PARTE 3: FRASES CON MESES                                     -->
+    <!-- ============================================================ -->
+    <div id="mod3" class="module">
+        <div class="explain-card frases-border">
+            <h2>🗣️ 3. Frases con Meses</h2>
+            <div class="explain-text">
+                <strong>Usa los meses en contexto.</strong> Frases útiles para hablar del tiempo y planes.
+            </div>
+
+            <div class="phrase-card">
+                <div class="en">My birthday is in January.</div>
+                <div class="pron">(Mái bérz-dei is in Dchá-niu-e-ri)</div>
+                <div class="es">Mi cumpleaños es en enero.</div>
+                <button class="audio-btn" onclick="speak('My birthday is in January')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">We go on vacation in July.</div>
+                <div class="pron">(Uí góu on vei-kéi-shon in Dchu-lái)</div>
+                <div class="es">Nos vamos de vacaciones en julio.</div>
+                <button class="audio-btn" onclick="speak('We go on vacation in July')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">It rains a lot in April.</div>
+                <div class="pron">(It réins a lot in Éi-pril)</div>
+                <div class="es">Llueve mucho en abril.</div>
+                <button class="audio-btn" onclick="speak('It rains a lot in April')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">Christmas is in December.</div>
+                <div class="pron">(Krís-mas is in Di-sém-ber)</div>
+                <div class="es">Navidad es en diciembre.</div>
+                <button class="audio-btn" onclick="speak('Christmas is in December')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">I start school in September.</div>
+                <div class="pron">(Ái start skuul in Sep-tém-ber)</div>
+                <div class="es">Empiezo la escuela en septiembre.</div>
+                <button class="audio-btn" onclick="speak('I start school in September')">🔊</button>
+            </div>
+
+            <div class="note">
+                💡 <strong>Preposición:</strong> Usamos <strong>"in"</strong> para meses y estaciones: "in January", "in summer".
+            </div>
+        </div>
+
+        <!-- PRÁCTICA 3 -->
+        <div class="practice-box">
+            <div class="practice-title">✏️ Práctica · Frases</div>
+            <div class="question" id="q5">
+                <div class="q-text">5. Completa: "My birthday is ___ January."</div>
+                <div class="options">
+                    <div class="option" data-correct="false">on</div>
+                    <div class="option" data-correct="true">in</div>
+                    <div class="option" data-correct="false">at</div>
+                    <div class="option" data-correct="false">to</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(5)">Verificar</button>
+                <div class="feedback" id="fb5"></div>
+            </div>
+            <div class="question" id="q6">
+                <div class="q-text">6. Traduce: "Navidad es en diciembre."</div>
+                <div class="options">
+                    <div class="option" data-correct="false">Christmas is on December.</div>
+                    <div class="option" data-correct="true">Christmas is in December.</div>
+                    <div class="option" data-correct="false">Christmas is at December.</div>
+                    <div class="option" data-correct="false">Christmas in December.</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(6)">Verificar</button>
+                <div class="feedback" id="fb6"></div>
+            </div>
+        </div>
+
+        <div class="nav-row">
+            <button class="nav-btn" onclick="goToModule(2)">← anterior</button>
+            <div class="dot-container">
+                <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <button class="nav-btn" onclick="goToModule(4)">siguiente →</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PARTE 4: PREGUNTAS Y RESPUESTAS                               -->
+    <!-- ============================================================ -->
+    <div id="mod4" class="module">
+        <div class="explain-card preguntas-border">
+            <h2>❓ 4. Preguntas y Respuestas</h2>
+            <div class="explain-text">
+                <strong>Haz y responde preguntas</strong> sobre meses y fechas importantes.
+            </div>
+
+            <div class="phrase-card">
+                <div class="en">What month is it?</div>
+                <div class="pron">(Guát manz is it?)</div>
+                <div class="es">¿Qué mes es?</div>
+                <button class="audio-btn" onclick="speak('What month is it')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">It's May.</div>
+                <div class="pron">(Its Mei)</div>
+                <div class="es">Es mayo.</div>
+                <button class="audio-btn" onclick="speak('It is May')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">What's your favorite month?</div>
+                <div class="pron">(Guáts ior féi-vo-rit manz?)</div>
+                <div class="es">¿Cuál es tu mes favorito?</div>
+                <button class="audio-btn" onclick="speak('What is your favorite month')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">My favorite month is June.</div>
+                <div class="pron">(Mái féi-vo-rit manz is Dchun)</div>
+                <div class="es">Mi mes favorito es junio.</div>
+                <button class="audio-btn" onclick="speak('My favorite month is June')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">When is your birthday?</div>
+                <div class="pron">(Guén is ior bérz-dei?)</div>
+                <div class="es">¿Cuándo es tu cumpleaños?</div>
+                <button class="audio-btn" onclick="speak('When is your birthday')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">My birthday is in March.</div>
+                <div class="pron">(Mái bérz-dei is in March)</div>
+                <div class="es">Mi cumpleaños es en marzo.</div>
+                <button class="audio-btn" onclick="speak('My birthday is in March')">🔊</button>
+            </div>
+        </div>
+
+        <!-- PRÁCTICA 4 -->
+        <div class="practice-box">
+            <div class="practice-title">✏️ Práctica · Preguntas</div>
+            <div class="question" id="q7">
+                <div class="q-text">7. Responde: "What month is it?" (si es agosto)</div>
+                <div class="options">
+                    <div class="option" data-correct="false">It's July.</div>
+                    <div class="option" data-correct="false">It's September.</div>
+                    <div class="option" data-correct="true">It's August.</div>
+                    <div class="option" data-correct="false">It's October.</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(7)">Verificar</button>
+                <div class="feedback" id="fb7"></div>
+            </div>
+            <div class="question" id="q8">
+                <div class="q-text">8. Traduce: "Mi cumpleaños es en marzo."</div>
+                <div class="options">
+                    <div class="option" data-correct="false">My birthday is on March.</div>
+                    <div class="option" data-correct="true">My birthday is in March.</div>
+                    <div class="option" data-correct="false">My birthday is at March.</div>
+                    <div class="option" data-correct="false">My birthday March.</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(8)">Verificar</button>
+                <div class="feedback" id="fb8"></div>
+            </div>
+        </div>
+
+        <div class="nav-row">
+            <button class="nav-btn" onclick="goToModule(3)">← anterior</button>
+            <div class="dot-container">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <button class="nav-btn" onclick="goToModule(5)">siguiente →</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PARTE 5: CASOS Y SITUACIONES                                   -->
+    <!-- ============================================================ -->
+    <div id="mod5" class="module">
+        <div class="explain-card frases-border">
+            <h2>🏠 5. Casos y Situaciones</h2>
+            <div class="explain-text">
+                <strong>Describe tu rutina anual</strong> usando meses, estaciones y actividades.
+            </div>
+
+            <div class="phrase-card">
+                <div class="en">I work from January to December.</div>
+                <div class="pron">(Ái guórk from Dchá-niu-e-ri tu Di-sém-ber)</div>
+                <div class="es">Trabajo de enero a diciembre.</div>
+                <button class="audio-btn" onclick="speak('I work from January to December')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">I go to the beach in August.</div>
+                <div class="pron">(Ái góu tu de biich in Ó-gost)</div>
+                <div class="es">Voy a la playa en agosto.</div>
+                <button class="audio-btn" onclick="speak('I go to the beach in August')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">It snows in December and January.</div>
+                <div class="pron">(It snóus in Di-sém-ber and Dchá-niu-e-ri)</div>
+                <div class="es">Nieva en diciembre y enero.</div>
+                <button class="audio-btn" onclick="speak('It snows in December and January')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">We have a holiday in May.</div>
+                <div class="pron">(Uí jav a jó-li-dei in Mei)</div>
+                <div class="es">Tenemos un feriado en mayo.</div>
+                <button class="audio-btn" onclick="speak('We have a holiday in May')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">The school year starts in September.</div>
+                <div class="pron">(De skuul íir starts in Sep-tém-ber)</div>
+                <div class="es">El año escolar empieza en septiembre.</div>
+                <button class="audio-btn" onclick="speak('The school year starts in September')">🔊</button>
+            </div>
+
+            <div class="note">
+                💡 <strong>Preposiciones:</strong> "in" para meses, "from... to..." para períodos.
+            </div>
+        </div>
+
+        <!-- PRÁCTICA 5 -->
+        <div class="practice-box">
+            <div class="practice-title">✏️ Práctica · Situaciones</div>
+            <div class="question" id="q9">
+                <div class="q-text">9. ¿Qué preposición usas con los meses?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">on</div>
+                    <div class="option" data-correct="true">in</div>
+                    <div class="option" data-correct="false">at</div>
+                    <div class="option" data-correct="false">to</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(9)">Verificar</button>
+                <div class="feedback" id="fb9"></div>
+            </div>
+            <div class="question" id="q10">
+                <div class="q-text">10. Traduce: "Voy a la playa en agosto."</div>
+                <div class="options">
+                    <div class="option" data-correct="false">I go to the beach on August.</div>
+                    <div class="option" data-correct="true">I go to the beach in August.</div>
+                    <div class="option" data-correct="false">I go to the beach at August.</div>
+                    <div class="option" data-correct="false">I go to the beach August.</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(10)">Verificar</button>
+                <div class="feedback" id="fb10"></div>
+            </div>
+        </div>
+
+        <div class="nav-row">
+            <button class="nav-btn" onclick="goToModule(4)">← anterior</button>
+            <div class="dot-container">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
+            </div>
+            <button class="nav-btn" onclick="goToModule(6)">siguiente →</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PARTE 6: PRÁCTICA INTENSIVA                                   -->
+    <!-- ============================================================ -->
+    <div id="mod6" class="module">
+        <div class="explain-card practica-border">
+            <h2>📝 6. Práctica Intensiva</h2>
+            <div class="explain-text">
+                <strong>Combina todo:</strong> meses, estaciones, preposiciones, fechas y actividades.
+            </div>
+
+            <div class="phrase-card">
+                <div class="en">What do you do in December?</div>
+                <div class="pron">(Guát du iu du in Di-sém-ber?)</div>
+                <div class="es">¿Qué haces en diciembre?</div>
+                <button class="audio-btn" onclick="speak('What do you do in December')">🔊</button>
+            </div>
+            <div class="phrase-card">
+                <div class="en">I celebrate Christmas with my family.</div>
+                <div class="pron">(Ái sé-le-breit Krís-mas uiz mái fá-mi-li)</div>
+                <div class="es">Celebro Navidad con mi familia.</div>
+                <button class="audio-btn" onclick="speak('I celebrate Christmas with my family')">🔊</button>
+            </div>
+        </div>
+
+        <div class="practice-box">
+            <div class="practice-title">✏️ Práctica Final</div>
+            <div class="question" id="q11">
+                <div class="q-text">11. Responde: "What do you do in summer?"</div>
+                <div class="q-hint">(Elige la respuesta correcta)</div>
+                <div class="options">
+                    <div class="option" data-correct="false">I go to school.</div>
+                    <div class="option" data-correct="true">I go to the beach.</div>
+                    <div class="option" data-correct="false">I stay at home.</div>
+                    <div class="option" data-correct="false">I work in the office.</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(11)">Verificar</button>
+                <div class="feedback" id="fb11"></div>
+            </div>
+            <div class="question" id="q12">
+                <div class="q-text">12. ¿Cuál oración es correcta?</div>
+                <div class="options">
+                    <div class="option" data-correct="false">In March, I go to the park.</div>
+                    <div class="option" data-correct="true">In March, I go to the park.</div>
+                    <div class="option" data-correct="false">On March, I go to the park.</div>
+                    <div class="option" data-correct="false">At March, I go to the park.</div>
+                </div>
+                <button class="btn-check" onclick="checkAnswer(12)">Verificar</button>
+                <div class="feedback" id="fb12"></div>
+            </div>
+        </div>
+
+        <div class="nav-row">
+            <button class="nav-btn" onclick="goToModule(5)">← anterior</button>
+            <div class="dot-container">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
+            </div>
+            <button class="nav-btn" onclick="showResults()">📊 finalizar</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PARTE 7: RESULTADOS                                           -->
+    <!-- ============================================================ -->
+    <div id="mod7" class="module">
+        <div class="results-box">
+            <h2>🏆 ¡Meses dominados!</h2>
+            <div class="big-score" id="finalScore">0</div>
+            <p style="font-size:1.1rem; font-weight:600;">puntos obtenidos</p>
+
+            <div class="final-message" style="font-size:1rem; margin:16px 0;">
+                Has completado el módulo de <strong>Meses del Año</strong>.<br>
+                Ahora puedes hablar de fechas, estaciones, planes y tu rutina anual.
+            </div>
+
+            <ul class="learned-list" style="text-align:left; background:white; border-radius:20px; padding:16px 20px; margin:16px 0; list-style:none; color:#023047;">
+                <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Los 12 meses del año</li>
+                <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Relación meses → estaciones</li>
+                <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Frases con "in" + mes</li>
+                <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Preguntas: "What month is it?"</li>
+                <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Casos: cumpleaños, vacaciones, clima</li>
+                <li style="padding:8px 0;">✅ Pronunciación en español + audio</li>
+            </ul>
+
+            <div style="background:#d4e6f5; border-radius:18px; padding:16px; margin:16px 0; text-align:left; color:#023047; font-size:1rem;">
+                <strong>💡 Consejo final:</strong> Practica diciendo tu fecha de nacimiento y los meses de tus actividades favoritas. Usa "in" para meses y estaciones.
+            </div>
+
+            <button class="btn-restart" onclick="restart()">🔄 Repetir lección</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        Polyglots · Aprende inglés fácil
+    </div>
+</div>
+
+<script>
+    // ================================================================
+    // VARIABLES GLOBALES
+    // ================================================================
+    let score = 0;
+    let answered = {};
+
+    // ================================================================
+    // RESPUESTAS CORRECTAS
+    // ================================================================
+    const correctAnswers = {
+        1: 'Octubre',
+        2: 'May',
+        3: 'Summer',
+        4: 'October',
+        5: 'in',
+        6: 'Christmas is in December.',
+        7: 'It\'s August.',
+        8: 'My birthday is in March.',
+        9: 'in',
+        10: 'I go to the beach in August.',
+        11: 'I go to the beach.',
+        12: 'In March, I go to the park.'
+    };
+
+    // ================================================================
+    // AUDIO - SÍNTESIS DE VOZ
+    // ================================================================
+    function speak(text) {
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.8;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+
+        const voices = window.speechSynthesis.getVoices();
+        const femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'));
+        if (femaleVoice) utterance.voice = femaleVoice;
+
+        window.speechSynthesis.speak(utterance);
+
+        const btn = event.target;
+        btn.classList.add('playing');
+        btn.textContent = '🔊';
+        setTimeout(() => {
+            btn.classList.remove('playing');
+        }, 1500);
+    }
+
+    window.speechSynthesis.getVoices();
+
+    // ================================================================
+    // EVENTOS: selección de opciones
+    // ================================================================
+    document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', function() {
+            const questionDiv = this.closest('.question');
+            if (!questionDiv) return;
+            const qId = questionDiv.id.replace('q', '');
+            questionDiv.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+            this.classList.add('selected');
+            const fb = document.getElementById('fb' + qId);
+            if (fb) fb.innerHTML = '';
+        });
+    });
+
+    // ================================================================
+    // FUNCIÓN PRINCIPAL: verificar respuesta
+    // ================================================================
+    function checkAnswer(qId) {
+        const questionDiv = document.getElementById('q' + qId);
+        if (!questionDiv) return;
+
+        const selected = questionDiv.querySelector('.option.selected');
+        const fbDiv = document.getElementById('fb' + qId);
+
+        if (!selected) {
+            fbDiv.innerHTML = '<span style="color:#b34141;">⚠️ Selecciona una opción primero.</span>';
+            fbDiv.className = 'feedback fb-bad';
+            return;
+        }
+
+        const isCorrect = selected.dataset.correct === 'true';
+        const allOpts = questionDiv.querySelectorAll('.option');
+
+        allOpts.forEach(opt => {
+            opt.classList.remove('correct', 'incorrect');
+            if (opt.dataset.correct === 'true') opt.classList.add('correct');
+            if (opt === selected && !isCorrect) opt.classList.add('incorrect');
+        });
+
+        if (!answered[qId]) {
+            if (isCorrect) score += 10;
+            answered[qId] = true;
+            updateScore();
+        }
+
+        const explanation = getExplanation(qId, isCorrect);
+
+        fbDiv.innerHTML = `
+            <strong>${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}</strong><br>
+            ${explanation}
+        `;
+        fbDiv.className = `feedback ${isCorrect ? 'fb-good' : 'fb-bad'}`;
+    }
+
+    // ================================================================
+    // EXPLICACIONES
+    // ================================================================
+    function getExplanation(qId, correct) {
+        const texts = {
+            1: correct ? '"October" es Octubre.' : '"October" (Ok-tóu-ber) es Octubre.',
+            2: correct ? '"May" es Mayo.' : '"May" (Mei) es Mayo.',
+            3: correct ? '"June, July, August" son verano.' : 'Los meses de verano son June, July, August.',
+            4: correct ? '"October" está en otoño.' : 'Octubre (October) es un mes de otoño.',
+            5: correct ? 'Con meses usamos "in".' : 'Siempre usamos "in" con meses: in January, in May.',
+            6: correct ? '"Christmas is in December" es correcto.' : 'Usamos "in" para meses: in December.',
+            7: correct ? '"It\'s August" = Es agosto.' : 'Agosto = August (Ó-gost).',
+            8: correct ? '"My birthday is in March" es correcto.' : 'Usamos "in" para meses: in March.',
+            9: correct ? 'Con meses usamos "in".' : 'Usamos "in" para meses: in January, in February.',
+            10: correct ? '"In August" es la preposición correcta.' : 'Usamos "in" para meses: in August.',
+            11: correct ? '"I go to the beach" es típico en verano.' : 'En verano, la gente va a la playa.',
+            12: correct ? 'La preposición correcta con meses es "in".' : 'Siempre usamos "in" antes de un mes.'
+        };
+        return texts[qId] || (correct ? 'Correcto.' : 'Revisa la respuesta correcta.');
+    }
+
+    // ================================================================
+    // ACTUALIZAR PUNTUACIÓN
+    // ================================================================
+    function updateScore() {
+        document.getElementById('scoreDisplay').textContent = score;
+    }
+
+    // ================================================================
+    // NAVEGACIÓN ENTRE MÓDULOS
+    // ================================================================
+    function goToModule(mod) {
+        document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+        document.getElementById('mod' + mod).classList.add('active');
+
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((d, i) => {
+            d.classList.toggle('active', i === mod - 1);
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ================================================================
+    // MOSTRAR RESULTADOS
+    // ================================================================
+    function showResults() {
+        document.getElementById('finalScore').textContent = score;
+        goToModule(7);
+    }
+
+    // ================================================================
+    // REINICIAR
+    // ================================================================
+    function restart() {
+        score = 0;
+        answered = {};
+        updateScore();
+
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.classList.remove('selected', 'correct', 'incorrect');
+        });
+        document.querySelectorAll('.feedback').forEach(fb => fb.innerHTML = '');
+
+        goToModule(1);
+    }
+
+    // ================================================================
+    // EXPONER FUNCIONES GLOBALES
+    // ================================================================
+    window.checkAnswer = checkAnswer;
+    window.goToModule = goToModule;
+    window.showResults = showResults;
+    window.restart = restart;
+    window.speak = speak;
+</script>
+</body>
+</html>

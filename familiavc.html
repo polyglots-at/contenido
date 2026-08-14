@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>La Familia en Inglés · Polyglots</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #2c5f8a;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            color: #f0f7ff;
+            line-height: 1.6;
+            padding: 15px 12px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            padding: 25px 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border: 2px solid #a3cef1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1d4b6e;
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            border: 2px solid #9ac7f0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e8f3ff;
+        }
+
+        .score {
+            background: #f4c542;
+            color: #1d3b4f;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 1rem;
+        }
+
+        .score span {
+            font-size: 1.5rem;
+            margin-left: 6px;
+        }
+
+        .module {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .explain-card {
+            background: #e7f0fc;
+            color: #023047;
+            border-radius: 30px;
+            padding: 25px 22px;
+            margin-bottom: 25px;
+            border-left: 12px solid;
+            box-shadow: 0 8px 0 #1b4b6e;
+        }
+
+        .explain-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .familia-border { border-left-color: #d97706; }
+        .frases-border { border-left-color: #1f7ea3; }
+        .preguntas-border { border-left-color: #9b5fc0; }
+        .practica-border { border-left-color: #e67e22; }
+
+        .explain-text {
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+
+        .explain-text strong {
+            color: #b45f06;
+        }
+
+        .note {
+            background: #ffe8c8;
+            border-radius: 18px;
+            padding: 12px 16px;
+            color: #5e3a0c;
+            margin-top: 14px;
+            font-size: 0.98rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .vocab-card {
+            background: #ffffffd0;
+            border-radius: 16px;
+            padding: 12px;
+            text-align: center;
+            border: 2px solid #a0c4e2;
+            transition: 0.15s;
+        }
+
+        .vocab-card .en-word {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1.1rem;
+        }
+
+        .vocab-card .pronunciation {
+            color: #b45f06;
+            font-size: 0.95rem;
+            font-weight: 600;
+            background: #f0e6d0;
+            padding: 2px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 4px 0;
+        }
+
+        .vocab-card .es-word {
+            color: #2f506d;
+            font-size: 0.9rem;
+        }
+
+        .audio-btn {
+            background: #1f6396;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .audio-btn:active {
+            transform: scale(0.9);
+        }
+
+        .audio-btn.playing {
+            background: #2ecc71;
+        }
+
+        .practice-box {
+            background: #f6faff;
+            border-radius: 36px;
+            padding: 22px 18px;
+            margin: 25px 0;
+            border: 3px solid #7bb3e0;
+        }
+
+        .practice-title {
+            font-size: 1.5rem;
+            color: #0d4568;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #7bb3e0;
+            padding-bottom: 8px;
+        }
+
+        .question {
+            background: white;
+            border-radius: 28px;
+            padding: 20px 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 0 #9bb8da;
+        }
+
+        .question:last-child {
+            margin-bottom: 0;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #022b41;
+            margin-bottom: 14px;
+        }
+
+        .q-hint {
+            font-size: 0.9rem;
+            color: #6b7f8f;
+            text-align: center;
+            margin-bottom: 12px;
+            font-style: italic;
+            background: #f0f6fc;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .options {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+        }
+
+        .option {
+            background: #e1effb;
+            border: 3px solid #7fb0da;
+            border-radius: 40px;
+            padding: 14px 6px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #013753;
+            cursor: pointer;
+            transition: 0.1s ease;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .option:active {
+            transform: scale(0.96);
+        }
+
+        .option.selected {
+            background: #b1d6ff;
+            border-color: #1f6396;
+            font-weight: 700;
+        }
+
+        .option.correct {
+            background: #b8e6c0;
+            border-color: #1d8545;
+        }
+
+        .option.incorrect {
+            background: #fbc1c1;
+            border-color: #b34141;
+        }
+
+        .btn-check {
+            background: #1f6396;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 16px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 18px;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.15s;
+        }
+
+        .btn-check:active {
+            transform: scale(0.97);
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 22px;
+            background: #e9f3fb;
+            border-left: 8px solid;
+            color: #001d33;
+            font-size: 0.98rem;
+        }
+
+        .fb-good {
+            border-color: #1d8545;
+            background: #dcf5e3;
+        }
+
+        .fb-bad {
+            border-color: #b34141;
+            background: #ffe1e1;
+        }
+
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0 10px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: #1f4d70;
+            border: 3px solid #aad0f5;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            min-width: 90px;
+            text-align: center;
+            transition: 0.15s;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.96);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            border-color: #7f9fbf;
+            cursor: not-allowed;
+        }
+
+        .dot-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #608bbf;
+            transition: 0.2s;
+        }
+
+        .dot.active {
+            background: #f5d742;
+            box-shadow: 0 0 0 3px #ffd966;
+        }
+
+        .footer {
+            text-align: center;
+            color: #c5e2ff;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .results-box {
+            background: #eaf3fc;
+            border-radius: 40px;
+            padding: 30px 20px;
+            text-align: center;
+            color: #023b5e;
+        }
+
+        .results-box h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .results-box .big-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d97706;
+            margin: 16px 0;
+        }
+
+        .btn-restart {
+            background: #9b59b6;
+            border: 3px solid #c39bd3;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            margin-top: 10px;
+            transition: 0.15s;
+        }
+
+        .btn-restart:active {
+            transform: scale(0.96);
+        }
+
+        .phrase-card {
+            background: #e8f4fd;
+            border-radius: 16px;
+            padding: 14px;
+            border-left: 6px solid #1f7ea3;
+            margin: 8px 0;
+        }
+
+        .phrase-card .en {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1.05rem;
+        }
+
+        .phrase-card .es {
+            color: #2f506d;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .phrase-card .pron {
+            color: #b45f06;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Árbol familiar visual */
+        .family-tree {
+            background: #d4e6f5;
+            border-radius: 18px;
+            padding: 16px;
+            text-align: center;
+            color: #023047;
+        }
+
+        .family-tree .level {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 4px 0;
+        }
+
+        .family-tree .member {
+            background: white;
+            border-radius: 12px;
+            padding: 8px 14px;
+            font-weight: 600;
+            border: 2px solid #1f7ea3;
+            min-width: 70px;
+        }
+
+        .family-tree .connector {
+            color: #1f7ea3;
+            font-size: 1.2rem;
+            margin: 2px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <h1>👨‍👩‍👧‍👦 La Familia en Inglés</h1>
+            <div class="score">Puntos <span id="scoreDisplay">0</span></div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 1: MIEMBROS DE LA FAMILIA                               -->
+        <!-- ============================================================ -->
+        <div id="mod1" class="module active">
+            <div class="explain-card familia-border">
+                <h2>👨‍👩‍👧‍👦 1. Miembros de la Familia</h2>
+                <div class="explain-text">
+                    <strong>¡Aprende a nombrar a tu familia!</strong> Estos son los términos más importantes.
+                </div>
+
+                <!-- Árbol familiar visual -->
+                <div class="family-tree">
+                    <div class="level">
+                        <div class="member">Grandfather</div>
+                        <div class="member">Grandmother</div>
+                    </div>
+                    <div class="connector">│</div>
+                    <div class="level">
+                        <div class="member">Father</div>
+                        <div class="member">Mother</div>
+                    </div>
+                    <div class="connector">│</div>
+                    <div class="level">
+                        <div class="member">Brother</div>
+                        <div class="member">Sister</div>
+                    </div>
+                    <div style="margin-top:8px; font-size:0.9rem; color:#2f506d;">
+                        También: Uncle, Aunt, Cousin, Son, Daughter, Husband, Wife
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top:16px;">
+                    <div class="vocab-card">
+                        <div class="en-word">Father</div>
+                        <div class="pronunciation">(Fá-der)</div>
+                        <div class="es-word">Padre</div>
+                        <button class="audio-btn" onclick="speak('Father')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Mother</div>
+                        <div class="pronunciation">(Má-der)</div>
+                        <div class="es-word">Madre</div>
+                        <button class="audio-btn" onclick="speak('Mother')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Parents</div>
+                        <div class="pronunciation">(Pé-rents)</div>
+                        <div class="es-word">Padres</div>
+                        <button class="audio-btn" onclick="speak('Parents')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Son</div>
+                        <div class="pronunciation">(San)</div>
+                        <div class="es-word">Hijo</div>
+                        <button class="audio-btn" onclick="speak('Son')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Daughter</div>
+                        <div class="pronunciation">(Dó-ter)</div>
+                        <div class="es-word">Hija</div>
+                        <button class="audio-btn" onclick="speak('Daughter')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Brother</div>
+                        <div class="pronunciation">(Brá-der)</div>
+                        <div class="es-word">Hermano</div>
+                        <button class="audio-btn" onclick="speak('Brother')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Sister</div>
+                        <div class="pronunciation">(Sís-ter)</div>
+                        <div class="es-word">Hermana</div>
+                        <button class="audio-btn" onclick="speak('Sister')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Siblings</div>
+                        <div class="pronunciation">(Síb-lings)</div>
+                        <div class="es-word">Hermanos (ambos sexos)</div>
+                        <button class="audio-btn" onclick="speak('Siblings')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Grandfather</div>
+                        <div class="pronunciation">(Grand-fá-der)</div>
+                        <div class="es-word">Abuelo</div>
+                        <button class="audio-btn" onclick="speak('Grandfather')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Grandmother</div>
+                        <div class="pronunciation">(Grand-má-der)</div>
+                        <div class="es-word">Abuela</div>
+                        <button class="audio-btn" onclick="speak('Grandmother')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Grandparents</div>
+                        <div class="pronunciation">(Grand-pé-rents)</div>
+                        <div class="es-word">Abuelos</div>
+                        <button class="audio-btn" onclick="speak('Grandparents')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Uncle</div>
+                        <div class="pronunciation">(Án-kl)</div>
+                        <div class="es-word">Tío</div>
+                        <button class="audio-btn" onclick="speak('Uncle')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Aunt</div>
+                        <div class="pronunciation">(Ant)</div>
+                        <div class="es-word">Tía</div>
+                        <button class="audio-btn" onclick="speak('Aunt')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Cousin</div>
+                        <div class="pronunciation">(Kó-sen)</div>
+                        <div class="es-word">Primo/a</div>
+                        <button class="audio-btn" onclick="speak('Cousin')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Husband</div>
+                        <div class="pronunciation">(Jás-band)</div>
+                        <div class="es-word">Esposo / Marido</div>
+                        <button class="audio-btn" onclick="speak('Husband')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Wife</div>
+                        <div class="pronunciation">(Guáif)</div>
+                        <div class="es-word">Esposa / Mujer</div>
+                        <button class="audio-btn" onclick="speak('Wife')">🔊</button>
+                    </div>
+                </div>
+
+                <div class="note">
+                    💡 <strong>Recuerda:</strong> En inglés, "cousin" sirve tanto para primo como prima. "Siblings" es útil para hablar de hermanos en general.
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 1 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Familia</div>
+                <div class="question" id="q1">
+                    <div class="q-text">1. ¿Cómo se dice "Hermana" en inglés?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Brother</div>
+                        <div class="option" data-correct="true">Sister</div>
+                        <div class="option" data-correct="false">Mother</div>
+                        <div class="option" data-correct="false">Father</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(1)">Verificar</button>
+                    <div class="feedback" id="fb1"></div>
+                </div>
+                <div class="question" id="q2">
+                    <div class="q-text">2. ¿Qué significa "Grandparents"?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Padres</div>
+                        <div class="option" data-correct="false">Hijos</div>
+                        <div class="option" data-correct="true">Abuelos</div>
+                        <div class="option" data-correct="false">Tíos</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(2)">Verificar</button>
+                    <div class="feedback" id="fb2"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" disabled>← anterior</button>
+                <div class="dot-container">
+                    <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(2)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 2: FRASES CON LA FAMILIA                                -->
+        <!-- ============================================================ -->
+        <div id="mod2" class="module">
+            <div class="explain-card frases-border">
+                <h2>💬 2. Frases con la Familia</h2>
+                <div class="explain-text">
+                    <strong>Usa el vocabulario en contexto.</strong> Describe tu familia y sus relaciones.
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">I have a big family.</div>
+                    <div class="pron">(Ái jav a big fá-mi-li.)</div>
+                    <div class="es">Tengo una familia grande.</div>
+                    <button class="audio-btn" onclick="speak('I have a big family.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">My mother is a teacher.</div>
+                    <div class="pron">(Mái má-der is a tí-cher.)</div>
+                    <div class="es">Mi madre es profesora.</div>
+                    <button class="audio-btn" onclick="speak('My mother is a teacher.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">My father works in a hospital.</div>
+                    <div class="pron">(Mái fá-der guórks in a jós-pi-tal.)</div>
+                    <div class="es">Mi padre trabaja en un hospital.</div>
+                    <button class="audio-btn" onclick="speak('My father works in a hospital.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">I have two brothers and one sister.</div>
+                    <div class="pron">(Ái jav tu brá-ders and uan sís-ter.)</div>
+                    <div class="es">Tengo dos hermanos y una hermana.</div>
+                    <button class="audio-btn" onclick="speak('I have two brothers and one sister.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">My grandparents live in Spain.</div>
+                    <div class="pron">(Mái grand-pé-rents lív in Spéin.)</div>
+                    <div class="es">Mis abuelos viven en España.</div>
+                    <button class="audio-btn" onclick="speak('My grandparents live in Spain.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">I love my family.</div>
+                    <div class="pron">(Ái lav mái fá-mi-li.)</div>
+                    <div class="es">Quiero a mi familia.</div>
+                    <button class="audio-btn" onclick="speak('I love my family.')">🔊</button>
+                </div>
+
+                <div class="note">
+                    💡 <strong>Verbo "to have":</strong> Se usa para hablar de los miembros de la familia. "I have" = Yo tengo.
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 2 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Frases</div>
+                <div class="question" id="q3">
+                    <div class="q-text">3. Completa: "My mother is ___ teacher."</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">a</div>
+                        <div class="option" data-correct="true">a</div>
+                        <div class="option" data-correct="false">an</div>
+                        <div class="option" data-correct="false">the</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(3)">Verificar</button>
+                    <div class="feedback" id="fb3"></div>
+                </div>
+                <div class="question" id="q4">
+                    <div class="q-text">4. Traduce: "Tengo dos hermanos."</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">I have two sisters.</div>
+                        <div class="option" data-correct="false">I have two brother.</div>
+                        <div class="option" data-correct="true">I have two brothers.</div>
+                        <div class="option" data-correct="false">I have two sibling.</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(4)">Verificar</button>
+                    <div class="feedback" id="fb4"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(1)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(3)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 3: PREGUNTAS SOBRE LA FAMILIA                           -->
+        <!-- ============================================================ -->
+        <div id="mod3" class="module">
+            <div class="explain-card preguntas-border">
+                <h2>❓ 3. Preguntas sobre la Familia</h2>
+                <div class="explain-text">
+                    <strong>Haz y responde preguntas</strong> sobre tu familia y la de los demás.
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">Do you have siblings?</div>
+                    <div class="pron">(Du iu jav síb-lings?)</div>
+                    <div class="es">¿Tienes hermanos?</div>
+                    <button class="audio-btn" onclick="speak('Do you have siblings?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Yes, I have one brother and one sister.</div>
+                    <div class="pron">(Iés, ái jav uan brá-der and uan sís-ter.)</div>
+                    <div class="es">Sí, tengo un hermano y una hermana.</div>
+                    <button class="audio-btn" onclick="speak('Yes, I have one brother and one sister.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Do you have any children?</div>
+                    <div class="pron">(Du iu jav é-ni chíl-dren?)</div>
+                    <div class="es">¿Tienes hijos?</div>
+                    <button class="audio-btn" onclick="speak('Do you have any children?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Yes, I have a son and a daughter.</div>
+                    <div class="pron">(Iés, ái jav a san and a dó-ter.)</div>
+                    <div class="es">Sí, tengo un hijo y una hija.</div>
+                    <button class="audio-btn" onclick="speak('Yes, I have a son and a daughter.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Is your family big?</div>
+                    <div class="pron">(Is ior fá-mi-li big?)</div>
+                    <div class="es">¿Tu familia es grande?</div>
+                    <button class="audio-btn" onclick="speak('Is your family big?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Yes, my family is big.</div>
+                    <div class="pron">(Iés, mái fá-mi-li is big.)</div>
+                    <div class="es">Sí, mi familia es grande.</div>
+                    <button class="audio-btn" onclick="speak('Yes, my family is big.')">🔊</button>
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 3 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Preguntas</div>
+                <div class="question" id="q5">
+                    <div class="q-text">5. Responde: "Do you have siblings?" (si tienes un hermano)</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Yes, I have one sister.</div>
+                        <div class="option" data-correct="false">No, I don't have siblings.</div>
+                        <div class="option" data-correct="true">Yes, I have one brother.</div>
+                        <div class="option" data-correct="false">Yes, I have two brothers.</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(5)">Verificar</button>
+                    <div class="feedback" id="fb5"></div>
+                </div>
+                <div class="question" id="q6">
+                    <div class="q-text">6. Traduce: "¿Tienes hijos?"</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Do you have child?</div>
+                        <div class="option" data-correct="false">Do you have children?</div>
+                        <div class="option" data-correct="true">Do you have any children?</div>
+                        <div class="option" data-correct="false">Have you children?</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(6)">Verificar</button>
+                    <div class="feedback" id="fb6"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(2)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(4)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 4: DESCRIBIR A LA FAMILIA                               -->
+        <!-- ============================================================ -->
+        <div id="mod4" class="module">
+            <div class="explain-card frases-border">
+                <h2>📝 4. Describir a la Familia</h2>
+                <div class="explain-text">
+                    <strong>Describe a los miembros de tu familia</strong> con adjetivos y relaciones.
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">My father is tall and kind.</div>
+                    <div class="pron">(Mái fá-der is tol and káind.)</div>
+                    <div class="es">Mi padre es alto y amable.</div>
+                    <button class="audio-btn" onclick="speak('My father is tall and kind.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">My mother is beautiful and intelligent.</div>
+                    <div class="pron">(Mái má-der is biú-ti-ful and in-té-li-gent.)</div>
+                    <div class="es">Mi madre es hermosa e inteligente.</div>
+                    <button class="audio-btn" onclick="speak('My mother is beautiful and intelligent.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">My sister is younger than me.</div>
+                    <div class="pron">(Mái sís-ter is ián-ger dan mí.)</div>
+                    <div class="es">Mi hermana es más joven que yo.</div>
+                    <button class="audio-btn" onclick="speak('My sister is younger than me.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">My brother is funny.</div>
+                    <div class="pron">(Mái brá-der is fá-ni.)</div>
+                    <div class="es">Mi hermano es divertido.</div>
+                    <button class="audio-btn" onclick="speak('My brother is funny.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">My grandparents are very nice.</div>
+                    <div class="pron">(Mái grand-pé-rents ar vé-ri náis.)</div>
+                    <div class="es">Mis abuelos son muy simpáticos.</div>
+                    <button class="audio-btn" onclick="speak('My grandparents are very nice.')">🔊</button>
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 4 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Descripciones</div>
+                <div class="question" id="q7">
+                    <div class="q-text">7. Completa: "My mother is ___" (inteligente)</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">tall</div>
+                        <div class="option" data-correct="false">funny</div>
+                        <div class="option" data-correct="true">intelligent</div>
+                        <div class="option" data-correct="false">kind</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(7)">Verificar</button>
+                    <div class="feedback" id="fb7"></div>
+                </div>
+                <div class="question" id="q8">
+                    <div class="q-text">8. Traduce: "Mi hermano es divertido."</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">My brother is kind.</div>
+                        <div class="option" data-correct="false">My brother is tall.</div>
+                        <div class="option" data-correct="true">My brother is funny.</div>
+                        <div class="option" data-correct="false">My brother is intelligent.</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(8)">Verificar</button>
+                    <div class="feedback" id="fb8"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(3)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(5)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 5: PRÁCTICA INTENSIVA                                   -->
+        <!-- ============================================================ -->
+        <div id="mod5" class="module">
+            <div class="explain-card practica-border">
+                <h2>📝 5. Práctica Intensiva</h2>
+                <div class="explain-text">
+                    <strong>Combina todo:</strong> vocabulario, frases, preguntas y descripciones.
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">My family is small. I have one brother and one sister. My mother is a nurse and my father is a doctor.</div>
+                    <div class="pron">(Mái fá-mi-li is smol. Ái jav uan brá-der and uan sís-ter. Mái má-der is a nérs and mái fá-der is a dók-tor.)</div>
+                    <div class="es">Mi familia es pequeña. Tengo un hermano y una hermana. Mi madre es enfermera y mi padre es médico.</div>
+                    <button class="audio-btn" onclick="speak('My family is small. I have one brother and one sister. My mother is a nurse and my father is a doctor.')">🔊</button>
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 5 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica Final</div>
+                <div class="question" id="q9">
+                    <div class="q-text">9. ¿Cuál es la palabra correcta para "hermanos" (ambos sexos)?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Brothers</div>
+                        <div class="option" data-correct="false">Sisters</div>
+                        <div class="option" data-correct="true">Siblings</div>
+                        <div class="option" data-correct="false">Parents</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(9)">Verificar</button>
+                    <div class="feedback" id="fb9"></div>
+                </div>
+                <div class="question" id="q10">
+                    <div class="q-text">10. Traduce: "Mi abuela es muy simpática."</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">My grandmother is very kind.</div>
+                        <div class="option" data-correct="true">My grandmother is very nice.</div>
+                        <div class="option" data-correct="false">My grandmother is very tall.</div>
+                        <div class="option" data-correct="false">My grandmother is very funny.</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(10)">Verificar</button>
+                    <div class="feedback" id="fb10"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(4)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
+                </div>
+                <button class="nav-btn" onclick="showResults()">📊 finalizar</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 6: RESULTADOS                                           -->
+        <!-- ============================================================ -->
+        <div id="mod6" class="module">
+            <div class="results-box">
+                <h2>🏆 ¡Familia dominada!</h2>
+                <div class="big-score" id="finalScore">0</div>
+                <p style="font-size:1.1rem; font-weight:600;">puntos obtenidos</p>
+
+                <div class="final-message" style="font-size:1rem; margin:16px 0;">
+                    Has completado el módulo de <strong>La Familia en Inglés</strong>.<br>
+                    Ahora puedes hablar de tu familia y preguntar sobre la de los demás.
+                </div>
+
+                <ul class="learned-list" style="text-align:left; background:white; border-radius:20px; padding:16px 20px; margin:16px 0; list-style:none; color:#023047;">
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Miembros de la familia (padres, hermanos, abuelos, tíos, primos)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Frases para describir tu familia</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Preguntas sobre la familia</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Adjetivos para describir personas</li>
+                    <li style="padding:8px 0;">✅ Pronunciación en español + audio</li>
+                </ul>
+
+                <div style="background:#d4e6f5; border-radius:18px; padding:16px; margin:16px 0; text-align:left; color:#023047; font-size:1rem;">
+                    <strong>💡 Consejo final:</strong> Practica hablando de tu familia en inglés. "I have a mother, a father, and two sisters."
+                </div>
+
+                <button class="btn-restart" onclick="restart()">🔄 Repetir lección</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            Polyglots · Aprende inglés fácil
+        </div>
+    </div>
+
+    <script>
+        // ================================================================
+        // VARIABLES GLOBALES
+        // ================================================================
+        let score = 0;
+        let answered = {};
+
+        // ================================================================
+        // RESPUESTAS CORRECTAS
+        // ================================================================
+        const correctAnswers = {
+            1: 'Sister',
+            2: 'Abuelos',
+            3: 'a',
+            4: 'I have two brothers.',
+            5: 'Yes, I have one brother.',
+            6: 'Do you have any children?',
+            7: 'intelligent',
+            8: 'My brother is funny.',
+            9: 'Siblings',
+            10: 'My grandmother is very nice.'
+        };
+
+        // ================================================================
+        // AUDIO - SÍNTESIS DE VOZ
+        // ================================================================
+        function speak(text) {
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.85;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            const voices = window.speechSynthesis.getVoices();
+            const femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'));
+            if (femaleVoice) utterance.voice = femaleVoice;
+
+            window.speechSynthesis.speak(utterance);
+
+            const btn = event.target;
+            btn.classList.add('playing');
+            btn.textContent = '🔊';
+            setTimeout(() => {
+                btn.classList.remove('playing');
+                btn.textContent = '🔊';
+            }, 1500);
+        }
+
+        window.speechSynthesis.getVoices();
+
+        // ================================================================
+        // EVENTOS: selección de opciones
+        // ================================================================
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                const questionDiv = this.closest('.question');
+                if (!questionDiv) return;
+                const qId = questionDiv.id.replace('q', '');
+                questionDiv.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                const fb = document.getElementById('fb' + qId);
+                if (fb) fb.innerHTML = '';
+            });
+        });
+
+        // ================================================================
+        // FUNCIÓN PRINCIPAL: verificar respuesta
+        // ================================================================
+        function checkAnswer(qId) {
+            const questionDiv = document.getElementById('q' + qId);
+            if (!questionDiv) return;
+
+            const selected = questionDiv.querySelector('.option.selected');
+            const fbDiv = document.getElementById('fb' + qId);
+
+            if (!selected) {
+                fbDiv.innerHTML = '<span style="color:#b34141;">⚠️ Selecciona una opción primero.</span>';
+                fbDiv.className = 'feedback fb-bad';
+                return;
+            }
+
+            const isCorrect = selected.dataset.correct === 'true';
+            const allOpts = questionDiv.querySelectorAll('.option');
+
+            allOpts.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                if (opt.dataset.correct === 'true') opt.classList.add('correct');
+                if (opt === selected && !isCorrect) opt.classList.add('incorrect');
+            });
+
+            if (!answered[qId]) {
+                if (isCorrect) score += 10;
+                answered[qId] = true;
+                updateScore();
+            }
+
+            const explanation = getExplanation(qId, isCorrect);
+
+            fbDiv.innerHTML = `
+                <strong>${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}</strong><br>
+                ${explanation}
+            `;
+            fbDiv.className = `feedback ${isCorrect ? 'fb-good' : 'fb-bad'}`;
+        }
+
+        // ================================================================
+        // EXPLICACIONES
+        // ================================================================
+        function getExplanation(qId, correct) {
+            const texts = {
+                1: correct ? '"Sister" es hermana.' : '"Sister" (Sís-ter) es hermana.',
+                2: correct ? '"Grandparents" son los abuelos.' : '"Grandparents" (Grand-pé-rents) = abuelos.',
+                3: correct ? 'Con profesiones usamos "a" antes de consonante.' : '"Teacher" empieza con "t" → "a".',
+                4: correct ? '"Two brothers" es la forma correcta.' : 'Hermano = brother. Plural = brothers.',
+                5: correct ? '"One brother" es la respuesta correcta.' : 'Un hermano = one brother.',
+                6: correct ? '"Do you have any children?" es la forma correcta.' : '"Any" se usa en preguntas.',
+                7: correct ? '"Intelligent" es inteligente.' : '"Intelligent" (in-té-li-gent) = inteligente.',
+                8: correct ? '"Funny" es divertido.' : '"Funny" (fá-ni) = divertido.',
+                9: correct ? '"Siblings" es la palabra para hermanos (ambos sexos).' : '"Siblings" incluye brothers y sisters.',
+                10: correct ? '"Nice" es simpático/a.' : '"Nice" (náis) = simpático, agradable.'
+            };
+            return texts[qId] || (correct ? 'Correcto.' : 'Revisa la respuesta correcta.');
+        }
+
+        // ================================================================
+        // ACTUALIZAR PUNTUACIÓN
+        // ================================================================
+        function updateScore() {
+            document.getElementById('scoreDisplay').textContent = score;
+        }
+
+        // ================================================================
+        // NAVEGACIÓN ENTRE MÓDULOS
+        // ================================================================
+        function goToModule(mod) {
+            document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+            document.getElementById('mod' + mod).classList.add('active');
+
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((d, i) => {
+                d.classList.toggle('active', i === mod - 1);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ================================================================
+        // MOSTRAR RESULTADOS
+        // ================================================================
+        function showResults() {
+            document.getElementById('finalScore').textContent = score;
+            goToModule(6);
+        }
+
+        // ================================================================
+        // REINICIAR
+        // ================================================================
+        function restart() {
+            score = 0;
+            answered = {};
+            updateScore();
+
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.querySelectorAll('.feedback').forEach(fb => fb.innerHTML = '');
+
+            goToModule(1);
+        }
+
+        // ================================================================
+        // EXPONER FUNCIONES GLOBALES
+        // ================================================================
+        window.checkAnswer = checkAnswer;
+        window.goToModule = goToModule;
+        window.showResults = showResults;
+        window.restart = restart;
+        window.speak = speak;
+    </script>
+</body>
+</html>

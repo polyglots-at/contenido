@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>La Casa y Lugares Comunes · Polyglots</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #2c5f8a;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            color: #f0f7ff;
+            line-height: 1.6;
+            padding: 15px 12px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            padding: 25px 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border: 2px solid #a3cef1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1d4b6e;
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            border: 2px solid #9ac7f0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e8f3ff;
+        }
+
+        .score {
+            background: #f4c542;
+            color: #1d3b4f;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 1rem;
+        }
+
+        .score span {
+            font-size: 1.5rem;
+            margin-left: 6px;
+        }
+
+        .module {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .explain-card {
+            background: #e7f0fc;
+            color: #023047;
+            border-radius: 30px;
+            padding: 25px 22px;
+            margin-bottom: 25px;
+            border-left: 12px solid;
+            box-shadow: 0 8px 0 #1b4b6e;
+        }
+
+        .explain-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .casa-border { border-left-color: #d97706; }
+        .habitaciones-border { border-left-color: #1f7ea3; }
+        .muebles-border { border-left-color: #2a8c5a; }
+        .electro-border { border-left-color: #c0392b; }
+        .lugares-border { border-left-color: #9b5fc0; }
+        .preguntas-border { border-left-color: #8e44ad; }
+        .direcciones-border { border-left-color: #e67e22; }
+        .practica-border { border-left-color: #16a085; }
+
+        .explain-text {
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+
+        .explain-text strong {
+            color: #b45f06;
+        }
+
+        .note {
+            background: #ffe8c8;
+            border-radius: 18px;
+            padding: 12px 16px;
+            color: #5e3a0c;
+            margin-top: 14px;
+            font-size: 0.98rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .vocab-card {
+            background: #ffffffd0;
+            border-radius: 16px;
+            padding: 12px;
+            text-align: center;
+            border: 2px solid #a0c4e2;
+            transition: 0.15s;
+        }
+
+        .vocab-card .en-word {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1rem;
+        }
+
+        .vocab-card .pronunciation {
+            color: #b45f06;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: #f0e6d0;
+            padding: 2px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 4px 0;
+        }
+
+        .vocab-card .es-word {
+            color: #2f506d;
+            font-size: 0.85rem;
+        }
+
+        .audio-btn {
+            background: #1f6396;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .audio-btn:active {
+            transform: scale(0.9);
+        }
+
+        .audio-btn.playing {
+            background: #2ecc71;
+        }
+
+        .practice-box {
+            background: #f6faff;
+            border-radius: 36px;
+            padding: 22px 18px;
+            margin: 25px 0;
+            border: 3px solid #7bb3e0;
+        }
+
+        .practice-title {
+            font-size: 1.5rem;
+            color: #0d4568;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #7bb3e0;
+            padding-bottom: 8px;
+        }
+
+        .question {
+            background: white;
+            border-radius: 28px;
+            padding: 20px 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 0 #9bb8da;
+        }
+
+        .question:last-child {
+            margin-bottom: 0;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #022b41;
+            margin-bottom: 14px;
+        }
+
+        .q-hint {
+            font-size: 0.9rem;
+            color: #6b7f8f;
+            text-align: center;
+            margin-bottom: 12px;
+            font-style: italic;
+            background: #f0f6fc;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .options {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+        }
+
+        .option {
+            background: #e1effb;
+            border: 3px solid #7fb0da;
+            border-radius: 40px;
+            padding: 14px 6px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #013753;
+            cursor: pointer;
+            transition: 0.1s ease;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .option:active {
+            transform: scale(0.96);
+        }
+
+        .option.selected {
+            background: #b1d6ff;
+            border-color: #1f6396;
+            font-weight: 700;
+        }
+
+        .option.correct {
+            background: #b8e6c0;
+            border-color: #1d8545;
+        }
+
+        .option.incorrect {
+            background: #fbc1c1;
+            border-color: #b34141;
+        }
+
+        .btn-check {
+            background: #1f6396;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 16px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 18px;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.15s;
+        }
+
+        .btn-check:active {
+            transform: scale(0.97);
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 22px;
+            background: #e9f3fb;
+            border-left: 8px solid;
+            color: #001d33;
+            font-size: 0.98rem;
+        }
+
+        .fb-good {
+            border-color: #1d8545;
+            background: #dcf5e3;
+        }
+
+        .fb-bad {
+            border-color: #b34141;
+            background: #ffe1e1;
+        }
+
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0 10px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: #1f4d70;
+            border: 3px solid #aad0f5;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            min-width: 90px;
+            text-align: center;
+            transition: 0.15s;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.96);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            border-color: #7f9fbf;
+            cursor: not-allowed;
+        }
+
+        .dot-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #608bbf;
+            transition: 0.2s;
+        }
+
+        .dot.active {
+            background: #f5d742;
+            box-shadow: 0 0 0 3px #ffd966;
+        }
+
+        .footer {
+            text-align: center;
+            color: #c5e2ff;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .results-box {
+            background: #eaf3fc;
+            border-radius: 40px;
+            padding: 30px 20px;
+            text-align: center;
+            color: #023b5e;
+        }
+
+        .results-box h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .results-box .big-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d97706;
+            margin: 16px 0;
+        }
+
+        .btn-restart {
+            background: #9b59b6;
+            border: 3px solid #c39bd3;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            margin-top: 10px;
+            transition: 0.15s;
+        }
+
+        .btn-restart:active {
+            transform: scale(0.96);
+        }
+
+        .phrase-card {
+            background: #e8f4fd;
+            border-radius: 16px;
+            padding: 14px;
+            border-left: 6px solid #1f7ea3;
+            margin: 8px 0;
+        }
+
+        .phrase-card .en {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1.05rem;
+        }
+
+        .phrase-card .es {
+            color: #2f506d;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .phrase-card .pron {
+            color: #b45f06;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .dialog-box {
+            background: #d4e6f5;
+            border-radius: 18px;
+            padding: 16px;
+            margin: 10px 0;
+            border: 2px solid #7fb0da;
+        }
+
+        .dialog-box .speaker {
+            font-weight: 700;
+            color: #0a4b6e;
+        }
+
+        .dialog-box .line {
+            padding: 4px 0;
+            border-bottom: 1px dashed #a0c4e2;
+        }
+
+        .dialog-box .line:last-child {
+            border-bottom: none;
+        }
+
+        .house-diagram {
+            background: #d4e6f5;
+            border-radius: 18px;
+            padding: 16px;
+            text-align: center;
+            color: #023047;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .house-room {
+            background: white;
+            border-radius: 12px;
+            padding: 6px 12px;
+            font-weight: 600;
+            border: 2px solid #1f7ea3;
+            font-size: 0.85rem;
+            min-width: 70px;
+        }
+
+        .house-room .en {
+            color: #0a4b6e;
+        }
+
+        .house-room .es {
+            color: #2f506d;
+            font-size: 0.7rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <h1>🏠 Casa y Lugares Comunes</h1>
+            <div class="score">Puntos <span id="scoreDisplay">0</span></div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 1: LA CASA - ESTRUCTURA                                -->
+        <!-- ============================================================ -->
+        <div id="mod1" class="module active">
+            <div class="explain-card casa-border">
+                <h2>🏠 1. La Casa - Estructura</h2>
+                <div class="explain-text">
+                    <strong>¡Todo sobre la casa!</strong> Partes internas y externas, tipos de vivienda.
+                </div>
+
+                <div class="house-diagram">
+                    <div class="house-room"><span class="en">🏠 House</span><br><span class="es">Casa</span></div>
+                    <div class="house-room"><span class="en">🏢 Apartment</span><br><span class="es">Apartamento</span></div>
+                    <div class="house-room"><span class="en">🚪 Door</span><br><span class="es">Puerta</span></div>
+                    <div class="house-room"><span class="en">🪟 Window</span><br><span class="es">Ventana</span></div>
+                    <div class="house-room"><span class="en">🏡 Garden</span><br><span class="es">Jardín</span></div>
+                    <div class="house-room"><span class="en">🚗 Garage</span><br><span class="es">Garaje</span></div>
+                    <div class="house-room"><span class="en">🪜 Stairs</span><br><span class="es">Escaleras</span></div>
+                    <div class="house-room"><span class="en">🚪 Roof</span><br><span class="es">Techo</span></div>
+                    <div class="house-room"><span class="en">🧱 Wall</span><br><span class="es">Pared</span></div>
+                    <div class="house-room"><span class="en">🏞️ Balcony</span><br><span class="es">Balcón</span></div>
+                    <div class="house-room"><span class="en">🚪 Fence</span><br><span class="es">Cerca / Valla</span></div>
+                    <div class="house-room"><span class="en">💡 Driveway</span><br><span class="es">Entrada de coches</span></div>
+                </div>
+
+                <div class="grid-2" style="margin-top:16px;">
+                    <div class="vocab-card"><div class="en-word">🏠 House</div><div class="pronunciation">(Jáus)</div><div class="es-word">Casa</div><button class="audio-btn" onclick="speak('House')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏢 Apartment</div><div class="pronunciation">(A-párt-ment)</div><div class="es-word">Apartamento</div><button class="audio-btn" onclick="speak('Apartment')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏠 Home</div><div class="pronunciation">(Jóum)</div><div class="es-word">Hogar</div><button class="audio-btn" onclick="speak('Home')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🚪 Door</div><div class="pronunciation">(Door)</div><div class="es-word">Puerta</div><button class="audio-btn" onclick="speak('Door')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🪟 Window</div><div class="pronunciation">(Uín-dou)</div><div class="es-word">Ventana</div><button class="audio-btn" onclick="speak('Window')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏡 Garden</div><div class="pronunciation">(Gár-den)</div><div class="es-word">Jardín</div><button class="audio-btn" onclick="speak('Garden')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🚗 Garage</div><div class="pronunciation">(Ga-rách)</div><div class="es-word">Garaje</div><button class="audio-btn" onclick="speak('Garage')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🪜 Stairs</div><div class="pronunciation">(Stérs)</div><div class="es-word">Escaleras</div><button class="audio-btn" onclick="speak('Stairs')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🚪 Roof</div><div class="pronunciation">(Ruf)</div><div class="es-word">Techo</div><button class="audio-btn" onclick="speak('Roof')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🧱 Wall</div><div class="pronunciation">(Uól)</div><div class="es-word">Pared</div><button class="audio-btn" onclick="speak('Wall')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏞️ Balcony</div><div class="pronunciation">(Bál-ko-ni)</div><div class="es-word">Balcón</div><button class="audio-btn" onclick="speak('Balcony')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🚪 Fence</div><div class="pronunciation">(Fens)</div><div class="es-word">Cerca / Valla</div><button class="audio-btn" onclick="speak('Fence')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">💡 Driveway</div><div class="pronunciation">(Dráiv-uei)</div><div class="es-word">Entrada de coches</div><button class="audio-btn" onclick="speak('Driveway')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🚪 Floor</div><div class="pronunciation">(Flor)</div><div class="es-word">Suelo / Piso</div><button class="audio-btn" onclick="speak('Floor')">🔊</button></div>
+                </div>
+
+                <div class="note">
+                    💡 <strong>Diferencia:</strong> "House" = edificio, "Home" = hogar (sentimiento). "Floor" = suelo (material) y también piso (nivel de un edificio).
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Estructura</div>
+                <div class="question" id="q1">
+                    <div class="q-text">1. ¿Cómo se dice "Ventana" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Door</div><div class="option" data-correct="true">Window</div><div class="option" data-correct="false">Roof</div><div class="option" data-correct="false">Wall</div></div>
+                    <button class="btn-check" onclick="checkAnswer(1)">Verificar</button>
+                    <div class="feedback" id="fb1"></div>
+                </div>
+                <div class="question" id="q2">
+                    <div class="q-text">2. ¿Qué significa "Apartment"?</div>
+                    <div class="options"><div class="option" data-correct="false">Casa</div><div class="option" data-correct="true">Apartamento</div><div class="option" data-correct="false">Jardín</div><div class="option" data-correct="false">Garaje</div></div>
+                    <button class="btn-check" onclick="checkAnswer(2)">Verificar</button>
+                    <div class="feedback" id="fb2"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" disabled>← anterior</button>
+                <div class="dot-container"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(2)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 2: HABITACIONES DE LA CASA                            -->
+        <!-- ============================================================ -->
+        <div id="mod2" class="module">
+            <div class="explain-card habitaciones-border">
+                <h2>🛋️ 2. Habitaciones de la Casa</h2>
+                <div class="explain-text">
+                    <strong>¡Todas las habitaciones!</strong> Espacios dentro de la casa.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">🛋️ Living room</div><div class="pronunciation">(Lí-ving ruum)</div><div class="es-word">Sala de estar</div><button class="audio-btn" onclick="speak('Living room')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🍳 Kitchen</div><div class="pronunciation">(Kí-chen)</div><div class="es-word">Cocina</div><button class="audio-btn" onclick="speak('Kitchen')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🛏️ Bedroom</div><div class="pronunciation">(Béd-ruum)</div><div class="es-word">Dormitorio / Cuarto</div><button class="audio-btn" onclick="speak('Bedroom')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🚿 Bathroom</div><div class="pronunciation">(Báz-ruum)</div><div class="es-word">Baño</div><button class="audio-btn" onclick="speak('Bathroom')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🍽️ Dining room</div><div class="pronunciation">(Dái-ning ruum)</div><div class="es-word">Comedor</div><button class="audio-btn" onclick="speak('Dining room')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">📚 Study / Office</div><div class="pronunciation">(Stá-di / Ó-fis)</div><div class="es-word">Estudio / Oficina</div><button class="audio-btn" onclick="speak('Study')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🧺 Laundry room</div><div class="pronunciation">(Lón-dri ruum)</div><div class="es-word">Lavandería</div><button class="audio-btn" onclick="speak('Laundry room')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🎮 Game room</div><div class="pronunciation">(Géim ruum)</div><div class="es-word">Sala de juegos</div><button class="audio-btn" onclick="speak('Game room')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">📦 Basement</div><div class="pronunciation">(Béis-ment)</div><div class="es-word">Sótano</div><button class="audio-btn" onclick="speak('Basement')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏚️ Attic</div><div class="pronunciation">(Á-tik)</div><div class="es-word">Ático / Desván</div><button class="audio-btn" onclick="speak('Attic')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🛁 Bathtub</div><div class="pronunciation">(Báz-tab)</div><div class="es-word">Bañera</div><button class="audio-btn" onclick="speak('Bathtub')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🚽 Toilet</div><div class="pronunciation">(Tói-let)</div><div class="es-word">Inodoro / Wáter</div><button class="audio-btn" onclick="speak('Toilet')">🔊</button></div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">I'm in the kitchen.</div><div class="pron">(Áim in de kí-chen.)</div><div class="es">Estoy en la cocina.</div><button class="audio-btn" onclick="speak('I\'m in the kitchen.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">She is in the bedroom.</div><div class="pron">(Shi is in de béd-ruum.)</div><div class="es">Ella está en el dormitorio.</div><button class="audio-btn" onclick="speak('She is in the bedroom.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">We are in the living room.</div><div class="pron">(Uí ar in de lí-ving ruum.)</div><div class="es">Estamos en la sala de estar.</div><button class="audio-btn" onclick="speak('We are in the living room.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">The bathtub is in the bathroom.</div><div class="pron">(De báz-tab is in de báz-ruum.)</div><div class="es">La bañera está en el baño.</div><button class="audio-btn" onclick="speak('The bathtub is in the bathroom.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Habitaciones</div>
+                <div class="question" id="q3">
+                    <div class="q-text">3. ¿Cómo se dice "Cocina" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Bedroom</div><div class="option" data-correct="false">Bathroom</div><div class="option" data-correct="true">Kitchen</div><div class="option" data-correct="false">Living room</div></div>
+                    <button class="btn-check" onclick="checkAnswer(3)">Verificar</button><div class="feedback" id="fb3"></div>
+                </div>
+                <div class="question" id="q4">
+                    <div class="q-text">4. ¿Qué significa "Basement"?</div>
+                    <div class="options"><div class="option" data-correct="false">Ático</div><div class="option" data-correct="true">Sótano</div><div class="option" data-correct="false">Jardín</div><div class="option" data-correct="false">Garaje</div></div>
+                    <button class="btn-check" onclick="checkAnswer(4)">Verificar</button><div class="feedback" id="fb4"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(1)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(3)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 3: MUEBLES DE LA CASA                                 -->
+        <!-- ============================================================ -->
+        <div id="mod3" class="module">
+            <div class="explain-card muebles-border">
+                <h2>🪑 3. Muebles de la Casa</h2>
+                <div class="explain-text">
+                    <strong>¡Todos los muebles!</strong> Lo que hay en cada habitación.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">🪑 Chair</div><div class="pronunciation">(Chéer)</div><div class="es-word">Silla</div><button class="audio-btn" onclick="speak('Chair')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🪑 Table</div><div class="pronunciation">(Téi-bl)</div><div class="es-word">Mesa</div><button class="audio-btn" onclick="speak('Table')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🛋️ Sofa / Couch</div><div class="pronunciation">(Sóu-fa / Káuch)</div><div class="es-word">Sofá</div><button class="audio-btn" onclick="speak('Sofa')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🛏️ Bed</div><div class="pronunciation">(Bed)</div><div class="es-word">Cama</div><button class="audio-btn" onclick="speak('Bed')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🗄️ Desk</div><div class="pronunciation">(Desk)</div><div class="es-word">Escritorio</div><button class="audio-btn" onclick="speak('Desk')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">📚 Bookshelf</div><div class="pronunciation">(Búk-shelf)</div><div class="es-word">Estantería</div><button class="audio-btn" onclick="speak('Bookshelf')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🗄️ Wardrobe</div><div class="pronunciation">(Uór-droub)</div><div class="es-word">Armario</div><button class="audio-btn" onclick="speak('Wardrobe')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🪞 Mirror</div><div class="pronunciation">(Mí-ror)</div><div class="es-word">Espejo</div><button class="audio-btn" onclick="speak('Mirror')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🖼️ Picture / Painting</div><div class="pronunciation">(Píc-cher / Péin-ting)</div><div class="es-word">Cuadro / Pintura</div><button class="audio-btn" onclick="speak('Picture')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🕰️ Clock</div><div class="pronunciation">(Klok)</div><div class="es-word">Reloj</div><button class="audio-btn" onclick="speak('Clock')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🧹 Vacuum cleaner</div><div class="pronunciation">(Vá-kiuum klí-ner)</div><div class="es-word">Aspiradora</div><button class="audio-btn" onclick="speak('Vacuum cleaner')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🧹 Broom</div><div class="pronunciation">(Brum)</div><div class="es-word">Escoba</div><button class="audio-btn" onclick="speak('Broom')">🔊</button></div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">The sofa is in the living room.</div><div class="pron">(De sóu-fa is in de lí-ving ruum.)</div><div class="es">El sofá está en la sala.</div><button class="audio-btn" onclick="speak('The sofa is in the living room.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">The bed is in the bedroom.</div><div class="pron">(De bed is in de béd-ruum.)</div><div class="es">La cama está en el dormitorio.</div><button class="audio-btn" onclick="speak('The bed is in the bedroom.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Muebles</div>
+                <div class="question" id="q5">
+                    <div class="q-text">5. ¿Cómo se dice "Silla" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Table</div><div class="option" data-correct="true">Chair</div><div class="option" data-correct="false">Sofa</div><div class="option" data-correct="false">Bed</div></div>
+                    <button class="btn-check" onclick="checkAnswer(5)">Verificar</button><div class="feedback" id="fb5"></div>
+                </div>
+                <div class="question" id="q6">
+                    <div class="q-text">6. ¿Qué significa "Wardrobe"?</div>
+                    <div class="options"><div class="option" data-correct="false">Cama</div><div class="option" data-correct="false">Mesa</div><div class="option" data-correct="true">Armario</div><div class="option" data-correct="false">Silla</div></div>
+                    <button class="btn-check" onclick="checkAnswer(6)">Verificar</button><div class="feedback" id="fb6"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(2)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(4)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 4: ELECTRODOMÉSTICOS                                  -->
+        <!-- ============================================================ -->
+        <div id="mod4" class="module">
+            <div class="explain-card electro-border">
+                <h2>⚡ 4. Electrodomésticos</h2>
+                <div class="explain-text">
+                    <strong>¡Los aparatos de la casa!</strong>
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">📺 TV</div><div class="pronunciation">(Tí-vi)</div><div class="es-word">Televisor</div><button class="audio-btn" onclick="speak('Television')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">💡 Lamp</div><div class="pronunciation">(Lamp)</div><div class="es-word">Lámpara</div><button class="audio-btn" onclick="speak('Lamp')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🧊 Refrigerator</div><div class="pronunciation">(Ri-frí-dche-rei-tor)</div><div class="es-word">Refrigerador / Nevera</div><button class="audio-btn" onclick="speak('Refrigerator')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🧹 Microwave</div><div class="pronunciation">(Mái-cro-ueiv)</div><div class="es-word">Microondas</div><button class="audio-btn" onclick="speak('Microwave')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔥 Oven</div><div class="pronunciation">(Á-ven)</div><div class="es-word">Horno</div><button class="audio-btn" onclick="speak('Oven')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🔥 Stove</div><div class="pronunciation">(Stóuv)</div><div class="es-word">Estufa / Cocina</div><button class="audio-btn" onclick="speak('Stove')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🧺 Washing machine</div><div class="pronunciation">(Uó-shin ma-shin)</div><div class="es-word">Lavadora</div><button class="audio-btn" onclick="speak('Washing machine')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🧺 Dryer</div><div class="pronunciation">(Drái-er)</div><div class="es-word">Secadora</div><button class="audio-btn" onclick="speak('Dryer')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🧹 Dishwasher</div><div class="pronunciation">(Dish-uó-sher)</div><div class="es-word">Lavavajillas</div><button class="audio-btn" onclick="speak('Dishwasher')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">☕ Coffee maker</div><div class="pronunciation">(Kó-fi méi-ker)</div><div class="es-word">Cafetera</div><button class="audio-btn" onclick="speak('Coffee maker')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🧹 Vacuum</div><div class="pronunciation">(Vá-kiuum)</div><div class="es-word">Aspiradora</div><button class="audio-btn" onclick="speak('Vacuum')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">📞 Phone</div><div class="pronunciation">(Fóun)</div><div class="es-word">Teléfono</div><button class="audio-btn" onclick="speak('Phone')">🔊</button></div>
+                </div>
+
+                <div class="note">
+                    💡 <strong>En la cocina:</strong> "Stove" es la estufa, "Oven" es el horno. "Refrigerator" también se llama "fridge".
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Electrodomésticos</div>
+                <div class="question" id="q7">
+                    <div class="q-text">7. ¿Cómo se dice "Microondas" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Oven</div><div class="option" data-correct="true">Microwave</div><div class="option" data-correct="false">Stove</div><div class="option" data-correct="false">Refrigerator</div></div>
+                    <button class="btn-check" onclick="checkAnswer(7)">Verificar</button><div class="feedback" id="fb7"></div>
+                </div>
+                <div class="question" id="q8">
+                    <div class="q-text">8. ¿Qué significa "Dishwasher"?</div>
+                    <div class="options"><div class="option" data-correct="false">Secadora</div><div class="option" data-correct="false">Lavadora</div><div class="option" data-correct="true">Lavavajillas</div><div class="option" data-correct="false">Aspiradora</div></div>
+                    <button class="btn-check" onclick="checkAnswer(8)">Verificar</button><div class="feedback" id="fb8"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(3)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(5)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 5: LUGARES EN LA CIUDAD                               -->
+        <!-- ============================================================ -->
+        <div id="mod5" class="module">
+            <div class="explain-card lugares-border">
+                <h2>🏙️ 5. Lugares en la Ciudad</h2>
+                <div class="explain-text">
+                    <strong>¡Todos los lugares importantes!</strong>
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">🏫 School</div><div class="pronunciation">(Skuul)</div><div class="es-word">Escuela</div><button class="audio-btn" onclick="speak('School')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏥 Hospital</div><div class="pronunciation">(Jós-pi-tal)</div><div class="es-word">Hospital</div><button class="audio-btn" onclick="speak('Hospital')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏪 Store / Shop</div><div class="pronunciation">(Stor / Shop)</div><div class="es-word">Tienda</div><button class="audio-btn" onclick="speak('Store')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🛒 Supermarket</div><div class="pronunciation">(Sú-per-mar-ket)</div><div class="es-word">Supermercado</div><button class="audio-btn" onclick="speak('Supermarket')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🍽️ Restaurant</div><div class="pronunciation">(Rés-to-rant)</div><div class="es-word">Restaurante</div><button class="audio-btn" onclick="speak('Restaurant')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏦 Bank</div><div class="pronunciation">(Bank)</div><div class="es-word">Banco</div><button class="audio-btn" onclick="speak('Bank')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏛️ Park</div><div class="pronunciation">(Park)</div><div class="es-word">Parque</div><button class="audio-btn" onclick="speak('Park')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏖️ Beach</div><div class="pronunciation">(Biich)</div><div class="es-word">Playa</div><button class="audio-btn" onclick="speak('Beach')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">⛰️ Mountain</div><div class="pronunciation">(Máun-ten)</div><div class="es-word">Montaña</div><button class="audio-btn" onclick="speak('Mountain')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏢 Office</div><div class="pronunciation">(Ó-fis)</div><div class="es-word">Oficina</div><button class="audio-btn" onclick="speak('Office')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">✈️ Airport</div><div class="pronunciation">(Éer-port)</div><div class="es-word">Aeropuerto</div><button class="audio-btn" onclick="speak('Airport')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🚉 Train station</div><div class="pronunciation">(Tréin stéi-shon)</div><div class="es-word">Estación de tren</div><button class="audio-btn" onclick="speak('Train station')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🚌 Bus stop</div><div class="pronunciation">(Bas stop)</div><div class="es-word">Parada de autobús</div><button class="audio-btn" onclick="speak('Bus stop')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">📚 Library</div><div class="pronunciation">(Lái-bre-ri)</div><div class="es-word">Biblioteca</div><button class="audio-btn" onclick="speak('Library')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏛️ Museum</div><div class="pronunciation">(Miu-sí-um)</div><div class="es-word">Museo</div><button class="audio-btn" onclick="speak('Museum')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🎬 Cinema</div><div class="pronunciation">(Sí-ne-ma)</div><div class="es-word">Cine</div><button class="audio-btn" onclick="speak('Cinema')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">⛪ Church</div><div class="pronunciation">(Chérch)</div><div class="es-word">Iglesia</div><button class="audio-btn" onclick="speak('Church')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏢 City Hall</div><div class="pronunciation">(Sí-ti jól)</div><div class="es-word">Ayuntamiento</div><button class="audio-btn" onclick="speak('City Hall')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏢 Police station</div><div class="pronunciation">(Po-lís stéi-shon)</div><div class="es-word">Comisaría</div><button class="audio-btn" onclick="speak('Police station')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">🏢 Fire station</div><div class="pronunciation">(Fáir stéi-shon)</div><div class="es-word">Estación de bomberos</div><button class="audio-btn" onclick="speak('Fire station')">🔊</button></div>
+                </div>
+
+                <div class="note">
+                    💡 <strong>Preposiciones:</strong> "At" para lugares específicos ("at school"), "in" para ciudades ("in Madrid"), "on" para calles ("on Main Street").
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Lugares</div>
+                <div class="question" id="q9">
+                    <div class="q-text">9. ¿Cómo se dice "Biblioteca" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">School</div><div class="option" data-correct="true">Library</div><div class="option" data-correct="false">Museum</div><div class="option" data-correct="false">Cinema</div></div>
+                    <button class="btn-check" onclick="checkAnswer(9)">Verificar</button><div class="feedback" id="fb9"></div>
+                </div>
+                <div class="question" id="q10">
+                    <div class="q-text">10. ¿Qué significa "Fire station"?</div>
+                    <div class="options"><div class="option" data-correct="false">Comisaría</div><div class="option" data-correct="false">Ayuntamiento</div><div class="option" data-correct="true">Estación de bomberos</div><div class="option" data-correct="false">Hospital</div></div>
+                    <button class="btn-check" onclick="checkAnswer(10)">Verificar</button><div class="feedback" id="fb10"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(4)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(6)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 6: PREGUNTAS Y DIRECCIONES                           -->
+        <!-- ============================================================ -->
+        <div id="mod6" class="module">
+            <div class="explain-card direcciones-border">
+                <h2>🗺️ 6. Preguntas y Direcciones</h2>
+                <div class="explain-text">
+                    <strong>Aprende a preguntar y dar direcciones.</strong>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">Where is the supermarket?</div><div class="pron">(Guér is de sú-per-mar-ket?)</div><div class="es">¿Dónde está el supermercado?</div><button class="audio-btn" onclick="speak('Where is the supermarket?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">It's next to the bank.</div><div class="pron">(Its nekst tu de bank.)</div><div class="es">Está al lado del banco.</div><button class="audio-btn" onclick="speak('It is next to the bank.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">It's across from the park.</div><div class="pron">(Its a-krós from de park.)</div><div class="es">Está enfrente del parque.</div><button class="audio-btn" onclick="speak('It is across from the park.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">It's on the corner.</div><div class="pron">(Its on de kór-ner.)</div><div class="es">Está en la esquina.</div><button class="audio-btn" onclick="speak('It is on the corner.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">It's between the bank and the store.</div><div class="pron">(Its bi-tuín de bank and de stor.)</div><div class="es">Está entre el banco y la tienda.</div><button class="audio-btn" onclick="speak('It is between the bank and the store.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Go straight ahead.</div><div class="pron">(Góu stréit a-jed.)</div><div class="es">Sigue recto.</div><button class="audio-btn" onclick="speak('Go straight ahead.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Turn left / Turn right.</div><div class="pron">(Térn left / Térn ráit.)</div><div class="es">Gira a la izquierda / Gira a la derecha.</div><button class="audio-btn" onclick="speak('Turn left')">🔊</button>
+                </div>
+
+                <div class="dialog-box">
+                    <div class="line"><span class="speaker">👤 A:</span> Excuse me, where is the hospital?</div>
+                    <div class="line"><span class="speaker">👤 B:</span> It's two blocks away. Turn right at the traffic light.</div>
+                    <div class="line"><span class="speaker">👤 A:</span> Thank you very much!</div>
+                    <div class="line"><span class="speaker">👤 B:</span> You're welcome.</div>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Direcciones</div>
+                <div class="question" id="q11">
+                    <div class="q-text">11. ¿Cómo se dice "Está al lado del banco"?</div>
+                    <div class="options"><div class="option" data-correct="true">It's next to the bank.</div><div class="option" data-correct="false">It's across from the bank.</div><div class="option" data-correct="false">It's between the bank.</div><div class="option" data-correct="false">It's on the corner.</div></div>
+                    <button class="btn-check" onclick="checkAnswer(11)">Verificar</button><div class="feedback" id="fb11"></div>
+                </div>
+                <div class="question" id="q12">
+                    <div class="q-text">12. Traduce: "Gira a la izquierda en el semáforo."</div>
+                    <div class="options"><div class="option" data-correct="false">Turn right at the traffic light.</div><div class="option" data-correct="true">Turn left at the traffic light.</div><div class="option" data-correct="false">Go straight ahead.</div><div class="option" data-correct="false">Turn left on the corner.</div></div>
+                    <button class="btn-check" onclick="checkAnswer(12)">Verificar</button><div class="feedback" id="fb12"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(5)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(7)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 7: PRÁCTICA INTENSIVA                                 -->
+        <!-- ============================================================ -->
+        <div id="mod7" class="module">
+            <div class="explain-card practica-border">
+                <h2>📝 7. Práctica Intensiva</h2>
+                <div class="explain-text">
+                    <strong>¡Todo junto!</strong> Casa, muebles, electrodomésticos, lugares y direcciones.
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">My house has a living room, a kitchen, three bedrooms, two bathrooms, and a garden. I love my home!</div>
+                    <div class="pron">(Mái jáus jas a lí-ving ruum, a kí-chen, zrii béd-ruums, tu báz-ruums, and a gár-den. Ái lav mái jóum!)</div>
+                    <div class="es">Mi casa tiene una sala, una cocina, tres dormitorios, dos baños y un jardín. ¡Amo mi hogar!</div>
+                    <button class="audio-btn" onclick="speak('My house has a living room, a kitchen, three bedrooms, two bathrooms, and a garden. I love my home!')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">The supermarket is next to the bank. The school is near the park. The hospital is across from the library.</div>
+                    <div class="pron">(De sú-per-mar-ket is nekst tu de bank. De skuul is nír de park. De jós-pi-tal is a-krós from de lái-bre-ri.)</div>
+                    <div class="es">El supermercado está al lado del banco. La escuela está cerca del parque. El hospital está enfrente de la biblioteca.</div>
+                    <button class="audio-btn" onclick="speak('The supermarket is next to the bank. The school is near the park. The hospital is across from the library.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica Final</div>
+                <div class="question" id="q13">
+                    <div class="q-text">13. ¿Qué habitación está en una casa?</div>
+                    <div class="options"><div class="option" data-correct="false">School</div><div class="option" data-correct="false">Store</div><div class="option" data-correct="true">Bedroom</div><div class="option" data-correct="false">Beach</div></div>
+                    <button class="btn-check" onclick="checkAnswer(13)">Verificar</button><div class="feedback" id="fb13"></div>
+                </div>
+                <div class="question" id="q14">
+                    <div class="q-text">14. ¿Dónde está el refrigerador normalmente?</div>
+                    <div class="options"><div class="option" data-correct="false">Bedroom</div><div class="option" data-correct="true">Kitchen</div><div class="option" data-correct="false">Bathroom</div><div class="option" data-correct="false">Living room</div></div>
+                    <button class="btn-check" onclick="checkAnswer(14)">Verificar</button><div class="feedback" id="fb14"></div>
+                </div>
+                <div class="question" id="q15">
+                    <div class="q-text">15. Traduce: "El supermercado está al lado del banco."</div>
+                    <div class="options"><div class="option" data-correct="true">The supermarket is next to the bank.</div><div class="option" data-correct="false">The supermarket is across from the bank.</div><div class="option" data-correct="false">The supermarket is between the bank.</div><div class="option" data-correct="false">The supermarket is near the bank.</div></div>
+                    <button class="btn-check" onclick="checkAnswer(15)">Verificar</button><div class="feedback" id="fb15"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(6)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="showResults()">📊 finalizar</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 8: RESULTADOS                                         -->
+        <!-- ============================================================ -->
+        <div id="mod8" class="module">
+            <div class="results-box">
+                <h2>🏆 ¡Casa y Lugares dominados!</h2>
+                <div class="big-score" id="finalScore">0</div>
+                <p style="font-size:1.1rem; font-weight:600;">puntos obtenidos</p>
+
+                <div class="final-message" style="font-size:1rem; margin:16px 0;">
+                    Has completado el módulo de <strong>La Casa y Lugares Comunes</strong>.<br>
+                    Ahora puedes describir tu casa, sus muebles, electrodomésticos y dar direcciones en la ciudad.
+                </div>
+
+                <ul class="learned-list" style="text-align:left; background:white; border-radius:20px; padding:16px 20px; margin:16px 0; list-style:none; color:#023047;">
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Estructura de la casa (door, window, garden, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Todas las habitaciones (living room, kitchen, bathroom, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Muebles (chair, table, sofa, wardrobe, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Electrodomésticos (TV, refrigerator, microwave, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Lugares en la ciudad (20+ lugares)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Preguntas y direcciones (next to, across from, between)</li>
+                    <li style="padding:8px 0;">✅ Pronunciación en español + audio</li>
+                </ul>
+
+                <div style="background:#d4e6f5; border-radius:18px; padding:16px; margin:16px 0; text-align:left; color:#023047; font-size:1rem;">
+                    <strong>💡 Consejo final:</strong> Practica describiendo tu casa y tu vecindario. "My house is near the school. The supermarket is across from the bank."
+                </div>
+
+                <button class="btn-restart" onclick="restart()">🔄 Repetir lección</button>
+            </div>
+        </div>
+
+        <div class="footer">Polyglots · Aprende inglés fácil</div>
+    </div>
+
+    <script>
+        // ================================================================
+        // VARIABLES GLOBALES
+        // ================================================================
+        let score = 0;
+        let answered = {};
+
+        // ================================================================
+        // RESPUESTAS CORRECTAS
+        // ================================================================
+        const correctAnswers = {
+            1: 'Window',
+            2: 'Apartamento',
+            3: 'Kitchen',
+            4: 'Sótano',
+            5: 'Chair',
+            6: 'Armario',
+            7: 'Microwave',
+            8: 'Lavavajillas',
+            9: 'Library',
+            10: 'Estación de bomberos',
+            11: 'It\'s next to the bank.',
+            12: 'Turn left at the traffic light.',
+            13: 'Bedroom',
+            14: 'Kitchen',
+            15: 'The supermarket is next to the bank.'
+        };
+
+        // ================================================================
+        // AUDIO
+        // ================================================================
+        function speak(text) {
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.85;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            const voices = window.speechSynthesis.getVoices();
+            const femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'));
+            if (femaleVoice) utterance.voice = femaleVoice;
+
+            window.speechSynthesis.speak(utterance);
+
+            const btn = event.target;
+            btn.classList.add('playing');
+            btn.textContent = '🔊';
+            setTimeout(() => {
+                btn.classList.remove('playing');
+                btn.textContent = '🔊';
+            }, 1500);
+        }
+
+        window.speechSynthesis.getVoices();
+
+        // ================================================================
+        // EVENTOS
+        // ================================================================
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                const questionDiv = this.closest('.question');
+                if (!questionDiv) return;
+                const qId = questionDiv.id.replace('q', '');
+                questionDiv.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                const fb = document.getElementById('fb' + qId);
+                if (fb) fb.innerHTML = '';
+            });
+        });
+
+        // ================================================================
+        // CHECK ANSWER
+        // ================================================================
+        function checkAnswer(qId) {
+            const questionDiv = document.getElementById('q' + qId);
+            if (!questionDiv) return;
+
+            const selected = questionDiv.querySelector('.option.selected');
+            const fbDiv = document.getElementById('fb' + qId);
+
+            if (!selected) {
+                fbDiv.innerHTML = '<span style="color:#b34141;">⚠️ Selecciona una opción primero.</span>';
+                fbDiv.className = 'feedback fb-bad';
+                return;
+            }
+
+            const isCorrect = selected.dataset.correct === 'true';
+            const allOpts = questionDiv.querySelectorAll('.option');
+
+            allOpts.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                if (opt.dataset.correct === 'true') opt.classList.add('correct');
+                if (opt === selected && !isCorrect) opt.classList.add('incorrect');
+            });
+
+            if (!answered[qId]) {
+                if (isCorrect) score += 10;
+                answered[qId] = true;
+                updateScore();
+            }
+
+            const explanation = getExplanation(qId, isCorrect);
+
+            fbDiv.innerHTML = `
+                <strong>${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}</strong><br>
+                ${explanation}
+            `;
+            fbDiv.className = `feedback ${isCorrect ? 'fb-good' : 'fb-bad'}`;
+        }
+
+        function getExplanation(qId, correct) {
+            const texts = {
+                1: correct ? '"Window" es ventana.' : '"Window" (Uín-dou) es ventana.',
+                2: correct ? '"Apartment" es apartamento.' : '"Apartment" (A-párt-ment) es apartamento.',
+                3: correct ? '"Kitchen" es cocina.' : '"Kitchen" (Kí-chen) es cocina.',
+                4: correct ? '"Basement" es sótano.' : '"Basement" (Béis-ment) es sótano.',
+                5: correct ? '"Chair" es silla.' : '"Chair" (Chéer) es silla.',
+                6: correct ? '"Wardrobe" es armario.' : '"Wardrobe" (Uór-droub) es armario.',
+                7: correct ? '"Microwave" es microondas.' : '"Microwave" (Mái-cro-ueiv) es microondas.',
+                8: correct ? '"Dishwasher" es lavavajillas.' : '"Dishwasher" (Dish-uó-sher) es lavavajillas.',
+                9: correct ? '"Library" es biblioteca.' : '"Library" (Lái-bre-ri) es biblioteca.',
+                10: correct ? '"Fire station" es estación de bomberos.' : '"Fire station" (Fáir stéi-shon) es estación de bomberos.',
+                11: correct ? '"Next to" = al lado de.' : '"Next to" (nekst tu) = al lado de.',
+                12: correct ? '"Turn left" = gira a la izquierda.' : '"Turn left" = gira a la izquierda.',
+                13: correct ? '"Bedroom" es una habitación de la casa.' : '"Bedroom" = dormitorio.',
+                14: correct ? 'El refrigerador está en la cocina.' : '"Kitchen" es la cocina.',
+                15: correct ? '"Next to the bank" = al lado del banco.' : '"Next to" = al lado de.'
+            };
+            return texts[qId] || (correct ? 'Correcto.' : 'Revisa la respuesta correcta.');
+        }
+
+        function updateScore() {
+            document.getElementById('scoreDisplay').textContent = score;
+        }
+
+        function goToModule(mod) {
+            document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+            document.getElementById('mod' + mod).classList.add('active');
+
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((d, i) => {
+                d.classList.toggle('active', i === mod - 1);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showResults() {
+            document.getElementById('finalScore').textContent = score;
+            goToModule(8);
+        }
+
+        function restart() {
+            score = 0;
+            answered = {};
+            updateScore();
+
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.querySelectorAll('.feedback').forEach(fb => fb.innerHTML = '');
+
+            goToModule(1);
+        }
+
+        window.checkAnswer = checkAnswer;
+        window.goToModule = goToModule;
+        window.showResults = showResults;
+        window.restart = restart;
+        window.speak = speak;
+    </script>
+</body>
+</html>

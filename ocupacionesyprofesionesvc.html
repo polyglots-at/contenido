@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Ocupaciones y Profesiones · Polyglots</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #2c5f8a;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            color: #f0f7ff;
+            line-height: 1.6;
+            padding: 15px 12px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            padding: 25px 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border: 2px solid #a3cef1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1d4b6e;
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            border: 2px solid #9ac7f0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e8f3ff;
+        }
+
+        .score {
+            background: #f4c542;
+            color: #1d3b4f;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 1rem;
+        }
+
+        .score span {
+            font-size: 1.5rem;
+            margin-left: 6px;
+        }
+
+        .module {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .explain-card {
+            background: #e7f0fc;
+            color: #023047;
+            border-radius: 30px;
+            padding: 25px 22px;
+            margin-bottom: 25px;
+            border-left: 12px solid;
+            box-shadow: 0 8px 0 #1b4b6e;
+        }
+
+        .explain-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .profesiones-border { border-left-color: #d97706; }
+        .oficina-border { border-left-color: #1f7ea3; }
+        .salud-border { border-left-color: #2a8c5a; }
+        .educacion-border { border-left-color: #9b5fc0; }
+        .servicios-border { border-left-color: #8e44ad; }
+        .preguntas-border { border-left-color: #e67e22; }
+        .practica-border { border-left-color: #16a085; }
+
+        .explain-text {
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+
+        .explain-text strong {
+            color: #b45f06;
+        }
+
+        .note {
+            background: #ffe8c8;
+            border-radius: 18px;
+            padding: 12px 16px;
+            color: #5e3a0c;
+            margin-top: 14px;
+            font-size: 0.98rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .vocab-card {
+            background: #ffffffd0;
+            border-radius: 16px;
+            padding: 12px;
+            text-align: center;
+            border: 2px solid #a0c4e2;
+            transition: 0.15s;
+        }
+
+        .vocab-card .en-word {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1rem;
+        }
+
+        .vocab-card .pronunciation {
+            color: #b45f06;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: #f0e6d0;
+            padding: 2px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 4px 0;
+        }
+
+        .vocab-card .es-word {
+            color: #2f506d;
+            font-size: 0.85rem;
+        }
+
+        .audio-btn {
+            background: #1f6396;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .audio-btn:active {
+            transform: scale(0.9);
+        }
+
+        .audio-btn.playing {
+            background: #2ecc71;
+        }
+
+        .practice-box {
+            background: #f6faff;
+            border-radius: 36px;
+            padding: 22px 18px;
+            margin: 25px 0;
+            border: 3px solid #7bb3e0;
+        }
+
+        .practice-title {
+            font-size: 1.5rem;
+            color: #0d4568;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #7bb3e0;
+            padding-bottom: 8px;
+        }
+
+        .question {
+            background: white;
+            border-radius: 28px;
+            padding: 20px 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 0 #9bb8da;
+        }
+
+        .question:last-child {
+            margin-bottom: 0;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #022b41;
+            margin-bottom: 14px;
+        }
+
+        .q-hint {
+            font-size: 0.9rem;
+            color: #6b7f8f;
+            text-align: center;
+            margin-bottom: 12px;
+            font-style: italic;
+            background: #f0f6fc;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .options {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+        }
+
+        .option {
+            background: #e1effb;
+            border: 3px solid #7fb0da;
+            border-radius: 40px;
+            padding: 14px 6px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #013753;
+            cursor: pointer;
+            transition: 0.1s ease;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .option:active {
+            transform: scale(0.96);
+        }
+
+        .option.selected {
+            background: #b1d6ff;
+            border-color: #1f6396;
+            font-weight: 700;
+        }
+
+        .option.correct {
+            background: #b8e6c0;
+            border-color: #1d8545;
+        }
+
+        .option.incorrect {
+            background: #fbc1c1;
+            border-color: #b34141;
+        }
+
+        .btn-check {
+            background: #1f6396;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 16px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 18px;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.15s;
+        }
+
+        .btn-check:active {
+            transform: scale(0.97);
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 22px;
+            background: #e9f3fb;
+            border-left: 8px solid;
+            color: #001d33;
+            font-size: 0.98rem;
+        }
+
+        .fb-good {
+            border-color: #1d8545;
+            background: #dcf5e3;
+        }
+
+        .fb-bad {
+            border-color: #b34141;
+            background: #ffe1e1;
+        }
+
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0 10px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: #1f4d70;
+            border: 3px solid #aad0f5;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            min-width: 90px;
+            text-align: center;
+            transition: 0.15s;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.96);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            border-color: #7f9fbf;
+            cursor: not-allowed;
+        }
+
+        .dot-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #608bbf;
+            transition: 0.2s;
+        }
+
+        .dot.active {
+            background: #f5d742;
+            box-shadow: 0 0 0 3px #ffd966;
+        }
+
+        .footer {
+            text-align: center;
+            color: #c5e2ff;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .results-box {
+            background: #eaf3fc;
+            border-radius: 40px;
+            padding: 30px 20px;
+            text-align: center;
+            color: #023b5e;
+        }
+
+        .results-box h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .results-box .big-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d97706;
+            margin: 16px 0;
+        }
+
+        .btn-restart {
+            background: #9b59b6;
+            border: 3px solid #c39bd3;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            margin-top: 10px;
+            transition: 0.15s;
+        }
+
+        .btn-restart:active {
+            transform: scale(0.96);
+        }
+
+        .phrase-card {
+            background: #e8f4fd;
+            border-radius: 16px;
+            padding: 14px;
+            border-left: 6px solid #1f7ea3;
+            margin: 8px 0;
+        }
+
+        .phrase-card .en {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1.05rem;
+        }
+
+        .phrase-card .es {
+            color: #2f506d;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .phrase-card .pron {
+            color: #b45f06;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .dialog-box {
+            background: #d4e6f5;
+            border-radius: 18px;
+            padding: 16px;
+            margin: 10px 0;
+            border: 2px solid #7fb0da;
+        }
+
+        .dialog-box .speaker {
+            font-weight: 700;
+            color: #0a4b6e;
+        }
+
+        .dialog-box .line {
+            padding: 4px 0;
+            border-bottom: 1px dashed #a0c4e2;
+        }
+
+        .dialog-box .line:last-child {
+            border-bottom: none;
+        }
+
+        .emoji-job {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <h1>💼 Ocupaciones y Profesiones</h1>
+            <div class="score">Puntos <span id="scoreDisplay">0</span></div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 1: PROFESIONES COMUNES                                  -->
+        <!-- ============================================================ -->
+        <div id="mod1" class="module active">
+            <div class="explain-card profesiones-border">
+                <h2>💼 1. Profesiones Comunes</h2>
+                <div class="explain-text">
+                    <strong>¡Las profesiones más comunes!</strong> Aprende a decir qué haces.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">👨‍🏫 Teacher</div><div class="pronunciation">(Tí-cher)</div><div class="es-word">Profesor / Maestro</div><button class="audio-btn" onclick="speak('Teacher')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍⚕️ Doctor</div><div class="pronunciation">(Dók-tor)</div><div class="es-word">Médico / Doctor</div><button class="audio-btn" onclick="speak('Doctor')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍⚖️ Lawyer</div><div class="pronunciation">(Ló-ier)</div><div class="es-word">Abogado</div><button class="audio-btn" onclick="speak('Lawyer')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍💻 Engineer</div><div class="pronunciation">(En-dchi-nier)</div><div class="es-word">Ingeniero</div><button class="audio-btn" onclick="speak('Engineer')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍💼 Accountant</div><div class="pronunciation">(A-káun-tant)</div><div class="es-word">Contador</div><button class="audio-btn" onclick="speak('Accountant')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍🎨 Artist</div><div class="pronunciation">(Ár-tist)</div><div class="es-word">Artista</div><button class="audio-btn" onclick="speak('Artist')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍🍳 Chef</div><div class="pronunciation">(Shef)</div><div class="es-word">Chef / Cocinero</div><button class="audio-btn" onclick="speak('Chef')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍✈️ Pilot</div><div class="pronunciation">(Pái-lot)</div><div class="es-word">Piloto</div><button class="audio-btn" onclick="speak('Pilot')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍🚀 Astronaut</div><div class="pronunciation">(Ás-tro-not)</div><div class="es-word">Astronauta</div><button class="audio-btn" onclick="speak('Astronaut')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍🔬 Scientist</div><div class="pronunciation">(Sái-en-tist)</div><div class="es-word">Científico</div><button class="audio-btn" onclick="speak('Scientist')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍💻 Programmer</div><div class="pronunciation">(Pró-gra-mer)</div><div class="es-word">Programador</div><button class="audio-btn" onclick="speak('Programmer')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍🏫 Professor</div><div class="pronunciation">(Pro-fé-sor)</div><div class="es-word">Profesor universitario</div><button class="audio-btn" onclick="speak('Professor')">🔊</button></div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">I'm a teacher. I work at a school.</div><div class="pron">(Áim a tí-cher. Ái guórk at a skuul.)</div><div class="es">Soy profesor. Trabajo en una escuela.</div><button class="audio-btn" onclick="speak('I\'m a teacher. I work at a school.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">She is a doctor. She works in a hospital.</div><div class="pron">(Shi is a dók-tor. Shi guórks in a jós-pi-tal.)</div><div class="es">Ella es médica. Trabaja en un hospital.</div><button class="audio-btn" onclick="speak('She is a doctor. She works in a hospital.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Profesiones</div>
+                <div class="question" id="q1">
+                    <div class="q-text">1. ¿Cómo se dice "Profesor" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Doctor</div><div class="option" data-correct="true">Teacher</div><div class="option" data-correct="false">Lawyer</div><div class="option" data-correct="false">Engineer</div></div>
+                    <button class="btn-check" onclick="checkAnswer(1)">Verificar</button><div class="feedback" id="fb1"></div>
+                </div>
+                <div class="question" id="q2">
+                    <div class="q-text">2. ¿Qué profesión trabaja en un hospital?</div>
+                    <div class="options"><div class="option" data-correct="false">Teacher</div><div class="option" data-correct="true">Doctor</div><div class="option" data-correct="false">Lawyer</div><div class="option" data-correct="false">Engineer</div></div>
+                    <button class="btn-check" onclick="checkAnswer(2)">Verificar</button><div class="feedback" id="fb2"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" disabled>← anterior</button>
+                <div class="dot-container"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(2)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 2: PROFESIONES DE OFICINA                               -->
+        <!-- ============================================================ -->
+        <div id="mod2" class="module">
+            <div class="explain-card oficina-border">
+                <h2>📊 2. Profesiones de Oficina</h2>
+                <div class="explain-text">
+                    <strong>¡Trabajos de oficina!</strong> Profesiones que se realizan en una oficina.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">👩‍💼 Manager</div><div class="pronunciation">(Má-ne-dcher)</div><div class="es-word">Gerente</div><button class="audio-btn" onclick="speak('Manager')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍💼 Secretary</div><div class="pronunciation">(Sé-kre-ta-ri)</div><div class="es-word">Secretario</div><button class="audio-btn" onclick="speak('Secretary')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍💻 IT Specialist</div><div class="pronunciation">(Ái-ti spé-sha-list)</div><div class="es-word">Especialista en TI</div><button class="audio-btn" onclick="speak('IT Specialist')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍💼 Business analyst</div><div class="pronunciation">(Bís-nis á-na-list)</div><div class="es-word">Analista de negocios</div><button class="audio-btn" onclick="speak('Business analyst')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍💼 HR manager</div><div class="pronunciation">(Éich-ar má-ne-dcher)</div><div class="es-word">Gerente de RRHH</div><button class="audio-btn" onclick="speak('HR manager')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍💼 Sales manager</div><div class="pronunciation">(Séils má-ne-dcher)</div><div class="es-word">Gerente de ventas</div><button class="audio-btn" onclick="speak('Sales manager')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍🎓 Marketing specialist</div><div class="pronunciation">(Már-ke-ting spé-sha-list)</div><div class="es-word">Especialista en marketing</div><button class="audio-btn" onclick="speak('Marketing specialist')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍🏫 Consultant</div><div class="pronunciation">(Kon-sál-tant)</div><div class="es-word">Consultor</div><button class="audio-btn" onclick="speak('Consultant')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍💼 Auditor</div><div class="pronunciation">(Ó-di-tor)</div><div class="es-word">Auditor</div><button class="audio-btn" onclick="speak('Auditor')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍💼 Executive</div><div class="pronunciation">(Eg-sé-kiu-tiv)</div><div class="es-word">Ejecutivo</div><button class="audio-btn" onclick="speak('Executive')">🔊</button></div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">I'm a manager. I work in an office.</div><div class="pron">(Áim a má-ne-dcher. Ái guórk in an ó-fis.)</div><div class="es">Soy gerente. Trabajo en una oficina.</div><button class="audio-btn" onclick="speak('I\'m a manager. I work in an office.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">She is a secretary. She answers the phone.</div><div class="pron">(Shi is a sé-kre-ta-ri. Shi án-sers de fóun.)</div><div class="es">Ella es secretaria. Responde el teléfono.</div><button class="audio-btn" onclick="speak('She is a secretary. She answers the phone.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Oficina</div>
+                <div class="question" id="q3">
+                    <div class="q-text">3. ¿Cómo se dice "Gerente" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Secretary</div><div class="option" data-correct="true">Manager</div><div class="option" data-correct="false">Analyst</div><div class="option" data-correct="false">Consultant</div></div>
+                    <button class="btn-check" onclick="checkAnswer(3)">Verificar</button><div class="feedback" id="fb3"></div>
+                </div>
+                <div class="question" id="q4">
+                    <div class="q-text">4. ¿Qué profesional se encarga de contratar personal?</div>
+                    <div class="options"><div class="option" data-correct="false">Sales manager</div><div class="option" data-correct="true">HR manager</div><div class="option" data-correct="false">IT specialist</div><div class="option" data-correct="false">Auditor</div></div>
+                    <button class="btn-check" onclick="checkAnswer(4)">Verificar</button><div class="feedback" id="fb4"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(1)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(3)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 3: PROFESIONES DE SALUD                                 -->
+        <!-- ============================================================ -->
+        <div id="mod3" class="module">
+            <div class="explain-card salud-border">
+                <h2>🏥 3. Profesiones de Salud</h2>
+                <div class="explain-text">
+                    <strong>¡Cuidando la salud!</strong> Profesiones relacionadas con la medicina y la salud.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">👩‍⚕️ Nurse</div><div class="pronunciation">(Ners)</div><div class="es-word">Enfermero</div><button class="audio-btn" onclick="speak('Nurse')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍⚕️ Surgeon</div><div class="pronunciation">(Sér-dchon)</div><div class="es-word">Cirujano</div><button class="audio-btn" onclick="speak('Surgeon')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍⚕️ Dentist</div><div class="pronunciation">(Dén-tist)</div><div class="es-word">Dentista</div><button class="audio-btn" onclick="speak('Dentist')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍⚕️ Pharmacist</div><div class="pronunciation">(Fár-ma-sist)</div><div class="es-word">Farmacéutico</div><button class="audio-btn" onclick="speak('Pharmacist')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍⚕️ Psychologist</div><div class="pronunciation">(Sai-kó-lo-dchist)</div><div class="es-word">Psicólogo</div><button class="audio-btn" onclick="speak('Psychologist')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍⚕️ Veterinarian</div><div class="pronunciation">(Ve-te-ri-né-ri-an)</div><div class="es-word">Veterinario</div><button class="audio-btn" onclick="speak('Veterinarian')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍⚕️ Optometrist</div><div class="pronunciation">(Op-tó-me-trist)</div><div class="es-word">Optometrista</div><button class="audio-btn" onclick="speak('Optometrist')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍⚕️ Therapist</div><div class="pronunciation">(Té-ra-pist)</div><div class="es-word">Terapeuta</div><button class="audio-btn" onclick="speak('Therapist')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍⚕️ Radiologist</div><div class="pronunciation">(Rei-di-ó-lo-dchist)</div><div class="es-word">Radiólogo</div><button class="audio-btn" onclick="speak('Radiologist')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍⚕️ Paramedic</div><div class="pronunciation">(Pa-ra-mé-dic)</div><div class="es-word">Paramédico</div><button class="audio-btn" onclick="speak('Paramedic')">🔊</button></div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">The nurse takes care of patients.</div><div class="pron">(De ners téiks ker of péi-shients.)</div><div class="es">El enfermero cuida a los pacientes.</div><button class="audio-btn" onclick="speak('The nurse takes care of patients.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">The dentist fixes teeth.</div><div class="pron">(De dén-tist fíkses tiiz.)</div><div class="es">El dentista arregla los dientes.</div><button class="audio-btn" onclick="speak('The dentist fixes teeth.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Salud</div>
+                <div class="question" id="q5">
+                    <div class="q-text">5. ¿Cómo se dice "Enfermero" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Doctor</div><div class="option" data-correct="true">Nurse</div><div class="option" data-correct="false">Dentist</div><div class="option" data-correct="false">Pharmacist</div></div>
+                    <button class="btn-check" onclick="checkAnswer(5)">Verificar</button><div class="feedback" id="fb5"></div>
+                </div>
+                <div class="question" id="q6">
+                    <div class="q-text">6. ¿Qué profesional cuida de los animales?</div>
+                    <div class="options"><div class="option" data-correct="false">Doctor</div><div class="option" data-correct="false">Nurse</div><div class="option" data-correct="false">Dentist</div><div class="option" data-correct="true">Veterinarian</div></div>
+                    <button class="btn-check" onclick="checkAnswer(6)">Verificar</button><div class="feedback" id="fb6"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(2)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(4)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 4: PROFESIONES DE EDUCACIÓN                              -->
+        <!-- ============================================================ -->
+        <div id="mod4" class="module">
+            <div class="explain-card educacion-border">
+                <h2>📚 4. Profesiones de Educación</h2>
+                <div class="explain-text">
+                    <strong>¡Enseñando y educando!</strong> Profesiones relacionadas con la educación.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">👨‍🏫 Teacher</div><div class="pronunciation">(Tí-cher)</div><div class="es-word">Profesor / Maestro</div><button class="audio-btn" onclick="speak('Teacher')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍🏫 Professor</div><div class="pronunciation">(Pro-fé-sor)</div><div class="es-word">Profesor universitario</div><button class="audio-btn" onclick="speak('Professor')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍🏫 Tutor</div><div class="pronunciation">(Tú-tor)</div><div class="es-word">Tutor</div><button class="audio-btn" onclick="speak('Tutor')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍🏫 Principal</div><div class="pronunciation">(Prín-si-pal)</div><div class="es-word">Director de escuela</div><button class="audio-btn" onclick="speak('Principal')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍🏫 Counselor</div><div class="pronunciation">(Káun-se-lor)</div><div class="es-word">Consejero escolar</div><button class="audio-btn" onclick="speak('Counselor')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍🏫 Researcher</div><div class="pronunciation">(Ri-sér-cher)</div><div class="es-word">Investigador</div><button class="audio-btn" onclick="speak('Researcher')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍🏫 Coordinator</div><div class="pronunciation">(Ko-ór-di-nei-tor)</div><div class="es-word">Coordinador</div><button class="audio-btn" onclick="speak('Coordinator')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍🏫 Educational assistant</div><div class="pronunciation">(E-dchu-kéi-sho-nal a-sís-tant)</div><div class="es-word">Asistente educativo</div><button class="audio-btn" onclick="speak('Educational assistant')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍🏫 Librarian</div><div class="pronunciation">(Lai-bré-ri-an)</div><div class="es-word">Bibliotecario</div><button class="audio-btn" onclick="speak('Librarian')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍🏫 Curriculum designer</div><div class="pronunciation">(Ka-rí-kiu-lam di-sái-ner)</div><div class="es-word">Diseñador de currículo</div><button class="audio-btn" onclick="speak('Curriculum designer')">🔊</button></div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">The professor teaches at the university.</div><div class="pron">(De pro-fé-sor tí-ches at de iu-ni-vér-si-ti.)</div><div class="es">El profesor enseña en la universidad.</div><button class="audio-btn" onclick="speak('The professor teaches at the university.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">The librarian organizes books.</div><div class="pron">(De lai-bré-ri-an ór-ga-nái-ses buks.)</div><div class="es">El bibliotecario organiza los libros.</div><button class="audio-btn" onclick="speak('The librarian organizes books.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Educación</div>
+                <div class="question" id="q7">
+                    <div class="q-text">7. ¿Cómo se dice "Profesor universitario" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Teacher</div><div class="option" data-correct="true">Professor</div><div class="option" data-correct="false">Tutor</div><div class="option" data-correct="false">Principal</div></div>
+                    <button class="btn-check" onclick="checkAnswer(7)">Verificar</button><div class="feedback" id="fb7"></div>
+                </div>
+                <div class="question" id="q8">
+                    <div class="q-text">8. ¿Quién es la persona que dirige una escuela?</div>
+                    <div class="options"><div class="option" data-correct="false">Teacher</div><div class="option" data-correct="false">Professor</div><div class="option" data-correct="true">Principal</div><div class="option" data-correct="false">Tutor</div></div>
+                    <button class="btn-check" onclick="checkAnswer(8)">Verificar</button><div class="feedback" id="fb8"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(3)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(5)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 5: PROFESIONES DE SERVICIOS                              -->
+        <!-- ============================================================ -->
+        <div id="mod5" class="module">
+            <div class="explain-card servicios-border">
+                <h2>🔧 5. Profesiones de Servicios</h2>
+                <div class="explain-text">
+                    <strong>¡Sirviendo a los demás!</strong> Profesiones de servicios y oficios.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card"><div class="en-word">👨‍🍳 Chef</div><div class="pronunciation">(Shef)</div><div class="es-word">Chef / Cocinero</div><button class="audio-btn" onclick="speak('Chef')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍🍳 Waiter / Waitress</div><div class="pronunciation">(Uéi-ter / Uéi-tres)</div><div class="es-word">Camarero / Camarera</div><button class="audio-btn" onclick="speak('Waiter')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍🔧 Plumber</div><div class="pronunciation">(Plá-mer)</div><div class="es-word">Fontanero</div><button class="audio-btn" onclick="speak('Plumber')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍🔧 Electrician</div><div class="pronunciation">(E-lek-trí-shian)</div><div class="es-word">Electricista</div><button class="audio-btn" onclick="speak('Electrician')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍🔧 Mechanic</div><div class="pronunciation">(Me-ká-nik)</div><div class="es-word">Mecánico</div><button class="audio-btn" onclick="speak('Mechanic')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍🚒 Firefighter</div><div class="pronunciation">(Fáir-fái-ter)</div><div class="es-word">Bombero</div><button class="audio-btn" onclick="speak('Firefighter')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👮‍♂️ Police officer</div><div class="pronunciation">(Po-lís ó-fi-ser)</div><div class="es-word">Policía</div><button class="audio-btn" onclick="speak('Police officer')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍🎨 Barber / Hairdresser</div><div class="pronunciation">(Bár-ber / Jér-dre-ser)</div><div class="es-word">Barbero / Peluquero</div><button class="audio-btn" onclick="speak('Barber')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍🏫 Translator</div><div class="pronunciation">(Tráns-léi-tor)</div><div class="es-word">Traductor</div><button class="audio-btn" onclick="speak('Translator')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍💼 Interpreter</div><div class="pronunciation">(In-tér-pre-ter)</div><div class="es-word">Intérprete</div><button class="audio-btn" onclick="speak('Interpreter')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👨‍🏫 Tailor</div><div class="pronunciation">(Téi-lor)</div><div class="es-word">Sastre</div><button class="audio-btn" onclick="speak('Tailor')">🔊</button></div>
+                    <div class="vocab-card"><div class="en-word">👩‍🔧 Construction worker</div><div class="pronunciation">(Kon-strák-shion uór-ker)</div><div class="es-word">Trabajador de construcción</div><button class="audio-btn" onclick="speak('Construction worker')">🔊</button></div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">The firefighter puts out fires.</div><div class="pron">(De fáir-fái-ter puts áut fáirs.)</div><div class="es">El bombero apaga incendios.</div><button class="audio-btn" onclick="speak('The firefighter puts out fires.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">The police officer protects people.</div><div class="pron">(De po-lís ó-fi-ser pro-tékts pí-pol.)</div><div class="es">El policía protege a las personas.</div><button class="audio-btn" onclick="speak('The police officer protects people.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Servicios</div>
+                <div class="question" id="q9">
+                    <div class="q-text">9. ¿Cómo se dice "Bombero" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">Police officer</div><div class="option" data-correct="true">Firefighter</div><div class="option" data-correct="false">Mechanic</div><div class="option" data-correct="false">Plumber</div></div>
+                    <button class="btn-check" onclick="checkAnswer(9)">Verificar</button><div class="feedback" id="fb9"></div>
+                </div>
+                <div class="question" id="q10">
+                    <div class="q-text">10. ¿Qué profesional arregla los coches?</div>
+                    <div class="options"><div class="option" data-correct="false">Electrician</div><div class="option" data-correct="true">Mechanic</div><div class="option" data-correct="false">Plumber</div><div class="option" data-correct="false">Chef</div></div>
+                    <button class="btn-check" onclick="checkAnswer(10)">Verificar</button><div class="feedback" id="fb10"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(4)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(6)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 6: PREGUNTAS SOBRE PROFESIONES                         -->
+        <!-- ============================================================ -->
+        <div id="mod6" class="module">
+            <div class="explain-card preguntas-border">
+                <h2>❓ 6. Preguntas sobre Profesiones</h2>
+                <div class="explain-text">
+                    <strong>Haz y responde preguntas</strong> sobre trabajos y profesiones.
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">What do you do?</div><div class="pron">(Guát du iu du?)</div><div class="es">¿A qué te dedicas?</div><button class="audio-btn" onclick="speak('What do you do?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">What's your job?</div><div class="pron">(Guáts ior dchob?)</div><div class="es">¿Cuál es tu trabajo?</div><button class="audio-btn" onclick="speak('What is your job?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">I'm a teacher.</div><div class="pron">(Áim a tí-cher.)</div><div class="es">Soy profesor.</div><button class="audio-btn" onclick="speak('I\'m a teacher.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Where do you work?</div><div class="pron">(Guér du iu guórk?)</div><div class="es">¿Dónde trabajas?</div><button class="audio-btn" onclick="speak('Where do you work?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">I work in a hospital.</div><div class="pron">(Ái guórk in a jós-pi-tal.)</div><div class="es">Trabajo en un hospital.</div><button class="audio-btn" onclick="speak('I work in a hospital.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Do you like your job?</div><div class="pron">(Du iu láik ior dchob?)</div><div class="es">¿Te gusta tu trabajo?</div><button class="audio-btn" onclick="speak('Do you like your job?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Yes, I love my job.</div><div class="pron">(Iés, ái lav mái dchob.)</div><div class="es">Sí, amo mi trabajo.</div><button class="audio-btn" onclick="speak('Yes, I love my job.')">🔊</button>
+                </div>
+
+                <div class="dialog-box">
+                    <div class="line"><span class="speaker">👤 A:</span> What do you do?</div>
+                    <div class="line"><span class="speaker">👤 B:</span> I'm a nurse. I work in a hospital.</div>
+                    <div class="line"><span class="speaker">👤 A:</span> Do you like your job?</div>
+                    <div class="line"><span class="speaker">👤 B:</span> Yes, I love my job. It's very rewarding.</div>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Preguntas</div>
+                <div class="question" id="q11">
+                    <div class="q-text">11. ¿Cómo preguntas "¿A qué te dedicas?" en inglés?</div>
+                    <div class="options"><div class="option" data-correct="false">What is your job?</div><div class="option" data-correct="true">What do you do?</div><div class="option" data-correct="false">Where do you work?</div><div class="option" data-correct="false">Do you like your job?</div></div>
+                    <button class="btn-check" onclick="checkAnswer(11)">Verificar</button><div class="feedback" id="fb11"></div>
+                </div>
+                <div class="question" id="q12">
+                    <div class="q-text">12. Responde: "What do you do?" (si eres enfermero)</div>
+                    <div class="options"><div class="option" data-correct="false">I'm a teacher.</div><div class="option" data-correct="false">I'm a doctor.</div><div class="option" data-correct="true">I'm a nurse.</div><div class="option" data-correct="false">I'm a lawyer.</div></div>
+                    <button class="btn-check" onclick="checkAnswer(12)">Verificar</button><div class="feedback" id="fb12"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(5)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span></div>
+                <button class="nav-btn" onclick="goToModule(7)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 7: PRÁCTICA INTENSIVA                                    -->
+        <!-- ============================================================ -->
+        <div id="mod7" class="module">
+            <div class="explain-card practica-border">
+                <h2>📝 7. Práctica Intensiva</h2>
+                <div class="explain-text">
+                    <strong>Combina todo:</strong> profesiones, lugares de trabajo y preguntas.
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">My mother is a nurse. She works in a hospital. She helps sick people. I want to be a doctor.</div>
+                    <div class="pron">(Mái má-der is a ners. Shi guórks in a jós-pi-tal. Shi jelps sik pí-pol. Ái uont tu bi a dók-tor.)</div>
+                    <div class="es">Mi madre es enfermera. Trabaja en un hospital. Ayuda a personas enfermas. Quiero ser médico.</div>
+                    <button class="audio-btn" onclick="speak('My mother is a nurse. She works in a hospital. She helps sick people. I want to be a doctor.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">My father is an engineer. He works in an office. He designs buildings. I want to be an architect.</div>
+                    <div class="pron">(Mái fá-der is an en-dchi-nier. Ji guórks in an ó-fis. Ji di-sáins bíl-dings. Ái uont tu bi an ár-ki-tekt.)</div>
+                    <div class="es">Mi padre es ingeniero. Trabaja en una oficina. Diseña edificios. Quiero ser arquitecto.</div>
+                    <button class="audio-btn" onclick="speak('My father is an engineer. He works in an office. He designs buildings. I want to be an architect.')">🔊</button>
+                </div>
+            </div>
+
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica Final</div>
+                <div class="question" id="q13">
+                    <div class="q-text">13. ¿Quién trabaja en un hospital y ayuda a los enfermos?</div>
+                    <div class="options"><div class="option" data-correct="false">Teacher</div><div class="option" data-correct="false">Engineer</div><div class="option" data-correct="true">Nurse</div><div class="option" data-correct="false">Chef</div></div>
+                    <button class="btn-check" onclick="checkAnswer(13)">Verificar</button><div class="feedback" id="fb13"></div>
+                </div>
+                <div class="question" id="q14">
+                    <div class="q-text">14. ¿Qué profesional diseña edificios?</div>
+                    <div class="options"><div class="option" data-correct="false">Teacher</div><div class="option" data-correct="false">Doctor</div><div class="option" data-correct="true">Architect</div><div class="option" data-correct="false">Nurse</div></div>
+                    <button class="btn-check" onclick="checkAnswer(14)">Verificar</button><div class="feedback" id="fb14"></div>
+                </div>
+                <div class="question" id="q15">
+                    <div class="q-text">15. Traduce: "Quiero ser médico."</div>
+                    <div class="options"><div class="option" data-correct="false">I want to be a nurse.</div><div class="option" data-correct="false">I want to be a teacher.</div><div class="option" data-correct="true">I want to be a doctor.</div><div class="option" data-correct="false">I want to be a lawyer.</div></div>
+                    <button class="btn-check" onclick="checkAnswer(15)">Verificar</button><div class="feedback" id="fb15"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(6)">← anterior</button>
+                <div class="dot-container"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span></div>
+                <button class="nav-btn" onclick="showResults()">📊 finalizar</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 8: RESULTADOS                                           -->
+        <!-- ============================================================ -->
+        <div id="mod8" class="module">
+            <div class="results-box">
+                <h2>🏆 ¡Ocupaciones dominadas!</h2>
+                <div class="big-score" id="finalScore">0</div>
+                <p style="font-size:1.1rem; font-weight:600;">puntos obtenidos</p>
+
+                <div class="final-message" style="font-size:1rem; margin:16px 0;">
+                    Has completado el módulo de <strong>Ocupaciones y Profesiones</strong>.<br>
+                    Ahora puedes hablar de tu trabajo y preguntar sobre el de los demás.
+                </div>
+
+                <ul class="learned-list" style="text-align:left; background:white; border-radius:20px; padding:16px 20px; margin:16px 0; list-style:none; color:#023047;">
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Profesiones comunes (teacher, doctor, lawyer, engineer, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Profesiones de oficina (manager, secretary, analyst, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Profesiones de salud (nurse, dentist, veterinarian, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Profesiones de educación (teacher, professor, principal, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Profesiones de servicios (chef, firefighter, mechanic, etc.)</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Preguntas sobre trabajo (What do you do?)</li>
+                    <li style="padding:8px 0;">✅ Pronunciación en español + audio</li>
+                </ul>
+
+                <div style="background:#d4e6f5; border-radius:18px; padding:16px; margin:16px 0; text-align:left; color:#023047; font-size:1rem;">
+                    <strong>💡 Consejo final:</strong> Practica diciendo tu profesión y preguntando a otros. "I'm a student. What do you do?"
+                </div>
+
+                <button class="btn-restart" onclick="restart()">🔄 Repetir lección</button>
+            </div>
+        </div>
+
+        <div class="footer">Polyglots · Aprende inglés fácil</div>
+    </div>
+
+    <script>
+        // ================================================================
+        // VARIABLES GLOBALES
+        // ================================================================
+        let score = 0;
+        let answered = {};
+
+        // ================================================================
+        // RESPUESTAS CORRECTAS
+        // ================================================================
+        const correctAnswers = {
+            1: 'Teacher',
+            2: 'Doctor',
+            3: 'Manager',
+            4: 'HR manager',
+            5: 'Nurse',
+            6: 'Veterinarian',
+            7: 'Professor',
+            8: 'Principal',
+            9: 'Firefighter',
+            10: 'Mechanic',
+            11: 'What do you do?',
+            12: 'I\'m a nurse.',
+            13: 'Nurse',
+            14: 'Architect',
+            15: 'I want to be a doctor.'
+        };
+
+        // ================================================================
+        // AUDIO
+        // ================================================================
+        function speak(text) {
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.85;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            const voices = window.speechSynthesis.getVoices();
+            const femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'));
+            if (femaleVoice) utterance.voice = femaleVoice;
+
+            window.speechSynthesis.speak(utterance);
+
+            const btn = event.target;
+            btn.classList.add('playing');
+            btn.textContent = '🔊';
+            setTimeout(() => {
+                btn.classList.remove('playing');
+                btn.textContent = '🔊';
+            }, 1500);
+        }
+
+        window.speechSynthesis.getVoices();
+
+        // ================================================================
+        // EVENTOS
+        // ================================================================
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                const questionDiv = this.closest('.question');
+                if (!questionDiv) return;
+                const qId = questionDiv.id.replace('q', '');
+                questionDiv.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                const fb = document.getElementById('fb' + qId);
+                if (fb) fb.innerHTML = '';
+            });
+        });
+
+        // ================================================================
+        // CHECK ANSWER
+        // ================================================================
+        function checkAnswer(qId) {
+            const questionDiv = document.getElementById('q' + qId);
+            if (!questionDiv) return;
+
+            const selected = questionDiv.querySelector('.option.selected');
+            const fbDiv = document.getElementById('fb' + qId);
+
+            if (!selected) {
+                fbDiv.innerHTML = '<span style="color:#b34141;">⚠️ Selecciona una opción primero.</span>';
+                fbDiv.className = 'feedback fb-bad';
+                return;
+            }
+
+            const isCorrect = selected.dataset.correct === 'true';
+            const allOpts = questionDiv.querySelectorAll('.option');
+
+            allOpts.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                if (opt.dataset.correct === 'true') opt.classList.add('correct');
+                if (opt === selected && !isCorrect) opt.classList.add('incorrect');
+            });
+
+            if (!answered[qId]) {
+                if (isCorrect) score += 10;
+                answered[qId] = true;
+                updateScore();
+            }
+
+            const explanation = getExplanation(qId, isCorrect);
+
+            fbDiv.innerHTML = `
+                <strong>${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}</strong><br>
+                ${explanation}
+            `;
+            fbDiv.className = `feedback ${isCorrect ? 'fb-good' : 'fb-bad'}`;
+        }
+
+        function getExplanation(qId, correct) {
+            const texts = {
+                1: correct ? '"Teacher" es profesor.' : '"Teacher" (Tí-cher) es profesor.',
+                2: correct ? '"Doctor" trabaja en un hospital.' : '"Doctor" (Dók-tor) trabaja en un hospital.',
+                3: correct ? '"Manager" es gerente.' : '"Manager" (Má-ne-dcher) es gerente.',
+                4: correct ? '"HR manager" se encarga de recursos humanos.' : '"HR" = Human Resources (Recursos Humanos).',
+                5: correct ? '"Nurse" es enfermero.' : '"Nurse" (Ners) es enfermero.',
+                6: correct ? '"Veterinarian" cuida animales.' : '"Veterinarian" (Ve-te-ri-né-ri-an) cuida animales.',
+                7: correct ? '"Professor" es profesor universitario.' : '"Professor" (Pro-fé-sor) es profesor universitario.',
+                8: correct ? '"Principal" es director de escuela.' : '"Principal" (Prín-si-pal) es director de escuela.',
+                9: correct ? '"Firefighter" es bombero.' : '"Firefighter" (Fáir-fái-ter) es bombero.',
+                10: correct ? '"Mechanic" arregla coches.' : '"Mechanic" (Me-ká-nik) arregla coches.',
+                11: correct ? '"What do you do?" es la pregunta correcta.' : '"What do you do?" = ¿A qué te dedicas?',
+                12: correct ? '"I\'m a nurse" es la respuesta correcta.' : '"Nurse" (Ners) es enfermero.',
+                13: correct ? '"Nurse" trabaja en un hospital y ayuda a los enfermos.' : '"Nurse" (Ners) es enfermero.',
+                14: correct ? '"Architect" diseña edificios.' : '"Architect" (Ár-ki-tekt) diseña edificios.',
+                15: correct ? '"I want to be a doctor" es correcto.' : '"Doctor" (Dók-tor) es médico.'
+            };
+            return texts[qId] || (correct ? 'Correcto.' : 'Revisa la respuesta correcta.');
+        }
+
+        function updateScore() {
+            document.getElementById('scoreDisplay').textContent = score;
+        }
+
+        function goToModule(mod) {
+            document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+            document.getElementById('mod' + mod).classList.add('active');
+
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((d, i) => {
+                d.classList.toggle('active', i === mod - 1);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showResults() {
+            document.getElementById('finalScore').textContent = score;
+            goToModule(8);
+        }
+
+        function restart() {
+            score = 0;
+            answered = {};
+            updateScore();
+
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.querySelectorAll('.feedback').forEach(fb => fb.innerHTML = '');
+
+            goToModule(1);
+        }
+
+        window.checkAnswer = checkAnswer;
+        window.goToModule = goToModule;
+        window.showResults = showResults;
+        window.restart = restart;
+        window.speak = speak;
+    </script>
+</body>
+</html>

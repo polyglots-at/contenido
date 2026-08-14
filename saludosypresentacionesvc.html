@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Saludos y Presentaciones · Polyglots</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #2c5f8a;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            color: #f0f7ff;
+            line-height: 1.6;
+            padding: 15px 12px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 720px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(2px);
+            border-radius: 40px;
+            padding: 25px 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border: 2px solid #a3cef1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1d4b6e;
+            border-radius: 60px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            border: 2px solid #9ac7f0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e8f3ff;
+        }
+
+        .score {
+            background: #f4c542;
+            color: #1d3b4f;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 1rem;
+        }
+
+        .score span {
+            font-size: 1.5rem;
+            margin-left: 6px;
+        }
+
+        .module {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .explain-card {
+            background: #e7f0fc;
+            color: #023047;
+            border-radius: 30px;
+            padding: 25px 22px;
+            margin-bottom: 25px;
+            border-left: 12px solid;
+            box-shadow: 0 8px 0 #1b4b6e;
+        }
+
+        .explain-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .saludos-border { border-left-color: #d97706; }
+        .presentacion-border { border-left-color: #1f7ea3; }
+        .preguntas-border { border-left-color: #9b5fc0; }
+        .despedidas-border { border-left-color: #2a8c5a; }
+        .formal-border { border-left-color: #8e44ad; }
+        .practica-border { border-left-color: #e67e22; }
+
+        .explain-text {
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+
+        .explain-text strong {
+            color: #b45f06;
+        }
+
+        .note {
+            background: #ffe8c8;
+            border-radius: 18px;
+            padding: 12px 16px;
+            color: #5e3a0c;
+            margin-top: 14px;
+            font-size: 0.98rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .vocab-card {
+            background: #ffffffd0;
+            border-radius: 16px;
+            padding: 12px;
+            text-align: center;
+            border: 2px solid #a0c4e2;
+            transition: 0.15s;
+        }
+
+        .vocab-card .en-word {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1.1rem;
+        }
+
+        .vocab-card .pronunciation {
+            color: #b45f06;
+            font-size: 0.95rem;
+            font-weight: 600;
+            background: #f0e6d0;
+            padding: 2px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 4px 0;
+        }
+
+        .vocab-card .es-word {
+            color: #2f506d;
+            font-size: 0.9rem;
+        }
+
+        .audio-btn {
+            background: #1f6396;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .audio-btn:active {
+            transform: scale(0.9);
+        }
+
+        .audio-btn.playing {
+            background: #2ecc71;
+        }
+
+        .practice-box {
+            background: #f6faff;
+            border-radius: 36px;
+            padding: 22px 18px;
+            margin: 25px 0;
+            border: 3px solid #7bb3e0;
+        }
+
+        .practice-title {
+            font-size: 1.5rem;
+            color: #0d4568;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #7bb3e0;
+            padding-bottom: 8px;
+        }
+
+        .question {
+            background: white;
+            border-radius: 28px;
+            padding: 20px 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 0 #9bb8da;
+        }
+
+        .question:last-child {
+            margin-bottom: 0;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #022b41;
+            margin-bottom: 14px;
+        }
+
+        .q-hint {
+            font-size: 0.9rem;
+            color: #6b7f8f;
+            text-align: center;
+            margin-bottom: 12px;
+            font-style: italic;
+            background: #f0f6fc;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .options {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+        }
+
+        .option {
+            background: #e1effb;
+            border: 3px solid #7fb0da;
+            border-radius: 40px;
+            padding: 14px 6px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #013753;
+            cursor: pointer;
+            transition: 0.1s ease;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .option:active {
+            transform: scale(0.96);
+        }
+
+        .option.selected {
+            background: #b1d6ff;
+            border-color: #1f6396;
+            font-weight: 700;
+        }
+
+        .option.correct {
+            background: #b8e6c0;
+            border-color: #1d8545;
+        }
+
+        .option.incorrect {
+            background: #fbc1c1;
+            border-color: #b34141;
+        }
+
+        .btn-check {
+            background: #1f6396;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 16px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 18px;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: 0.15s;
+        }
+
+        .btn-check:active {
+            transform: scale(0.97);
+        }
+
+        .feedback {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 22px;
+            background: #e9f3fb;
+            border-left: 8px solid;
+            color: #001d33;
+            font-size: 0.98rem;
+        }
+
+        .fb-good {
+            border-color: #1d8545;
+            background: #dcf5e3;
+        }
+
+        .fb-bad {
+            border-color: #b34141;
+            background: #ffe1e1;
+        }
+
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0 10px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: #1f4d70;
+            border: 3px solid #aad0f5;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            min-width: 90px;
+            text-align: center;
+            transition: 0.15s;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.96);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            border-color: #7f9fbf;
+            cursor: not-allowed;
+        }
+
+        .dot-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #608bbf;
+            transition: 0.2s;
+        }
+
+        .dot.active {
+            background: #f5d742;
+            box-shadow: 0 0 0 3px #ffd966;
+        }
+
+        .footer {
+            text-align: center;
+            color: #c5e2ff;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .results-box {
+            background: #eaf3fc;
+            border-radius: 40px;
+            padding: 30px 20px;
+            text-align: center;
+            color: #023b5e;
+        }
+
+        .results-box h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .results-box .big-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d97706;
+            margin: 16px 0;
+        }
+
+        .btn-restart {
+            background: #9b59b6;
+            border: 3px solid #c39bd3;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            touch-action: manipulation;
+            margin-top: 10px;
+            transition: 0.15s;
+        }
+
+        .btn-restart:active {
+            transform: scale(0.96);
+        }
+
+        .phrase-card {
+            background: #e8f4fd;
+            border-radius: 16px;
+            padding: 14px;
+            border-left: 6px solid #1f7ea3;
+            margin: 8px 0;
+        }
+
+        .phrase-card .en {
+            font-weight: 700;
+            color: #0a4b6e;
+            font-size: 1.05rem;
+        }
+
+        .phrase-card .es {
+            color: #2f506d;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .phrase-card .pron {
+            color: #b45f06;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .dialog-box {
+            background: #d4e6f5;
+            border-radius: 18px;
+            padding: 16px;
+            margin: 10px 0;
+            border: 2px solid #7fb0da;
+        }
+
+        .dialog-box .speaker {
+            font-weight: 700;
+            color: #0a4b6e;
+        }
+
+        .dialog-box .line {
+            padding: 4px 0;
+            border-bottom: 1px dashed #a0c4e2;
+        }
+
+        .dialog-box .line:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <h1>👋 Saludos y Presentaciones</h1>
+            <div class="score">Puntos <span id="scoreDisplay">0</span></div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 1: SALUDOS BÁSICOS                                      -->
+        <!-- ============================================================ -->
+        <div id="mod1" class="module active">
+            <div class="explain-card saludos-border">
+                <h2>👋 1. Saludos Básicos</h2>
+                <div class="explain-text">
+                    <strong>¡Empieza cualquier conversación!</strong> Estos son los saludos más comunes en inglés.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card">
+                        <div class="en-word">Hello</div>
+                        <div class="pronunciation">(Je-lóu)</div>
+                        <div class="es-word">Hola</div>
+                        <button class="audio-btn" onclick="speak('Hello')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Hi</div>
+                        <div class="pronunciation">(Jái)</div>
+                        <div class="es-word">Hola (informal)</div>
+                        <button class="audio-btn" onclick="speak('Hi')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Good morning</div>
+                        <div class="pronunciation">(Gud mór-ning)</div>
+                        <div class="es-word">Buenos días</div>
+                        <button class="audio-btn" onclick="speak('Good morning')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Good afternoon</div>
+                        <div class="pronunciation">(Gud áf-ter-núun)</div>
+                        <div class="es-word">Buenas tardes</div>
+                        <button class="audio-btn" onclick="speak('Good afternoon')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Good evening</div>
+                        <div class="pronunciation">(Gud íiv-ning)</div>
+                        <div class="es-word">Buenas noches</div>
+                        <button class="audio-btn" onclick="speak('Good evening')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Good night</div>
+                        <div class="pronunciation">(Gud náit)</div>
+                        <div class="es-word">Buenas noches (al dormir)</div>
+                        <button class="audio-btn" onclick="speak('Good night')">🔊</button>
+                    </div>
+                </div>
+
+                <div class="note">
+                    💡 <strong>Diferencias:</strong> "Good evening" se usa al llegar (tarde/noche). "Good night" se usa al irse a dormir.
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 1 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Saludos</div>
+                <div class="question" id="q1">
+                    <div class="q-text">1. ¿Cómo se dice "Buenos días" en inglés?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Good evening</div>
+                        <div class="option" data-correct="true">Good morning</div>
+                        <div class="option" data-correct="false">Good afternoon</div>
+                        <div class="option" data-correct="false">Good night</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(1)">Verificar</button>
+                    <div class="feedback" id="fb1"></div>
+                </div>
+                <div class="question" id="q2">
+                    <div class="q-text">2. ¿Cuál es el saludo informal para "Hola"?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Hello</div>
+                        <div class="option" data-correct="true">Hi</div>
+                        <div class="option" data-correct="false">Good morning</div>
+                        <div class="option" data-correct="false">Good evening</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(2)">Verificar</button>
+                    <div class="feedback" id="fb2"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" disabled>← anterior</button>
+                <div class="dot-container">
+                    <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(2)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 2: PREGUNTAR CÓMO ESTÁS                                 -->
+        <!-- ============================================================ -->
+        <div id="mod2" class="module">
+            <div class="explain-card preguntas-border">
+                <h2>🤔 2. Preguntar "¿Cómo estás?"</h2>
+                <div class="explain-text">
+                    <strong>Demuestra interés</strong> preguntando cómo está la otra persona.
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">How are you?</div>
+                    <div class="pron">(Jáu ar iu?)</div>
+                    <div class="es">¿Cómo estás? (formal/informal)</div>
+                    <button class="audio-btn" onclick="speak('How are you?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">How are you doing?</div>
+                    <div class="pron">(Jáu ar iu dú-ing?)</div>
+                    <div class="es">¿Cómo te va?</div>
+                    <button class="audio-btn" onclick="speak('How are you doing?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">How's it going?</div>
+                    <div class="pron">(Jáus it góu-ing?)</div>
+                    <div class="es">¿Cómo va todo? (informal)</div>
+                    <button class="audio-btn" onclick="speak('How is it going?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">What's up?</div>
+                    <div class="pron">(Guáts ap?)</div>
+                    <div class="es">¿Qué tal? / ¿Qué pasa? (muy informal)</div>
+                    <button class="audio-btn" onclick="speak('What is up?')">🔊</button>
+                </div>
+
+                <div class="note">
+                    💡 <strong>Respuestas comunes:</strong> "I'm fine, thank you." / "I'm good, thanks." / "Not bad."
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 2 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Preguntas</div>
+                <div class="question" id="q3">
+                    <div class="q-text">3. ¿Cómo preguntas "¿Cómo estás?" en inglés?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">What is your name?</div>
+                        <div class="option" data-correct="true">How are you?</div>
+                        <div class="option" data-correct="false">Where are you from?</div>
+                        <div class="option" data-correct="false">Good morning</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(3)">Verificar</button>
+                    <div class="feedback" id="fb3"></div>
+                </div>
+                <div class="question" id="q4">
+                    <div class="q-text">4. ¿Qué significa "What's up?"</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">¿Cómo te llamas?</div>
+                        <div class="option" data-correct="false">¿De dónde eres?</div>
+                        <div class="option" data-correct="true">¿Qué tal? / ¿Qué pasa?</div>
+                        <div class="option" data-correct="false">Buenos días</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(4)">Verificar</button>
+                    <div class="feedback" id="fb4"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(1)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(3)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 3: RESPONDER A "CÓMO ESTÁS"                             -->
+        <!-- ============================================================ -->
+        <div id="mod3" class="module">
+            <div class="explain-card presentacion-border">
+                <h2>💬 3. Responder "¿Cómo estás?"</h2>
+                <div class="explain-text">
+                    <strong>Responde de forma natural</strong> según cómo te sientas.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card">
+                        <div class="en-word">I'm fine, thank you.</div>
+                        <div class="pronunciation">(Áim fáin, zenk iu.)</div>
+                        <div class="es-word">Estoy bien, gracias.</div>
+                        <button class="audio-btn" onclick="speak('I\'m fine, thank you.')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">I'm good, thanks.</div>
+                        <div class="pronunciation">(Áim gud, zenks.)</div>
+                        <div class="es-word">Estoy bien, gracias.</div>
+                        <button class="audio-btn" onclick="speak('I\'m good, thanks.')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">I'm very well.</div>
+                        <div class="pronunciation">(Áim vé-ri uel.)</div>
+                        <div class="es-word">Estoy muy bien.</div>
+                        <button class="audio-btn" onclick="speak('I\'m very well.')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Not bad.</div>
+                        <div class="pronunciation">(Not bad.)</div>
+                        <div class="es-word">No está mal.</div>
+                        <button class="audio-btn" onclick="speak('Not bad.')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">I'm tired.</div>
+                        <div class="pronunciation">(Áim táird.)</div>
+                        <div class="es-word">Estoy cansado/a.</div>
+                        <button class="audio-btn" onclick="speak('I\'m tired.')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">I'm happy.</div>
+                        <div class="pronunciation">(Áim já-pi.)</div>
+                        <div class="es-word">Estoy feliz.</div>
+                        <button class="audio-btn" onclick="speak('I\'m happy.')">🔊</button>
+                    </div>
+                </div>
+
+                <div class="note">
+                    💡 <strong>Pregunta de vuelta:</strong> "And you?" (¿Y tú?) es muy común después de responder.
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 3 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Respuestas</div>
+                <div class="question" id="q5">
+                    <div class="q-text">5. ¿Cómo respondes "How are you?" si estás bien?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">I'm tired.</div>
+                        <div class="option" data-correct="true">I'm fine, thank you.</div>
+                        <div class="option" data-correct="false">Not bad.</div>
+                        <div class="option" data-correct="false">I'm sad.</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(5)">Verificar</button>
+                    <div class="feedback" id="fb5"></div>
+                </div>
+                <div class="question" id="q6">
+                    <div class="q-text">6. Traduce: "Estoy cansado."</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">I'm happy.</div>
+                        <div class="option" data-correct="false">I'm fine.</div>
+                        <div class="option" data-correct="true">I'm tired.</div>
+                        <div class="option" data-correct="false">I'm good.</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(6)">Verificar</button>
+                    <div class="feedback" id="fb6"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(2)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(4)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 4: PRESENTARSE                                          -->
+        <!-- ============================================================ -->
+        <div id="mod4" class="module">
+            <div class="explain-card presentacion-border">
+                <h2>📝 4. Presentarse</h2>
+                <div class="explain-text">
+                    <strong>Di quién eres</strong> y pregunta el nombre de la otra persona.
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">What's your name?</div>
+                    <div class="pron">(Guáts ior néim?)</div>
+                    <div class="es">¿Cómo te llamas?</div>
+                    <button class="audio-btn" onclick="speak('What is your name?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">My name is...</div>
+                    <div class="pron">(Mái néim is...)</div>
+                    <div class="es">Mi nombre es...</div>
+                    <button class="audio-btn" onclick="speak('My name is')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">I'm...</div>
+                    <div class="pron">(Áim...)</div>
+                    <div class="es">Soy / Me llamo...</div>
+                    <button class="audio-btn" onclick="speak('I\'m')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Nice to meet you.</div>
+                    <div class="pron">(Náis tu míit iu.)</div>
+                    <div class="es">Encantado/a de conocerte.</div>
+                    <button class="audio-btn" onclick="speak('Nice to meet you.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Pleased to meet you.</div>
+                    <div class="pron">(Plíisd tu míit iu.)</div>
+                    <div class="es">Mucho gusto.</div>
+                    <button class="audio-btn" onclick="speak('Pleased to meet you.')">🔊</button>
+                </div>
+
+                <div class="note">
+                    💡 <strong>Formal:</strong> "Pleased to meet you." <strong>Informal:</strong> "Nice to meet you."
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 4 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Presentaciones</div>
+                <div class="question" id="q7">
+                    <div class="q-text">7. ¿Cómo preguntas "¿Cómo te llamas?" en inglés?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">How are you?</div>
+                        <div class="option" data-correct="true">What's your name?</div>
+                        <div class="option" data-correct="false">Where are you from?</div>
+                        <div class="option" data-correct="false">How old are you?</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(7)">Verificar</button>
+                    <div class="feedback" id="fb7"></div>
+                </div>
+                <div class="question" id="q8">
+                    <div class="q-text">8. ¿Qué dices cuando conoces a alguien por primera vez?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Good morning.</div>
+                        <div class="option" data-correct="true">Nice to meet you.</div>
+                        <div class="option" data-correct="false">How are you?</div>
+                        <div class="option" data-correct="false">Good night.</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(8)">Verificar</button>
+                    <div class="feedback" id="fb8"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(3)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(5)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 5: PREGUNTAR DE DÓNDE ERES                              -->
+        <!-- ============================================================ -->
+        <div id="mod5" class="module">
+            <div class="explain-card preguntas-border">
+                <h2>🌍 5. Preguntar "¿De dónde eres?"</h2>
+                <div class="explain-text">
+                    <strong>Conoce a la otra persona</strong> preguntando por su origen.
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">Where are you from?</div>
+                    <div class="pron">(Guér ar iu from?)</div>
+                    <div class="es">¿De dónde eres?</div>
+                    <button class="audio-btn" onclick="speak('Where are you from?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">I'm from...</div>
+                    <div class="pron">(Áim from...)</div>
+                    <div class="es">Soy de...</div>
+                    <button class="audio-btn" onclick="speak('I\'m from')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">I'm from Spain.</div>
+                    <div class="pron">(Áim from Spéin.)</div>
+                    <div class="es">Soy de España.</div>
+                    <button class="audio-btn" onclick="speak('I\'m from Spain.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">I'm from Colombia.</div>
+                    <div class="pron">(Áim from Ko-lóm-bia.)</div>
+                    <div class="es">Soy de Colombia.</div>
+                    <button class="audio-btn" onclick="speak('I\'m from Colombia.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Where do you live?</div>
+                    <div class="pron">(Guér du iu lív?)</div>
+                    <div class="es">¿Dónde vives?</div>
+                    <button class="audio-btn" onclick="speak('Where do you live?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">I live in...</div>
+                    <div class="pron">(Ái lív in...)</div>
+                    <div class="es">Vivo en...</div>
+                    <button class="audio-btn" onclick="speak('I live in')">🔊</button>
+                </div>
+
+                <div class="note">
+                    💡 <strong>Diferencias:</strong> "from" para origen, "in" para lugar de residencia.
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 5 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Origen</div>
+                <div class="question" id="q9">
+                    <div class="q-text">9. ¿Cómo preguntas "¿De dónde eres?" en inglés?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">How are you?</div>
+                        <div class="option" data-correct="true">Where are you from?</div>
+                        <div class="option" data-correct="false">What's your name?</div>
+                        <div class="option" data-correct="false">How old are you?</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(9)">Verificar</button>
+                    <div class="feedback" id="fb9"></div>
+                </div>
+                <div class="question" id="q10">
+                    <div class="q-text">10. Responde: "Where are you from?" (si eres de México)</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">I live in Mexico.</div>
+                        <div class="option" data-correct="true">I'm from Mexico.</div>
+                        <div class="option" data-correct="false">I'm Mexico.</div>
+                        <div class="option" data-correct="false">I from Mexico.</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(10)">Verificar</button>
+                    <div class="feedback" id="fb10"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(4)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(6)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 6: PREGUNTAR PROFESIÓN Y EDAD                           -->
+        <!-- ============================================================ -->
+        <div id="mod6" class="module">
+            <div class="explain-card preguntas-border">
+                <h2>💼 6. Profesión y Edad</h2>
+                <div class="explain-text">
+                    <strong>Conoce más</strong> sobre la otra persona: su trabajo y su edad.
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">What do you do?</div>
+                    <div class="pron">(Guát du iu du?)</div>
+                    <div class="es">¿A qué te dedicas?</div>
+                    <button class="audio-btn" onclick="speak('What do you do?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">What's your job?</div>
+                    <div class="pron">(Guáts ior dchob?)</div>
+                    <div class="es">¿Cuál es tu trabajo?</div>
+                    <button class="audio-btn" onclick="speak('What is your job?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">I'm a teacher.</div>
+                    <div class="pron">(Áim a tí-cher.)</div>
+                    <div class="es">Soy profesor/a.</div>
+                    <button class="audio-btn" onclick="speak('I\'m a teacher.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">I'm a student.</div>
+                    <div class="pron">(Áim a stiú-dent.)</div>
+                    <div class="es">Soy estudiante.</div>
+                    <button class="audio-btn" onclick="speak('I\'m a student.')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">How old are you?</div>
+                    <div class="pron">(Jáu óuld ar iu?)</div>
+                    <div class="es">¿Cuántos años tienes?</div>
+                    <button class="audio-btn" onclick="speak('How old are you?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">I'm 25 years old.</div>
+                    <div class="pron">(Áim tuén-ti-fáiv íirs óuld.)</div>
+                    <div class="es">Tengo 25 años.</div>
+                    <button class="audio-btn" onclick="speak('I\'m twenty-five years old.')">🔊</button>
+                </div>
+
+                <div class="note">
+                    💡 <strong>Recuerda:</strong> Usamos "a/an" con profesiones: "I'm a teacher", "I'm an engineer".
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 6 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Profesión y Edad</div>
+                <div class="question" id="q11">
+                    <div class="q-text">11. ¿Cómo preguntas "¿Cuántos años tienes?" en inglés?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">How are you?</div>
+                        <div class="option" data-correct="true">How old are you?</div>
+                        <div class="option" data-correct="false">Where are you from?</div>
+                        <div class="option" data-correct="false">What do you do?</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(11)">Verificar</button>
+                    <div class="feedback" id="fb11"></div>
+                </div>
+                <div class="question" id="q12">
+                    <div class="q-text">12. Completa: "I'm ___ engineer."</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">a</div>
+                        <div class="option" data-correct="true">an</div>
+                        <div class="option" data-correct="false">the</div>
+                        <div class="option" data-correct="false">-</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(12)">Verificar</button>
+                    <div class="feedback" id="fb12"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(5)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(7)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 7: DESPEDIDAS                                           -->
+        <!-- ============================================================ -->
+        <div id="mod7" class="module">
+            <div class="explain-card despedidas-border">
+                <h2>👋 7. Despedidas</h2>
+                <div class="explain-text">
+                    <strong>Termina la conversación</strong> con una despedida adecuada.
+                </div>
+
+                <div class="grid-2">
+                    <div class="vocab-card">
+                        <div class="en-word">Goodbye</div>
+                        <div class="pronunciation">(Gud-bái)</div>
+                        <div class="es-word">Adiós</div>
+                        <button class="audio-btn" onclick="speak('Goodbye')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Bye</div>
+                        <div class="pronunciation">(Bái)</div>
+                        <div class="es-word">Chao</div>
+                        <button class="audio-btn" onclick="speak('Bye')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">See you later</div>
+                        <div class="pronunciation">(Síi iu léi-ter)</div>
+                        <div class="es-word">Hasta luego</div>
+                        <button class="audio-btn" onclick="speak('See you later')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">See you tomorrow</div>
+                        <div class="pronunciation">(Síi iu tu-mó-rou)</div>
+                        <div class="es-word">Hasta mañana</div>
+                        <button class="audio-btn" onclick="speak('See you tomorrow')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">See you soon</div>
+                        <div class="pronunciation">(Síi iu suun)</div>
+                        <div class="es-word">Hasta pronto</div>
+                        <button class="audio-btn" onclick="speak('See you soon')">🔊</button>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="en-word">Take care</div>
+                        <div class="pronunciation">(Téik kér)</div>
+                        <div class="es-word">Cuídate</div>
+                        <button class="audio-btn" onclick="speak('Take care')">🔊</button>
+                    </div>
+                </div>
+
+                <div class="note">
+                    💡 <strong>Informal:</strong> "Bye!" / "See ya!" <strong>Formal:</strong> "Goodbye" / "Take care."
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 7 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Despedidas</div>
+                <div class="question" id="q13">
+                    <div class="q-text">13. ¿Cómo se dice "Hasta mañana" en inglés?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">See you later</div>
+                        <div class="option" data-correct="true">See you tomorrow</div>
+                        <div class="option" data-correct="false">See you soon</div>
+                        <div class="option" data-correct="false">Goodbye</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(13)">Verificar</button>
+                    <div class="feedback" id="fb13"></div>
+                </div>
+                <div class="question" id="q14">
+                    <div class="q-text">14. ¿Qué es más informal: "Goodbye" o "Bye"?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Goodbye</div>
+                        <div class="option" data-correct="true">Bye</div>
+                        <div class="option" data-correct="false">See you later</div>
+                        <div class="option" data-correct="false">Take care</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(14)">Verificar</button>
+                    <div class="feedback" id="fb14"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(6)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(8)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 8: DIÁLOGOS COMPLETOS                                   -->
+        <!-- ============================================================ -->
+        <div id="mod8" class="module">
+            <div class="explain-card practica-border">
+                <h2>🎭 8. Diálogos Completos</h2>
+                <div class="explain-text">
+                    <strong>Todo junto:</strong> saludo, presentación, preguntas y despedida.
+                </div>
+
+                <div class="dialog-box">
+                    <div class="line"><span class="speaker">👤 A:</span> Hello! What's your name?</div>
+                    <div class="line"><span class="speaker">👤 B:</span> Hi! My name is Maria. And you?</div>
+                    <div class="line"><span class="speaker">👤 A:</span> I'm Carlos. Nice to meet you!</div>
+                    <div class="line"><span class="speaker">👤 B:</span> Nice to meet you too! Where are you from?</div>
+                    <div class="line"><span class="speaker">👤 A:</span> I'm from Spain. And you?</div>
+                    <div class="line"><span class="speaker">👤 B:</span> I'm from Colombia.</div>
+                    <div class="line"><span class="speaker">👤 A:</span> How are you?</div>
+                    <div class="line"><span class="speaker">👤 B:</span> I'm fine, thank you! And you?</div>
+                    <div class="line"><span class="speaker">👤 A:</span> I'm great! See you later!</div>
+                    <div class="line"><span class="speaker">👤 B:</span> Goodbye! Take care!</div>
+                </div>
+
+                <div class="phrase-card">
+                    <div class="en">Hello! What's your name?</div>
+                    <div class="pron">(Je-lóu! Guáts ior néim?)</div>
+                    <div class="es">¡Hola! ¿Cómo te llamas?</div>
+                    <button class="audio-btn" onclick="speak('Hello! What is your name?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Hi! My name is Maria. And you?</div>
+                    <div class="pron">(Jái! Mái néim is Ma-rí-a. And iu?)</div>
+                    <div class="es">¡Hola! Mi nombre es María. ¿Y tú?</div>
+                    <button class="audio-btn" onclick="speak('Hi! My name is Maria. And you?')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">I'm Carlos. Nice to meet you!</div>
+                    <div class="pron">(Áim Kár-los. Náis tu míit iu!)</div>
+                    <div class="es">Soy Carlos. ¡Encantado de conocerte!</div>
+                    <button class="audio-btn" onclick="speak('I\'m Carlos. Nice to meet you!')">🔊</button>
+                </div>
+                <div class="phrase-card">
+                    <div class="en">Nice to meet you too!</div>
+                    <div class="pron">(Náis tu míit iu tuu!)</div>
+                    <div class="es">¡Igualmente!</div>
+                    <button class="audio-btn" onclick="speak('Nice to meet you too!')">🔊</button>
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 8 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica · Diálogos</div>
+                <div class="question" id="q15">
+                    <div class="q-text">15. ¿Qué dices después de presentarte?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Goodbye.</div>
+                        <div class="option" data-correct="true">Nice to meet you.</div>
+                        <div class="option" data-correct="false">How are you?</div>
+                        <div class="option" data-correct="false">Good morning.</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(15)">Verificar</button>
+                    <div class="feedback" id="fb15"></div>
+                </div>
+                <div class="question" id="q16">
+                    <div class="q-text">16. Completa el diálogo: "A: How are you? B: I'm fine, ___"</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">goodbye</div>
+                        <div class="option" data-correct="false">nice to meet you</div>
+                        <div class="option" data-correct="true">thank you</div>
+                        <div class="option" data-correct="false">I'm from Spain</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(16)">Verificar</button>
+                    <div class="feedback" id="fb16"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(7)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
+                </div>
+                <button class="nav-btn" onclick="showResults()">📊 finalizar</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- PARTE 9: RESULTADOS                                           -->
+        <!-- ============================================================ -->
+        <div id="mod9" class="module">
+            <div class="results-box">
+                <h2>🏆 ¡Saludos y Presentaciones dominados!</h2>
+                <div class="big-score" id="finalScore">0</div>
+                <p style="font-size:1.1rem; font-weight:600;">puntos obtenidos</p>
+
+                <div class="final-message" style="font-size:1rem; margin:16px 0;">
+                    Has completado el módulo de <strong>Saludos y Presentaciones</strong>.<br>
+                    Ahora puedes saludar, presentarte, preguntar y despedirte en cualquier situación.
+                </div>
+
+                <ul class="learned-list" style="text-align:left; background:white; border-radius:20px; padding:16px 20px; margin:16px 0; list-style:none; color:#023047;">
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Saludos básicos y según la hora del día</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Preguntar y responder "¿Cómo estás?"</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Presentarse y preguntar el nombre</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Preguntar y responder "¿De dónde eres?"</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Preguntar profesión y edad</li>
+                    <li style="padding:8px 0; border-bottom:1px solid #d4e6f5;">✅ Despedidas formales e informales</li>
+                    <li style="padding:8px 0;">✅ Diálogos completos en contexto real</li>
+                </ul>
+
+                <div style="background:#d4e6f5; border-radius:18px; padding:16px; margin:16px 0; text-align:left; color:#023047; font-size:1rem;">
+                    <strong>💡 Consejo final:</strong> Practica estos diálogos con un amigo o frente al espejo. La fluidez viene con la práctica constante.
+                </div>
+
+                <button class="btn-restart" onclick="restart()">🔄 Repetir lección</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            Polyglots · Aprende inglés fácil
+        </div>
+    </div>
+
+    <script>
+        // ================================================================
+        // VARIABLES GLOBALES
+        // ================================================================
+        let score = 0;
+        let answered = {};
+
+        // ================================================================
+        // RESPUESTAS CORRECTAS
+        // ================================================================
+        const correctAnswers = {
+            1: 'Good morning',
+            2: 'Hi',
+            3: 'How are you?',
+            4: '¿Qué tal? / ¿Qué pasa?',
+            5: 'I\'m fine, thank you.',
+            6: 'I\'m tired.',
+            7: 'What\'s your name?',
+            8: 'Nice to meet you.',
+            9: 'Where are you from?',
+            10: 'I\'m from Mexico.',
+            11: 'How old are you?',
+            12: 'an',
+            13: 'See you tomorrow',
+            14: 'Bye',
+            15: 'Nice to meet you.',
+            16: 'thank you'
+        };
+
+        // ================================================================
+        // AUDIO - SÍNTESIS DE VOZ (CORREGIDO)
+        // ================================================================
+        function speak(text) {
+            // Detener cualquier síntesis en curso
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.85;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            // Seleccionar una voz femenina si está disponible
+            const voices = window.speechSynthesis.getVoices();
+            const femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'));
+            if (femaleVoice) utterance.voice = femaleVoice;
+
+            window.speechSynthesis.speak(utterance);
+
+            // Feedback visual en el botón
+            const btn = event.target;
+            btn.classList.add('playing');
+            btn.textContent = '🔊';
+            setTimeout(() => {
+                btn.classList.remove('playing');
+                btn.textContent = '🔊';
+            }, 1500);
+        }
+
+        // Cargar voces al iniciar
+        window.speechSynthesis.getVoices();
+
+        // ================================================================
+        // EVENTOS: selección de opciones
+        // ================================================================
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                const questionDiv = this.closest('.question');
+                if (!questionDiv) return;
+                const qId = questionDiv.id.replace('q', '');
+                questionDiv.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                const fb = document.getElementById('fb' + qId);
+                if (fb) fb.innerHTML = '';
+            });
+        });
+
+        // ================================================================
+        // FUNCIÓN PRINCIPAL: verificar respuesta
+        // ================================================================
+        function checkAnswer(qId) {
+            const questionDiv = document.getElementById('q' + qId);
+            if (!questionDiv) return;
+
+            const selected = questionDiv.querySelector('.option.selected');
+            const fbDiv = document.getElementById('fb' + qId);
+
+            if (!selected) {
+                fbDiv.innerHTML = '<span style="color:#b34141;">⚠️ Selecciona una opción primero.</span>';
+                fbDiv.className = 'feedback fb-bad';
+                return;
+            }
+
+            const isCorrect = selected.dataset.correct === 'true';
+            const allOpts = questionDiv.querySelectorAll('.option');
+
+            allOpts.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                if (opt.dataset.correct === 'true') opt.classList.add('correct');
+                if (opt === selected && !isCorrect) opt.classList.add('incorrect');
+            });
+
+            if (!answered[qId]) {
+                if (isCorrect) score += 10;
+                answered[qId] = true;
+                updateScore();
+            }
+
+            const explanation = getExplanation(qId, isCorrect);
+
+            fbDiv.innerHTML = `
+                <strong>${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}</strong><br>
+                ${explanation}
+            `;
+            fbDiv.className = `feedback ${isCorrect ? 'fb-good' : 'fb-bad'}`;
+        }
+
+        // ================================================================
+        // EXPLICACIONES
+        // ================================================================
+        function getExplanation(qId, correct) {
+            const texts = {
+                1: correct ? '"Good morning" es Buenos días.' : '"Good morning" se usa por la mañana.',
+                2: correct ? '"Hi" es el saludo informal más común.' : '"Hi" (Jái) es el saludo informal.',
+                3: correct ? '"How are you?" es la forma estándar de preguntar.' : '"How are you?" (Jáu ar iu?) = ¿Cómo estás?',
+                4: correct ? '"What\'s up?" = ¿Qué tal? / ¿Qué pasa?' : '"What\'s up?" es una expresión informal.',
+                5: correct ? '"I\'m fine, thank you" es la respuesta estándar.' : '"I\'m fine, thank you" (Áim fáin, zenk iu).',
+                6: correct ? '"I\'m tired" = Estoy cansado.' : '"Tired" (táird) = cansado.',
+                7: correct ? '"What\'s your name?" = ¿Cómo te llamas?' : '"What\'s your name?" (Guáts ior néim).',
+                8: correct ? '"Nice to meet you" es lo que se dice al conocer a alguien.' : '"Nice to meet you" (Náis tu míit iu).',
+                9: correct ? '"Where are you from?" = ¿De dónde eres?' : '"Where are you from?" (Guér ar iu from).',
+                10: correct ? '"I\'m from Mexico" es la respuesta correcta.' : 'Se responde con "I\'m from + país".',
+                11: correct ? '"How old are you?" = ¿Cuántos años tienes?' : '"How old are you?" (Jáu óuld ar iu).',
+                12: correct ? '"Engineer" empieza con sonido vocálico → "an".' : '"Engineer" (én-dchi-nier) empieza con vocal.',
+                13: correct ? '"See you tomorrow" = Hasta mañana.' : '"Tomorrow" (tu-mó-rou) = mañana.',
+                14: correct ? '"Bye" es más informal que "Goodbye".' : '"Bye" (Bái) es la forma abreviada.',
+                15: correct ? '"Nice to meet you" se dice después de presentarse.' : 'Es la cortesía al conocer a alguien.',
+                16: correct ? '"I\'m fine, thank you" es la respuesta estándar.' : '"Thank you" es la parte cortés de la respuesta.'
+            };
+            return texts[qId] || (correct ? 'Correcto.' : 'Revisa la respuesta correcta.');
+        }
+
+        // ================================================================
+        // ACTUALIZAR PUNTUACIÓN
+        // ================================================================
+        function updateScore() {
+            document.getElementById('scoreDisplay').textContent = score;
+        }
+
+        // ================================================================
+        // NAVEGACIÓN ENTRE MÓDULOS
+        // ================================================================
+        function goToModule(mod) {
+            document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+            document.getElementById('mod' + mod).classList.add('active');
+
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((d, i) => {
+                d.classList.toggle('active', i === mod - 1);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ================================================================
+        // MOSTRAR RESULTADOS
+        // ================================================================
+        function showResults() {
+            document.getElementById('finalScore').textContent = score;
+            goToModule(9);
+        }
+
+        // ================================================================
+        // REINICIAR
+        // ================================================================
+        function restart() {
+            score = 0;
+            answered = {};
+            updateScore();
+
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.querySelectorAll('.feedback').forEach(fb => fb.innerHTML = '');
+
+            goToModule(1);
+        }
+
+        // ================================================================
+        // EXPONER FUNCIONES GLOBALES
+        // ================================================================
+        window.checkAnswer = checkAnswer;
+        window.goToModule = goToModule;
+        window.showResults = showResults;
+        window.restart = restart;
+        window.speak = speak;
+    </script>
+</body>
+</html>
