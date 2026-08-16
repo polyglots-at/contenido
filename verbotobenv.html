@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Verbo To Be · Polyglots</title>
+    <style>
+        /* ===== RESET Y BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f1724, #1a2a4a);
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            color: #f0f7ff;
+            line-height: 1.6;
+            padding: 16px 12px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .app-wrapper {
+            max-width: 760px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            border-radius: 60px;
+            padding: 10px 18px;
+            margin-bottom: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .header h1 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e8f3ff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .score {
+            background: rgba(255, 213, 79, 0.12);
+            border: 1px solid rgba(255, 213, 79, 0.15);
+            color: #ffd54f;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .score span {
+            font-size: 1.2rem;
+        }
+
+        /* ===== BOTÓN VOLVER ===== */
+        .back-row {
+            margin-bottom: 18px;
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #b3e5fc;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        /* ===== MÓDULOS ===== */
+        .module {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        .module.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== TARJETAS DE EXPLICACIÓN ===== */
+        .explain-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(4px);
+            border-radius: 24px;
+            padding: 24px 20px;
+            margin-bottom: 22px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .explain-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #b3e5fc;
+            flex-wrap: wrap;
+        }
+
+        .explain-card h2 .badge {
+            background: rgba(79, 195, 247, 0.12);
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: #4fc3f7;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .explain-text {
+            font-size: 1rem;
+            margin-bottom: 14px;
+            line-height: 1.7;
+            color: #e3eaf0;
+        }
+
+        .explain-text strong {
+            color: #ffd54f;
+        }
+
+        .explain-text .highlight-en {
+            color: #81c784;
+            font-weight: 600;
+        }
+
+        .explain-text .highlight-es {
+            color: #90caf9;
+            font-weight: 600;
+        }
+
+        .comparison-box {
+            background: rgba(255, 213, 79, 0.04);
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin: 14px 0;
+            border-left: 4px solid #ffd54f;
+        }
+
+        .comparison-box .en {
+            color: #81c784;
+            font-weight: 600;
+        }
+
+        .comparison-box .es {
+            color: #90caf9;
+            font-weight: 600;
+        }
+
+        .example-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        @media (max-width: 500px) {
+            .example-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .example-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 14px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+        }
+
+        .example-item .en {
+            font-weight: 700;
+            color: #81c784;
+            font-size: 1.05rem;
+        }
+
+        .example-item .es {
+            color: #90a4ae;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .note-box {
+            background: rgba(255, 213, 79, 0.04);
+            border-radius: 14px;
+            padding: 12px 16px;
+            color: #ffd54f;
+            font-size: 0.95rem;
+            margin-top: 12px;
+            border: 1px solid rgba(255, 213, 79, 0.06);
+        }
+
+        /* ===== TABLAS ===== */
+        .verb-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0;
+            font-size: 0.9rem;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .verb-table th {
+            background: rgba(79, 195, 247, 0.08);
+            padding: 10px 6px;
+            font-weight: 700;
+            color: #b3e5fc;
+            border-bottom: 2px solid rgba(79, 195, 247, 0.1);
+        }
+
+        .verb-table td {
+            padding: 10px 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            text-align: center;
+            color: #e3eaf0;
+        }
+
+        .verb-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .highlight {
+            color: #ffd54f;
+            font-weight: 700;
+        }
+
+        /* ===== PRÁCTICA ===== */
+        .practice-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            padding: 22px 18px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .practice-title {
+            font-size: 1.3rem;
+            color: #b3e5fc;
+            margin-bottom: 16px;
+            border-bottom: 2px solid rgba(79, 195, 247, 0.06);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 18px 16px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .question:last-child {
+            margin-bottom: 0;
+        }
+
+        .q-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #e8f3ff;
+            margin-bottom: 12px;
+        }
+
+        .q-hint {
+            font-size: 0.85rem;
+            color: #90a4ae;
+            text-align: center;
+            margin-bottom: 10px;
+            font-style: italic;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 6px 12px;
+            border-radius: 12px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 480px) {
+            .options {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.06);
+            border-radius: 40px;
+            padding: 12px 6px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #e3eaf0;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .option:active {
+            transform: scale(0.96);
+        }
+
+        .option.selected {
+            background: rgba(79, 195, 247, 0.12);
+            border-color: #4fc3f7;
+            font-weight: 700;
+            color: white;
+        }
+
+        .option.correct {
+            background: rgba(129, 199, 132, 0.12);
+            border-color: #81c784;
+            color: #81c784;
+        }
+
+        .option.incorrect {
+            background: rgba(229, 115, 115, 0.12);
+            border-color: #e57373;
+            color: #e57373;
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, #1a3a6a, #2a5a9a);
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 14px 18px;
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-check:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 195, 247, 0.1);
+        }
+
+        .btn-check:active {
+            transform: scale(0.97);
+        }
+
+        .feedback {
+            margin-top: 14px;
+            padding: 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid;
+            color: #e3eaf0;
+            font-size: 0.95rem;
+        }
+
+        .fb-good {
+            border-color: #81c784;
+            background: rgba(129, 199, 132, 0.04);
+        }
+
+        .fb-bad {
+            border-color: #e57373;
+            background: rgba(229, 115, 115, 0.04);
+        }
+
+        /* ===== NAVEGACIÓN ===== */
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 24px 0 10px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+            min-width: 90px;
+            text-align: center;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .dot-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: 0.2s;
+        }
+
+        .dot.active {
+            background: #ffd54f;
+            box-shadow: 0 0 15px rgba(255, 213, 79, 0.15);
+        }
+
+        .dot.done {
+            background: #81c784;
+        }
+
+        /* ===== RESULTADOS ===== */
+        .results-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 28px;
+            padding: 32px 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .results-box .trophy {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+
+        .results-box h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffd54f;
+            margin-bottom: 4px;
+        }
+
+        .results-box .big-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #4fc3f7;
+            margin: 14px 0;
+        }
+
+        .results-box .final-message {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            color: #e3eaf0;
+        }
+
+        .results-box .learned-list {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 18px;
+            padding: 14px 18px;
+            margin: 14px 0;
+            list-style: none;
+        }
+
+        .results-box .learned-list li {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.95rem;
+            color: #e3eaf0;
+        }
+
+        .results-box .learned-list li:last-child {
+            border-bottom: none;
+        }
+
+        .results-box .learned-list li::before {
+            content: "✅ ";
+            color: #81c784;
+        }
+
+        .btn-restart {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-restart:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            color: #546e7a;
+            font-size: 0.85rem;
+            margin-top: 22px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .explain-card {
+                padding: 18px 14px;
+            }
+
+            .explain-card h2 {
+                font-size: 1.2rem;
+            }
+
+            .practice-box {
+                padding: 16px 12px;
+            }
+
+            .practice-title {
+                font-size: 1.1rem;
+            }
+
+            .q-text {
+                font-size: 0.95rem;
+            }
+
+            .option {
+                font-size: 0.85rem;
+                padding: 10px 4px;
+            }
+
+            .btn-check {
+                padding: 12px 14px;
+                font-size: 0.9rem;
+            }
+
+            .results-box h2 {
+                font-size: 1.6rem;
+            }
+
+            .results-box .big-score {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .options {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+
+            .option {
+                font-size: 0.8rem;
+                padding: 8px 4px;
+                border-radius: 30px;
+            }
+
+            .header h1 {
+                font-size: 0.95rem;
+            }
+
+            .score {
+                font-size: 0.8rem;
+                padding: 4px 12px;
+            }
+
+            .score span {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-wrapper">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <h1>⭐ Verbo To Be</h1>
+            <div class="score">⭐ <span id="scoreDisplay">0</span></div>
+        </div>
+
+        <!-- ===== BOTÓN VOLVER ===== -->
+        <div class="back-row">
+            <a href="https://polyglots-at.github.io/contenido/cursopropedeuticoingles.html" class="btn-back">← Volver al curso</a>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MÓDULO 1: INTRODUCCIÓN Y CONJUGACIÓN                         -->
+        <!-- ============================================================ -->
+        <div id="mod1" class="module active">
+            <div class="explain-card">
+                <h2>⭐ 1. ¿Qué es "To Be"? <span class="badge">El más importante</span></h2>
+                <div class="explain-text">
+                    El verbo <strong>"to be"</strong> es el <strong>más importante</strong> en inglés. Significa
+                    <strong>"ser"</strong> y <strong>"estar"</strong>. Es un verbo <strong>irregular</strong>
+                    y se conjuga de forma especial.
+                </div>
+
+                <div class="comparison-box">
+                    <div class="es">🇪🇸 Español: <strong>"Soy" / "Estoy"</strong> (dos verbos diferentes)</div>
+                    <div class="en">🇬🇧 Inglés: <strong>"I am"</strong> (un solo verbo para ambos)</div>
+                </div>
+
+                <div class="explain-text">
+                    En español usamos <strong>"ser"</strong> para características permanentes y <strong>"estar"</strong>
+                    para estados temporales. En inglés, <strong>"to be"</strong> se usa para ambos.
+                    El contexto te dirá si significa "ser" o "estar".
+                </div>
+
+                <table class="verb-table">
+                    <thead>
+                        <tr>
+                            <th>Pronombre</th>
+                            <th>Verbo</th>
+                            <th>Ejemplo</th>
+                            <th>Traducción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="highlight">I</span></td>
+                            <td><strong>am</strong></td>
+                            <td>I am a teacher</td>
+                            <td>Yo soy profesor</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">You</span></td>
+                            <td><strong>are</strong></td>
+                            <td>You are my friend</td>
+                            <td>Tú eres mi amigo</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">He / She / It</span></td>
+                            <td><strong>is</strong></td>
+                            <td>She is intelligent</td>
+                            <td>Ella es inteligente</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">We</span></td>
+                            <td><strong>are</strong></td>
+                            <td>We are students</td>
+                            <td>Nosotros somos estudiantes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight">They</span></td>
+                            <td><strong>are</strong></td>
+                            <td>They are happy</td>
+                            <td>Ellos están felices</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="note-box">
+                    💡 <strong>Mnemotécnica:</strong> <em>"I am, you are, he/she/it is, we are, they are"</em>
+                </div>
+
+                <div class="example-grid">
+                    <div class="example-item">
+                        <div class="en">I am from Colombia</div>
+                        <div class="es">Soy de Colombia</div>
+                    </div>
+                    <div class="example-item">
+                        <div class="en">She is a doctor</div>
+                        <div class="es">Ella es doctora</div>
+                    </div>
+                    <div class="example-item">
+                        <div class="en">We are at home</div>
+                        <div class="es">Estamos en casa</div>
+                    </div>
+                    <div class="example-item">
+                        <div class="en">They are happy</div>
+                        <div class="es">Ellos están felices</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 1 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica 1 · Conjugación</div>
+
+                <div class="question" id="q1">
+                    <div class="q-text">1. ¿Cuál es la forma correcta de "to be" con <strong>"he"</strong>?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">am</div>
+                        <div class="option" data-correct="false">are</div>
+                        <div class="option" data-correct="true">is</div>
+                        <div class="option" data-correct="false">be</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(1)">Verificar</button>
+                    <div class="feedback" id="fb1"></div>
+                </div>
+
+                <div class="question" id="q2">
+                    <div class="q-text">2. Completa: <strong>"We ____ students"</strong></div>
+                    <div class="options">
+                        <div class="option" data-correct="false">am</div>
+                        <div class="option" data-correct="true">are</div>
+                        <div class="option" data-correct="false">is</div>
+                        <div class="option" data-correct="false">be</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(2)">Verificar</button>
+                    <div class="feedback" id="fb2"></div>
+                </div>
+
+                <div class="question" id="q3">
+                    <div class="q-text">3. ¿Qué significa <strong>"I am tired"</strong>?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Soy cansado</div>
+                        <div class="option" data-correct="true">Estoy cansado</div>
+                        <div class="option" data-correct="false">Tengo cansancio</div>
+                        <div class="option" data-correct="false">Seré cansado</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(3)">Verificar</button>
+                    <div class="feedback" id="fb3"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" disabled>← anterior</button>
+                <div class="dot-container">
+                    <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(2)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MÓDULO 2: USOS DEL VERBO TO BE                               -->
+        <!-- ============================================================ -->
+        <div id="mod2" class="module">
+            <div class="explain-card">
+                <h2>🎯 2. Usos de "To Be" <span class="badge">Práctico</span></h2>
+                <div class="explain-text">
+                    El verbo "to be" tiene <strong>muchos usos</strong> en inglés. Aquí los principales con ejemplos:
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0;">
+                    <div style="background:rgba(255,255,255,0.03); border-radius:14px; padding:14px 16px; border:1px solid rgba(255,255,255,0.04);">
+                        <div style="font-weight:700; color:#4fc3f7; font-size:0.9rem;">🔹 Identidad</div>
+                        <div class="en">I am a teacher.</div>
+                        <div class="es">Soy profesor.</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03); border-radius:14px; padding:14px 16px; border:1px solid rgba(255,255,255,0.04);">
+                        <div style="font-weight:700; color:#4fc3f7; font-size:0.9rem;">🔹 Características</div>
+                        <div class="en">She is intelligent.</div>
+                        <div class="es">Ella es inteligente.</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03); border-radius:14px; padding:14px 16px; border:1px solid rgba(255,255,255,0.04);">
+                        <div style="font-weight:700; color:#4fc3f7; font-size:0.9rem;">🔹 Ubicación</div>
+                        <div class="en">We are at home.</div>
+                        <div class="es">Estamos en casa.</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03); border-radius:14px; padding:14px 16px; border:1px solid rgba(255,255,255,0.04);">
+                        <div style="font-weight:700; color:#4fc3f7; font-size:0.9rem;">🔹 Estado</div>
+                        <div class="en">They are happy.</div>
+                        <div class="es">Están felices.</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03); border-radius:14px; padding:14px 16px; border:1px solid rgba(255,255,255,0.04);">
+                        <div style="font-weight:700; color:#4fc3f7; font-size:0.9rem;">🔹 Edad</div>
+                        <div class="en">I am 25 years old.</div>
+                        <div class="es">Tengo 25 años.</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.03); border-radius:14px; padding:14px 16px; border:1px solid rgba(255,255,255,0.04);">
+                        <div style="font-weight:700; color:#4fc3f7; font-size:0.9rem;">🔹 Profesión</div>
+                        <div class="en">He is a doctor.</div>
+                        <div class="es">Él es doctor.</div>
+                    </div>
+                </div>
+
+                <div class="note-box">
+                    💡 <strong>Recuerda:</strong> En inglés, "to be" se usa para <strong>todo</strong> lo que en español sería "ser" o "estar". El contexto determina el significado.
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 2 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica 2 · Usos</div>
+
+                <div class="question" id="q4">
+                    <div class="q-text">4. ¿Qué uso tiene "to be" en: <strong>"She is a doctor"</strong>?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Ubicación</div>
+                        <div class="option" data-correct="false">Estado</div>
+                        <div class="option" data-correct="false">Edad</div>
+                        <div class="option" data-correct="true">Profesión</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(4)">Verificar</button>
+                    <div class="feedback" id="fb4"></div>
+                </div>
+
+                <div class="question" id="q5">
+                    <div class="q-text">5. Traduce al inglés: <strong>"Estoy en casa"</strong></div>
+                    <div class="options">
+                        <div class="option" data-correct="false">I am home</div>
+                        <div class="option" data-correct="true">I am at home</div>
+                        <div class="option" data-correct="false">I at home</div>
+                        <div class="option" data-correct="false">I in home</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(5)">Verificar</button>
+                    <div class="feedback" id="fb5"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(1)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(3)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MÓDULO 3: CONTRACCIONES AFIRMATIVAS                          -->
+        <!-- ============================================================ -->
+        <div id="mod3" class="module">
+            <div class="explain-card">
+                <h2>⚡ 3. Contracciones Afirmativas <span class="badge">Habla natural</span></h2>
+                <div class="explain-text">
+                    En inglés hablado y escrito informal, es muy común <strong>contraer</strong> el pronombre y el verbo "to be".
+                    Las contracciones hacen que el inglés suene <strong>más natural y fluido</strong>.
+                </div>
+
+                <table class="verb-table">
+                    <thead>
+                        <tr>
+                            <th>Forma completa</th>
+                            <th>Contracción</th>
+                            <th>Pronunciación</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>I am</td>
+                            <td><span class="highlight">I'm</span></td>
+                            <td>/aɪm/</td>
+                            <td>I'm a teacher</td>
+                        </tr>
+                        <tr>
+                            <td>You are</td>
+                            <td><span class="highlight">You're</span></td>
+                            <td>/jʊr/</td>
+                            <td>You're my friend</td>
+                        </tr>
+                        <tr>
+                            <td>He is</td>
+                            <td><span class="highlight">He's</span></td>
+                            <td>/hiz/</td>
+                            <td>He's happy</td>
+                        </tr>
+                        <tr>
+                            <td>She is</td>
+                            <td><span class="highlight">She's</span></td>
+                            <td>/ʃiz/</td>
+                            <td>She's a doctor</td>
+                        </tr>
+                        <tr>
+                            <td>It is</td>
+                            <td><span class="highlight">It's</span></td>
+                            <td>/ɪts/</td>
+                            <td>It's a book</td>
+                        </tr>
+                        <tr>
+                            <td>We are</td>
+                            <td><span class="highlight">We're</span></td>
+                            <td>/wɪr/</td>
+                            <td>We're students</td>
+                        </tr>
+                        <tr>
+                            <td>They are</td>
+                            <td><span class="highlight">They're</span></td>
+                            <td>/ðer/</td>
+                            <td>They're at home</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="comparison-box">
+                    <div class="es">🇪🇸 Español: <strong>"Soy profesor"</strong> (no hay contracción)</div>
+                    <div class="en">🇬🇧 Inglés: <strong>"I'm a teacher"</strong> (contracción natural)</div>
+                </div>
+
+                <div class="note-box">
+                    ⚠️ <strong>¡Ojo!</strong> "It's" = "it is" (es/está). No confundir con "its" (posesivo: su).
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 3 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica 3 · Contracciones</div>
+
+                <div class="question" id="q6">
+                    <div class="q-text">6. ¿Cuál es la contracción de <strong>"I am"</strong>?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Iam</div>
+                        <div class="option" data-correct="true">I'm</div>
+                        <div class="option" data-correct="false">Im</div>
+                        <div class="option" data-correct="false">I-am</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(6)">Verificar</button>
+                    <div class="feedback" id="fb6"></div>
+                </div>
+
+                <div class="question" id="q7">
+                    <div class="q-text">7. Escribe la contracción de <strong>"We are"</strong></div>
+                    <div class="options">
+                        <div class="option" data-correct="false">Weare</div>
+                        <div class="option" data-correct="false">Were</div>
+                        <div class="option" data-correct="true">We're</div>
+                        <div class="option" data-correct="false">We-re</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(7)">Verificar</button>
+                    <div class="feedback" id="fb7"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(2)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(4)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MÓDULO 4: NEGACIONES Y CONTRACCIONES NEGATIVAS              -->
+        <!-- ============================================================ -->
+        <div id="mod4" class="module">
+            <div class="explain-card">
+                <h2>🚫 4. Negaciones <span class="badge">Decir "no"</span></h2>
+                <div class="explain-text">
+                    Para negar, añadimos <strong>"not"</strong> después del verbo "to be". Las contracciones negativas son muy comunes en inglés hablado.
+                </div>
+
+                <table class="verb-table">
+                    <thead>
+                        <tr>
+                            <th>Forma completa</th>
+                            <th>Contracción negativa</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>I am not</td>
+                            <td><span class="highlight">I'm not</span></td>
+                            <td>I'm not a teacher</td>
+                        </tr>
+                        <tr>
+                            <td>You are not</td>
+                            <td><span class="highlight">You're not / You aren't</span></td>
+                            <td>You aren't my friend</td>
+                        </tr>
+                        <tr>
+                            <td>He is not</td>
+                            <td><span class="highlight">He's not / He isn't</span></td>
+                            <td>He isn't happy</td>
+                        </tr>
+                        <tr>
+                            <td>She is not</td>
+                            <td><span class="highlight">She's not / She isn't</span></td>
+                            <td>She isn't a doctor</td>
+                        </tr>
+                        <tr>
+                            <td>It is not</td>
+                            <td><span class="highlight">It's not / It isn't</span></td>
+                            <td>It isn't a book</td>
+                        </tr>
+                        <tr>
+                            <td>We are not</td>
+                            <td><span class="highlight">We're not / We aren't</span></td>
+                            <td>We aren't students</td>
+                        </tr>
+                        <tr>
+                            <td>They are not</td>
+                            <td><span class="highlight">They're not / They aren't</span></td>
+                            <td>They aren't at home</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="comparison-box">
+                    <div class="es">🇪🇸 Español: <strong>"No soy profesor"</strong></div>
+                    <div class="en">🇬🇧 Inglés: <strong>"I'm not a teacher"</strong></div>
+                </div>
+
+                <div class="note-box">
+                    💡 <strong>Regla importante:</strong> "I am not" solo tiene una contracción: <strong>"I'm not"</strong>.
+                    <br>No existe "I aren't" o "I amn't".
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 4 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica 4 · Negaciones</div>
+
+                <div class="question" id="q8">
+                    <div class="q-text">8. Convierte a negativa: <strong>"She is a teacher"</strong></div>
+                    <div class="options">
+                        <div class="option" data-correct="false">She not is a teacher</div>
+                        <div class="option" data-correct="true">She is not a teacher</div>
+                        <div class="option" data-correct="false">She isn't teacher</div>
+                        <div class="option" data-correct="false">She not a teacher</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(8)">Verificar</button>
+                    <div class="feedback" id="fb8"></div>
+                </div>
+
+                <div class="question" id="q9">
+                    <div class="q-text">9. ¿Cuál es la forma contraída negativa de <strong>"They are not"</strong>?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">They're not / They aren't</div>
+                        <div class="option" data-correct="true">They're not / They aren't</div>
+                        <div class="option" data-correct="false">They not</div>
+                        <div class="option" data-correct="false">They arent</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(9)">Verificar</button>
+                    <div class="feedback" id="fb9"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(3)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
+                </div>
+                <button class="nav-btn" onclick="goToModule(5)">siguiente →</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MÓDULO 5: PRÁCTICA INTENSIVA                                 -->
+        <!-- ============================================================ -->
+        <div id="mod5" class="module">
+            <div class="explain-card">
+                <h2>📝 5. Práctica Intensiva <span class="badge">Todo junto</span></h2>
+                <div class="explain-text">
+                    Ahora combina todo lo que has aprendido: <strong>conjugación, usos, contracciones y negaciones</strong>.
+                </div>
+
+                <div class="example-grid">
+                    <div class="example-item">
+                        <div class="en">I'm a student, but I'm not a teacher.</div>
+                        <div class="es">Soy estudiante, pero no soy profesor.</div>
+                    </div>
+                    <div class="example-item">
+                        <div class="en">She's happy because she's at home.</div>
+                        <div class="es">Ella está feliz porque está en casa.</div>
+                    </div>
+                    <div class="example-item">
+                        <div class="en">We aren't from Spain, we're from Colombia.</div>
+                        <div class="es">No somos de España, somos de Colombia.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 5 -->
+            <div class="practice-box">
+                <div class="practice-title">✏️ Práctica 5 · Todo junto</div>
+
+                <div class="question" id="q10">
+                    <div class="q-text">10. Completa: <strong>"I ___ a student, but I ___ a teacher."</strong></div>
+                    <div class="q-hint">💡 Uno afirmativo, otro negativo</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">am / am not</div>
+                        <div class="option" data-correct="true">am / am not</div>
+                        <div class="option" data-correct="false">am / isn't</div>
+                        <div class="option" data-correct="false">is / not</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(10)">Verificar</button>
+                    <div class="feedback" id="fb10"></div>
+                </div>
+
+                <div class="question" id="q11">
+                    <div class="q-text">11. Traduce al inglés: <strong>"Ella es inteligente, pero no está en la clase"</strong></div>
+                    <div class="options">
+                        <div class="option" data-correct="false">She is intelligent, but she not is in the class</div>
+                        <div class="option" data-correct="true">She is intelligent, but she isn't in the class</div>
+                        <div class="option" data-correct="false">She is intelligent, but she not in class</div>
+                        <div class="option" data-correct="false">She intelligent, but she isn't in class</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(11)">Verificar</button>
+                    <div class="feedback" id="fb11"></div>
+                </div>
+
+                <div class="question" id="q12">
+                    <div class="q-text">12. ¿Cuál es la forma correcta de <strong>"Nosotros somos estudiantes"</strong>?</div>
+                    <div class="options">
+                        <div class="option" data-correct="false">We is students</div>
+                        <div class="option" data-correct="false">We am students</div>
+                        <div class="option" data-correct="true">We are students</div>
+                        <div class="option" data-correct="false">We be students</div>
+                    </div>
+                    <button class="btn-check" onclick="checkAnswer(12)">Verificar</button>
+                    <div class="feedback" id="fb12"></div>
+                </div>
+            </div>
+
+            <div class="nav-row">
+                <button class="nav-btn" onclick="goToModule(4)">← anterior</button>
+                <div class="dot-container">
+                    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
+                </div>
+                <button class="nav-btn" onclick="showResults()">📊 finalizar</button>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MÓDULO 6: RESULTADOS                                         -->
+        <!-- ============================================================ -->
+        <div id="mod6" class="module">
+            <div class="results-box">
+                <div class="trophy">🏆</div>
+                <h2>¡Felicidades!</h2>
+                <div class="big-score" id="finalScore">0</div>
+                <p style="color:#90a4ae; font-size:1rem;">puntos obtenidos</p>
+
+                <div class="final-message">
+                    Has completado exitosamente el módulo del <strong>Verbo To Be</strong>.<br>
+                    Ahora dominas los fundamentos esenciales para construir oraciones básicas en inglés.
+                </div>
+
+                <ul class="learned-list">
+                    <li>Conjugación completa: I am, you are, he/she/it is, we are, they are</li>
+                    <li>Los 6 usos principales (identidad, características, ubicación, estado, edad, profesión)</li>
+                    <li>Contracciones afirmativas (I'm, you're, he's, etc.)</li>
+                    <li>Negaciones y contracciones negativas (isn't, aren't, etc.)</li>
+                    <li>Diferencia entre "ser" y "estar" en inglés</li>
+                </ul>
+
+                <div style="background:rgba(255,213,79,0.04); border-radius:16px; padding:14px; margin:14px 0; border:1px solid rgba(255,213,79,0.06); text-align:left; color:#e3eaf0;">
+                    <strong style="color:#ffd54f;">💡 Consejo final:</strong> Practica diariamente conjugando el verbo "to be" con diferentes pronombres. Esta base te servirá para todos los tiempos verbales.
+                </div>
+
+                <button class="btn-restart" onclick="restart()">🔄 Repetir lección</button>
+            </div>
+        </div>
+
+        <div class="footer">Polyglots · Aprende inglés fácil</div>
+    </div>
+
+    <script>
+        // ================================================================
+        // VARIABLES GLOBALES
+        // ================================================================
+        let score = 0;
+        let answered = {};
+
+        // ================================================================
+        // RESPUESTAS CORRECTAS
+        // ================================================================
+        const correctAnswers = {
+            1: 'is',
+            2: 'are',
+            3: 'Estoy cansado',
+            4: 'Profesión',
+            5: 'I am at home',
+            6: "I'm",
+            7: "We're",
+            8: 'She is not a teacher',
+            9: "They're not / They aren't",
+            10: 'am / am not',
+            11: 'She is intelligent, but she isn\'t in the class',
+            12: 'We are students'
+        };
+
+        // ================================================================
+        // EVENTOS: selección de opciones
+        // ================================================================
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                const questionDiv = this.closest('.question');
+                if (!questionDiv) return;
+                const qId = questionDiv.id.replace('q', '');
+                questionDiv.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                const fb = document.getElementById('fb' + qId);
+                if (fb) {
+                    fb.innerHTML = '';
+                    fb.className = 'feedback';
+                }
+            });
+        });
+
+        // ================================================================
+        // FUNCIÓN PRINCIPAL: verificar respuesta
+        // ================================================================
+        function checkAnswer(qId) {
+            const questionDiv = document.getElementById('q' + qId);
+            if (!questionDiv) return;
+
+            const selected = questionDiv.querySelector('.option.selected');
+            const fbDiv = document.getElementById('fb' + qId);
+
+            if (!selected) {
+                fbDiv.innerHTML = '⚠️ Selecciona una opción primero.';
+                fbDiv.className = 'feedback fb-bad';
+                return;
+            }
+
+            const isCorrect = selected.dataset.correct === 'true';
+            const allOpts = questionDiv.querySelectorAll('.option');
+
+            allOpts.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+                if (opt.dataset.correct === 'true') opt.classList.add('correct');
+                if (opt === selected && !isCorrect) opt.classList.add('incorrect');
+            });
+
+            if (!answered[qId]) {
+                if (isCorrect) score += 10;
+                answered[qId] = true;
+                updateScore();
+            }
+
+            const explanation = getExplanation(qId, isCorrect);
+
+            fbDiv.innerHTML = `
+                <strong>${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}</strong><br>
+                ${explanation}
+            `;
+            fbDiv.className = `feedback ${isCorrect ? 'fb-good' : 'fb-bad'}`;
+        }
+
+        // ================================================================
+        // EXPLICACIONES
+        // ================================================================
+        function getExplanation(qId, correct) {
+            const texts = {
+                1: correct ? '"He" → "is".' : '"He" siempre va con "is".',
+                2: correct ? '"We" → "are".' : '"We" siempre va con "are".',
+                3: correct ? '"I am tired" = Estoy cansado.' : '"I am tired" = Estoy cansado.',
+                4: correct ? '"A doctor" es una profesión.' : '"A doctor" indica profesión.',
+                5: correct ? '"At home" es la expresión correcta.' : '"At home" es la forma correcta.',
+                6: correct ? '"I am" → "I\'m".' : '"I am" → "I\'m".',
+                7: correct ? '"We are" → "We\'re".' : '"We are" → "We\'re".',
+                8: correct ? 'Se necesita el artículo "a": "She is not a teacher".' : 'Se necesita "a" antes de la profesión.',
+                9: correct ? 'Dos formas: "They\'re not" o "They aren\'t".' : 'Dos formas: "They\'re not" o "They aren\'t".',
+                10: correct ? '"I am" y "I am not" son correctos.' : '"I" siempre con "am" y "am not".',
+                11: correct ? '"She is... but she isn\'t..." es correcto.' : 'Usa "is" y "isn\'t" para "she".',
+                12: correct ? '"We" → "are" es correcto.' : '"We" → "are" siempre.'
+            };
+            return texts[qId] || (correct ? 'Correcto.' : 'Revisa la respuesta correcta.');
+        }
+
+        // ================================================================
+        // ACTUALIZAR PUNTUACIÓN
+        // ================================================================
+        function updateScore() {
+            document.getElementById('scoreDisplay').textContent = score;
+        }
+
+        // ================================================================
+        // NAVEGACIÓN ENTRE MÓDULOS
+        // ================================================================
+        function goToModule(mod) {
+            document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+            document.getElementById('mod' + mod).classList.add('active');
+
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((d, i) => {
+                d.classList.remove('active', 'done');
+                if (i === mod - 1) d.classList.add('active');
+                if (i < mod - 1) d.classList.add('done');
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ================================================================
+        // MOSTRAR RESULTADOS
+        // ================================================================
+        function showResults() {
+            document.getElementById('finalScore').textContent = score;
+            goToModule(6);
+        }
+
+        // ================================================================
+        // REINICIAR
+        // ================================================================
+        function restart() {
+            score = 0;
+            answered = {};
+            updateScore();
+
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            document.querySelectorAll('.feedback').forEach(fb => {
+                fb.innerHTML = '';
+                fb.className = 'feedback';
+            });
+
+            goToModule(1);
+        }
+
+        // ================================================================
+        // EXPONER FUNCIONES GLOBALES
+        // ================================================================
+        window.checkAnswer = checkAnswer;
+        window.goToModule = goToModule;
+        window.showResults = showResults;
+        window.restart = restart;
+    </script>
+</body>
+</html>
