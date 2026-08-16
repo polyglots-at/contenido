@@ -556,20 +556,72 @@
             </div>
         </div>
 
-        <!-- ============================================================ -->
-        <!-- PÁGINA: ACTIVIDADES                                          -->
-        <!-- ============================================================ -->
-        <div id="page-actividades" class="page">
-            <div class="page-header">
-                <button class="back-btn" onclick="showPage('page-home')">← Volver</button>
-                <h2>✏️ Actividades</h2>
-            </div>
-            <div style="text-align:center; padding:40px 20px; color:#90a4ae;">
-                <p style="font-size:1.2rem;">📝 Próximamente</p>
-                <p style="font-size:0.95rem;">Ejercicios interactivos para practicar</p>
-            </div>
-        </div>
 
+
+        
+        <!-- ============================================================ -->
+<!-- PÁGINA: ACTIVIDADES                                          -->
+<!-- ============================================================ -->
+<div id="page-actividades" class="page">
+    <div class="page-header">
+        <button class="back-btn" onclick="showPage('page-home')">← Volver</button>
+        <h2>✏️ Actividades</h2>
+    </div>
+
+    <!-- SOLO EL NÚMERO 1 (como las otras secciones) -->
+    <div class="lessons-grid">
+        <div class="lesson-item" onclick="showPage('page-actividad1')">
+            <span class="num">1</span>
+            <span class="name">Actividad 1</span>
+        </div>
+        <!-- Puedes agregar más números: 2, 3, etc. -->
+    </div>
+</div>
+
+        <!-- ============================================================ -->
+<!-- SUBPÁGINA: ACTIVIDAD 1 (con los 3 botones)                   -->
+<!-- ============================================================ -->
+<div id="page-actividad1" class="page">
+    <div class="page-header">
+        <button class="back-btn" onclick="showPage('page-actividades')">← Volver</button>
+        <h2>📝 Actividad 1</h2>
+    </div>
+
+  <!-- Menú de 3 opciones (TODAS ENLACES EXTERNOS) -->
+<div class="menu-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
+    <!-- 1. Traducir → ENLACE EXTERNO -->
+    <a href="https://polyglots-at.github.io/contenido/traducir.html" class="menu-card" target="_blank">
+        <span class="icon">📝</span>
+        <span class="label">Traducir</span>
+        <span class="desc">Traduce oraciones del español al inglés</span>
+    </a>
+
+    <!-- 2. Pronunciar → ENLACE EXTERNO -->
+    <a href="https://polyglots-at.github.io/contenido/pronunciar.html" class="menu-card" target="_blank">
+        <span class="icon">🔊</span>
+        <span class="label">Pronunciar</span>
+        <span class="desc">Practica la pronunciación en inglés</span>
+    </a>
+
+    <!-- 3. Vocabulario → ENLACE EXTERNO -->
+    <a href="https://polyglots-at.github.io/contenido/vocabulario-act.html" class="menu-card" target="_blank">
+        <span class="icon">📚</span>
+        <span class="label">Vocabulario</span>
+        <span class="desc">Amplía tu vocabulario con ejercicios</span>
+    </a>
+</div>
+
+
+
+
+
+
+        
+        
+
+
+
+        
         <!-- ============================================================ -->
         <!-- PÁGINA: FONÉTICA                                             -->
         <!-- ============================================================ -->
