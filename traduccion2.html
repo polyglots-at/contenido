@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Formación de Frases · Diálogo Cotidiano</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #eef2f7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 16px 12px 40px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .app-container {
+            max-width: 560px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            padding: 24px 20px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #f0f4fc;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .app-header h1 { font-size: 1.2rem; font-weight: 700; color: #0b1e3a; }
+        .app-header .badge {
+            background: #e8edf9; color: #1e3b6b; font-size: 0.7rem;
+            font-weight: 600; padding: 6px 14px; border-radius: 30px;
+        }
+
+        .progress-bar {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .progress-dot {
+            flex: 1;
+            min-width: 10px;
+            height: 6px;
+            border-radius: 6px;
+            background: #dee5ef;
+            transition: background 0.3s ease;
+        }
+
+        .progress-dot.active { background: #2b6df6; }
+        .progress-dot.done { background: #2b6df6; opacity: 0.4; }
+        .progress-dot.correct { background: #22c55e; }
+        .progress-dot.wrong { background: #ef4444; }
+
+        .exercise-content { animation: fadeSlide 0.3s ease; }
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-weight: 700; font-size: 1rem; color: #0b1e3a;
+            margin-bottom: 12px; padding-bottom: 6px;
+            border-bottom: 2px solid #2b6df6;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        .section-title .step {
+            background: #2b6df6; color: white; border-radius: 50%;
+            width: 24px; height: 24px; display: inline-flex;
+            align-items: center; justify-content: center;
+            font-size: 0.7rem; font-weight: 700;
+        }
+
+        .exercise-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 16px;
+            border: 2px solid #e9eef6;
+        }
+
+        .exercise-card .prompt {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #0b1e3a;
+            margin-bottom: 10px;
+        }
+
+        .exercise-card .prompt .spanish-text {
+            background: #f5f9ff;
+            padding: 8px 14px;
+            border-radius: 10px;
+            border-left: 4px solid #2b6df6;
+            display: block;
+            font-weight: 400;
+            font-size: 0.95rem;
+            margin-top: 6px;
+            color: #1e2f4a;
+        }
+
+        .sentence-builder {
+            padding: 12px 14px;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 2px solid #e9eef6;
+            min-height: 45px;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #0b1e3a;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 4px;
+            margin-top: 10px;
+        }
+
+        .sentence-builder .word-slot {
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: 2px solid #dce3ef;
+            cursor: pointer;
+            transition: all 0.15s;
+            touch-action: manipulation;
+        }
+
+        .sentence-builder .word-slot:active { transform: scale(0.95); }
+        .sentence-builder .word-slot.correct { border-color: #22c55e; background: #dcfce7; }
+        .sentence-builder .word-slot.wrong { border-color: #ef4444; background: #fecaca; }
+        .sentence-builder .placeholder-text {
+            color: #aab7d0;
+            font-style: italic;
+        }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px 14px;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 2px dashed #dce3ef;
+            min-height: 50px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .word-chip {
+            background: #eef3fc;
+            border: 2px solid #dce3ef;
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #0b1e3a;
+            cursor: pointer;
+            transition: all 0.15s;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .word-chip:active { transform: scale(0.95); }
+        .word-chip.used {
+            opacity: 0.3;
+            pointer-events: none;
+            transform: scale(0.9);
+        }
+        .word-chip.correct { border-color: #22c55e; background: #dcfce7; color: #166534; }
+        .word-chip.wrong { border-color: #ef4444; background: #fecaca; color: #991b1b; }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            flex: 1;
+            min-width: 60px;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+
+        .btn-reset { background: #f0f4fc; color: #1d3557; flex: 0.5; }
+        .btn-reset:active { background: #dce3ef; transform: scale(0.97); }
+        .btn-check { background: #2b6df6; color: white; flex: 1; }
+        .btn-check:active { background: #1a56d6; transform: scale(0.97); }
+        .btn-check:disabled { opacity: 0.5; pointer-events: none; }
+
+        .feedback-box {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin: 10px 0;
+            border: 2px solid #e9eef6;
+            display: none;
+            animation: fadeSlide 0.3s ease;
+        }
+
+        .feedback-box.show { display: block; }
+        .feedback-box.success { border-color: #86efac; background: #f0fdf4; }
+        .feedback-box.error { border-color: #fca5a5; background: #fef2f2; }
+        .feedback-box .title { font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; }
+        .feedback-box .title.success { color: #166534; }
+        .feedback-box .title.error { color: #991b1b; }
+        .feedback-box .detail { font-size: 0.85rem; line-height: 1.5; color: #1e2f4a; }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 2px solid #f0f4fc;
+        }
+
+        .nav-buttons button {
+            flex: 1;
+            padding: 12px 10px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+
+        .btn-prev { background: #f0f4fc; color: #1d3557; flex: 0.5; }
+        .btn-prev:active { background: #dce3ef; transform: scale(0.97); }
+        .btn-next { background: #2b6df6; color: white; flex: 1; }
+        .btn-next:active { background: #1a56d6; transform: scale(0.97); }
+        .btn-next:disabled { opacity: 0.4; pointer-events: none; }
+        .btn-finish { background: #22c55e; color: white; flex: 1; }
+        .btn-finish:active { background: #16a34a; transform: scale(0.97); }
+        .btn-finish:disabled { opacity: 0.4; pointer-events: none; }
+
+        .completion-screen {
+            text-align: center;
+            padding: 30px 10px 10px;
+            animation: fadeSlide 0.5s ease;
+        }
+
+        .completion-screen .icon { font-size: 4rem; margin-bottom: 12px; }
+        .completion-screen h2 { color: #0b1e3a; font-size: 1.5rem; margin-bottom: 8px; }
+        .completion-screen p { color: #4a5f82; font-size: 0.95rem; line-height: 1.6; max-width: 320px; margin: 0 auto 16px; }
+        .completion-screen .btn-restart {
+            background: #eef3fc; color: #1d3557; border: none;
+            padding: 12px 30px; border-radius: 50px; font-weight: 700; font-size: 1rem;
+            cursor: pointer; transition: 0.2s; touch-action: manipulation;
+        }
+        .completion-screen .btn-restart:active { background: #dce3ef; transform: scale(0.97); }
+
+        .completion-screen .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+
+        .completion-screen .stat-item { text-align: center; }
+        .completion-screen .stat-item .number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+        }
+        .completion-screen .stat-item .number.green { color: #22c55e; }
+        .completion-screen .stat-item .number.red { color: #ef4444; }
+        .completion-screen .stat-item .number.blue { color: #2b6df6; }
+        .completion-screen .stat-item .label { font-size: 0.75rem; color: #5a6f92; }
+
+        @media (max-width: 450px) {
+            .app-container { padding: 16px 12px 20px; }
+            .exercise-card { padding: 14px 14px; }
+            .exercise-card .prompt { font-size: 0.9rem; }
+            .word-chip { font-size: 0.85rem; padding: 6px 14px; }
+            .sentence-builder { font-size: 0.85rem; padding: 10px 12px; }
+            .action-buttons button { font-size: 0.8rem; padding: 8px 10px; }
+            .nav-buttons button { font-size: 0.85rem; padding: 10px 8px; }
+        }
+
+        @media (max-width: 380px) {
+            .app-container { padding: 12px 8px 16px; }
+            .exercise-card { padding: 10px 10px; }
+            .exercise-card .prompt { font-size: 0.85rem; }
+            .word-chip { font-size: 0.8rem; padding: 5px 12px; }
+            .sentence-builder { font-size: 0.8rem; padding: 8px 10px; }
+            .sentence-builder .word-slot { padding: 2px 8px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container" id="app">
+
+    <header class="app-header">
+        <h1>🧩 Formación de Frases</h1>
+        <span class="badge">12 ejercicios</span>
+    </header>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div id="contentArea"></div>
+
+</div>
+
+<script>
+    // ================================================================
+    //  EJERCICIOS - Formación de frases (ordenar palabras)
+    //  Basados en el diálogo cotidiano
+    // ================================================================
+    const exercises = [
+        // SESIÓN 1: Saludos
+        {
+            id: 1,
+            spanish: '¡Hola! Buenos días. ¿Cómo estás hoy?',
+            words: ['Hello', 'Good', 'morning', 'How', 'are', 'you', 'today', '?'],
+            correct: ['Hello', 'Good', 'morning', 'How', 'are', 'you', 'today', '?']
+        },
+        {
+            id: 2,
+            spanish: '¡Hola! Buenos días. Estoy muy bien, gracias.',
+            words: ['Hi', 'Good', 'morning', 'I', 'am', 'very', 'well', 'thank', 'you', '.'],
+            correct: ['Hi', 'Good', 'morning', 'I', 'am', 'very', 'well', 'thank', 'you', '.']
+        },
+        {
+            id: 3,
+            spanish: 'Me alegra verte. ¿Eres estudiante?',
+            words: ['I', 'am', 'happy', 'to', 'see', 'you', 'Are', 'you', 'a', 'student', '?'],
+            correct: ['I', 'am', 'happy', 'to', 'see', 'you', 'Are', 'you', 'a', 'student', '?']
+        },
+
+        // SESIÓN 2: Presentaciones
+        {
+            id: 4,
+            spanish: 'Mucho gusto, Carlos. Soy Ana.',
+            words: ['Nice', 'to', 'meet', 'you', 'Carlos', 'I', 'am', 'Ana', '.'],
+            correct: ['Nice', 'to', 'meet', 'you', 'Carlos', 'I', 'am', 'Ana', '.']
+        },
+        {
+            id: 5,
+            spanish: 'Soy de la Ciudad de México. Es una ciudad grande y hermosa.',
+            words: ['I', 'am', 'from', 'Mexico', 'City', 'It', 'is', 'a', 'big', 'and', 'beautiful', 'city', '.'],
+            correct: ['I', 'am', 'from', 'Mexico', 'City', 'It', 'is', 'a', 'big', 'and', 'beautiful', 'city', '.']
+        },
+        {
+            id: 6,
+            spanish: 'Soy de España, pero vivo en Madrid.',
+            words: ['I', 'am', 'from', 'Spain', 'but', 'I', 'live', 'in', 'Madrid', '.'],
+            correct: ['I', 'am', 'from', 'Spain', 'but', 'I', 'live', 'in', 'Madrid', '.']
+        },
+
+        // SESIÓN 3: Familia y profesiones
+        {
+            id: 7,
+            spanish: '¿Tienes una familia grande?',
+            words: ['Do', 'you', 'have', 'a', 'big', 'family', '?'],
+            correct: ['Do', 'you', 'have', 'a', 'big', 'family', '?']
+        },
+        {
+            id: 8,
+            spanish: 'Sí, tengo una madre, un padre y dos hermanas.',
+            words: ['Yes', 'I', 'have', 'a', 'mother', 'a', 'father', 'and', 'two', 'sisters', '.'],
+            correct: ['Yes', 'I', 'have', 'a', 'mother', 'a', 'father', 'and', 'two', 'sisters', '.']
+        },
+        {
+            id: 9,
+            spanish: 'Mi madre es enfermera y mi padre es ingeniero.',
+            words: ['My', 'mother', 'is', 'a', 'nurse', 'and', 'my', 'father', 'is', 'an', 'engineer', '.'],
+            correct: ['My', 'mother', 'is', 'a', 'nurse', 'and', 'my', 'father', 'is', 'an', 'engineer', '.']
+        },
+
+        // SESIÓN 4: Descripciones
+        {
+            id: 10,
+            spanish: 'Ella es alta y delgada. Tiene pelo largo castaño.',
+            words: ['She', 'is', 'tall', 'and', 'thin', 'She', 'has', 'long', 'brown', 'hair', '.'],
+            correct: ['She', 'is', 'tall', 'and', 'thin', 'She', 'has', 'long', 'brown', 'hair', '.']
+        },
+        {
+            id: 11,
+            spanish: '¿Tiene ojos azules o verdes?',
+            words: ['Does', 'she', 'have', 'blue', 'eyes', 'or', 'green', 'eyes', '?'],
+            correct: ['Does', 'she', 'have', 'blue', 'eyes', 'or', 'green', 'eyes', '?']
+        },
+        {
+            id: 12,
+            spanish: 'Tiene hermosos ojos verdes y una sonrisa amable.',
+            words: ['She', 'has', 'beautiful', 'green', 'eyes', 'and', 'a', 'friendly', 'smile', '.'],
+            correct: ['She', 'has', 'beautiful', 'green', 'eyes', 'and', 'a', 'friendly', 'smile', '.']
+        }
+    ];
+
+    // ================================================================
+    //  ESTADO
+    // ================================================================
+    let currentExercise = 0;
+    const totalExercises = exercises.length;
+
+    const exerciseStates = exercises.map(() => ({
+        selectedWords: [],
+        verified: false,
+        correct: false
+    }));
+
+    // ================================================================
+    //  REFERENCIAS DOM
+    // ================================================================
+    const contentArea = document.getElementById('contentArea');
+    const progressBar = document.getElementById('progressBar');
+
+    // ================================================================
+    //  FUNCIONES AUXILIARES
+    // ================================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    // ================================================================
+    //  RENDERIZAR PROGRESO
+    // ================================================================
+    function renderProgress() {
+        let html = '';
+        for (let i = 0; i < totalExercises; i++) {
+            const state = exerciseStates[i];
+            let cls = 'progress-dot';
+            if (i === currentExercise) cls += ' active';
+            else if (state.verified) {
+                cls += state.correct ? ' correct' : ' wrong';
+            } else if (i < currentExercise) {
+                cls += ' done';
+            }
+            html += `<span class="${cls}"></span>`;
+        }
+        progressBar.innerHTML = html;
+    }
+
+    // ================================================================
+    //  RENDERIZAR EJERCICIO
+    // ================================================================
+    function renderExercise(index) {
+        const ex = exercises[index];
+        const state = exerciseStates[index];
+        const isLast = (index === totalExercises - 1);
+        const isVerified = state.verified;
+
+        const usedWords = state.selectedWords || [];
+        const availableWords = ex.words.filter(w => !usedWords.includes(w));
+
+        let html = `
+            <div class="exercise-content">
+                <div class="section-title">
+                    <span class="step">${index + 1}</span>
+                    🧩 Ordenar palabras
+                    <span style="font-weight:400; font-size:0.75rem; color:#4a5f82; margin-left:auto;">${index + 1}/${totalExercises}</span>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="prompt">
+                        📖 Traducción al español:
+                        <span class="spanish-text">${ex.spanish}</span>
+                    </div>
+
+                    <div style="margin-top:10px; font-weight:600; color:#0b1e3a; font-size:0.9rem;">
+                        Toca las palabras en el orden correcto:
+                    </div>
+
+                    <div class="sentence-builder" id="sentenceBuilder">
+        `;
+
+        if (usedWords.length === 0) {
+            html += `<span class="placeholder-text">👆 Selecciona palabras del banco de abajo</span>`;
+        } else {
+            usedWords.forEach((word, idx) => {
+                let cls = 'word-slot';
+                if (isVerified) {
+                    cls += (ex.correct[idx] === word) ? ' correct' : ' wrong';
+                }
+                html += `<span class="${cls}" data-pos="${idx}">${word} ✕</span>`;
+            });
+        }
+
+        html += `
+                    </div>
+
+                    <div class="word-bank" id="wordBank">
+        `;
+
+        if (isVerified) {
+            ex.correct.forEach((word, idx) => {
+                const isCorrect = state.selectedWords[idx] === word;
+                html += `<span class="word-chip ${isCorrect ? 'correct' : 'wrong'}">${word}</span>`;
+            });
+            // Mostrar la frase correcta completa
+            html += `
+                </div>
+                <div style="margin-top:10px; padding:10px 14px; background:#f0fdf4; border-radius:10px; border:2px solid #86efac; font-size:0.9rem; color:#166534;">
+                    ✅ Frase correcta: <strong>${ex.correct.join(' ')}</strong>
+                </div>
+            `;
+        } else {
+            const shuffled = shuffleArray(availableWords);
+            if (shuffled.length === 0) {
+                html += `<span style="color:#94a3b8; font-style:italic;">Todas las palabras seleccionadas</span>`;
+            } else {
+                shuffled.forEach(word => {
+                    html += `<span class="word-chip" data-word="${word}">${word}</span>`;
+                });
+            }
+            html += `</div>`;
+        }
+
+        html += `
+                </div>
+
+                <!-- FEEDBACK -->
+                <div class="feedback-box ${isVerified ? 'show' : ''} ${isVerified && state.correct ? 'success' : isVerified ? 'error' : ''}" id="feedbackBox">
+                    <div class="title" id="feedbackTitle"></div>
+                    <div class="detail" id="feedbackDetail"></div>
+                </div>
+
+                <!-- ACCIONES -->
+                <div class="action-buttons">
+                    <button class="btn-reset" id="resetBtn">🔄 Reiniciar</button>
+                    <button class="btn-check" id="checkBtn" ${isVerified ? 'disabled' : ''}>
+                        ${isVerified ? '✅ Verificado' : '✓ Verificar'}
+                    </button>
+                </div>
+
+                <!-- NAVEGACIÓN -->
+                <div class="nav-buttons">
+                    <button class="btn-prev" id="prevBtn" ${index === 0 ? 'disabled' : ''}>
+                        ◀ Anterior
+                    </button>
+                    ${isLast ? `
+                        <button class="btn-finish" id="finishBtn" ${!isVerified ? 'disabled' : ''}>
+                            🏁 Finalizar
+                        </button>
+                    ` : `
+                        <button class="btn-next" id="nextBtn" ${!isVerified ? 'disabled' : ''}>
+                            Siguiente ▶
+                        </button>
+                    `}
+                </div>
+            </div>
+        `;
+
+        contentArea.innerHTML = html;
+        renderProgress();
+
+        // ============================================================
+        //  EVENTOS
+        // ============================================================
+
+        // --- Seleccionar palabra del banco ---
+        if (!isVerified) {
+            const wordChips = document.querySelectorAll('#wordBank .word-chip');
+            wordChips.forEach(chip => {
+                chip.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const word = this.dataset.word;
+                    if (!state.selectedWords) state.selectedWords = [];
+                    state.selectedWords.push(word);
+                    renderExercise(index);
+                    const checkBtn = document.getElementById('checkBtn');
+                    if (checkBtn && state.selectedWords.length > 0) {
+                        checkBtn.disabled = false;
+                    }
+                });
+            });
+
+            // --- Eliminar palabra de la frase ---
+            const slots = document.querySelectorAll('#sentenceBuilder .word-slot');
+            slots.forEach(slot => {
+                slot.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pos = parseInt(this.dataset.pos);
+                    if (!isNaN(pos) && state.selectedWords && pos >= 0 && pos < state.selectedWords.length) {
+                        state.selectedWords.splice(pos, 1);
+                        renderExercise(index);
+                    }
+                });
+            });
+        }
+
+        // --- Reiniciar ---
+        const resetBtn = document.getElementById('resetBtn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                state.selectedWords = [];
+                state.verified = false;
+                state.correct = false;
+                renderExercise(index);
+            });
+        }
+
+        // --- Verificar ---
+        const checkBtn = document.getElementById('checkBtn');
+        if (checkBtn && !isVerified) {
+            checkBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const userWords = state.selectedWords || [];
+                const correctWords = ex.correct || [];
+
+                const isCorrect = (userWords.length === correctWords.length &&
+                    userWords.every((w, i) => w === correctWords[i]));
+
+                state.verified = true;
+                state.correct = isCorrect;
+
+                renderExercise(index);
+
+                // Mostrar feedback
+                const box = document.getElementById('feedbackBox');
+                const title = document.getElementById('feedbackTitle');
+                const detail = document.getElementById('feedbackDetail');
+
+                if (box && title && detail) {
+                    box.classList.add('show');
+                    if (isCorrect) {
+                        box.className = 'feedback-box show success';
+                        title.className = 'title success';
+                        title.textContent = '🎉 ¡Correcto! Has ordenado todas las palabras correctamente.';
+                        detail.textContent = `La frase correcta es: "${correctWords.join(' ')}"`;
+                    } else {
+                        box.className = 'feedback-box show error';
+                        title.className = 'title error';
+                        title.textContent = '❌ Incorrecto';
+
+                        // Mostrar errores específicos
+                        let errors = [];
+                        const maxLen = Math.max(userWords.length, correctWords.length);
+                        for (let i = 0; i < maxLen; i++) {
+                            const user = userWords[i] || '[falta]';
+                            const correct = correctWords[i] || '[sobra]';
+                            if (user !== correct) {
+                                errors.push(`Posición ${i+1}: esperaba "${correct}" → recibí "${user}"`);
+                            }
+                        }
+                        detail.innerHTML = errors.slice(0, 5).map(e => `• ${e}`).join('<br>');
+                        if (errors.length > 5) {
+                            detail.innerHTML += `<br>• ... y ${errors.length - 5} error(es) más.`;
+                        }
+                        detail.innerHTML += `<br><br>💡 La frase correcta es: <strong>"${correctWords.join(' ')}"</strong>`;
+                    }
+                }
+
+                const nextBtn = document.getElementById('nextBtn');
+                const finishBtn = document.getElementById('finishBtn');
+                if (nextBtn) nextBtn.disabled = false;
+                if (finishBtn) finishBtn.disabled = false;
+            });
+        }
+
+        // --- Navegación ---
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const finishBtn = document.getElementById('finishBtn');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentExercise > 0) {
+                    currentExercise--;
+                    renderExercise(currentExercise);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentExercise < totalExercises - 1) {
+                    currentExercise++;
+                    renderExercise(currentExercise);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        if (finishBtn) {
+            finishBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                showCompletionScreen();
+            });
+        }
+    }
+
+    // ================================================================
+    //  PANTALLA DE FINALIZACIÓN
+    // ================================================================
+    function showCompletionScreen() {
+        let correctCount = 0;
+        let wrongCount = 0;
+
+        exerciseStates.forEach(state => {
+            if (state.verified) {
+                if (state.correct) correctCount++;
+                else wrongCount++;
+            }
+        });
+
+        const total = correctCount + wrongCount;
+        const accuracy = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+
+        contentArea.innerHTML = `
+            <div class="completion-screen">
+                <div class="icon">🎉</div>
+                <h2>¡Actividad completada!</h2>
+                <p>Has practicado la formación de frases con el diálogo cotidiano.</p>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="number green">${correctCount}</span>
+                        <span class="label">✅ Correctos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="number red">${wrongCount}</span>
+                        <span class="label">❌ Incorrectos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="number blue">${accuracy}%</span>
+                        <span class="label">🎯 Precisión</span>
+                    </div>
+                </div>
+
+                <div style="background:#f8fafc; border-radius:14px; padding:14px; margin:12px 0; text-align:left; border:1px solid #e9eef6; max-height:250px; overflow-y:auto;">
+                    <div style="font-weight:700; font-size:0.85rem; color:#0b1e3a; margin-bottom:6px;">📊 Resumen de ejercicios:</div>
+                    ${exercises.map((ex, i) => {
+                        const state = exerciseStates[i];
+                        const icon = state.verified ? (state.correct ? '✅' : '❌') : '⏳';
+                        return `<div style="font-size:0.82rem; padding:2px 0; border-bottom:1px solid #e9eef6; display:flex; justify-content:space-between;">
+                            <span>${i+1}. ${ex.spanish.substring(0, 40)}${ex.spanish.length > 40 ? '...' : ''}</span>
+                            <span>${icon}</span>
+                        </div>`;
+                    }).join('')}
+                </div>
+
+                <button class="btn-restart" id="restartBtn">🔄 Repetir actividad</button>
+            </div>
+        `;
+
+        const restartBtn = document.getElementById('restartBtn');
+        if (restartBtn) {
+            restartBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                exerciseStates.forEach(state => {
+                    state.selectedWords = [];
+                    state.verified = false;
+                    state.correct = false;
+                });
+                currentExercise = 0;
+                renderExercise(0);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    }
+
+    // ================================================================
+    //  INICIALIZAR
+    // ================================================================
+    renderExercise(0);
+</script>
+
+</body>
+</html>
