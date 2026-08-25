@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Actividad 1 · Curso Propedéutico Inglés</title>
+    <style>
+        /* ===== RESET Y BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #eef2f7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 16px 12px 40px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ===== CONTENEDOR PRINCIPAL (simula app cerrada) ===== */
+        .app-container {
+            max-width: 520px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            padding: 24px 20px 28px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== HEADER ===== */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #f0f4fc;
+        }
+
+        .app-header h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0b1e3a;
+            letter-spacing: -0.3px;
+        }
+
+        .app-header .badge {
+            background: #e8edf9;
+            color: #1e3b6b;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 30px;
+        }
+
+        /* ===== PROGRESO ===== */
+        .progress-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        .progress-dot {
+            flex: 1;
+            height: 6px;
+            border-radius: 6px;
+            background: #dee5ef;
+            transition: background 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #2b6df6;
+        }
+
+        .progress-dot.done {
+            background: #2b6df6;
+            opacity: 0.5;
+        }
+
+        /* ===== TARJETA DEL PUNTO ===== */
+        .punto-card {
+            animation: fadeSlide 0.3s ease;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .punto-number {
+            display: inline-block;
+            background: #2b6df6;
+            color: white;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 4px 16px;
+            border-radius: 30px;
+            margin-bottom: 14px;
+            letter-spacing: 0.3px;
+        }
+
+        .punto-title {
+            font-size: 0.85rem;
+            color: #5a6f92;
+            font-weight: 500;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .punto-title span {
+            background: #f0f4fc;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            color: #2b6df6;
+            font-weight: 600;
+        }
+
+        /* ===== TEXTO EN INGLÉS (lectura) ===== */
+        .text-english {
+            background: #f5f9ff;
+            padding: 18px 18px;
+            border-radius: 18px;
+            border-left: 5px solid #2b6df6;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #0b1e3a;
+            font-weight: 450;
+        }
+
+        .text-english strong {
+            color: #2b6df6;
+            font-weight: 700;
+        }
+
+        /* ===== CASILLA DE ESCRITURA (mobile-first) ===== */
+        .writing-area {
+            margin-bottom: 20px;
+        }
+
+        .writing-area label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #2c3e66;
+            margin-bottom: 8px;
+            letter-spacing: 0.2px;
+        }
+
+        .writing-area textarea {
+            width: 100%;
+            padding: 16px 18px;
+            border-radius: 18px;
+            border: 2px solid #dce3ef;
+            font-size: 1rem;
+            font-family: inherit;
+            background: #fafcff;
+            resize: vertical;
+            min-height: 90px;
+            transition: border 0.2s, box-shadow 0.2s;
+            -webkit-appearance: none;
+            box-sizing: border-box;
+            color: #0b1e3a;
+            line-height: 1.5;
+        }
+
+        .writing-area textarea:focus {
+            border-color: #2b6df6;
+            box-shadow: 0 0 0 4px rgba(43, 109, 246, 0.12);
+            outline: none;
+            background: #ffffff;
+        }
+
+        .writing-area textarea::placeholder {
+            color: #aab7d0;
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+
+        /* ===== BOTONES DESPLEGABLES (traducción y repetición) ===== */
+        .info-toggle {
+            background: #f8fafd;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            border: 1px solid #e9eef6;
+            overflow: hidden;
+        }
+
+        .info-toggle summary {
+            padding: 14px 18px;
+            font-weight: 600;
+            color: #1d3557;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .info-toggle summary::-webkit-details-marker {
+            color: #2b6df6;
+        }
+
+        .info-toggle .content {
+            padding: 0 18px 18px 18px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #1e2f4a;
+            border-top: 1px solid #e9eef6;
+            padding-top: 16px;
+            background: #ffffff;
+        }
+
+        .info-toggle .content p {
+            margin: 0;
+        }
+
+        /* ===== NAVEGACIÓN ===== */
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f4fc;
+        }
+
+        .nav-buttons button {
+            flex: 1;
+            padding: 14px 10px;
+            border: none;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-prev {
+            background: #f0f4fc;
+            color: #1d3557;
+            flex: 0.5;
+        }
+
+        .btn-prev:active {
+            background: #dce3ef;
+            transform: scale(0.97);
+        }
+
+        .btn-next {
+            background: #2b6df6;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-next:active {
+            background: #1a56d6;
+            transform: scale(0.97);
+        }
+
+        .btn-next:disabled,
+        .btn-prev:disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* ===== BOTÓN FINAL (completar) ===== */
+        .btn-complete {
+            background: #0b1e3a;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-complete:active {
+            background: #1a2f4f;
+            transform: scale(0.97);
+        }
+
+        /* ===== PANTALLA DE FINALIZACIÓN ===== */
+        .completion-screen {
+            text-align: center;
+            padding: 30px 10px 10px;
+            animation: fadeSlide 0.5s ease;
+        }
+
+        .completion-screen .icon {
+            font-size: 4rem;
+            margin-bottom: 12px;
+        }
+
+        .completion-screen h2 {
+            color: #0b1e3a;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .completion-screen p {
+            color: #4a5f82;
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 320px;
+            margin: 0 auto 20px;
+        }
+
+        .completion-screen .btn-restart {
+            background: #eef3fc;
+            color: #1d3557;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .completion-screen .btn-restart:active {
+            background: #dce3ef;
+            transform: scale(0.97);
+        }
+
+        /* ===== RESPONSIVE FINO ===== */
+        @media (max-width: 450px) {
+            .app-container {
+                padding: 18px 14px 22px;
+            }
+            .text-english {
+                font-size: 0.95rem;
+                padding: 14px 16px;
+            }
+            .writing-area textarea {
+                min-height: 80px;
+                padding: 14px 16px;
+                font-size: 0.95rem;
+            }
+            .nav-buttons button {
+                font-size: 0.9rem;
+                padding: 12px 8px;
+            }
+            .app-header h1 {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .app-container {
+                padding: 14px 10px 18px;
+            }
+            .text-english {
+                font-size: 0.9rem;
+                padding: 12px 14px;
+            }
+            .writing-area textarea {
+                min-height: 70px;
+                font-size: 0.9rem;
+                padding: 12px 14px;
+            }
+            .nav-buttons {
+                flex-wrap: wrap;
+            }
+            .btn-prev {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container" id="app">
+
+    <!-- ===== HEADER ===== -->
+    <header class="app-header">
+        <h1>📘 Actividad 1</h1>
+        <span class="badge">Inmersión</span>
+    </header>
+
+    <!-- ===== PROGRESO ===== -->
+    <div class="progress-bar" id="progressBar">
+        <span class="progress-dot active"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+    </div>
+
+    <!-- ===== CONTENIDO DINÁMICO ===== -->
+    <div id="contentArea">
+        <!-- Aquí se renderizan los puntos mediante JS -->
+    </div>
+
+</div>
+
+<script>
+    // ================================================================
+    //  DATOS DE LOS 7 PUNTOS (texto en inglés, traducción)
+    //  Los puntos están numerados del 1 al 7.
+    // ================================================================
+    const puntos = [{
+        id: 1,
+        english: `(1) Before the birth of systematic philosophy in the 6th century BC, epic poetry and Greek tragedy fulfill the function of articulating the worldview, ethical values, and understanding of the universal order for the Hellenic world.`,
+        spanish: `(1) Antes del nacimiento de la filosofía sistemática en el siglo VI a. C., la poesía épica y la tragedia griega cumplían la función de articular la cosmovisión, los valores éticos y la comprensión del orden universal para el mundo heleno.`
+    }, {
+        id: 2,
+        english: `(2) Homer, through the Iliad and the Odyssey, not only offers heroic narratives, but introduces the fundamental notion that the universe is governed by an unyielding order or supreme law, often personified under the concept of Moira or fate.`,
+        spanish: `(2) Homero, a través de la Ilíada y la Odisea, no solo ofreció narraciones heroicas, sino que introdujo la noción fundamental de que el universo está regido por un orden imperturbable o ley suprema, personificada a menudo bajo el concepto de Moira o destino.`
+    }, {
+        id: 3,
+        english: `(3) This idea that an underlying structure and a necessity exist that limit even the actions of men and gods constitutes the first direct precedent for the later Pre-Socratic search for the Arche or governing principle of nature (Physis).`,
+        spanish: `(3) Esta idea de que existe una estructura subyacente y una necesidad que limita incluso la acción de los hombres y de los dioses constituyó el primer antecedente directo para la posterior búsqueda presocrática del Arjé o principio gobernante de la naturaleza (Physis).`
+    }, {
+        id: 4,
+        english: `(4) For his part, Hesiod contributes an effort of rational systemization in the Theogony, where he tries to explain the origin of the cosmos from a transition from primordial Chaos to an ordered Cosmos through divine genealogies.`,
+        spanish: `(4) Por su parte, Hesíodo aportó un esfuerzo de sistematización racional en la Teogonía, donde intentó explicar el origen del cosmos a partir de un tránsito desde el Caos primordial hacia un Cosmos ordenado mediante genealogías divinas.`
+    }, {
+        id: 5,
+        english: `(5) In his work Works and Days, Hesiod also introduces the concept of Dike (justice) as an abstract and universal moral principle that does not depend merely on the whim of rulers, prefiguring philosophical ethics and political philosophy.`,
+        spanish: `(5) En su obra Trabajos y días, Hesíodo introdujo además el concepto de Diké (justicia) como un principio moral abstracto y universal que no depende meramente del capricho de los gobernantes, prefigurando la ética filosófica y la filosofía política.`
+    }, {
+        id: 6,
+        english: `(6) When Greek tragedy arises in the 5th century BC with authors like Aeschylus, Sophocles, and Euripides, it inherits the mythical structure of Homer and Hesiod, but subjects it to a deep and intense critical problematization.`,
+        spanish: `(6) Cuando surge la tragedia griega en el siglo V a. C. con autores como Esquilo, Sófocles y Eurípides, esta hereda la estructura mítica de Homero y Hesíodo, pero la somete a una profunda e intensa problematización crítica.`
+    }, {
+        id: 7,
+        english: `(7) Tragic poetry becomes a space for conceptual debate where the great dilemmas of the human condition, such as individual responsibility, guilt, suffering, and the conflict between human law and divine law, are examined in an open manner.`,
+        spanish: `(7) La poesía trágica se convierte en un espacio de debate conceptual donde los grandes dilemas de la condición humana, como la responsabilidad individual, la culpa, el sufrimiento y el conflicto entre la ley humana y la ley divina, son examinados de manera abierta.`
+    }];
+
+    // ================================================================
+    //  ESTADO DE LA APLICACIÓN
+    // ================================================================
+    let currentIndex = 0; // 0-based (punto 1 = índice 0)
+    const totalPuntos = puntos.length;
+
+    // ================================================================
+    //  REFERENCIAS DOM
+    // ================================================================
+    const contentArea = document.getElementById('contentArea');
+    const progressDots = document.querySelectorAll('.progress-dot');
+
+    // ================================================================
+    //  FUNCIÓN PARA RENDERIZAR UN PUNTO
+    // ================================================================
+    function renderPunto(index) {
+        const punto = puntos[index];
+        const isLast = (index === totalPuntos - 1);
+
+        // Construir HTML
+        let html = `
+            <div class="punto-card">
+                <div class="punto-number">Punto ${punto.id} de ${totalPuntos}</div>
+                <div class="punto-title">
+                    <span>📖 Lectura</span>
+                    <span>✍️ Escritura</span>
+                </div>
+
+                <!-- 1) TEXTO EN INGLÉS -->
+                <div class="text-english">
+                    ${punto.english}
+                </div>
+
+                <!-- 2) CASILLA PARA ESCRIBIR -->
+                <div class="writing-area">
+                    <label for="textInput_${punto.id}">✏️ Escribe el texto en inglés (copia para fijar estructura):</label>
+                    <textarea id="textInput_${punto.id}" rows="4" placeholder="Escribe aquí el texto en inglés…" class="input-writing"></textarea>
+                </div>
+
+                <!-- 3) TRADUCCIÓN AL ESPAÑOL (desplegable) -->
+                <details class="info-toggle">
+                    <summary>🇪🇸 Ver traducción al español</summary>
+                    <div class="content">
+                        <p>${punto.spanish}</p>
+                    </div>
+                </details>
+
+                <!-- 4) REPETIR EN INGLÉS (desplegable) -->
+                <details class="info-toggle">
+                    <summary>🔁 Repetir en inglés (lectura mental)</summary>
+                    <div class="content">
+                        <p>${punto.english}</p>
+                    </div>
+                </details>
+
+                <!-- 5) NAVEGACIÓN -->
+                <div class="nav-buttons">
+                    <button class="btn-prev" id="prevBtn" ${index === 0 ? 'disabled' : ''}>
+                        ◀ Anterior
+                    </button>
+                    ${isLast ? `
+                        <button class="btn-complete" id="completeBtn">
+                            ✅ Finalizar
+                        </button>
+                    ` : `
+                        <button class="btn-next" id="nextBtn">
+                            Siguiente ▶
+                        </button>
+                    `}
+                </div>
+            </div>
+        `;
+
+        // Inyectar en el contenedor
+        contentArea.innerHTML = html;
+
+        // Actualizar puntos de progreso
+        updateProgress(index);
+
+        // ============================================================
+        //  EVENTOS DE NAVEGACIÓN (con delegación para evitar múltiples listeners)
+        // ============================================================
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const completeBtn = document.getElementById('completeBtn');
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentIndex < totalPuntos - 1) {
+                    // Guardar el texto escrito si se quiere (opcional)
+                    currentIndex++;
+                    renderPunto(currentIndex);
+                    // Scroll suave al inicio
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    renderPunto(currentIndex);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        if (completeBtn) {
+            completeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Mostrar pantalla de finalización
+                showCompletionScreen();
+            });
+        }
+
+        // Enfoque automático en el textarea (mejor experiencia en móvil)
+        const textarea = document.getElementById(`textInput_${punto.id}`);
+        if (textarea) {
+            // No forzamos el foco automático para evitar que el teclado cubra la vista
+            // pero dejamos que el usuario toque cómodamente.
+        }
+    }
+
+    // ================================================================
+    //  ACTUALIZAR BARRA DE PROGRESO
+    // ================================================================
+    function updateProgress(activeIndex) {
+        progressDots.forEach((dot, i) => {
+            dot.classList.remove('active', 'done');
+            if (i === activeIndex) {
+                dot.classList.add('active');
+            } else if (i < activeIndex) {
+                dot.classList.add('done');
+            }
+        });
+    }
+
+    // ================================================================
+    //  PANTALLA DE FINALIZACIÓN
+    // ================================================================
+    function showCompletionScreen() {
+        contentArea.innerHTML = `
+            <div class="completion-screen">
+                <div class="icon">🎉</div>
+                <h2>¡Completaste la Actividad 1!</h2>
+                <p>Has trabajado los 7 puntos. Has leído, escrito y repetido las estructuras en inglés. ¡Excelente trabajo!</p>
+                <button class="btn-restart" id="restartBtn">🔄 Repetir actividad</button>
+            </div>
+        `;
+
+        // Actualizar progreso (todos completos)
+        progressDots.forEach(dot => {
+            dot.classList.remove('active');
+            dot.classList.add('done');
+        });
+
+        // Evento para reiniciar
+        document.getElementById('restartBtn').addEventListener('click', function() {
+            currentIndex = 0;
+            renderPunto(currentIndex);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // ================================================================
+    //  INICIALIZAR LA APLICACIÓN
+    // ================================================================
+    renderPunto(currentIndex);
+</script>
+
+</body>
+</html>

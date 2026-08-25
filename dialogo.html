@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Diálogo Cotidiano · Sesiones</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #eef2f7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 16px 12px 40px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .app-container {
+            max-width: 560px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            padding: 24px 20px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #f0f4fc;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .app-header h1 { font-size: 1.2rem; font-weight: 700; color: #0b1e3a; }
+        .app-header .badge {
+            background: #e8edf9; color: #1e3b6b; font-size: 0.7rem;
+            font-weight: 600; padding: 6px 14px; border-radius: 30px;
+        }
+
+        .progress-bar {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .progress-dot {
+            flex: 1;
+            min-width: 10px;
+            height: 6px;
+            border-radius: 6px;
+            background: #dee5ef;
+            transition: background 0.3s ease;
+        }
+
+        .progress-dot.active { background: #2b6df6; }
+        .progress-dot.done { background: #2b6df6; opacity: 0.4; }
+        .progress-dot.correct { background: #22c55e; }
+        .progress-dot.wrong { background: #ef4444; }
+
+        .session-content { animation: fadeSlide 0.3s ease; }
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-weight: 700; font-size: 1rem; color: #0b1e3a;
+            margin-bottom: 12px; padding-bottom: 6px;
+            border-bottom: 2px solid #2b6df6;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        .section-title .step {
+            background: #2b6df6; color: white; border-radius: 50%;
+            width: 24px; height: 24px; display: inline-flex;
+            align-items: center; justify-content: center;
+            font-size: 0.7rem; font-weight: 700;
+        }
+
+        .text-spanish {
+            background: #f5f9ff; padding: 14px 16px; border-radius: 16px;
+            border-left: 4px solid #2b6df6; margin-bottom: 14px;
+            font-size: 0.9rem; line-height: 1.8; color: #0b1e3a;
+            max-height: 280px; overflow-y: auto;
+        }
+
+        .text-spanish .label {
+            display: block; font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 0.5px; color: #5a6f92; font-weight: 600; margin-bottom: 4px;
+        }
+
+        .text-spanish .turno {
+            display: block; padding: 2px 0; border-bottom: 1px dashed #e2e8f0;
+        }
+        .text-spanish .turno:last-child { border-bottom: none; }
+        .text-spanish .speaker { font-weight: 700; color: #2b6df6; }
+
+        .phrases-pool {
+            display: flex; flex-direction: column; gap: 6px;
+            padding: 14px 12px; background: #f8fafd; border-radius: 16px;
+            border: 2px dashed #dce3ef; min-height: 60px;
+            margin-bottom: 14px; max-height: 300px; overflow-y: auto;
+        }
+
+        .phrase-btn {
+            background: white; border: 2px solid #dce3ef; border-radius: 12px;
+            padding: 10px 14px; font-size: 0.88rem; font-weight: 500;
+            color: #0b1e3a; cursor: pointer; transition: all 0.15s;
+            -webkit-tap-highlight-color: transparent; user-select: none;
+            touch-action: manipulation; text-align: left; line-height: 1.4; width: 100%;
+        }
+
+        .phrase-btn:active { transform: scale(0.98); background: #eef3fc; }
+        .phrase-btn.selected {
+            background: #2b6df6; color: white; border-color: #2b6df6;
+            opacity: 0.4; pointer-events: none;
+        }
+        .phrase-btn.correct { background: #bbf7d0; color: #166534; border-color: #86efac; }
+        .phrase-btn.wrong { background: #fecaca; color: #991b1b; border-color: #fca5a5; animation: shake 0.4s ease; }
+        .phrase-btn .speaker-tag { font-weight: 700; color: #2b6df6; margin-right: 4px; }
+        .phrase-btn.selected .speaker-tag { color: white; }
+
+        @keyframes shake {
+            0%,100%{ transform: translateX(0); }
+            25%{ transform: translateX(-5px); }
+            75%{ transform: translateX(5px); }
+        }
+
+        .built-dialog {
+            padding: 12px 14px; background: #ffffff; border-radius: 14px;
+            border: 2px solid #e9eef6; min-height: 45px; margin-bottom: 12px;
+            font-size: 0.88rem; line-height: 1.8; color: #0b1e3a;
+            max-height: 250px; overflow-y: auto;
+        }
+
+        .built-dialog .line-slot {
+            display: block; padding: 3px 8px; margin: 2px 0;
+            border-radius: 6px; font-weight: 500; cursor: pointer;
+            transition: all 0.15s; border: 2px solid transparent;
+            touch-action: manipulation;
+        }
+        .built-dialog .line-slot:active { transform: scale(0.98); }
+        .built-dialog .line-slot.correct {
+            background: #bbf7d0; color: #166534; border-color: #86efac; cursor: default;
+        }
+        .built-dialog .line-slot.wrong {
+            background: #fecaca; color: #991b1b; border-color: #fca5a5; cursor: default;
+        }
+        .built-dialog .line-slot.wrong .correction {
+            display: inline-block; margin-left: 4px; color: #22c55e;
+            font-weight: 700; background: #dcfce7; padding: 0 6px; border-radius: 4px; font-size: 0.75rem;
+        }
+        .built-dialog .line-slot.pending { background: #f1f5f9; color: #0b1e3a; border-color: #dce3ef; }
+        .built-dialog .line-slot.pending:active { background: #e2e8f0; }
+        .built-dialog .placeholder-text {
+            color: #aab7d0; font-style: italic; font-weight: 400;
+            display: block; padding: 8px 0;
+        }
+        .built-dialog .speaker-tag { font-weight: 700; color: #2b6df6; }
+
+        .action-buttons {
+            display: flex; gap: 8px; margin: 10px 0; flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            flex: 1; min-width: 60px; padding: 10px 12px;
+            border: none; border-radius: 50px; font-weight: 700;
+            font-size: 0.85rem; cursor: pointer; transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+        }
+
+        .btn-reset { background: #f0f4fc; color: #1d3557; flex: 0.5; }
+        .btn-reset:active { background: #dce3ef; transform: scale(0.97); }
+        .btn-verify { background: #2b6df6; color: white; flex: 1; }
+        .btn-verify:active { background: #1a56d6; transform: scale(0.97); }
+        .btn-verify:disabled { opacity: 0.5; pointer-events: none; }
+
+        .feedback-box {
+            background: #f8fafc; border-radius: 14px; padding: 12px 14px;
+            margin: 10px 0; border: 2px solid #e9eef6; display: none;
+            animation: fadeSlide 0.3s ease;
+        }
+        .feedback-box.show { display: block; }
+        .feedback-box.success { border-color: #86efac; background: #f0fdf4; }
+        .feedback-box.error { border-color: #fca5a5; background: #fef2f2; }
+        .feedback-box .title { font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; }
+        .feedback-box .title.success { color: #166534; }
+        .feedback-box .title.error { color: #991b1b; }
+        .feedback-box .detail { font-size: 0.85rem; line-height: 1.5; color: #1e2f4a; }
+
+        /* ===== AUDIO ===== */
+        .audio-section {
+            background: #f0f9ff; border-radius: 14px; padding: 14px 16px;
+            margin: 12px 0; border: 2px solid #b6d4f8;
+        }
+
+        .audio-section .title {
+            font-weight: 700; color: #1e3a8a; font-size: 0.85rem; margin-bottom: 8px;
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        .audio-line {
+            display: flex; flex-wrap: wrap; align-items: center;
+            gap: 4px 10px; padding: 4px 0;
+            border-bottom: 1px dashed #b6d4f8; font-size: 0.88rem;
+        }
+        .audio-line:last-child { border-bottom: none; }
+        .audio-line .text { font-weight: 500; color: #0b1e3a; }
+        .audio-line .pron { color: #92400e; font-style: italic; font-size: 0.8rem; }
+
+        .btn-audio {
+            background: #fef3c7; color: #92400e; border: none;
+            border-radius: 30px; padding: 4px 12px; font-weight: 600;
+            font-size: 0.75rem; cursor: pointer; transition: 0.2s;
+            touch-action: manipulation;
+        }
+        .btn-audio:active { background: #fde68a; transform: scale(0.97); }
+
+        .btn-audio-female {
+            background: #fce7f3; color: #9d174d; border: none;
+            border-radius: 30px; padding: 4px 12px; font-weight: 600;
+            font-size: 0.75rem; cursor: pointer; transition: 0.2s;
+            touch-action: manipulation;
+        }
+        .btn-audio-female:active { background: #fbcfe8; transform: scale(0.97); }
+
+        .btn-audio-male {
+            background: #dbeafe; color: #1e3a8a; border: none;
+            border-radius: 30px; padding: 4px 12px; font-weight: 600;
+            font-size: 0.75rem; cursor: pointer; transition: 0.2s;
+            touch-action: manipulation;
+        }
+        .btn-audio-male:active { background: #bfdbfe; transform: scale(0.97); }
+
+        .btn-audio-large {
+            background: #2b6df6; color: white; border: none;
+            border-radius: 50px; padding: 8px 18px; font-weight: 700;
+            font-size: 0.85rem; cursor: pointer; transition: 0.2s;
+            touch-action: manipulation; display: inline-flex; align-items: center; gap: 6px;
+        }
+        .btn-audio-large:active { background: #1a56d6; transform: scale(0.97); }
+        .btn-audio-large.female { background: #9d174d; }
+        .btn-audio-large.female:active { background: #701a3d; }
+        .btn-audio-large.male { background: #1e3a8a; }
+        .btn-audio-large.male:active { background: #152a66; }
+        .btn-audio-large.pause { background: #ef4444; }
+        .btn-audio-large.pause:active { background: #dc2626; }
+
+        .nav-buttons {
+            display: flex; gap: 10px; margin-top: 14px;
+            padding-top: 14px; border-top: 2px solid #f0f4fc;
+        }
+
+        .nav-buttons button {
+            flex: 1; padding: 12px 10px; border: none; border-radius: 50px;
+            font-weight: 700; font-size: 0.95rem; cursor: pointer;
+            transition: all 0.2s; -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        .btn-prev { background: #f0f4fc; color: #1d3557; flex: 0.5; }
+        .btn-prev:active { background: #dce3ef; transform: scale(0.97); }
+        .btn-next { background: #2b6df6; color: white; flex: 1; }
+        .btn-next:active { background: #1a56d6; transform: scale(0.97); }
+        .btn-next:disabled { opacity: 0.4; pointer-events: none; }
+        .btn-finish { background: #22c55e; color: white; flex: 1; }
+        .btn-finish:active { background: #16a34a; transform: scale(0.97); }
+        .btn-finish:disabled { opacity: 0.4; pointer-events: none; }
+
+        .completion-screen {
+            text-align: center; padding: 30px 10px 10px;
+            animation: fadeSlide 0.5s ease;
+        }
+        .completion-screen .icon { font-size: 4rem; margin-bottom: 12px; }
+        .completion-screen h2 { color: #0b1e3a; font-size: 1.5rem; margin-bottom: 8px; }
+        .completion-screen p { color: #4a5f82; font-size: 0.95rem; line-height: 1.6; max-width: 320px; margin: 0 auto 16px; }
+        .completion-screen .btn-restart {
+            background: #eef3fc; color: #1d3557; border: none;
+            padding: 12px 30px; border-radius: 50px; font-weight: 700; font-size: 1rem;
+            cursor: pointer; transition: 0.2s; touch-action: manipulation;
+        }
+        .completion-screen .btn-restart:active { background: #dce3ef; transform: scale(0.97); }
+
+        @media (max-width: 450px) {
+            .app-container { padding: 16px 12px 20px; }
+            .phrase-btn { font-size: 0.82rem; padding: 8px 12px; }
+            .built-dialog { font-size: 0.82rem; padding: 10px 12px; }
+            .action-buttons button { font-size: 0.8rem; padding: 8px 10px; }
+            .text-spanish { font-size: 0.85rem; padding: 12px 14px; }
+            .audio-line { font-size: 0.82rem; }
+            .nav-buttons button { font-size: 0.85rem; padding: 10px 8px; }
+            .btn-audio-large { font-size: 0.8rem; padding: 6px 14px; }
+        }
+
+        @media (max-width: 380px) {
+            .app-container { padding: 12px 8px 16px; }
+            .phrase-btn { font-size: 0.78rem; padding: 6px 10px; }
+            .built-dialog { font-size: 0.78rem; padding: 8px 10px; }
+            .built-dialog .line-slot { padding: 2px 6px; font-size: 0.76rem; }
+            .text-spanish { font-size: 0.8rem; padding: 10px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container" id="app">
+
+    <header class="app-header">
+        <h1>💬 Diálogo Cotidiano</h1>
+        <span class="badge">12 sesiones · 4 líneas</span>
+    </header>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div id="contentArea"></div>
+
+</div>
+
+<script>
+    // ================================================================
+    //  DIÁLOGO COMPLETO - 48 LÍNEAS (12 sesiones × 4 líneas)
+    //  Temas: saludos, presentaciones, profesiones, colores,
+    //  partes de la casa, cuerpo, familia, ropa, descripciones, gustos
+    // ================================================================
+    const dialogLines = [
+        // SESIÓN 1: Saludos
+        { id: 1, speaker: 'A', english: 'Hello! Good morning. How are you today?', spanish: '¡Hola! Buenos días. ¿Cómo estás hoy?', pronunciation: 'jelóu gud mórning jau ar iu tudéi' },
+        { id: 2, speaker: 'B', english: 'Hi! Good morning. I am very well, thank you.', spanish: '¡Hola! Buenos días. Estoy muy bien, gracias.', pronunciation: 'jái gud mórning ái am vérri uél zánk iu' },
+        { id: 3, speaker: 'A', english: 'I am happy to see you. Are you a student?', spanish: 'Me alegra verte. ¿Eres estudiante?', pronunciation: 'ái am jápi tu si iu ar iu a stiúdent' },
+        { id: 4, speaker: 'B', english: 'Yes, I am a student. My name is Carlos.', spanish: 'Sí, soy estudiante. Me llamo Carlos.', pronunciation: 'iés ái am a stiúdent mai néim is kárlos' },
+
+        // SESIÓN 2: Presentaciones
+        { id: 5, speaker: 'A', english: 'Nice to meet you, Carlos. I am Ana.', spanish: 'Mucho gusto, Carlos. Soy Ana.', pronunciation: 'náis tu mit iu kárlos ái am ána' },
+        { id: 6, speaker: 'B', english: 'Nice to meet you too, Ana. Where are you from?', spanish: 'Mucho gusto también, Ana. ¿De dónde eres?', pronunciation: 'náis tu mit iu tu ána uér ar iu from' },
+        { id: 7, speaker: 'A', english: 'I am from Mexico City. It is a big and beautiful city.', spanish: 'Soy de la Ciudad de México. Es una ciudad grande y hermosa.', pronunciation: 'ái am from méjico sítii it is a big and biútfal sítii' },
+        { id: 8, speaker: 'B', english: 'I am from Spain, but I live in Madrid.', spanish: 'Soy de España, pero vivo en Madrid.', pronunciation: 'ái am from spéin bat ái liv in madríd' },
+
+        // SESIÓN 3: Familia y profesiones
+        { id: 9, speaker: 'A', english: 'Do you have a big family?', spanish: '¿Tienes una familia grande?', pronunciation: 'du iu jav a big fámili' },
+        { id: 10, speaker: 'B', english: 'Yes, I have a mother, a father, and two sisters.', spanish: 'Sí, tengo una madre, un padre y dos hermanas.', pronunciation: 'iés ái jav a móder a fárer and tu sísters' },
+        { id: 11, speaker: 'A', english: 'My mother is a nurse and my father is an engineer.', spanish: 'Mi madre es enfermera y mi padre es ingeniero.', pronunciation: 'mai móder is a nors and mai fárer is an inyinír' },
+        { id: 12, speaker: 'B', english: 'My sister is a doctor. She works in a big hospital.', spanish: 'Mi hermana es médico. Ella trabaja en un hospital grande.', pronunciation: 'mai síster is a dóktor shi uorks in a big jóspital' },
+
+        // SESIÓN 4: Descripciones físicas
+        { id: 13, speaker: 'A', english: 'What does your sister look like?', spanish: '¿Cómo es tu hermana físicamente?', pronunciation: 'uót daz ior síster luk láik' },
+        { id: 14, speaker: 'B', english: 'She is tall and thin. She has long brown hair.', spanish: 'Ella es alta y delgada. Tiene pelo largo castaño.', pronunciation: 'shi is tol and zin shi has long braun jer' },
+        { id: 15, speaker: 'A', english: 'Does she have blue eyes or green eyes?', spanish: '¿Tiene ojos azules o verdes?', pronunciation: 'daz shi jav blu áis or grin áis' },
+        { id: 16, speaker: 'B', english: 'She has beautiful green eyes and a friendly smile.', spanish: 'Tiene hermosos ojos verdes y una sonrisa amable.', pronunciation: 'shi has biútfal grin áis and a fréndli smáil' },
+
+        // SESIÓN 5: Ropa y colores
+        { id: 17, speaker: 'A', english: 'What is she wearing today?', spanish: '¿Qué lleva puesto hoy?', pronunciation: 'uót is shi uéring tudéi' },
+        { id: 18, speaker: 'B', english: 'She is wearing a red dress and black shoes.', spanish: 'Lleva un vestido rojo y zapatos negros.', pronunciation: 'shi is uéring a red dres and blak shús' },
+        { id: 19, speaker: 'A', english: 'I love the color red. It is very bright and cheerful.', spanish: 'Me encanta el color rojo. Es muy brillante y alegre.', pronunciation: 'ái lov de kálor red it is vérri bráit and chírful' },
+        { id: 20, speaker: 'B', english: 'Yes, red is my favorite color too!', spanish: '¡Sí, el rojo es mi color favorito también!', pronunciation: 'iés red is mai féivorit kálor tu' },
+
+        // SESIÓN 6: Partes de la casa
+        { id: 21, speaker: 'A', english: 'Do you have a big house?', spanish: '¿Tienes una casa grande?', pronunciation: 'du iu jav a big jaus' },
+        { id: 22, speaker: 'B', english: 'Yes, I have a house with four bedrooms and a garden.', spanish: 'Sí, tengo una casa con cuatro dormitorios y un jardín.', pronunciation: 'iés ái jav a jaus wit for bédruns and a gárdan' },
+        { id: 23, speaker: 'A', english: 'My house has a big kitchen and a comfortable living room.', spanish: 'Mi casa tiene una cocina grande y un salón cómodo.', pronunciation: 'mai jaus jas a big kíchen and a kómtfortabl líving rum' },
+        { id: 24, speaker: 'B', english: 'I love the garden. It has beautiful flowers and green trees.', spanish: 'Me encanta el jardín. Tiene flores hermosas y árboles verdes.', pronunciation: 'ái lov de gárdan it jas biútfal fláures and grin trís' },
+
+        // SESIÓN 7: Colores de la naturaleza
+        { id: 25, speaker: 'A', english: 'What color are the flowers in your garden?', spanish: '¿De qué color son las flores de tu jardín?', pronunciation: 'uót kálor ar de fláures in ior gárdan' },
+        { id: 26, speaker: 'B', english: 'They are red, yellow, purple, and white.', spanish: 'Son rojas, amarillas, moradas y blancas.', pronunciation: 'déi ar red iélou pérpol and wáit' },
+        { id: 27, speaker: 'A', english: 'That sounds amazing! I would like to see them.', spanish: '¡Eso suena increíble! Me gustaría verlas.', pronunciation: 'dat saunds améising ái wud laik tu si dém' },
+        { id: 28, speaker: 'B', english: 'You are welcome to visit my house anytime.', spanish: 'Eres bienvenido a visitar mi casa en cualquier momento.', pronunciation: 'iu ar uélkam tu vísit mai jaus enítaim' },
+
+        // SESIÓN 8: Rutina y actividades
+        { id: 29, speaker: 'A', english: 'What do you do in your free time?', spanish: '¿Qué haces en tu tiempo libre?', pronunciation: 'uót du iu du in ior fri táim' },
+        { id: 30, speaker: 'B', english: 'I like to read books and listen to music.', spanish: 'Me gusta leer libros y escuchar música.', pronunciation: 'ái laik tu rid buks and lísen tu miúsic' },
+        { id: 31, speaker: 'A', english: 'I love music too. I play the guitar and sing.', spanish: 'A mí también me encanta la música. Toco la guitarra y canto.', pronunciation: 'ái lov miúsic tu ái pléi de gitár and sing' },
+        { id: 32, speaker: 'B', english: 'That is wonderful! I would like to hear you play.', spanish: '¡Eso es maravilloso! Me gustaría escucharte tocar.', pronunciation: 'dát is uánterful ái wud laik tu jir iu pléi' },
+
+        // SESIÓN 9: Partes del cuerpo
+        { id: 33, speaker: 'A', english: 'I have a headache today. I need to rest.', spanish: 'Tengo dolor de cabeza hoy. Necesito descansar.', pronunciation: 'ái jav a jédeik tudéi ái nid tu rest' },
+        { id: 34, speaker: 'B', english: 'Oh no! You should drink water and take a break.', spanish: '¡Oh no! Deberías beber agua y tomar un descanso.', pronunciation: 'óu nou iu shud drínk wóter and teik a bréik' },
+        { id: 35, speaker: 'A', english: 'My eyes are tired too. I need to close them for a moment.', spanish: 'Mis ojos también están cansados. Necesito cerrarlos un momento.', pronunciation: 'mai áis ar táirerd tu ái nid tu klós dem for a mómend' },
+        { id: 36, speaker: 'B', english: 'You should rest your eyes. Look at the green trees outside.', spanish: 'Deberías descansar tus ojos. Mira los árboles verdes afuera.', pronunciation: 'iu shud rest ior áis luk at de grin trís áutsaid' },
+
+        // SESIÓN 10: Comida y gustos
+        { id: 37, speaker: 'A', english: 'What is your favorite food?', spanish: '¿Cuál es tu comida favorita?', pronunciation: 'uót is ior féivorit fud' },
+        { id: 38, speaker: 'B', english: 'I love pizza and hamburgers. They are delicious!', spanish: 'Me encanta la pizza y las hamburguesas. ¡Son deliciosas!', pronunciation: 'ái lov pítsa and jámburgers déi ar dilíshes' },
+        { id: 39, speaker: 'A', english: 'I prefer healthy food like salads and fruit.', spanish: 'Prefiero comida saludable como ensaladas y fruta.', pronunciation: 'ái prifér jélfi fud laik sálads and frut' },
+        { id: 40, speaker: 'B', english: 'That is good for your health! I should eat more vegetables.', spanish: '¡Eso es bueno para tu salud! Debería comer más verduras.', pronunciation: 'dát is gud for ior jélsh ái shud it mor véytabols' },
+
+        // SESIÓN 11: Lugares y direcciones
+        { id: 41, speaker: 'A', english: 'Where is your classroom?', spanish: '¿Dónde está tu clase?', pronunciation: 'uér is ior klasrum' },
+        { id: 42, speaker: 'B', english: 'My classroom is on the second floor, next to the library.', spanish: 'Mi clase está en el segundo piso, al lado de la biblioteca.', pronunciation: 'mai klasrum is on de sékond flor néxt tu de láibreri' },
+        { id: 43, speaker: 'A', english: 'I like to study in the library. It is very quiet there.', spanish: 'Me gusta estudiar en la biblioteca. Es muy tranquilo allí.', pronunciation: 'ái laik tu stádi in de láibreri it is vérri kuáiet der' },
+        { id: 44, speaker: 'B', english: 'Me too! The library has many books and comfortable chairs.', spanish: '¡Yo también! La biblioteca tiene muchos libros y sillas cómodas.', pronunciation: 'mi tu de láibreri jas méni buks and kómtfortabl chéers' },
+
+        // SESIÓN 12: Despedidas
+        { id: 45, speaker: 'A', english: 'It is getting late. I have to go now.', spanish: 'Se está haciendo tarde. Tengo que irme ahora.', pronunciation: 'it is guétin léit ái jav tu gou náu' },
+        { id: 46, speaker: 'B', english: 'Oh, already? It was nice talking to you.', spanish: '¿Oh, ya? Fue agradable hablar contigo.', pronunciation: 'óu orrédi it uas náis tókin tu iu' },
+        { id: 47, speaker: 'A', english: 'Thank you for the conversation. See you tomorrow!', spanish: 'Gracias por la conversación. ¡Hasta mañana!', pronunciation: 'zánk iu for de konverséishon si iu tumórou' },
+        { id: 48, speaker: 'B', english: 'See you tomorrow! Have a wonderful day!', spanish: '¡Hasta mañana! ¡Que tengas un día maravilloso!', pronunciation: 'si iu tumórou jav a uánterful déi' }
+    ];
+
+    // ================================================================
+    //  DIVIDIR EN SESIONES (4 líneas por sesión)
+    // ================================================================
+    const LINES_PER_SESSION = 4;
+    const sessions = [];
+    for (let i = 0; i < dialogLines.length; i += LINES_PER_SESSION) {
+        sessions.push(dialogLines.slice(i, i + LINES_PER_SESSION));
+    }
+    const totalSessions = sessions.length;
+
+    // ================================================================
+    //  FUNCIONES AUXILIARES
+    // ================================================================
+    function getSpeakerLabel(speaker) {
+        return speaker === 'A' ? 'Ana:' : 'Carlos:';
+    }
+
+    function getFullDialogText(lines) {
+        return lines.map(line => line.english).join(' ');
+    }
+
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    // ================================================================
+    //  AUDIO CON PAUSA
+    // ================================================================
+    let currentUtterance = null;
+    let isSpeaking = false;
+
+    function speakText(text, lang = 'en-US', gender = null, onStart = null, onEnd = null) {
+        if (!window.speechSynthesis) {
+            alert('Tu navegador no soporta la síntesis de voz. Usa Chrome o Edge.');
+            return;
+        }
+
+        // Si ya está hablando, pausar
+        if (isSpeaking) {
+            window.speechSynthesis.cancel();
+            isSpeaking = false;
+            currentUtterance = null;
+            if (onEnd) onEnd();
+            return;
+        }
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang;
+        utterance.rate = 0.85;
+        utterance.pitch = 1;
+
+        const voices = window.speechSynthesis.getVoices();
+
+        if (gender === 'female') {
+            const femaleVoice = voices.find(v =>
+                v.lang.startsWith('en') &&
+                (v.name.toLowerCase().includes('female') ||
+                 v.name.toLowerCase().includes('samantha') ||
+                 v.name.toLowerCase().includes('victoria') ||
+                 v.name.toLowerCase().includes('zira'))
+            );
+            if (femaleVoice) { utterance.voice = femaleVoice; utterance.pitch = 1.2; }
+        } else if (gender === 'male') {
+            const maleVoice = voices.find(v =>
+                v.lang.startsWith('en') &&
+                (v.name.toLowerCase().includes('male') ||
+                 v.name.toLowerCase().includes('david') ||
+                 v.name.toLowerCase().includes('james') ||
+                 v.name.toLowerCase().includes('mark'))
+            );
+            if (maleVoice) { utterance.voice = maleVoice; utterance.pitch = 0.8; }
+        }
+
+        if (!utterance.voice) {
+            const enVoice = voices.find(v => v.lang.startsWith('en'));
+            if (enVoice) utterance.voice = enVoice;
+        }
+
+        currentUtterance = utterance;
+        isSpeaking = true;
+
+        utterance.onstart = function() {
+            if (onStart) onStart();
+        };
+
+        utterance.onend = function() {
+            isSpeaking = false;
+            currentUtterance = null;
+            if (onEnd) onEnd();
+        };
+
+        utterance.onerror = function() {
+            isSpeaking = false;
+            currentUtterance = null;
+            if (onEnd) onEnd();
+        };
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function stopAudio() {
+        if (isSpeaking) {
+            window.speechSynthesis.cancel();
+            isSpeaking = false;
+            currentUtterance = null;
+        }
+    }
+
+    // ================================================================
+    //  ESTADO
+    // ================================================================
+    let currentSession = 0;
+    const sessionStates = sessions.map(() => ({
+        selectedLines: [],
+        verified: false,
+        lineStatus: []
+    }));
+
+    // ================================================================
+    //  REFERENCIAS DOM
+    // ================================================================
+    const contentArea = document.getElementById('contentArea');
+    const progressBar = document.getElementById('progressBar');
+
+    // ================================================================
+    //  RENDERIZAR PROGRESO
+    // ================================================================
+    function renderProgress() {
+        let html = '';
+        for (let i = 0; i < totalSessions; i++) {
+            const state = sessionStates[i];
+            let cls = 'progress-dot';
+            if (i === currentSession) cls += ' active';
+            else if (state.verified) {
+                const hasError = state.lineStatus.some(s => s === 'wrong');
+                cls += hasError ? ' wrong' : ' correct';
+            } else if (i < currentSession) {
+                cls += ' done';
+            }
+            html += `<span class="${cls}"></span>`;
+        }
+        progressBar.innerHTML = html;
+    }
+
+    // ================================================================
+    //  RENDERIZAR SESIÓN
+    // ================================================================
+    function renderSession(index) {
+        const session = sessions[index];
+        const state = sessionStates[index];
+        const isVerified = state.verified;
+        const isLast = (index === totalSessions - 1);
+
+        // Guía en español
+        const spanishGuide = session.map(line =>
+            `<span class="turno"><span class="speaker">${getSpeakerLabel(line.speaker)}</span> ${line.spanish}</span>`
+        ).join('');
+
+        // Texto completo de la sesión
+        const fullText = getFullDialogText(session);
+
+        let html = `
+            <div class="session-content">
+                <div class="section-title">
+                    <span class="step">${index + 1}</span>
+                    Sesión ${index + 1} de ${totalSessions}
+                    <span style="font-weight:400; font-size:0.75rem; color:#4a5f82; margin-left:auto;">${session.length} líneas</span>
+                </div>
+
+                <div class="text-spanish">
+                    <span class="label">📖 Guía en español (orden correcto)</span>
+                    ${spanishGuide}
+                </div>
+
+                <div class="built-dialog" id="builtDialog">
+        `;
+
+        if (isVerified) {
+            const statuses = state.lineStatus;
+            state.selectedLines.forEach((line, i) => {
+                const status = statuses[i] || 'wrong';
+                const correctLine = session[i] || null;
+                let slotHtml = `<span class="line-slot ${status}">`;
+                slotHtml += `<span class="speaker-tag">${getSpeakerLabel(line.speaker)}</span> ${line.english}`;
+                if (status === 'wrong' && correctLine) {
+                    slotHtml += ` <span class="correction">→ ${correctLine.english}</span>`;
+                }
+                slotHtml += `</span>`;
+                html += slotHtml;
+            });
+            if (state.selectedLines.length < session.length) {
+                for (let i = state.selectedLines.length; i < session.length; i++) {
+                    const line = session[i];
+                    html += `<span class="line-slot wrong">[❌ Falta] <span class="correction">→ ${line.english}</span></span>`;
+                }
+            }
+            if (state.selectedLines.length > session.length) {
+                for (let i = session.length; i < state.selectedLines.length; i++) {
+                    const line = state.selectedLines[i];
+                    html += `<span class="line-slot wrong">${line.english} <span class="correction">→ [sobra]</span></span>`;
+                }
+            }
+        } else {
+            if (state.selectedLines.length === 0) {
+                html += `<span class="placeholder-text">👇 Toca las líneas en el orden correcto</span>`;
+            } else {
+                state.selectedLines.forEach((line, i) => {
+                    html += `<span class="line-slot pending" data-pos="${i}">`;
+                    html += `<span class="speaker-tag">${getSpeakerLabel(line.speaker)}</span> ${line.english} ✕`;
+                    html += `</span>`;
+                });
+                html += `<span class="hint" style="font-size:0.7rem; color:#94a3b8; display:block; margin-top:4px;">(toca ✕ para eliminar)</span>`;
+            }
+        }
+
+        html += `
+                </div>
+
+                <div class="phrases-pool" id="phrasesPool">
+        `;
+
+        if (isVerified) {
+            const statuses = state.lineStatus;
+            session.forEach((line, i) => {
+                const status = statuses[i] || 'wrong';
+                const cls = status === 'correct' ? 'correct' : (status === 'wrong' ? 'wrong' : '');
+                html += `<div class="phrase-btn ${cls}"><span class="speaker-tag">${getSpeakerLabel(line.speaker)}</span> ${line.english}</div>`;
+            });
+        } else {
+            const available = session.filter(line =>
+                !state.selectedLines.some(sel => sel.id === line.id)
+            );
+            const shuffled = shuffleArray(available);
+            if (shuffled.length === 0) {
+                html += `<div style="color:#94a3b8; font-style:italic; text-align:center; padding:12px 0;">✅ Todas las líneas seleccionadas</div>`;
+            } else {
+                shuffled.forEach(line => {
+                    html += `<div class="phrase-btn" data-lineid="${line.id}" data-speaker="${line.speaker}" data-english="${line.english}">`;
+                    html += `<span class="speaker-tag">${getSpeakerLabel(line.speaker)}</span> ${line.english}`;
+                    html += `</div>`;
+                });
+            }
+        }
+
+        html += `
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-reset" id="resetBtn">🔄 Reiniciar</button>
+                    <button class="btn-verify" id="verifyBtn" ${isVerified ? 'disabled' : ''}>
+                        ${isVerified ? '✅ Verificado' : '✓ Verificar'}
+                    </button>
+                </div>
+
+                <div class="feedback-box" id="feedbackBox">
+                    <div class="title" id="feedbackTitle"></div>
+                    <div class="detail" id="feedbackDetail"></div>
+                </div>
+
+                <!-- AUDIO SECTION -->
+                <div class="audio-section">
+                    <div class="title">🔊 Escuchar y repetir</div>
+                    <div style="font-size:0.85rem; color:#4a5f82; margin-bottom:8px;">
+                        ${session.map(line =>
+                            `<span style="font-weight:600; color:#2b6df6;">${getSpeakerLabel(line.speaker)}</span> ${line.english}`
+                        ).join(' ')}
+                    </div>
+                    <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:8px;">
+                        <button class="btn-audio-large female" id="audioFemale">👩 Voz femenina</button>
+                        <button class="btn-audio-large male" id="audioMale">👨 Voz masculina</button>
+                    </div>
+                    <div style="font-size:0.8rem; color:#5a6f92; margin-top:4px;">
+                        💡 Escucha cada línea y repite en voz alta.
+                    </div>
+                    <div style="margin-top:6px;">
+                        ${session.map(line => `
+                            <div class="audio-line">
+                                <span class="text">${getSpeakerLabel(line.speaker)} ${line.english}</span>
+                                <span class="pron">${line.pronunciation}</span>
+                                <button class="btn-audio-female" data-text="${line.english}" data-gender="female">👩</button>
+                                <button class="btn-audio-male" data-text="${line.english}" data-gender="male">👨</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn-prev" id="prevBtn" ${index === 0 ? 'disabled' : ''}>
+                        ◀ Anterior
+                    </button>
+                    ${isLast ? `
+                        <button class="btn-finish" id="finishBtn" ${!isVerified ? 'disabled' : ''}>
+                            🏁 Finalizar
+                        </button>
+                    ` : `
+                        <button class="btn-next" id="nextBtn" ${!isVerified ? 'disabled' : ''}>
+                            Siguiente ▶
+                        </button>
+                    `}
+                </div>
+            </div>
+        `;
+
+        contentArea.innerHTML = html;
+        renderProgress();
+
+        // ============================================================
+        //  EVENTOS
+        // ============================================================
+
+        // --- AUDIO CON PAUSA ---
+        function setupAudioButton(btnId, text, gender) {
+            const btn = document.getElementById(btnId);
+            if (!btn) return;
+
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                if (isSpeaking) {
+                    stopAudio();
+                    this.textContent = this.textContent.replace('⏸ Pausa', '▶');
+                    this.classList.remove('pause');
+                    return;
+                }
+
+                this.textContent = '⏸ Pausa';
+                this.classList.add('pause');
+
+                speakText(text, 'en-US', gender,
+                    function() {
+                        // onStart
+                    },
+                    function() {
+                        // onEnd
+                        btn.textContent = btn.textContent.replace('⏸ Pausa', '▶');
+                        btn.classList.remove('pause');
+                    }
+                );
+            });
+        }
+
+        setupAudioButton('audioFemale', fullText, 'female');
+        setupAudioButton('audioMale', fullText, 'male');
+
+        // Audio individual con pausa
+        const audioBtns = document.querySelectorAll('.btn-audio-female, .btn-audio-male');
+        audioBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const text = this.dataset.text;
+                const gender = this.dataset.gender || null;
+
+                // Si está sonando, pausar
+                if (isSpeaking) {
+                    stopAudio();
+                    return;
+                }
+
+                speakText(text, 'en-US', gender);
+            });
+        });
+
+        // --- ORDENAR ---
+        if (!isVerified) {
+            const phraseBtns = document.querySelectorAll('#phrasesPool .phrase-btn');
+            phraseBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const lineId = parseInt(this.dataset.lineid);
+                    const line = session.find(l => l.id === lineId);
+                    if (line) {
+                        state.selectedLines.push(line);
+                        renderSession(index);
+                        const verifyBtn = document.getElementById('verifyBtn');
+                        if (verifyBtn && state.selectedLines.length > 0) {
+                            verifyBtn.disabled = false;
+                        }
+                    }
+                });
+            });
+
+            // Eliminar línea
+            const builtDiv = document.getElementById('builtDialog');
+            if (builtDiv) {
+                builtDiv.querySelectorAll('.line-slot.pending').forEach(slot => {
+                    slot.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const pos = parseInt(this.dataset.pos);
+                        if (!isNaN(pos) && pos >= 0 && pos < state.selectedLines.length) {
+                            state.selectedLines.splice(pos, 1);
+                            renderSession(index);
+                        }
+                    });
+                });
+            }
+        }
+
+        // --- REINICIAR ---
+        const resetBtn = document.getElementById('resetBtn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                state.selectedLines = [];
+                state.verified = false;
+                state.lineStatus = [];
+                renderSession(index);
+            });
+        }
+
+        // --- VERIFICAR ---
+        const verifyBtn = document.getElementById('verifyBtn');
+        if (verifyBtn && !isVerified) {
+            verifyBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const selected = state.selectedLines;
+                const correct = session;
+
+                const statuses = [];
+                for (let i = 0; i < correct.length; i++) {
+                    if (i < selected.length && selected[i].id === correct[i].id) {
+                        statuses.push('correct');
+                    } else {
+                        statuses.push('wrong');
+                    }
+                }
+                if (selected.length > correct.length) {
+                    for (let i = correct.length; i < selected.length; i++) {
+                        statuses.push('wrong');
+                    }
+                }
+
+                state.verified = true;
+                state.lineStatus = statuses;
+
+                renderSession(index);
+
+                const nextBtn = document.getElementById('nextBtn');
+                const finishBtn = document.getElementById('finishBtn');
+                if (nextBtn) nextBtn.disabled = false;
+                if (finishBtn) finishBtn.disabled = false;
+
+                showFeedback(index);
+            });
+        }
+
+        // --- NAVEGACIÓN ---
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const finishBtn = document.getElementById('finishBtn');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                stopAudio();
+                if (currentSession > 0) {
+                    currentSession--;
+                    renderSession(currentSession);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                stopAudio();
+                if (currentSession < totalSessions - 1) {
+                    currentSession++;
+                    renderSession(currentSession);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        if (finishBtn) {
+            finishBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                stopAudio();
+                showCompletionScreen();
+            });
+        }
+
+        // Mostrar feedback si ya verificado (solo una vez)
+        if (isVerified) {
+            showFeedback(index);
+        }
+    }
+
+    // ================================================================
+    //  MOSTRAR FEEDBACK (SOLO UNA VEZ)
+    // ================================================================
+    let feedbackShown = {};
+
+    function showFeedback(index) {
+        const state = sessionStates[index];
+        const session = sessions[index];
+        const box = document.getElementById('feedbackBox');
+        const title = document.getElementById('feedbackTitle');
+        const detail = document.getElementById('feedbackDetail');
+
+        if (!box) return;
+
+        // Evitar duplicados
+        const key = `session_${index}`;
+        if (feedbackShown[key]) return;
+        feedbackShown[key] = true;
+
+        const hasError = state.lineStatus.some(s => s === 'wrong');
+
+        box.classList.add('show');
+        if (hasError) {
+            box.className = 'feedback-box show error';
+            title.className = 'title error';
+            title.textContent = '❌ Algunas líneas están fuera de orden';
+
+            let errors = [];
+            const selected = state.selectedLines;
+            const correct = session;
+            for (let i = 0; i < Math.max(selected.length, correct.length); i++) {
+                const sel = selected[i] || null;
+                const corr = correct[i] || null;
+                if (i < selected.length && i < correct.length && sel.id !== corr.id) {
+                    errors.push(`Línea ${i+1}: esperaba "${corr.english}" → recibí "${sel.english}"`);
+                } else if (i >= selected.length && i < correct.length) {
+                    errors.push(`Línea ${i+1}: falta "${corr.english}"`);
+                } else if (i >= correct.length && i < selected.length) {
+                    errors.push(`Línea ${i+1}: sobra "${sel.english}"`);
+                }
+            }
+
+            detail.innerHTML = errors.slice(0, 3).map(e => `• ${e}`).join('<br>');
+            if (errors.length > 3) {
+                detail.innerHTML += `<br>• ... y ${errors.length - 3} error(es) más.`;
+            }
+            detail.innerHTML += `<br><br>💡 Revisa el guía en español y compara línea por línea.`;
+        } else {
+            box.className = 'feedback-box show success';
+            title.className = 'title success';
+            title.textContent = '🎉 ¡Excelente! Todas las líneas están en el orden correcto.';
+            detail.innerHTML = `Has ordenado correctamente las ${session.length} líneas de esta sesión. ¡Gran trabajo!`;
+        }
+    }
+
+    // ================================================================
+    //  PANTALLA DE FINALIZACIÓN
+    // ================================================================
+    function showCompletionScreen() {
+        const fullText = dialogLines.map(line => line.english).join(' ');
+
+        const fullDialog = dialogLines.map(line =>
+            `<div style="font-size:0.85rem; padding:2px 0; border-bottom:1px solid #e9eef6; display:flex; gap:6px;">
+                <span style="font-weight:700; color:#2b6df6; min-width:50px;">${getSpeakerLabel(line.speaker)}</span>
+                <span>${line.english}</span>
+                <span style="color:#92400e; font-style:italic; font-size:0.75rem; margin-left:auto;">${line.pronunciation}</span>
+            </div>`
+        ).join('');
+
+        let correctSessions = 0;
+        sessionStates.forEach(state => {
+            if (state.verified && !state.lineStatus.some(s => s === 'wrong')) {
+                correctSessions++;
+            }
+        });
+
+        contentArea.innerHTML = `
+            <div class="completion-screen">
+                <div class="icon">🎉</div>
+                <h2>¡Diálogo completado!</h2>
+                <p>Has practicado todas las sesiones del diálogo cotidiano.</p>
+
+                <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:12px 0;">
+                    <button class="btn-audio-large female" id="finalFemale">👩 Escuchar (voz femenina)</button>
+                    <button class="btn-audio-large male" id="finalMale">👨 Escuchar (voz masculina)</button>
+                </div>
+
+                <div style="background:#f8fafc; border-radius:14px; padding:14px; margin:12px 0; text-align:left; max-height:250px; overflow-y:auto; border:1px solid #e9eef6;">
+                    <div style="font-weight:700; font-size:0.85rem; color:#0b1e3a; margin-bottom:6px;">📖 Diálogo completo (48 líneas):</div>
+                    ${fullDialog}
+                </div>
+
+                <div style="display:flex; gap:8px; justify-content:center; margin:12px 0; flex-wrap:wrap;">
+                    <span style="background:#dcfce7; color:#166534; padding:4px 14px; border-radius:30px; font-size:0.85rem;">
+                        ✅ ${correctSessions}/${totalSessions} sesiones correctas
+                    </span>
+                </div>
+
+                <button class="btn-restart" id="restartBtn">🔄 Repetir actividad</button>
+            </div>
+        `;
+
+        // Audio final con pausa
+        function setupFinalAudio(btnId, text, gender) {
+            const btn = document.getElementById(btnId);
+            if (!btn) return;
+
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                if (isSpeaking) {
+                    stopAudio();
+                    this.textContent = this.textContent.replace('⏸ Pausa', '▶');
+                    this.classList.remove('pause');
+                    return;
+                }
+
+                this.textContent = '⏸ Pausa';
+                this.classList.add('pause');
+
+                speakText(text, 'en-US', gender,
+                    function() {},
+                    function() {
+                        btn.textContent = btn.textContent.replace('⏸ Pausa', '▶');
+                        btn.classList.remove('pause');
+                    }
+                );
+            });
+        }
+
+        setupFinalAudio('finalFemale', fullText, 'female');
+        setupFinalAudio('finalMale', fullText, 'male');
+
+        const restartBtn = document.getElementById('restartBtn');
+        if (restartBtn) {
+            restartBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                stopAudio();
+                sessionStates.forEach(state => {
+                    state.selectedLines = [];
+                    state.verified = false;
+                    state.lineStatus = [];
+                });
+                feedbackShown = {};
+                currentSession = 0;
+                renderSession(0);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    }
+
+    // ================================================================
+    //  INICIALIZAR
+    // ================================================================
+    if (window.speechSynthesis) {
+        window.speechSynthesis.getVoices();
+        window.speechSynthesis.onvoiceschanged = () => {
+            window.speechSynthesis.getVoices();
+        };
+    }
+
+    renderSession(0);
+</script>
+
+</body>
+</html>

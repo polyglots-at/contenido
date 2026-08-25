@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Actividad 1 · Ordenar Palabras</title>
+    <style>
+        /* ===== RESET Y BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #eef2f7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 16px 12px 40px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .app-container {
+            max-width: 560px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            padding: 24px 20px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #f0f4fc;
+        }
+
+        .app-header h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0b1e3a;
+            letter-spacing: -0.3px;
+        }
+
+        .app-header .badge {
+            background: #e8edf9;
+            color: #1e3b6b;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 30px;
+        }
+
+        /* ===== PROGRESO ===== */
+        .progress-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .progress-dot {
+            flex: 1;
+            height: 6px;
+            border-radius: 6px;
+            background: #dee5ef;
+            transition: background 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #2b6df6;
+        }
+
+        .progress-dot.done {
+            background: #2b6df6;
+            opacity: 0.5;
+        }
+
+        .progress-dot.correct {
+            background: #22c55e;
+        }
+
+        .progress-dot.wrong {
+            background: #ef4444;
+        }
+
+        /* ===== TARJETA DEL PUNTO ===== */
+        .punto-card {
+            animation: fadeSlide 0.3s ease;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(12px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .punto-number {
+            display: inline-block;
+            background: #2b6df6;
+            color: white;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 4px 16px;
+            border-radius: 30px;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+        }
+
+        .text-spanish {
+            background: #f5f9ff;
+            padding: 16px 18px;
+            border-radius: 18px;
+            border-left: 5px solid #2b6df6;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #0b1e3a;
+            font-weight: 450;
+        }
+
+        .text-spanish .label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #5a6f92;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        /* ===== CONTENEDOR DE PALABRAS DESORDENADAS ===== */
+        .words-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 16px 14px;
+            background: #f8fafd;
+            border-radius: 18px;
+            border: 2px dashed #dce3ef;
+            min-height: 70px;
+            margin-bottom: 16px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .word-btn {
+            background: white;
+            border: 2px solid #dce3ef;
+            border-radius: 30px;
+            padding: 10px 16px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #0b1e3a;
+            cursor: pointer;
+            transition: all 0.15s;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            touch-action: manipulation;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .word-btn:active {
+            transform: scale(0.95);
+            background: #eef3fc;
+        }
+
+        .word-btn.selected {
+            background: #2b6df6;
+            color: white;
+            border-color: #2b6df6;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .word-btn.hidden {
+            display: none;
+        }
+
+        /* ===== FRASE CONSTRUIDA ===== */
+        .built-sentence {
+            padding: 14px 16px;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 2px solid #e9eef6;
+            min-height: 55px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            line-height: 2;
+            color: #0b1e3a;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 0;
+            align-items: center;
+        }
+
+        .built-sentence .word-slot {
+            display: inline-block;
+            padding: 4px 10px;
+            margin: 0 2px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: 2px solid transparent;
+            touch-action: manipulation;
+            position: relative;
+        }
+
+        .built-sentence .word-slot:active {
+            transform: scale(0.92);
+        }
+
+        .built-sentence .word-slot.correct {
+            background: #bbf7d0;
+            color: #166534;
+            border-color: #86efac;
+            cursor: default;
+        }
+
+        .built-sentence .word-slot.wrong {
+            background: #fecaca;
+            color: #991b1b;
+            border-color: #fca5a5;
+            cursor: default;
+        }
+
+        .built-sentence .word-slot.wrong .correction {
+            display: inline-block;
+            margin-left: 6px;
+            color: #22c55e;
+            font-weight: 700;
+            background: #dcfce7;
+            padding: 0 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: default;
+        }
+
+        .built-sentence .word-slot.pending {
+            background: #f1f5f9;
+            color: #0b1e3a;
+            border-color: #dce3ef;
+        }
+
+        .built-sentence .word-slot.pending:active {
+            background: #e2e8f0;
+        }
+
+        .built-sentence .placeholder-text {
+            color: #aab7d0;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .built-sentence .hint {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-left: 8px;
+        }
+
+        /* ===== FEEDBACK INTELIGENTE ===== */
+        .feedback-box {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+            border: 2px solid #e9eef6;
+            display: none;
+            animation: fadeSlide 0.3s ease;
+        }
+
+        .feedback-box.show {
+            display: block;
+        }
+
+        .feedback-box .feedback-title {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feedback-box .feedback-title.success {
+            color: #166534;
+        }
+
+        .feedback-box .feedback-title.error {
+            color: #991b1b;
+        }
+
+        .feedback-box .feedback-detail {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #1e2f4a;
+        }
+
+        .feedback-box .feedback-detail .highlight {
+            font-weight: 600;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+
+        .feedback-box .feedback-detail .highlight.green {
+            background: #bbf7d0;
+            color: #166534;
+        }
+
+        .feedback-box .feedback-detail .highlight.red {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .feedback-box .feedback-detail .highlight.yellow {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .feedback-box .suggestion-list {
+            margin-top: 8px;
+            padding-left: 20px;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .feedback-box .suggestion-list li {
+            list-style-type: "💡 ";
+            padding-left: 4px;
+        }
+
+        /* ===== BOTONES DE ACCIÓN ===== */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            flex: 1;
+            min-width: 80px;
+            padding: 12px 14px;
+            border: none;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .btn-reset {
+            background: #f0f4fc;
+            color: #1d3557;
+            flex: 0.5;
+        }
+
+        .btn-reset:active {
+            background: #dce3ef;
+            transform: scale(0.97);
+        }
+
+        .btn-verify {
+            background: #2b6df6;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-verify:active {
+            background: #1a56d6;
+            transform: scale(0.97);
+        }
+
+        .btn-verify:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .btn-hint {
+            background: #fef3c7;
+            color: #92400e;
+            flex: 0.5;
+        }
+
+        .btn-hint:active {
+            background: #fde68a;
+            transform: scale(0.97);
+        }
+
+        /* ===== NAVEGACIÓN ===== */
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            padding-top: 16px;
+            border-top: 2px solid #f0f4fc;
+        }
+
+        .nav-buttons button {
+            flex: 1;
+            padding: 14px 10px;
+            border: none;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .btn-prev {
+            background: #f0f4fc;
+            color: #1d3557;
+            flex: 0.5;
+        }
+
+        .btn-prev:active {
+            background: #dce3ef;
+            transform: scale(0.97);
+        }
+
+        .btn-next {
+            background: #2b6df6;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-next:active {
+            background: #1a56d6;
+            transform: scale(0.97);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* ===== PANTALLA DE FINALIZACIÓN ===== */
+        .completion-screen {
+            text-align: center;
+            padding: 30px 10px 10px;
+            animation: fadeSlide 0.5s ease;
+        }
+
+        .completion-screen .icon {
+            font-size: 4rem;
+            margin-bottom: 12px;
+        }
+
+        .completion-screen h2 {
+            color: #0b1e3a;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .completion-screen p {
+            color: #4a5f82;
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 320px;
+            margin: 0 auto 20px;
+        }
+
+        .completion-screen .btn-restart {
+            background: #eef3fc;
+            color: #1d3557;
+            border: none;
+            padding: 14px 36px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            touch-action: manipulation;
+        }
+
+        .completion-screen .btn-restart:active {
+            background: #dce3ef;
+            transform: scale(0.97);
+        }
+
+        .completion-screen .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0 24px;
+        }
+
+        .completion-screen .stat-item {
+            text-align: center;
+        }
+
+        .completion-screen .stat-item .number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .completion-screen .stat-item .number.green {
+            color: #22c55e;
+        }
+
+        .completion-screen .stat-item .number.red {
+            color: #ef4444;
+        }
+
+        .completion-screen .stat-item .label {
+            font-size: 0.8rem;
+            color: #5a6f92;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 450px) {
+            .app-container {
+                padding: 18px 14px 22px;
+            }
+            .word-btn {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+            .built-sentence {
+                font-size: 0.9rem;
+                padding: 12px 14px;
+                min-height: 45px;
+                line-height: 1.8;
+            }
+            .built-sentence .word-slot {
+                padding: 3px 8px;
+                font-size: 0.85rem;
+            }
+            .action-buttons button {
+                font-size: 0.85rem;
+                padding: 10px 12px;
+            }
+            .text-spanish {
+                font-size: 0.9rem;
+                padding: 14px 16px;
+            }
+            .nav-buttons button {
+                font-size: 0.9rem;
+                padding: 12px 8px;
+            }
+            .feedback-box .feedback-detail {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .app-container {
+                padding: 14px 10px 18px;
+            }
+            .words-pool {
+                gap: 6px;
+                padding: 12px 10px;
+            }
+            .word-btn {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+            .built-sentence {
+                font-size: 0.8rem;
+                padding: 10px 12px;
+                min-height: 40px;
+            }
+            .built-sentence .word-slot {
+                padding: 2px 6px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container" id="app">
+
+    <header class="app-header">
+        <h1>🧩 Actividad 1</h1>
+        <span class="badge">Ordenar</span>
+    </header>
+
+    <div class="progress-bar" id="progressBar">
+        <span class="progress-dot active"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+        <span class="progress-dot"></span>
+    </div>
+
+    <div id="contentArea"></div>
+
+</div>
+
+<script>
+    // ================================================================
+    //  DATOS DE LOS 7 PUNTOS
+    // ================================================================
+    const puntos = [{
+        id: 1,
+        spanish: `Antes del nacimiento de la filosofía sistemática en el siglo VI a. C., la poesía épica y la tragedia griega cumplían la función de articular la cosmovisión, los valores éticos y la comprensión del orden universal para el mundo heleno.`,
+        english: `Before the birth of systematic philosophy in the 6th century BC, epic poetry and Greek tragedy fulfill the function of articulating the worldview, ethical values, and understanding of the universal order for the Hellenic world.`
+    }, {
+        id: 2,
+        spanish: `Homero, a través de la Ilíada y la Odisea, no solo ofreció narraciones heroicas, sino que introdujo la noción fundamental de que el universo está regido por un orden imperturbable o ley suprema, personificada a menudo bajo el concepto de Moira o destino.`,
+        english: `Homer, through the Iliad and the Odyssey, not only offers heroic narratives, but introduces the fundamental notion that the universe is governed by an unyielding order or supreme law, often personified under the concept of Moira or fate.`
+    }, {
+        id: 3,
+        spanish: `Esta idea de que existe una estructura subyacente y una necesidad que limita incluso la acción de los hombres y de los dioses constituyó el primer antecedente directo para la posterior búsqueda presocrática del Arjé o principio gobernante de la naturaleza (Physis).`,
+        english: `This idea that an underlying structure and a necessity exist that limit even the actions of men and gods constitutes the first direct precedent for the later Pre-Socratic search for the Arche or governing principle of nature (Physis).`
+    }, {
+        id: 4,
+        spanish: `Por su parte, Hesíodo aportó un esfuerzo de sistematización racional en la Teogonía, donde intentó explicar el origen del cosmos a partir de un tránsito desde el Caos primordial hacia un Cosmos ordenado mediante genealogías divinas.`,
+        english: `For his part, Hesiod contributes an effort of rational systemization in the Theogony, where he tries to explain the origin of the cosmos from a transition from primordial Chaos to an ordered Cosmos through divine genealogies.`
+    }, {
+        id: 5,
+        spanish: `En su obra Trabajos y días, Hesíodo introdujo además el concepto de Diké (justicia) como un principio moral abstracto y universal que no depende meramente del capricho de los gobernantes, prefigurando la ética filosófica y la filosofía política.`,
+        english: `In his work Works and Days, Hesiod also introduces the concept of Dike (justice) as an abstract and universal moral principle that does not depend merely on the whim of rulers, prefiguring philosophical ethics and political philosophy.`
+    }, {
+        id: 6,
+        spanish: `Cuando surge la tragedia griega en el siglo V a. C. con autores como Esquilo, Sófocles y Eurípides, esta hereda la estructura mítica de Homero y Hesíodo, pero la somete a una profunda e intensa problematización crítica.`,
+        english: `When Greek tragedy arises in the 5th century BC with authors like Aeschylus, Sophocles, and Euripides, it inherits the mythical structure of Homer and Hesiod, but subjects it to a deep and intense critical problematization.`
+    }, {
+        id: 7,
+        spanish: `La poesía trágica se convierte en un espacio de debate conceptual donde los grandes dilemas de la condición humana, como la responsabilidad individual, la culpa, el sufrimiento y el conflicto entre la ley humana y la ley divina, son examinados de manera abierta.`,
+        english: `Tragic poetry becomes a space for conceptual debate where the great dilemmas of the human condition, such as individual responsibility, guilt, suffering, and the conflict between human law and divine law, are examined in an open manner.`
+    }];
+
+    // ================================================================
+    //  ESTADO
+    // ================================================================
+    let currentIndex = 0;
+    const totalPuntos = puntos.length;
+
+    const estadoPuntos = puntos.map(() => ({
+        selectedWords: [],
+        verified: false,
+        wordStatus: [],
+        hintUsed: false
+    }));
+
+    // ================================================================
+    //  REFERENCIAS DOM
+    // ================================================================
+    const contentArea = document.getElementById('contentArea');
+    const progressDots = document.querySelectorAll('.progress-dot');
+
+    // ================================================================
+    //  FUNCIONES AUXILIARES
+    // ================================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function tokenizeSentence(text) {
+        let cleaned = text.replace(/([.,;:!?()])(\S)/g, '$1 $2');
+        cleaned = cleaned.replace(/(\S)([.,;:!?()])/g, '$1 $2');
+        return cleaned.split(/\s+/).filter(w => w.length > 0);
+    }
+
+    // ================================================================
+    //  ANÁLISIS INTELIGENTE DE ERRORES
+    // ================================================================
+    function analyzeErrors(selected, correct) {
+        const errors = [];
+        const maxLen = Math.max(selected.length, correct.length);
+
+        // 1. Detectar palabras faltantes
+        if (selected.length < correct.length) {
+            const missing = correct.slice(selected.length);
+            errors.push({
+                type: 'missing',
+                message: `Faltan ${missing.length} palabra(s) al final: "${missing.join(' ')}"`,
+                detail: 'Recuerda incluir todas las palabras de la frase.'
+            });
+        }
+
+        // 2. Detectar palabras de más
+        if (selected.length > correct.length) {
+            const extra = selected.slice(correct.length);
+            errors.push({
+                type: 'extra',
+                message: `Sobran ${extra.length} palabra(s) al final: "${extra.join(' ')}"`,
+                detail: 'Has añadido palabras que no pertenecen a la frase.'
+            });
+        }
+
+        // 3. Detectar errores de orden específicos
+        const minLen = Math.min(selected.length, correct.length);
+        let misplacedCount = 0;
+        let misplacedWords = [];
+
+        for (let i = 0; i < minLen; i++) {
+            if (selected[i] !== correct[i]) {
+                misplacedCount++;
+                misplacedWords.push({
+                    position: i + 1,
+                    student: selected[i],
+                    correct: correct[i]
+                });
+            }
+        }
+
+        if (misplacedCount > 0) {
+            let errorDetail = '';
+            if (misplacedCount === 1) {
+                const m = misplacedWords[0];
+                errorDetail = `La palabra "${m.student}" debería ser "${m.correct}" en la posición ${m.position}.`;
+            } else {
+                errorDetail = `${misplacedCount} palabras están fuera de lugar. Revisa el orden de: `;
+                errorDetail += misplacedWords.map(m => `"${m.student}" → "${m.correct}"`).join(', ');
+            }
+
+            // Análisis más profundo: detectar patrones
+            let patternHint = '';
+            // Detectar si es problema de adjetivos
+            const adjPatterns = ['epic', 'heroic', 'fundamental', 'underlying', 'rational', 'primordial', 'divine', 'universal', 'supreme', 'abstract', 'moral', 'mythical', 'critical', 'conceptual', 'individual', 'open'];
+            const hasAdjectiveError = misplacedWords.some(m => 
+                adjPatterns.some(adj => m.correct.toLowerCase().includes(adj) || m.student.toLowerCase().includes(adj))
+            );
+            if (hasAdjectiveError) {
+                patternHint = '💡 En inglés, los adjetivos suelen ir ANTES del sustantivo que modifican (ej: "epic poetry", no "poetry epic").';
+            }
+
+            // Detectar si es problema de adverbios
+            const advPatterns = ['not', 'only', 'also', 'often', 'merely'];
+            const hasAdverbError = misplacedWords.some(m => 
+                advPatterns.some(adv => m.correct.toLowerCase().includes(adv) || m.student.toLowerCase().includes(adv))
+            );
+            if (hasAdverbError) {
+                patternHint = patternHint ? patternHint + ' ' : '';
+                patternHint += '💡 Los adverbios suelen ir ANTES del verbo principal o DESPUÉS del verbo "to be".';
+            }
+
+            // Detectar si es problema de estructura sujeto-verbo
+            const hasStructureError = misplacedWords.some(m => 
+                ['Homer', 'Hesiod', 'poetry', 'tragedy', 'idea', 'principle'].some(n => 
+                    m.correct.includes(n) || m.student.includes(n)
+                )
+            );
+            if (hasStructureError) {
+                patternHint = patternHint ? patternHint + ' ' : '';
+                patternHint += '💡 La estructura básica del inglés es: SUJETO + VERBO + COMPLEMENTO.';
+            }
+
+            errors.push({
+                type: 'order',
+                message: errorDetail,
+                detail: patternHint || 'Revisa el orden de las palabras en la frase.'
+            });
+        }
+
+        // 4. Evaluación general
+        const isPerfect = selected.length === correct.length && 
+                         selected.every((w, i) => w === correct[i]);
+
+        return {
+            errors,
+            isPerfect,
+            score: isPerfect ? 100 : Math.max(0, 100 - (errors.length * 20) - (misplacedCount * 5))
+        };
+    }
+
+    // ================================================================
+    //  RENDERIZAR UN PUNTO
+    // ================================================================
+    function renderPunto(index) {
+        const punto = puntos[index];
+        const estado = estadoPuntos[index];
+        const isLast = (index === totalPuntos - 1);
+
+        const englishWords = tokenizeSentence(punto.english);
+        const isVerified = estado.verified;
+
+        let html = `
+            <div class="punto-card">
+                <div class="punto-number">Punto ${punto.id} de ${totalPuntos}</div>
+
+                <div class="text-spanish">
+                    <span class="label">📖 Traducción al español (guía)</span>
+                    ${punto.spanish}
+                </div>
+
+                <div class="built-sentence" id="builtSentence_${punto.id}">
+        `;
+
+        if (isVerified) {
+            // Mostrar con colores y correcciones
+            const statuses = estado.wordStatus;
+            estado.selectedWords.forEach((word, i) => {
+                const status = statuses[i] || 'wrong';
+                const correctWord = englishWords[i] || '';
+                
+                let slotHtml = `<span class="word-slot ${status}">${word}`;
+                if (status === 'wrong' && correctWord) {
+                    slotHtml += ` <span class="correction">→ ${correctWord}</span>`;
+                }
+                slotHtml += `</span>`;
+                html += slotHtml;
+            });
+
+            // Mostrar palabras faltantes
+            if (estado.selectedWords.length < englishWords.length) {
+                for (let i = estado.selectedWords.length; i < englishWords.length; i++) {
+                    html += `<span class="word-slot wrong">[❌] <span class="correction">→ ${englishWords[i]}</span></span>`;
+                }
+            }
+
+            // Mostrar palabras de más
+            if (estado.selectedWords.length > englishWords.length) {
+                for (let i = englishWords.length; i < estado.selectedWords.length; i++) {
+                    html += `<span class="word-slot wrong">${estado.selectedWords[i]} <span class="correction">→ [sobra]</span></span>`;
+                }
+            }
+
+        } else {
+            // Modo selección
+            if (estado.selectedWords.length === 0) {
+                html += `<span class="placeholder-text">Toca las palabras en orden 👇</span>`;
+            } else {
+                estado.selectedWords.forEach((word, i) => {
+                    html += `<span class="word-slot pending" data-pos="${i}">${word} ✕</span>`;
+                });
+                html += ` <span class="hint">(toca ✕ para eliminar)</span>`;
+            }
+        }
+
+        html += `
+                </div>
+
+                <div class="words-pool" id="wordsPool_${punto.id}">
+        `;
+
+        if (isVerified) {
+            // Mostrar todas las palabras con colores
+            const statuses = estado.wordStatus;
+            englishWords.forEach((word, i) => {
+                const status = statuses[i] || 'wrong';
+                const colorClass = status === 'correct' ? 'correct' : (status === 'wrong' ? 'wrong' : '');
+                html += `<span class="word-btn ${colorClass}">${word}</span>`;
+            });
+        } else {
+            // Mostrar palabras disponibles
+            const wordCount = {};
+            englishWords.forEach(w => { wordCount[w] = (wordCount[w] || 0) + 1; });
+
+            const selectedCount = {};
+            estado.selectedWords.forEach(w => { selectedCount[w] = (selectedCount[w] || 0) + 1; });
+
+            const availableWords = [];
+            const allUniqueWords = [...new Set(englishWords)];
+            allUniqueWords.forEach(word => {
+                const total = wordCount[word] || 0;
+                const used = selectedCount[word] || 0;
+                for (let i = used; i < total; i++) {
+                    availableWords.push(word);
+                }
+            });
+
+            const shuffled = shuffleArray(availableWords);
+
+            if (shuffled.length === 0) {
+                html += `<span style="color:#94a3b8; font-style:italic;">Todas las palabras seleccionadas</span>`;
+            } else {
+                shuffled.forEach(word => {
+                    html += `<span class="word-btn" data-word="${word}">${word}</span>`;
+                });
+            }
+        }
+
+        html += `
+                </div>
+
+                <!-- Feedback inteligente -->
+                <div class="feedback-box" id="feedbackBox_${punto.id}">
+                    <div class="feedback-title" id="feedbackTitle_${punto.id}"></div>
+                    <div class="feedback-detail" id="feedbackDetail_${punto.id}"></div>
+                    <ul class="suggestion-list" id="suggestionList_${punto.id}"></ul>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-reset" id="resetBtn_${punto.id}">🔄 Reiniciar</button>
+                    ${!isVerified ? `<button class="btn-hint" id="hintBtn_${punto.id}">💡 Pista</button>` : ''}
+                    <button class="btn-verify" id="verifyBtn_${punto.id}" ${isVerified ? 'disabled' : ''}>
+                        ${isVerified ? '✅ Verificado' : '✓ Verificar'}
+                    </button>
+                </div>
+        `;
+
+        // Navegación
+        html += `
+                <div class="nav-buttons">
+                    <button class="btn-prev" id="prevBtn" ${index === 0 ? 'disabled' : ''}>
+                        ◀ Anterior
+                    </button>
+        `;
+
+        if (isLast) {
+            html += `
+                    <button class="btn-next" id="nextBtn" ${!isVerified ? 'disabled' : ''}>
+                        🏁 Finalizar
+                    </button>
+            `;
+        } else {
+            html += `
+                    <button class="btn-next" id="nextBtn" ${!isVerified ? 'disabled' : ''}>
+                        Siguiente ▶
+                    </button>
+            `;
+        }
+
+        html += `
+                </div>
+            </div>
+        `;
+
+        contentArea.innerHTML = html;
+        updateProgress(index);
+
+        // ============================================================
+        //  EVENTOS
+        // ============================================================
+
+        if (!isVerified) {
+            // Seleccionar palabra
+            const wordBtns = document.querySelectorAll(`#wordsPool_${punto.id} .word-btn`);
+            wordBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const word = this.dataset.word;
+                    estado.selectedWords.push(word);
+                    renderPunto(index);
+                    const verifyBtn = document.getElementById(`verifyBtn_${punto.id}`);
+                    if (verifyBtn && estado.selectedWords.length > 0) {
+                        verifyBtn.disabled = false;
+                    }
+                });
+            });
+
+            // Eliminar palabra (click en ✕)
+            const builtDiv = document.getElementById(`builtSentence_${punto.id}`);
+            if (builtDiv) {
+                builtDiv.querySelectorAll('.word-slot.pending').forEach(slot => {
+                    slot.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const pos = parseInt(this.dataset.pos);
+                        if (!isNaN(pos) && pos >= 0 && pos < estado.selectedWords.length) {
+                            estado.selectedWords.splice(pos, 1);
+                            renderPunto(index);
+                        }
+                    });
+                });
+            }
+
+            // Pista
+            const hintBtn = document.getElementById(`hintBtn_${punto.id}`);
+            if (hintBtn) {
+                hintBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    estado.hintUsed = true;
+                    showHint(index);
+                });
+            }
+        }
+
+        // Reiniciar
+        const resetBtn = document.getElementById(`resetBtn_${punto.id}`);
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                estado.selectedWords = [];
+                estado.verified = false;
+                estado.wordStatus = [];
+                estado.hintUsed = false;
+                renderPunto(index);
+            });
+        }
+
+        // Verificar
+        const verifyBtn = document.getElementById(`verifyBtn_${punto.id}`);
+        if (verifyBtn && !isVerified) {
+            verifyBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const selected = estado.selectedWords;
+                const correctWords = tokenizeSentence(punto.english);
+
+                // Verificar palabra por palabra
+                const statuses = [];
+                for (let i = 0; i < correctWords.length; i++) {
+                    if (i < selected.length && selected[i] === correctWords[i]) {
+                        statuses.push('correct');
+                    } else {
+                        statuses.push('wrong');
+                    }
+                }
+
+                if (selected.length > correctWords.length) {
+                    for (let i = correctWords.length; i < selected.length; i++) {
+                        statuses.push('wrong');
+                    }
+                }
+
+                estado.verified = true;
+                estado.wordStatus = statuses;
+
+                // Análisis inteligente
+                const analysis = analyzeErrors(selected, correctWords);
+                showFeedback(index, analysis);
+
+                // Actualizar progreso
+                const dot = progressDots[index];
+                dot.classList.remove('active', 'done');
+                dot.classList.add(analysis.isPerfect ? 'correct' : 'wrong');
+
+                renderPunto(index);
+
+                const nextBtn = document.getElementById('nextBtn');
+                if (nextBtn) {
+                    nextBtn.disabled = false;
+                }
+            });
+        }
+
+        // Navegación
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    renderPunto(currentIndex);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (isLast) {
+                    showCompletionScreen();
+                } else {
+                    if (currentIndex < totalPuntos - 1) {
+                        currentIndex++;
+                        renderPunto(currentIndex);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }
+            });
+        }
+
+        // Si ya está verificado, mostrar feedback
+        if (isVerified) {
+            const selected = estado.selectedWords;
+            const correctWords = tokenizeSentence(punto.english);
+            const analysis = analyzeErrors(selected, correctWords);
+            showFeedback(index, analysis);
+        }
+    }
+
+    // ================================================================
+    //  MOSTRAR FEEDBACK INTELIGENTE
+    // ================================================================
+    function showFeedback(index, analysis) {
+        const feedbackBox = document.getElementById(`feedbackBox_${index + 1}`);
+        const feedbackTitle = document.getElementById(`feedbackTitle_${index + 1}`);
+        const feedbackDetail = document.getElementById(`feedbackDetail_${index + 1}`);
+        const suggestionList = document.getElementById(`suggestionList_${index + 1}`);
+
+        if (!feedbackBox) return;
+
+        feedbackBox.classList.add('show');
+
+        if (analysis.isPerfect) {
+            feedbackTitle.className = 'feedback-title success';
+            feedbackTitle.innerHTML = '🎉 ¡Perfecto!';
+            feedbackDetail.innerHTML = `
+                Has ordenado todas las palabras correctamente. 
+                <span class="highlight green">${analysis.score}%</span> de precisión.
+                ${estadoPuntos[index].hintUsed ? ' Usaste una pista, pero igual lo lograste. ¡Bien hecho!' : ' ¡Sin necesidad de pistas! Excelente trabajo.'}
+            `;
+            suggestionList.innerHTML = '';
+        } else {
+            feedbackTitle.className = 'feedback-title error';
+            feedbackTitle.innerHTML = `📝 Análisis de errores (${analysis.score}% de precisión)`;
+
+            let detailHtml = '';
+            analysis.errors.forEach((err, i) => {
+                if (i > 0) detailHtml += '<br>';
+                detailHtml += `• <strong>${err.message}</strong>`;
+                if (err.detail) {
+                    detailHtml += `<br><span style="font-weight:400;font-size:0.9rem;color:#4a5f82;">${err.detail}</span>`;
+                }
+            });
+            feedbackDetail.innerHTML = detailHtml;
+
+            // Sugerencias
+            let suggestions = [];
+            if (analysis.errors.some(e => e.type === 'order')) {
+                suggestions.push('🔍 Lee la frase en voz alta en español y compárala con tu orden en inglés.');
+                suggestions.push('📝 En inglés, el sujeto suele ir primero, seguido del verbo y luego el objeto.');
+                suggestions.push('🎯 Presta atención a los adjetivos: en inglés van ANTES del sustantivo.');
+            }
+            if (analysis.errors.some(e => e.type === 'missing')) {
+                suggestions.push('📖 Asegúrate de incluir TODAS las palabras de la frase en el orden correcto.');
+                suggestions.push('👀 Revisa si hay artículos (the, a, an) o preposiciones que faltan.');
+            }
+            if (analysis.errors.some(e => e.type === 'extra')) {
+                suggestions.push('🧹 Elimina las palabras que sobran. La frase debe tener la misma longitud que el original.');
+            }
+            if (suggestions.length === 0) {
+                suggestions.push('💪 Sigue practicando. ¡Cada intento te acerca más a la perfección!');
+            }
+
+            suggestionList.innerHTML = suggestions.map(s => `<li>${s}</li>`).join('');
+        }
+    }
+
+    // ================================================================
+    //  MOSTRAR PISTA
+    // ================================================================
+    function showHint(index) {
+        const punto = puntos[index];
+        const correctWords = tokenizeSentence(punto.english);
+        
+        // Mostrar las primeras 3 palabras como pista
+        const hintWords = correctWords.slice(0, Math.min(3, correctWords.length));
+        const hintText = hintWords.join(' ');
+
+        const feedbackBox = document.getElementById(`feedbackBox_${index + 1}`);
+        const feedbackTitle = document.getElementById(`feedbackTitle_${index + 1}`);
+        const feedbackDetail = document.getElementById(`feedbackDetail_${index + 1}`);
+        const suggestionList = document.getElementById(`suggestionList_${index + 1}`);
+
+        if (feedbackBox) {
+            feedbackBox.classList.add('show');
+            feedbackTitle.className = 'feedback-title';
+            feedbackTitle.style.color = '#92400e';
+            feedbackTitle.innerHTML = '💡 Pista';
+            feedbackDetail.innerHTML = `
+                La frase en inglés comienza con: 
+                <span class="highlight yellow">"${hintText}..."</span>
+                <br><br>
+                <span style="font-size:0.85rem;color:#4a5f82;">
+                    Intenta completar el resto de la frase con las palabras disponibles.
+                </span>
+            `;
+            suggestionList.innerHTML = '';
+        }
+    }
+
+    // ================================================================
+    //  ACTUALIZAR BARRA DE PROGRESO
+    // ================================================================
+    function updateProgress(activeIndex) {
+        progressDots.forEach((dot, i) => {
+            const estado = estadoPuntos[i];
+            dot.classList.remove('active', 'done', 'correct', 'wrong');
+
+            if (i === activeIndex) {
+                dot.classList.add('active');
+            } else if (estado && estado.verified) {
+                const hasError = estado.wordStatus.some(s => s === 'wrong');
+                dot.classList.add(hasError ? 'wrong' : 'correct');
+            } else if (i < activeIndex) {
+                dot.classList.add('done');
+            }
+        });
+    }
+
+    // ================================================================
+    //  PANTALLA DE FINALIZACIÓN
+    // ================================================================
+    function showCompletionScreen() {
+        let correctCount = 0;
+        let wrongCount = 0;
+        let totalScore = 0;
+
+        estadoPuntos.forEach((est, i) => {
+            if (est.verified) {
+                const hasError = est.wordStatus.some(s => s === 'wrong');
+                if (hasError) wrongCount++;
+                else correctCount++;
+
+                const correctWords = tokenizeSentence(puntos[i].english);
+                const analysis = analyzeErrors(est.selectedWords, correctWords);
+                totalScore += analysis.score;
+            }
+        });
+
+        const avgScore = estadoPuntos.filter(e => e.verified).length > 0 
+            ? Math.round(totalScore / estadoPuntos.filter(e => e.verified).length) 
+            : 0;
+
+        contentArea.innerHTML = `
+            <div class="completion-screen">
+                <div class="icon">🎉</div>
+                <h2>¡Completaste la Actividad 1!</h2>
+                <p>Has ordenado todas las frases. Tu precisión promedio es del <strong>${avgScore}%</strong>.</p>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="number green">${correctCount}</span>
+                        <span class="label">✅ Correctas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="number red">${wrongCount}</span>
+                        <span class="label">❌ Incorrectas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="number" style="color:#2b6df6;">${avgScore}%</span>
+                        <span class="label">🎯 Precisión</span>
+                    </div>
+                </div>
+
+                ${wrongCount > 0 ? `
+                    <p style="font-size:0.9rem;color:#4a5f82;background:#fef3c7;padding:12px 16px;border-radius:12px;margin-bottom:16px;">
+                        💡 Revisa los puntos marcados en rojo para entender tus errores.
+                    </p>
+                ` : `
+                    <p style="font-size:0.9rem;color:#166534;background:#dcfce7;padding:12px 16px;border-radius:12px;margin-bottom:16px;">
+                        🌟 ¡Excelente! Todos los puntos correctos. ¡Eres un crack!
+                    </p>
+                `}
+
+                <button class="btn-restart" id="restartBtn">🔄 Repetir actividad</button>
+            </div>
+        `;
+
+        progressDots.forEach((dot, i) => {
+            const est = estadoPuntos[i];
+            dot.classList.remove('active', 'done');
+            if (est && est.verified) {
+                const hasError = est.wordStatus.some(s => s === 'wrong');
+                dot.classList.add(hasError ? 'wrong' : 'correct');
+            } else {
+                dot.classList.add('done');
+            }
+        });
+
+        document.getElementById('restartBtn').addEventListener('click', function() {
+            estadoPuntos.forEach(est => {
+                est.selectedWords = [];
+                est.verified = false;
+                est.wordStatus = [];
+                est.hintUsed = false;
+            });
+            currentIndex = 0;
+            renderPunto(currentIndex);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // ================================================================
+    //  INICIALIZAR
+    // ================================================================
+    renderPunto(currentIndex);
+</script>
+
+</body>
+</html>
