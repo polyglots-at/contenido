@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
     <title>Artículos en Inglés · Polyglots</title>
     <style>
+        /* ===== RESET Y BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -12,62 +13,86 @@
         }
 
         body {
-            background: #2c5f8a;
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-            color: #f0f7ff;
-            line-height: 1.5;
-            padding: 15px 12px;
+            background: #f0f4f8;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            color: #1e2f4a;
+            line-height: 1.6;
+            padding: 16px 12px;
             display: flex;
             justify-content: center;
             min-height: 100vh;
         }
 
-        .container {
-            max-width: 650px;
+        .app-wrapper {
+            max-width: 820px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(2px);
-            border-radius: 40px;
-            padding: 25px 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-            border: 2px solid #a3cef1;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            padding: 24px 20px 32px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
         }
 
-        /* HEADER */
+        /* ===== HEADER ===== */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #1d4b6e;
-            border-radius: 60px;
-            padding: 12px 20px;
-            margin-bottom: 25px;
-            border: 2px solid #9ac7f0;
+            border-bottom: 2px solid #e9eef6;
+            padding-bottom: 14px;
+            margin-bottom: 22px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
 
         .header h1 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #e8f3ff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0b1e3a;
         }
 
         .score {
-            background: #f4c542;
-            color: #1d3b4f;
-            font-weight: 700;
-            padding: 8px 18px;
+            background: #f0f4fc;
+            border: 1px solid #dce3ef;
+            color: #1e3b6b;
+            font-weight: 600;
+            padding: 4px 16px;
             border-radius: 40px;
-            font-size: 1.1rem;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .score span {
-            font-size: 1.6rem;
-            margin-left: 6px;
+            font-size: 1.2rem;
         }
 
-        /* MÓDULOS */
+        .back-row {
+            margin-bottom: 18px;
+        }
+
+        .btn-back {
+            background: #f0f4fc;
+            border: 1px solid #dce3ef;
+            color: #1d3557;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            background: #dce3ef;
+        }
+
+        /* ===== MÓDULOS ===== */
         .module {
             display: none;
             animation: fadeSlide 0.4s ease;
@@ -78,135 +103,160 @@
         }
 
         @keyframes fadeSlide {
-            0% { opacity: 0; transform: translateY(18px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* TARJETAS DE EXPLICACIÓN */
+        /* ===== TARJETAS DE EXPLICACIÓN ===== */
         .explain-card {
-            background: #e7f0fc;
-            color: #023047;
-            border-radius: 30px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-left: 12px solid;
-            box-shadow: 0 8px 0 #1b4b6e;
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 24px 20px;
+            margin-bottom: 22px;
+            border: 1px solid #e9eef6;
         }
 
         .explain-card h2 {
-            font-size: 1.7rem;
-            margin-bottom: 18px;
+            font-size: 1.4rem;
+            color: #0b1e3a;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        /* Colores por tema */
-        .indefinido-border { border-left-color: #d97706; }
-        .definido-border { border-left-color: #1f7ea3; }
-        .excepciones-border { border-left-color: #9b5fc0; }
-        .avanzado-border { border-left-color: #2a8c5a; }
+        .explain-card h2 .badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
         .explain-text {
-            font-size: 1.1rem;
-            margin-bottom: 16px;
+            font-size: 1rem;
+            color: #1e2f4a;
             line-height: 1.7;
+            margin-bottom: 14px;
         }
 
         .explain-text strong {
-            color: #b45f06;
+            color: #1e40af;
         }
 
-        .comparison {
-            background: #d4e6f5;
-            border-radius: 18px;
-            padding: 15px;
-            margin: 16px 0;
-            border-left: 5px solid #f39c12;
+        .comparison-box {
+            background: #eef3fc;
+            border-left: 4px solid #2b6df6;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin: 14px 0;
         }
 
-        .comparison strong {
-            color: #b45f06;
+        .comparison-box .en {
+            color: #1e40af;
+            font-weight: 600;
         }
 
-        .example-row {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            background: #ffffff90;
-            border-radius: 24px;
-            padding: 18px;
-            margin: 15px 0;
-        }
-
-        .example-item {
-            border-bottom: 1px solid #a0c4e2;
-            padding: 8px 0;
-        }
-
-        .example-item:last-child {
-            border-bottom: none;
-        }
-
-        .en {
-            font-weight: 700;
-            color: #0a4b6e;
-            font-size: 1.15rem;
-        }
-
-        .es {
-            color: #2f506d;
+        .comparison-box .es {
+            color: #4a5f82;
+            font-weight: 600;
             font-style: italic;
         }
 
-        .note {
-            background: #ffe8c8;
-            border-radius: 18px;
-            padding: 12px 16px;
-            color: #5e3a0c;
-            margin-top: 15px;
-            font-size: 1rem;
+        .example-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 14px 0;
         }
 
-        .special-box {
-            background: #f0e6ff;
-            border: 2px solid #9b5fc0;
-            border-radius: 18px;
-            padding: 18px;
-            margin: 16px 0;
+        @media (max-width: 500px) {
+            .example-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .special-box .special-title {
-            color: #7b3f9e;
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+        .example-item {
+            background: white;
+            border: 1px solid #e9eef6;
+            border-radius: 16px;
+            padding: 14px 16px;
             text-align: center;
         }
 
-        /* TABLA DE ARTÍCULOS */
+        .example-item .en {
+            font-weight: 700;
+            color: #1e40af;
+            font-size: 1.05rem;
+        }
+
+        .example-item .es {
+            color: #4a5f82;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .note-box {
+            background: #f0f7ff;
+            border-radius: 14px;
+            padding: 12px 16px;
+            color: #1e3a8a;
+            font-size: 0.95rem;
+            margin-top: 12px;
+            border: 1px solid #dbeafe;
+        }
+
+        .warning-box {
+            background: #fef2f2;
+            border-radius: 14px;
+            padding: 12px 16px;
+            color: #991b1b;
+            font-size: 0.95rem;
+            margin-top: 12px;
+            border: 1px solid #fecaca;
+            font-weight: 600;
+        }
+
+        /* ===== TABLA DE ARTÍCULOS (responsive) ===== */
+        .article-table-wrap {
+            overflow-x: auto;
+            margin: 14px 0;
+            border-radius: 16px;
+            border: 1px solid #e9eef6;
+            background: white;
+        }
+
         .article-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 16px 0;
-            font-size: 0.95rem;
-            border-radius: 16px;
-            overflow: hidden;
+            font-size: 0.9rem;
+            min-width: 300px;
         }
 
         .article-table th {
-            background: rgba(31, 126, 163, 0.25);
+            background: #eef3fc;
             padding: 12px 8px;
             font-weight: 700;
-            color: #023047;
-            border-bottom: 2px solid #1f7ea3;
+            color: #0b1e3a;
+            border-bottom: 2px solid #dce3ef;
+            text-align: center;
         }
 
         .article-table td {
             padding: 12px 8px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid #e9eef6;
             text-align: center;
-            color: #023047;
+            color: #1e2f4a;
         }
 
         .article-table tr:last-child td {
@@ -214,33 +264,44 @@
         }
 
         .highlight {
-            color: #d97706;
+            color: #1e40af;
             font-weight: 700;
         }
 
-        /* PRÁCTICA */
+        /* ===== PRÁCTICA ===== */
         .practice-box {
-            background: #f6faff;
-            border-radius: 36px;
-            padding: 22px;
-            margin: 25px 0;
-            border: 3px solid #7bb3e0;
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 22px 18px;
+            margin: 20px 0;
+            border: 1px solid #e9eef6;
         }
 
         .practice-title {
-            font-size: 1.6rem;
-            color: #0d4568;
-            margin-bottom: 15px;
-            border-bottom: 3px solid #7bb3e0;
-            padding-bottom: 8px;
+            font-size: 1.2rem;
+            color: #0b1e3a;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #e9eef6;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .practice-title .counter {
+            font-size: 0.9rem;
+            color: #4a5f82;
+            font-weight: 400;
         }
 
         .question {
             background: white;
-            border-radius: 28px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 0 #9bb8da;
+            border-radius: 20px;
+            padding: 18px 16px;
+            margin-bottom: 24px;
+            border: 1px solid #e9eef6;
         }
 
         .question:last-child {
@@ -248,207 +309,357 @@
         }
 
         .q-text {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: 600;
-            color: #022b41;
-            margin-bottom: 16px;
+            color: #0b1e3a;
+            margin-bottom: 6px;
         }
 
-        .options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+        .q-hint {
+            font-size: 0.85rem;
+            color: #4a5f82;
+            margin-bottom: 12px;
+            padding: 4px 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            display: inline-block;
+            border: 1px dashed #dce3ef;
         }
 
-        @media (max-width: 480px) {
-            .options {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
+        /* ---- Banco de palabras (ordenar) ---- */
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px 14px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 2px dashed #dce3ef;
+            min-height: 50px;
+            margin: 8px 0 12px;
+            justify-content: center;
         }
 
-        .option {
-            background: #e1effb;
-            border: 3px solid #7fb0da;
-            border-radius: 40px;
-            padding: 14px 6px;
-            text-align: center;
-            font-size: 1rem;
+        .word-chip {
+            background: white;
+            border: 2px solid #dce3ef;
+            border-radius: 30px;
+            padding: 8px 18px;
+            font-size: 0.95rem;
             font-weight: 500;
-            color: #013753;
+            color: #0b1e3a;
             cursor: pointer;
-            transition: 0.1s ease;
+            transition: 0.15s;
             touch-action: manipulation;
             user-select: none;
         }
 
-        .option:active {
-            transform: scale(0.96);
+        .word-chip:active {
+            transform: scale(0.95);
         }
 
-        .option.selected {
-            background: #b1d6ff;
-            border-color: #1f6396;
-            font-weight: 700;
+        .word-chip.used {
+            opacity: 0.3;
+            pointer-events: none;
+            transform: scale(0.9);
         }
 
-        .option.correct {
-            background: #b8e6c0;
-            border-color: #1d8545;
+        .sentence-builder {
+            padding: 12px 14px;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #e9eef6;
+            min-height: 45px;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #0b1e3a;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 10px;
         }
 
-        .option.incorrect {
-            background: #fbc1c1;
-            border-color: #b34141;
+        .sentence-builder .word-slot {
+            background: #eef3fc;
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: 2px solid #dce3ef;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
         }
 
+        .sentence-builder .word-slot:active {
+            transform: scale(0.95);
+        }
+
+        .sentence-builder .word-slot.correct {
+            border-color: #22c55e;
+            background: #dcfce7;
+        }
+
+        .sentence-builder .word-slot.incorrect {
+            border-color: #ef4444;
+            background: #fecaca;
+        }
+
+        .sentence-builder .placeholder-text {
+            color: #aab7d0;
+            font-style: italic;
+        }
+
+        /* ---- Opción múltiple ---- */
+        .options-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 8px 0 12px;
+            justify-content: center;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #dce3ef;
+            border-radius: 40px;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #0b1e3a;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            user-select: none;
+            flex: 0 1 auto;
+        }
+
+        .option-btn:active {
+            transform: scale(0.95);
+        }
+
+        .option-btn.selected {
+            border-color: #2b6df6;
+            background: #eef3fc;
+        }
+
+        .option-btn.correct-answer {
+            border-color: #22c55e;
+            background: #dcfce7;
+        }
+
+        .option-btn.wrong-answer {
+            border-color: #ef4444;
+            background: #fecaca;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        /* ---- Completar (input) ---- */
+        .fill-input {
+            border: 2px solid #dce3ef;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 300px;
+            margin: 8px 0 12px;
+            outline: none;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .fill-input:focus {
+            border-color: #2b6df6;
+        }
+
+        .fill-input.correct {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+
+        .fill-input.incorrect {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        /* ---- Botón verificar ---- */
         .btn-check {
-            background: #1f6396;
+            background: #2b6df6;
             color: white;
             border: none;
             border-radius: 60px;
-            padding: 16px 20px;
-            font-size: 1.15rem;
+            padding: 12px 18px;
+            font-size: 0.95rem;
             font-weight: 600;
             width: 100%;
-            margin-top: 18px;
+            margin-top: 6px;
             cursor: pointer;
-            touch-action: manipulation;
+            transition: 0.2s;
+        }
+
+        .btn-check:hover {
+            background: #1a56d6;
         }
 
         .btn-check:active {
             transform: scale(0.97);
         }
 
+        .btn-check:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .feedback {
-            margin-top: 16px;
+            margin-top: 12px;
             padding: 16px;
-            border-radius: 22px;
-            background: #e9f3fb;
-            border-left: 8px solid;
-            color: #001d33;
+            border-radius: 16px;
+            background: #f8fafc;
+            border-left: 4px solid;
+            color: #1e2f4a;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .feedback .title {
+            font-weight: 700;
             font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .feedback .explanation {
+            margin-top: 4px;
         }
 
         .fb-good {
-            border-color: #1d8545;
-            background: #dcf5e3;
+            border-color: #22c55e;
+            background: #f0fdf4;
         }
 
         .fb-bad {
-            border-color: #b34141;
-            background: #ffe1e1;
+            border-color: #ef4444;
+            background: #fef2f2;
         }
 
-        .explanation-detail {
-            font-size: 0.95rem;
-            margin-top: 10px;
-            background: #cde1f2;
-            padding: 12px;
-            border-radius: 14px;
-            line-height: 1.5;
+        .fb-good .title {
+            color: #166534;
         }
 
-        /* NAVEGACIÓN */
+        .fb-bad .title {
+            color: #991b1b;
+        }
+
+        /* ===== NAVEGACIÓN ===== */
         .nav-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 25px 0 10px;
+            margin: 24px 0 10px;
             flex-wrap: wrap;
             gap: 12px;
         }
 
         .nav-btn {
-            background: #1f4d70;
-            border: 3px solid #aad0f5;
-            color: white;
-            padding: 12px 22px;
+            background: #f0f4fc;
+            border: 1px solid #dce3ef;
+            color: #1d3557;
+            padding: 10px 22px;
             border-radius: 40px;
             font-weight: 600;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             cursor: pointer;
-            touch-action: manipulation;
-            min-width: 100px;
+            transition: 0.2s;
+            min-width: 90px;
             text-align: center;
         }
 
-        .nav-btn:active {
-            transform: scale(0.96);
+        .nav-btn:hover {
+            background: #dce3ef;
         }
 
         .nav-btn:disabled {
-            opacity: 0.3;
-            border-color: #7f9fbf;
+            opacity: 0.4;
             cursor: not-allowed;
+            pointer-events: none;
         }
 
         .dot-container {
             display: flex;
-            gap: 12px;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .dot {
-            width: 14px;
-            height: 14px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: #608bbf;
+            background: #dce3ef;
             transition: 0.2s;
         }
 
         .dot.active {
-            background: #f5d742;
-            box-shadow: 0 0 0 3px #ffd966;
+            background: #2b6df6;
         }
 
-        .footer {
-            text-align: center;
-            color: #c5e2ff;
-            margin-top: 20px;
-            font-size: 0.95rem;
+        .dot.done {
+            background: #22c55e;
         }
 
-        /* PÁGINA DE RESULTADOS */
+        /* ===== RESULTADOS ===== */
         .results-box {
-            background: #eaf3fc;
-            border-radius: 40px;
-            padding: 30px 20px;
+            background: #f8fafc;
+            border-radius: 28px;
+            padding: 32px 20px;
             text-align: center;
-            color: #023b5e;
+            border: 1px solid #e9eef6;
+        }
+
+        .results-box .trophy {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
         }
 
         .results-box h2 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0b1e3a;
+            margin-bottom: 4px;
         }
 
         .results-box .big-score {
             font-size: 3rem;
             font-weight: 700;
-            color: #d97706;
-            margin: 20px 0;
+            color: #2b6df6;
+            margin: 14px 0;
         }
 
         .results-box .final-message {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            color: #1e2f4a;
         }
 
         .results-box .learned-list {
             text-align: left;
             background: white;
-            border-radius: 20px;
-            padding: 18px 22px;
-            margin: 18px 0;
+            border-radius: 18px;
+            padding: 14px 18px;
+            margin: 14px 0;
             list-style: none;
+            border: 1px solid #e9eef6;
         }
 
         .results-box .learned-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #d4e6f5;
-            font-size: 1rem;
-            color: #023047;
+            padding: 6px 0;
+            border-bottom: 1px solid #e9eef6;
+            font-size: 0.95rem;
+            color: #1e2f4a;
         }
 
         .results-box .learned-list li:last-child {
@@ -457,514 +668,835 @@
 
         .results-box .learned-list li::before {
             content: "✅ ";
+            color: #22c55e;
         }
 
         .btn-restart {
-            background: #9b59b6;
-            border: 3px solid #c39bd3;
-            color: white;
-            padding: 14px 30px;
+            background: #f0f4fc;
+            border: 1px solid #dce3ef;
+            color: #1d3557;
+            padding: 12px 30px;
             border-radius: 40px;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
-            touch-action: manipulation;
+            transition: 0.2s;
             margin-top: 10px;
         }
 
-        .btn-restart:active {
-            transform: scale(0.96);
+        .btn-restart:hover {
+            background: #dce3ef;
+        }
+
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 22px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .app-wrapper {
+                padding: 16px 14px;
+            }
+            .explain-card {
+                padding: 18px 14px;
+            }
+            .explain-card h2 {
+                font-size: 1.2rem;
+            }
+            .practice-box {
+                padding: 16px 12px;
+            }
+            .practice-title {
+                font-size: 1.1rem;
+            }
+            .q-text {
+                font-size: 0.95rem;
+            }
+            .word-chip {
+                font-size: 0.85rem;
+                padding: 6px 14px;
+            }
+            .option-btn {
+                font-size: 0.85rem;
+                padding: 8px 16px;
+            }
+            .question {
+                padding: 14px 12px;
+            }
+            .fill-input {
+                font-size: 0.9rem;
+                padding: 8px 12px;
+            }
+            .article-table-wrap {
+                font-size: 0.8rem;
+            }
+            .article-table th,
+            .article-table td {
+                padding: 8px 4px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .header h1 {
+                font-size: 1rem;
+            }
+            .score {
+                font-size: 0.75rem;
+                padding: 2px 12px;
+            }
+            .word-chip {
+                font-size: 0.8rem;
+                padding: 5px 10px;
+            }
+            .option-btn {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            .sentence-builder {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container">
 
-    <!-- HEADER -->
-    <div class="header">
-        <h1>📘 Artículos en Inglés</h1>
-        <div class="score">Puntos <span id="scoreDisplay">0</span></div>
+    <div class="app-wrapper">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <h1>📘 Artículos en Inglés</h1>
+            <div class="score">⭐ <span id="scoreDisplay">0</span></div>
+        </div>
+
+        <!-- ===== VOLVER ===== -->
+        <div class="back-row">
+            <a href="page-contenido" class="btn-back">← Volver al curso</a>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MÓDULO 1: INTRODUCCIÓN                                        -->
+        <!-- ============================================================ -->
+        <div id="mod1" class="module active">
+            <div class="explain-card">
+                <h2>📚 1. ¿Qué son los artículos? <span class="badge">a / an / the</span></h2>
+                <div class="explain-text">
+                    Los artículos son palabras que <strong>preceden a los sustantivos</strong> para indicar si nos referimos a algo específico o general. En inglés existen dos tipos:
+                </div>
+
+                <div class="article-table-wrap">
+                    <table class="article-table">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Artículo</th>
+                                <th>Uso</th>
+                                <th>Ejemplo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Indefinido</strong></td>
+                                <td><span class="highlight">a</span></td>
+                                <td>Singular - consonante</td>
+                                <td>a book</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Indefinido</strong></td>
+                                <td><span class="highlight">an</span></td>
+                                <td>Singular - vocal</td>
+                                <td>an apple</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Definido</strong></td>
+                                <td><span class="highlight">the</span></td>
+                                <td>Singular y plural</td>
+                                <td>the book / the books</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="comparison-box">
+                    <div class="es">🇪🇸 Español: un/una — el/la (misma función)</div>
+                    <div class="en">🇬🇧 Inglés: la elección entre "a" y "an" depende del <strong>sonido</strong>, no de la letra.</div>
+                </div>
+
+                <div class="example-grid">
+                    <div class="example-item"><div class="en">I see <strong>a</strong> dog.</div><div class="es">(cualquier perro)</div></div>
+                    <div class="example-item"><div class="en">I see <strong>the</strong> dog.</div><div class="es">(ese perro específico)</div></div>
+                    <div class="example-item"><div class="en">She is <strong>an</strong> artist.</div><div class="es">(artista en general)</div></div>
+                    <div class="example-item"><div class="en">She is <strong>the</strong> artist.</div><div class="es">(esa artista en particular)</div></div>
+                </div>
+
+                <div class="note-box">
+                    📌 <strong>Regla básica:</strong> "a" antes de sonido consonante, "an" antes de sonido vocálico.
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 1 -->
+            <div class="practice-box">
+                <div class="practice-title">
+                    <span>✏️ Práctica 1 · Introducción</span>
+                    <span class="counter" id="counter1">0 / 5</span>
+                </div>
+                <div id="practice1"></div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" disabled>← anterior</button>
+                    <div class="dot-container">
+                        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    </div>
+                    <button class="nav-btn" onclick="goToModule(2)">siguiente →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MÓDULO 2: A vs AN (sonido)                                    -->
+        <!-- ============================================================ -->
+        <div id="mod2" class="module">
+            <div class="explain-card">
+                <h2>🔊 2. ¿"A" o "AN"? <span class="badge">El sonido manda</span></h2>
+                <div class="explain-text">
+                    No te fijes en la <strong>letra</strong>, fíjate en el <strong>sonido</strong> con que empieza la palabra.
+                </div>
+                <div class="comparison-box">
+                    <div class="en">✅ <strong>AN</strong> + sonido vocálico:</div>
+                    <div>an hour (la "h" no se pronuncia → suena "our")</div>
+                    <div>an honest person (h muda → "onest")</div>
+                    <div>an apple, an elephant, an umbrella</div>
+                </div>
+                <div class="comparison-box">
+                    <div class="en">✅ <strong>A</strong> + sonido consonante:</div>
+                    <div>a university (suena "yuniversity" → Y es consonante)</div>
+                    <div>a European (suena "you-ropean")</div>
+                    <div>a book, a car, a house</div>
+                </div>
+                <div class="example-grid">
+                    <div class="example-item"><div class="en">I need <strong>an</strong> hour</div><div class="es">Necesito una hora</div></div>
+                    <div class="example-item"><div class="en">She is <strong>a</strong> university student</div><div class="es">Es estudiante universitaria</div></div>
+                    <div class="example-item"><div class="en">He is <strong>an</strong> honest man</div><div class="es">Es un hombre honesto</div></div>
+                    <div class="example-item"><div class="en">They bought <strong>a</strong> European car</div><div class="es">Compraron un coche europeo</div></div>
+                </div>
+                <div class="warning-box">
+                    ⚠️ <strong>¡Ojo!</strong> "Honest" y "hour" tienen H muda → usamos "an".
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 2 -->
+            <div class="practice-box">
+                <div class="practice-title">
+                    <span>✏️ Práctica 2 · ¿A o AN?</span>
+                    <span class="counter" id="counter2">0 / 5</span>
+                </div>
+                <div id="practice2"></div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="goToModule(1)">← anterior</button>
+                    <div class="dot-container">
+                        <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+                    </div>
+                    <button class="nav-btn" onclick="goToModule(3)">siguiente →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MÓDULO 3: "THE" y casos sin artículo                           -->
+        <!-- ============================================================ -->
+        <div id="mod3" class="module">
+            <div class="explain-card">
+                <h2>🎯 3. "THE" y cuándo NO usar artículo <span class="badge">Específico</span></h2>
+                <div class="explain-text">
+                    <strong>"The"</strong> se usa cuando hablamos de algo <strong>específico</strong> o que ambos (hablante y oyente) ya conocen.
+                </div>
+                <div class="example-grid">
+                    <div class="example-item"><div class="en">I bought <strong>a</strong> book. <strong>The</strong> book is interesting.</div><div class="es">(primero general, luego específico)</div></div>
+                    <div class="example-item"><div class="en"><strong>The</strong> sun rises in <strong>the</strong> east.</div><div class="es">(objetos únicos)</div></div>
+                    <div class="example-item"><div class="en">She plays <strong>the</strong> piano.</div><div class="es">(instrumentos musicales)</div></div>
+                    <div class="example-item"><div class="en">I speak English. (sin artículo)</div><div class="es">(idiomas)</div></div>
+                </div>
+                <div style="background:#f8fafc; border-radius:16px; padding:16px; margin:14px 0; border:1px solid #e9eef6;">
+                    <div style="font-weight:700; color:#1e40af;">📌 Casos especiales con "the":</div>
+                    <ul style="margin-left:20px; color:#1e2f4a;">
+                        <li>Países en plural: <strong>the</strong> United States, <strong>the</strong> Netherlands</li>
+                        <li>Ríos y mares: <strong>the</strong> Amazon, <strong>the</strong> Pacific</li>
+                        <li>Direcciones: <strong>the</strong> north, <strong>the</strong> south</li>
+                    </ul>
+                </div>
+                <div class="note-box">
+                    ⚠️ <strong>NO se usa "the"</strong> con: nombres propios, idiomas, comidas en general, materias académicas.
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 3 -->
+            <div class="practice-box">
+                <div class="practice-title">
+                    <span>✏️ Práctica 3 · THE y ausencia de artículo</span>
+                    <span class="counter" id="counter3">0 / 5</span>
+                </div>
+                <div id="practice3"></div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="goToModule(2)">← anterior</button>
+                    <div class="dot-container">
+                        <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
+                    </div>
+                    <button class="nav-btn" onclick="goToModule(4)">siguiente →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MÓDULO 4: COMBINADO (oraciones completas)                     -->
+        <!-- ============================================================ -->
+        <div id="mod4" class="module">
+            <div class="explain-card">
+                <h2>🚀 4. Combinando todo <span class="badge">Sujeto + Verbo + Artículo + Objeto</span></h2>
+                <div class="explain-text">
+                    Ahora practicaremos con <strong>oraciones completas</strong> en inglés, aplicando todo lo aprendido sobre artículos.
+                </div>
+                <div class="example-grid">
+                    <div class="example-item"><div class="en">She is <strong>an</strong> actress.</div><div class="es">Ella es una actriz.</div></div>
+                    <div class="example-item"><div class="en">He works in <strong>the</strong> theater.</div><div class="es">Él trabaja en el teatro.</div></div>
+                    <div class="example-item"><div class="en">They need <strong>a</strong> new car.</div><div class="es">Ellos necesitan un coche nuevo.</div></div>
+                    <div class="example-item"><div class="en">I have <strong>an</strong> idea.</div><div class="es">Tengo una idea.</div></div>
+                </div>
+                <div class="comparison-box">
+                    <div class="es">🇪🇸 Español: "Mi hermano es un estudiante universitario."</div>
+                    <div class="en">🇬🇧 Inglés: "My brother is <strong>a</strong> university student."<br> (¡Cuidado! "university" suena "yuniversity" → usa "a")</div>
+                </div>
+                <div class="note-box">
+                    💡 <strong>Consejo final:</strong> Pregúntate siempre: ¿es específico o general? ¿El sonido es vocálico o consonántico?
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 4 -->
+            <div class="practice-box">
+                <div class="practice-title">
+                    <span>✏️ Práctica 4 · Oraciones completas</span>
+                    <span class="counter" id="counter4">0 / 5</span>
+                </div>
+                <div id="practice4"></div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="goToModule(3)">← anterior</button>
+                    <div class="dot-container">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
+                    </div>
+                    <button class="nav-btn" onclick="showResults()">📊 finalizar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MÓDULO 5: RESULTADOS                                         -->
+        <!-- ============================================================ -->
+        <div id="mod5" class="module">
+            <div class="results-box">
+                <div class="trophy">🏆</div>
+                <h2>¡Excelente trabajo!</h2>
+                <div class="big-score" id="finalScore">0</div>
+                <p style="color:#4a5f82; font-size:1rem;">de 200 puntos posibles</p>
+
+                <div class="final-message">
+                    Has completado la lección sobre <strong>Artículos en Inglés</strong> con <strong>20 ejercicios</strong>.
+                    Ahora sabes:
+                </div>
+
+                <ul class="learned-list">
+                    <li>Diferencia entre "a", "an" y "the"</li>
+                    <li>Regla del sonido para "a" vs "an"</li>
+                    <li>Casos especiales: hour, university, European, honest</li>
+                    <li>Cuándo NO usar artículo (idiomas, comidas, etc.)</li>
+                    <li>Uso de "the" con objetos únicos y específicos</li>
+                </ul>
+
+                <div style="background:#f0f7ff; border-radius:16px; padding:14px; margin:14px 0; border:1px solid #dbeafe; text-align:left; color:#1e2f4a;">
+                    <strong style="color:#1e40af;">💡 Consejo final:</strong> Practica diciendo las palabras en voz alta para identificar el sonido inicial. ¡La práctica hace al maestro!
+                </div>
+
+                <button class="btn-restart" onclick="restart()">🔄 Repetir lección</button>
+            </div>
+        </div>
+
+        <div class="footer">Polyglots · Aprende inglés fácil</div>
     </div>
 
-    <!-- ==================== MÓDULO 1: INTRODUCCIÓN ==================== -->
-    <div id="mod1" class="module active">
-        <div class="explain-card indefinido-border">
-            <h2>📚 1. ¿Qué son los artículos?</h2>
-            <div class="explain-text">
-                Los artículos son palabras que <strong>preceden a los sustantivos</strong> para indicar si nos referimos a algo específico o general. En inglés existen dos tipos:
-            </div>
-            <table class="article-table">
-                <thead>
-                    <tr>
-                        <th>Tipo</th>
-                        <th>Artículo</th>
-                        <th>Uso</th>
-                        <th>Ejemplo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Indefinido</strong></td>
-                        <td><span class="highlight">A</span></td>
-                        <td>Singular - consonante</td>
-                        <td>A book</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Indefinido</strong></td>
-                        <td><span class="highlight">An</span></td>
-                        <td>Singular - vocal</td>
-                        <td>An apple</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Definido</strong></td>
-                        <td><span class="highlight">The</span></td>
-                        <td>Singular y plural</td>
-                        <td>The book / The books</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="comparison">
-                <strong>🇪🇸 En español:</strong> un/una / el/la — misma función.<br>
-                <strong>🇬🇧 En inglés:</strong> la elección entre "a" y "an" depende del <strong>sonido</strong>, no de la letra.
-            </div>
-            <div class="example-row">
-                <div class="example-item"><span class="en">I see <strong>a</strong> dog.</span> <span class="es">(cualquier perro)</span></div>
-                <div class="example-item"><span class="en">I see <strong>the</strong> dog.</span> <span class="es">(ese perro específico)</span></div>
-            </div>
-            <div class="note">
-                📌 <strong>Regla básica:</strong> "a" antes de sonido consonante, "an" antes de sonido vocálico.
-            </div>
-        </div>
+    <script>
+        // ================================================================
+        // DATOS DE PRÁCTICAS (4 módulos, 5 preguntas cada uno)
+        // ================================================================
+        const moduleData = {
+            1: {
+                title: 'Introducción',
+                questions: [{
+                    type: 'multiple',
+                    prompt: 'Completa: "I am ___ student"',
+                    options: ['a', 'an', 'the', 'ninguno'],
+                    correct: 'a',
+                    explanation: '"Student" comienza con sonido de consonante (s) → "a".'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Completa: "She has ___ apple"',
+                    options: ['a', 'an', 'the', 'ninguno'],
+                    correct: 'an',
+                    explanation: '"Apple" comienza con sonido vocálico (a) → "an".'
+                }, {
+                    type: 'order',
+                    prompt: 'Ordena: "a / book / I / have"',
+                    hint: 'Sujeto + verbo + artículo + sustantivo',
+                    correct: ['I', 'have', 'a', 'book'],
+                    bank: ['I', 'have', 'a', 'book', 'car'],
+                    explanation: 'Orden: I (sujeto) + have (verbo) + a book (objeto).'
+                }, {
+                    type: 'multiple',
+                    prompt: '¿Cuál es la traducción correcta de "Ella es una doctora"?',
+                    options: ['She is a doctor', 'She is an doctor', 'She is the doctor', 'She doctor'],
+                    correct: 'She is a doctor',
+                    explanation: '"Doctor" suena con consonante (d) → "a".'
+                }, {
+                    type: 'multiple',
+                    prompt: '¿Cuándo usamos "an"?',
+                    options: ['Antes de sonido consonante', 'Antes de sonido vocálico',
+                        'Solo con sustantivos plurales', 'Nunca'
+                    ],
+                    correct: 'Antes de sonido vocálico',
+                    explanation: '"An" se usa antes de palabras que empiezan con sonido de vocal (apple, hour, etc.).'
+                }]
+            },
+            2: {
+                title: 'A vs AN (sonido)',
+                questions: [{
+                    type: 'multiple',
+                    prompt: 'Completa: "We need ___ umbrella"',
+                    options: ['a', 'an', 'the', 'ninguno'],
+                    correct: 'an',
+                    explanation: '"Umbrella" suena "am-brel-la" (vocal inicial) → "an".'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Completa: "He is ___ honest man" (h muda)',
+                    options: ['a', 'an', 'the', 'ninguno'],
+                    correct: 'an',
+                    explanation: '"Honest" tiene H muda, suena "onest" (vocal) → "an".'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Completa: "She is ___ university student" (suena "yuniversity")',
+                    options: ['a', 'an', 'the', 'ninguno'],
+                    correct: 'a',
+                    explanation: '"University" suena con Y (consonante) → "a".'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Completa: "I need ___ hour" (h muda)',
+                    options: ['a', 'an', 'the', 'ninguno'],
+                    correct: 'an',
+                    explanation: '"Hour" suena "our" (vocal) → "an".'
+                }, {
+                    type: 'order',
+                    prompt: 'Ordena la frase: "European / is / she / a / artist"',
+                    hint: 'Sujeto + verbo + artículo + adjetivo + sustantivo',
+                    correct: ['She', 'is', 'a', 'European', 'artist'],
+                    bank: ['She', 'is', 'a', 'European', 'artist', 'painter'],
+                    explanation: '"European" suena "you-ropean" → "a". Orden: She is a European artist.'
+                }]
+            },
+            3: {
+                title: 'THE y ausencia de artículo',
+                questions: [{
+                    type: 'multiple',
+                    prompt: 'Completa: "___ cat on the roof is black" (el gato del techo)',
+                    options: ['A', 'An', 'The', 'ninguno'],
+                    correct: 'The',
+                    explanation: 'Es un gato específico (el del techo) → "The".'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Completa: "I speak ___ Spanish"',
+                    options: ['a', 'an', 'the', 'ninguno'],
+                    correct: 'ninguno',
+                    explanation: 'Los idiomas NO llevan artículo (Spanish, English, etc.).'
+                }, {
+                    type: 'order',
+                    prompt: 'Ordena: "piano / plays / the / she"',
+                    hint: 'Sujeto + verbo + artículo + instrumento',
+                    correct: ['She', 'plays', 'the', 'piano'],
+                    bank: ['She', 'plays', 'the', 'piano', 'guitar'],
+                    explanation: 'Los instrumentos musicales llevan "the": She plays the piano.'
+                }, {
+                    type: 'multiple',
+                    prompt: '¿Cuál es correcto?',
+                    options: ['I like the pizza', 'I like pizza', 'I like a pizza', 'I like an pizza'],
+                    correct: 'I like pizza',
+                    explanation: 'Las comidas en general NO llevan artículo.'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Completa: "___ sun is hot"',
+                    options: ['A', 'An', 'The', 'ninguno'],
+                    correct: 'The',
+                    explanation: 'Objetos únicos (el sol) llevan "the".'
+                }]
+            },
+            4: {
+                title: 'Oraciones completas',
+                questions: [{
+                    type: 'order',
+                    prompt: 'Ordena: "an / is / actress / she / honest"',
+                    hint: 'Sujeto + verbo + artículo + adjetivo + sustantivo',
+                    correct: ['She', 'is', 'an', 'honest', 'actress'],
+                    bank: ['She', 'is', 'an', 'honest', 'actress', 'singer'],
+                    explanation: '"Honest" tiene H muda → "an". She is an honest actress.'
+                }, {
+                    type: 'order',
+                    prompt: 'Ordena: "a / new / need / car / they"',
+                    hint: 'Sujeto + verbo + artículo + adjetivo + sustantivo',
+                    correct: ['They', 'need', 'a', 'new', 'car'],
+                    bank: ['They', 'need', 'a', 'new', 'car', 'house'],
+                    explanation: 'Orden: They need a new car.'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Traduce: "Ella es una artista europea"',
+                    options: ['She is a European artist', 'She is an European artist',
+                        'She is the European artist', 'She is European artist'
+                    ],
+                    correct: 'She is a European artist',
+                    explanation: '"European" suena con Y (consonante) → "a".'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Traduce: "Compré un libro. El libro es interesante."',
+                    options: ['I bought a book. The book is interesting.',
+                        'I bought an book. The book is interesting.',
+                        'I bought the book. A book is interesting.',
+                        'I bought a book. A book is interesting.'
+                    ],
+                    correct: 'I bought a book. The book is interesting.',
+                    explanation: 'Primero "a book" (general), luego "the book" (específico).'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Completa: "She is ___ best student in the class"',
+                    options: ['a', 'an', 'the', 'ninguno'],
+                    correct: 'the',
+                    explanation: 'Superlativo "best" → se usa "the".'
+                }]
+            }
+        };
 
-        <!-- PRÁCTICA 1 -->
-        <div class="practice-box">
-            <div class="practice-title">✏️ Práctica 1 · Artículos básicos</div>
+        // ================================================================
+        // ESTADO GLOBAL
+        // ================================================================
+        let score = 0;
+        let answers = {}; // { "mod-question": { answered, correct, userAnswer } }
+        const totalModules = 4;
 
-            <!-- Pregunta 1 -->
-            <div class="question" id="q1">
-                <div class="q-text">1. Completa: "I am ___ student"</div>
-                <div class="options">
-                    <div class="option" data-correct="true">a</div>
-                    <div class="option" data-correct="false">an</div>
-                    <div class="option" data-correct="false">the</div>
-                    <div class="option" data-correct="false">ninguno</div>
-                </div>
-                <button class="btn-check" onclick="checkAnswer(1)">Verificar</button>
-                <div class="feedback" id="fb1"></div>
-            </div>
+        // ================================================================
+        // FUNCIONES DE RENDERIZADO
+        // ================================================================
+        function renderPractice(modId) {
+            const container = document.getElementById('practice' + modId);
+            if (!container) return;
 
-            <!-- Pregunta 2 -->
-            <div class="question" id="q2">
-                <div class="q-text">2. "She has ___ apple"</div>
-                <div class="options">
-                    <div class="option" data-correct="false">a</div>
-                    <div class="option" data-correct="true">an</div>
-                    <div class="option" data-correct="false">the</div>
-                    <div class="option" data-correct="false">ninguno</div>
-                </div>
-                <button class="btn-check" onclick="checkAnswer(2)">Verificar</button>
-                <div class="feedback" id="fb2"></div>
-            </div>
-        </div>
+            const data = moduleData[modId];
+            if (!data) return;
+            const questions = data.questions;
+            let html = '';
 
-        <div class="nav-row">
-            <button class="nav-btn" disabled>← anterior</button>
-            <div class="dot-container">
-                <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
-            </div>
-            <button class="nav-btn" onclick="goToModule(2)">siguiente →</button>
-        </div>
-    </div>
+            questions.forEach((q, idx) => {
+                const key = modId + '-' + idx;
+                const state = answers[key] || { answered: false, correct: false, userAnswer: null };
 
-    <!-- ==================== MÓDULO 2: A vs AN ==================== -->
-    <div id="mod2" class="module">
-        <div class="explain-card definido-border">
-            <h2>🔊 2. ¿"A" o "AN"? La clave está en el sonido</h2>
-            <div class="explain-text">
-                No te fijes en la <strong>letra</strong>, fíjate en el <strong>sonido</strong> con que empieza la palabra.
-            </div>
-            <div class="comparison">
-                <strong>✅ AN + sonido vocálico:</strong><br>
-                an hour (la "h" no se pronuncia → suena "our")<br>
-                an honest person (h muda → "onest")<br>
-                an apple, an elephant, an umbrella
-            </div>
-            <div class="comparison">
-                <strong>✅ A + sonido consonante:</strong><br>
-                a university (suena "yuniversity" → Y es consonante)<br>
-                a European (suena "you-ropean")<br>
-                a book, a car, a house
-            </div>
-            <div class="example-row">
-                <div class="example-item"><span class="en">I need <strong>an</strong> hour</span> <span class="es">(Necesito una hora)</span></div>
-                <div class="example-item"><span class="en">She is <strong>a</strong> university student</span> <span class="es">(Es estudiante universitaria)</span></div>
-            </div>
-            <div class="note">
-                ⚠️ <strong>¡Ojo!</strong> "Honest" y "hour" tienen H muda → usamos "an".
-            </div>
-        </div>
+                html += `<div class="question" id="q-${key}">`;
+                html += `<div class="q-text">${idx+1}. ${q.prompt}</div>`;
+                if (q.hint) html += `<div class="q-hint">${q.hint}</div>`;
 
-        <div class="practice-box">
-            <div class="practice-title">✏️ Práctica 2 · ¿A o AN?</div>
+                if (q.type === 'multiple') {
+                    html += renderMultipleQuestion(key, q, state);
+                } else if (q.type === 'order') {
+                    html += renderOrderQuestion(key, q, state);
+                }
 
-            <!-- Pregunta 3 -->
-            <div class="question" id="q3">
-                <div class="q-text">3. "We need ___ umbrella"</div>
-                <div class="options">
-                    <div class="option" data-correct="false">a</div>
-                    <div class="option" data-correct="true">an</div>
-                    <div class="option" data-correct="false">the</div>
-                    <div class="option" data-correct="false">ninguno</div>
-                </div>
-                <button class="btn-check" onclick="checkAnswer(3)">Verificar</button>
-                <div class="feedback" id="fb3"></div>
-            </div>
+                if (!state.answered) {
+                    html += `<button class="btn-check" id="check-${key}" onclick="checkQuestion('${key}')">✓ Verificar</button>`;
+                } else {
+                    html += `<button class="btn-check" disabled>${state.correct ? '✅ Correcto' : '❌ Incorrecto'}</button>`;
+                }
 
-            <!-- Pregunta 4 -->
-            <div class="question" id="q4">
-                <div class="q-text">4. "He is ___ honest man"</div>
-                <div class="hint" style="font-size:0.9rem; color:#6b7f8f; margin-bottom:12px; text-align:center;">💡 "honest" tiene H muda</div>
-                <div class="options">
-                    <div class="option" data-correct="false">a</div>
-                    <div class="option" data-correct="true">an</div>
-                    <div class="option" data-correct="false">the</div>
-                    <div class="option" data-correct="false">ninguno</div>
-                </div>
-                <button class="btn-check" onclick="checkAnswer(4)">Verificar</button>
-                <div class="feedback" id="fb4"></div>
-            </div>
-        </div>
+                const fbClass = state.answered ? (state.correct ? 'fb-good' : 'fb-bad') : '';
+                let fbTitle = state.answered ? (state.correct ? '✅ ¡Correcto!' : '❌ No es correcto.') : '';
+                let fbExplanation = '';
+                if (state.answered) {
+                    if (state.correct) {
+                        fbExplanation = q.explanation || '¡Bien hecho!';
+                    } else {
+                        fbExplanation = q.explanation || 'Revisa la estructura.';
+                    }
+                }
 
-        <div class="nav-row">
-            <button class="nav-btn" onclick="goToModule(1)">← anterior</button>
-            <div class="dot-container">
-                <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
-            </div>
-            <button class="nav-btn" onclick="goToModule(3)">siguiente →</button>
-        </div>
-    </div>
+                html += `<div class="feedback ${fbClass}" id="fb-${key}">`;
+                if (state.answered) {
+                    html += `<div class="title">${fbTitle}</div>`;
+                    html += `<div class="explanation">${fbExplanation}</div>`;
+                }
+                html += `</div>`;
 
-    <!-- ==================== MÓDULO 3: THE ==================== -->
-    <div id="mod3" class="module">
-        <div class="explain-card excepciones-border">
-            <h2>🎯 3. El artículo definido "THE"</h2>
-            <div class="explain-text">
-                <strong>"The"</strong> se usa cuando hablamos de algo <strong>específico</strong> o que ambos (hablante y oyente) ya conocen.
-            </div>
-            <div class="example-row">
-                <div class="example-item"><span class="en">I bought <strong>a</strong> book. <strong>The</strong> book is interesting.</span></div>
-                <div class="example-item"><span class="en"><strong>The</strong> sun rises in <strong>the</strong> east.</span> <span class="es">(objetos únicos)</span></div>
-                <div class="example-item"><span class="en">She plays <strong>the</strong> piano.</span> <span class="es">(instrumentos musicales)</span></div>
-            </div>
-            <div class="special-box">
-                <div class="special-title">📌 Casos especiales con "the"</div>
-                <div class="explain-text" style="font-size:1rem;">
-                    • Países en plural: <strong>the</strong> United States, <strong>the</strong> Netherlands<br>
-                    • Ríos y mares: <strong>the</strong> Amazon, <strong>the</strong> Pacific<br>
-                    • Direcciones: <strong>the</strong> north, <strong>the</strong> south
-                </div>
-            </div>
-            <div class="note">
-                ⚠️ <strong>NO se usa "the"</strong> con: nombres propios, idiomas, comidas en general, materias académicas.
-            </div>
-        </div>
+                html += `</div>`;
+            });
 
-        <div class="practice-box">
-            <div class="practice-title">✏️ Práctica 3 · Usando "THE"</div>
+            container.innerHTML = html;
 
-            <!-- Pregunta 5 -->
-            <div class="question" id="q5">
-                <div class="q-text">5. Completa: "___ cat on the roof is black" (el gato del techo)</div>
-                <div class="options">
-                    <div class="option" data-correct="false">A</div>
-                    <div class="option" data-correct="false">An</div>
-                    <div class="option" data-correct="true">The</div>
-                    <div class="option" data-correct="false">ninguno</div>
-                </div>
-                <button class="btn-check" onclick="checkAnswer(5)">Verificar</button>
-                <div class="feedback" id="fb5"></div>
-            </div>
+            // Eventos
+            questions.forEach((q, idx) => {
+                const key = modId + '-' + idx;
+                const state = answers[key] || { answered: false, correct: false, userAnswer: null };
+                if (q.type === 'order' && !state.answered) {
+                    attachOrderEvents(key, modId);
+                }
+                if (q.type === 'multiple' && !state.answered) {
+                    attachMultipleEvents(key);
+                }
+            });
 
-            <!-- Pregunta 6 -->
-            <div class="question" id="q6">
-                <div class="q-text">6. "I speak ___ Spanish"</div>
-                <div class="options">
-                    <div class="option" data-correct="false">a</div>
-                    <div class="option" data-correct="false">an</div>
-                    <div class="option" data-correct="false">the</div>
-                    <div class="option" data-correct="true">ninguno</div>
-                </div>
-                <button class="btn-check" onclick="checkAnswer(6)">Verificar</button>
-                <div class="feedback" id="fb6"></div>
-            </div>
-        </div>
-
-        <div class="nav-row">
-            <button class="nav-btn" onclick="goToModule(2)">← anterior</button>
-            <div class="dot-container">
-                <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
-            </div>
-            <button class="nav-btn" onclick="goToModule(4)">siguiente →</button>
-        </div>
-    </div>
-
-    <!-- ==================== MÓDULO 4: AVANZADO + PRÁCTICA FINAL ==================== -->
-    <div id="mod4" class="module">
-        <div class="explain-card avanzado-border">
-            <h2>🚀 4. Combinando todo</h2>
-            <div class="explain-text">
-                Ahora combinamos lo aprendido: <strong>sujeto + verbo + artículos + objeto</strong>.
-            </div>
-            <div class="example-row">
-                <div class="example-item"><span class="en">She is <strong>an</strong> actress.</span></div>
-                <div class="example-item"><span class="en">He works in <strong>the</strong> theater.</span></div>
-                <div class="example-item"><span class="en">They need <strong>a</strong> new car.</span></div>
-            </div>
-            <div class="comparison">
-                <strong>🇪🇸 Español:</strong> "Mi hermano es un estudiante universitario."<br>
-                <strong>🇬🇧 Inglés:</strong> "My brother is <strong>a</strong> university student."<br>
-                (¡Cuidado! "university" suena "yuniversity" → usa "a")
-            </div>
-            <div class="note">
-                💡 <strong>Consejo final:</strong> Siempre pregúntate: ¿es específico o general? ¿El sonido es vocálico o consonántico?
-            </div>
-        </div>
-
-        <div class="practice-box">
-            <div class="practice-title">✏️ Práctica 4 · Combinado</div>
-
-            <!-- Pregunta 7 -->
-            <div class="question" id="q7">
-                <div class="q-text">7. "She is ___ European artist"</div>
-                <div class="options">
-                    <div class="option" data-correct="true">a</div>
-                    <div class="option" data-correct="false">an</div>
-                    <div class="option" data-correct="false">the</div>
-                    <div class="option" data-correct="false">ninguno</div>
-                </div>
-                <button class="btn-check" onclick="checkAnswer(7)">Verificar</button>
-                <div class="feedback" id="fb7"></div>
-            </div>
-
-            <!-- Pregunta 8 -->
-            <div class="question" id="q8">
-                <div class="q-text">8. Traduce: "Ella es una actriz honesta"</div>
-                <div class="options">
-                    <div class="option" data-correct="false">She is a honest actress</div>
-                    <div class="option" data-correct="true">She is an honest actress</div>
-                    <div class="option" data-correct="false">She is the honest actress</div>
-                    <div class="option" data-correct="false">She is honest actress</div>
-                </div>
-                <button class="btn-check" onclick="checkAnswer(8)">Verificar</button>
-                <div class="feedback" id="fb8"></div>
-            </div>
-
-            <!-- Pregunta 9 -->
-            <div class="question" id="q9">
-                <div class="q-text">9. "I saw ___ movie. ___ movie was great!"</div>
-                <div class="options">
-                    <div class="option" data-correct="true">a / The</div>
-                    <div class="option" data-correct="false">an / The</div>
-                    <div class="option" data-correct="false">the / A</div>
-                    <div class="option" data-correct="false">ninguno / The</div>
-                </div>
-                <button class="btn-check" onclick="checkAnswer(9)">Verificar</button>
-                <div class="feedback" id="fb9"></div>
-            </div>
-        </div>
-
-        <div class="nav-row">
-            <button class="nav-btn" onclick="goToModule(3)">← anterior</button>
-            <div class="dot-container">
-                <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
-            </div>
-            <button class="nav-btn" onclick="showResults()">📊 finalizar</button>
-        </div>
-    </div>
-
-    <!-- ==================== MÓDULO 5: RESULTADOS ==================== -->
-    <div id="mod5" class="module">
-        <div class="results-box">
-            <h2>🏆 ¡Excelente trabajo!</h2>
-            <div class="big-score" id="finalScore">0</div>
-            <p style="font-size:1.2rem; font-weight:600;">puntos obtenidos</p>
-
-            <div class="final-message">
-                Has completado la lección sobre <strong>Artículos en Inglés</strong>.
-            </div>
-
-            <ul class="learned-list">
-                <li>Diferencia entre "a", "an" y "the"</li>
-                <li>Regla del sonido para "a" vs "an"</li>
-                <li>Casos especiales: hour, university, European</li>
-                <li>Cuándo NO usar artículo</li>
-                <li>Uso de "the" con objetos únicos y específicos</li>
-            </ul>
-
-            <div style="background:#d4e6f5; border-radius:18px; padding:16px; margin:18px 0; text-align:left; color:#023047; font-size:1rem;">
-                <strong>💡 Consejo final:</strong> Practica diciendo las palabras en voz alta para identificar el sonido inicial. ¡La práctica hace al maestro!
-            </div>
-
-            <button class="btn-restart" onclick="restart()">🔄 Repetir lección</button>
-        </div>
-    </div>
-
-    <div class="footer">
-        Polyglots · Aprende inglés fácil
-    </div>
-</div>
-
-<script>
-    // === VARIABLES GLOBALES ===
-    let score = 0;
-    let answered = {};
-
-    // === RESPUESTAS CORRECTAS ===
-    const correctAnswers = {
-        1: 'a',
-        2: 'an',
-        3: 'an',
-        4: 'an',
-        5: 'The',
-        6: 'ninguno',
-        7: 'a',
-        8: 'She is an honest actress',
-        9: 'a / The'
-    };
-
-    // === EVENTOS: selección de opciones ===
-    document.querySelectorAll('.option').forEach(opt => {
-        opt.addEventListener('click', function() {
-            const questionDiv = this.closest('.question');
-            if (!questionDiv) return;
-            const qId = questionDiv.id.replace('q', '');
-            // Deseleccionar hermanos
-            questionDiv.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-            this.classList.add('selected');
-            // Ocultar feedback anterior
-            const fb = document.getElementById('fb' + qId);
-            if (fb) fb.innerHTML = '';
-        });
-    });
-
-    // === FUNCIÓN PRINCIPAL: verificar respuesta ===
-    function checkAnswer(qId) {
-        const questionDiv = document.getElementById('q' + qId);
-        if (!questionDiv) return;
-
-        const selected = questionDiv.querySelector('.option.selected');
-        const fbDiv = document.getElementById('fb' + qId);
-
-        if (!selected) {
-            fbDiv.innerHTML = '<span style="color:#b34141;">⚠️ Selecciona una opción primero.</span>';
-            fbDiv.className = 'feedback fb-bad';
-            return;
+            updateCounter(modId);
         }
 
-        const isCorrect = selected.dataset.correct === 'true';
-        const allOpts = questionDiv.querySelectorAll('.option');
-
-        // Marcar respuestas correctas/incorrectas visualmente
-        allOpts.forEach(opt => {
-            opt.classList.remove('correct', 'incorrect');
-            if (opt.dataset.correct === 'true') opt.classList.add('correct');
-            if (opt === selected && !isCorrect) opt.classList.add('incorrect');
-        });
-
-        // Sumar puntos (solo una vez por pregunta)
-        if (!answered[qId]) {
-            if (isCorrect) score += 10;
-            answered[qId] = true;
-            updateScore();
+        function renderMultipleQuestion(key, q, state) {
+            let html = `<div class="options-group" id="options-${key}">`;
+            q.options.forEach(opt => {
+                let cls = 'option-btn';
+                if (state.answered) {
+                    if (opt === q.correct) cls += ' correct-answer';
+                    if (state.userAnswer === opt && opt !== q.correct) cls += ' wrong-answer';
+                    if (state.userAnswer === opt && opt === q.correct) cls += ' correct-answer';
+                    cls += ' selected';
+                }
+                html += `<button class="${cls}" data-key="${key}" data-value="${opt}" ${state.answered ? 'disabled' : ''}>${opt}</button>`;
+            });
+            html += `</div>`;
+            return html;
         }
 
-        // Mostrar feedback con explicación
-        const explanation = getExplanation(qId, isCorrect);
-        const extra = getExtraNote(qId);
+        function renderOrderQuestion(key, q, state) {
+            let html = '';
+            const words = state.userAnswer || [];
 
-        fbDiv.innerHTML = `
-            <strong>${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}</strong><br>
-            ${explanation}
-            <div class="explanation-detail">${extra}</div>
-        `;
-        fbDiv.className = `feedback ${isCorrect ? 'fb-good' : 'fb-bad'}`;
-    }
+            html += `<div class="sentence-builder" id="builder-${key}">`;
+            if (words.length === 0) {
+                html += `<span class="placeholder-text">👆 Toca las palabras del banco para formar la oración</span>`;
+            } else {
+                words.forEach((word, pos) => {
+                    let cls = 'word-slot';
+                    if (state.answered && state.correct && words[pos] === q.correct[pos]) cls += ' correct';
+                    if (state.answered && !state.correct && words[pos] !== q.correct[pos]) cls += ' incorrect';
+                    html += `<span class="${cls}" data-key="${key}" data-pos="${pos}">${word} ✕</span>`;
+                });
+            }
+            html += `</div>`;
 
-    // === EXPLICACIONES ===
-    function getExplanation(qId, correct) {
-        const texts = {
-            1: correct ? '"Student" comienza con sonido de consonante (s) → a.' : 'Usamos "a" porque "student" suena con consonante.',
-            2: correct ? '"Apple" comienza con sonido vocálico (a) → an.' : '"Apple" suena con vocal → an.',
-            3: correct ? '"Umbrella" suena con vocal (am-brel-la) → an.' : '"Umbrella" suena con vocal → an.',
-            4: correct ? '"Honest" tiene H muda → suena "onest" (vocal) → an.' : 'La H es muda, suena como vocal → an.',
-            5: correct ? 'Es el gato específico del techo → The.' : 'Hablamos de un gato específico → The.',
-            6: correct ? 'Con idiomas NO usamos artículo.' : 'Los idiomas no llevan artículo (Spanish, English, etc.).',
-            7: correct ? '"European" suena "you-ropean" (Y = consonante) → a.' : 'Suena con Y (consonante) → a.',
-            8: correct ? '"Honest" tiene H muda → an honest actress.' : '¡Ojo! "Honest" suena "onest" → an honest.',
-            9: correct ? 'Primero "a movie" (general), luego "The movie" (específica).' : 'Primero indefinido (a), luego definido (the).'
-        };
-        return texts[qId] || (correct ? 'Correcto.' : 'Revisa la respuesta correcta.');
-    }
+            html += `<div class="word-bank" id="bank-${key}">`;
+            const usedWords = words || [];
+            let available = q.bank.filter(w => {
+                const countInBank = q.bank.filter(b => b === w).length;
+                const countUsed = usedWords.filter(u => u === w).length;
+                return countUsed < countInBank;
+            });
 
-    function getExtraNote(qId) {
-        const notes = {
-            1: '💡 Regla: "a" antes de sonido consonante. "Student" empieza con "s" → a.',
-            2: '💡 Regla: "an" antes de sonido vocálico. "Apple" empieza con "a" → an.',
-            3: '💡 "Umbrella" suena "am-brel-la" → vocal inicial.',
-            4: '💡 "Honest" → H muda, suena "onest" → vocal.',
-            5: '💡 "The" se usa para cosas específicas o únicas.',
-            6: '💡 Idiomas: English, Spanish, French → sin artículo.',
-            7: '💡 "European" suena "you-ropean" → la Y es consonante.',
-            8: '💡 "Honest" → H muda, por eso "an honest".',
-            9: '💡 Patrón común: a/an (primera vez) → the (ya conocido).'
-        };
-        return notes[qId] || '💡 Revisa la lección para repasar.';
-    }
+            if (state.answered) {
+                q.bank.forEach(w => {
+                    html += `<span class="word-chip used">${w}</span>`;
+                });
+            } else {
+                if (available.length === 0) {
+                    html += `<span style="color:#aab7d0; font-style:italic;">Todas las palabras seleccionadas</span>`;
+                } else {
+                    available.forEach(w => {
+                        html += `<span class="word-chip" data-word="${w}" data-key="${key}">${w}</span>`;
+                    });
+                }
+            }
+            html += `</div>`;
+            return html;
+        }
 
-    // === ACTUALIZAR PUNTUACIÓN ===
-    function updateScore() {
-        document.getElementById('scoreDisplay').textContent = score;
-    }
+        // ================================================================
+        // EVENTOS
+        // ================================================================
+        function attachOrderEvents(key, modId) {
+            const container = document.getElementById('practice' + modId);
+            if (!container) return;
 
-    // === NAVEGACIÓN ENTRE MÓDULOS ===
-    function goToModule(mod) {
-        document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
-        document.getElementById('mod' + mod).classList.add('active');
+            container.querySelectorAll(`#bank-${key} .word-chip:not(.used)`).forEach(chip => {
+                chip.addEventListener('click', function() {
+                    const k = this.dataset.key;
+                    const word = this.dataset.word;
+                    if (!answers[k]) answers[k] = { answered: false, correct: false, userAnswer: [] };
+                    if (answers[k].answered) return;
+                    answers[k].userAnswer.push(word);
+                    renderPractice(modId);
+                    const checkBtn = document.getElementById('check-' + k);
+                    if (checkBtn && answers[k].userAnswer.length > 0) {
+                        checkBtn.disabled = false;
+                    }
+                    const fb = document.getElementById('fb-' + k);
+                    if (fb) {
+                        fb.innerHTML = '';
+                        fb.className = 'feedback';
+                    }
+                    updateCounter(modId);
+                });
+            });
 
-        // Actualizar puntos
-        const dots = document.querySelectorAll('.dot');
-        dots.forEach((d, i) => {
-            d.classList.toggle('active', i === mod - 1);
+            container.querySelectorAll(`#builder-${key} .word-slot`).forEach(slot => {
+                slot.addEventListener('click', function() {
+                    const k = this.dataset.key;
+                    if (!answers[k]) answers[k] = { answered: false, correct: false, userAnswer: [] };
+                    if (answers[k].answered) return;
+                    const pos = parseInt(this.dataset.pos);
+                    if (!isNaN(pos) && answers[k].userAnswer && pos < answers[k].userAnswer.length) {
+                        answers[k].userAnswer.splice(pos, 1);
+                        renderPractice(modId);
+                        const checkBtn = document.getElementById('check-' + k);
+                        if (checkBtn && answers[k].userAnswer.length === 0) {
+                            checkBtn.disabled = true;
+                        }
+                        const fb = document.getElementById('fb-' + k);
+                        if (fb) {
+                            fb.innerHTML = '';
+                            fb.className = 'feedback';
+                        }
+                        updateCounter(modId);
+                    }
+                });
+            });
+        }
+
+        function attachMultipleEvents(key) {
+            const container = document.getElementById('options-' + key);
+            if (!container) return;
+            container.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const k = this.dataset.key;
+                    const val = this.dataset.value;
+                    if (!answers[k]) answers[k] = { answered: false, correct: false, userAnswer: null };
+                    if (answers[k].answered) return;
+                    container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    answers[k].userAnswer = val;
+                    const checkBtn = document.getElementById('check-' + k);
+                    if (checkBtn) checkBtn.disabled = false;
+                    const fb = document.getElementById('fb-' + k);
+                    if (fb) {
+                        fb.innerHTML = '';
+                        fb.className = 'feedback';
+                    }
+                });
+            });
+        }
+
+        // ================================================================
+        // VERIFICAR
+        // ================================================================
+        function checkQuestion(key) {
+            const [modId, qIdx] = key.split('-').map(Number);
+            const question = moduleData[modId].questions[qIdx];
+            const state = answers[key];
+            if (!state || state.answered) return;
+
+            let isCorrect = false;
+            if (question.type === 'order') {
+                const userWords = state.userAnswer || [];
+                const correctWords = question.correct;
+                isCorrect = (userWords.length === correctWords.length &&
+                    userWords.every((w, i) => w === correctWords[i]));
+            } else if (question.type === 'multiple') {
+                isCorrect = (state.userAnswer === question.correct);
+            }
+
+            state.answered = true;
+            state.correct = isCorrect;
+            if (isCorrect) {
+                score += 10;
+                document.getElementById('scoreDisplay').textContent = score;
+            }
+
+            renderPractice(modId);
+            updateCounter(modId);
+        }
+
+        // ================================================================
+        // CONTADOR
+        // ================================================================
+        function updateCounter(modId) {
+            const data = moduleData[modId];
+            if (!data) return;
+            const total = data.questions.length;
+            let done = 0;
+            for (let i = 0; i < total; i++) {
+                const key = modId + '-' + i;
+                if (answers[key] && answers[key].answered) done++;
+            }
+            const counterEl = document.getElementById('counter' + modId);
+            if (counterEl) {
+                counterEl.textContent = `${done} / ${total}`;
+            }
+        }
+
+        // ================================================================
+        // NAVEGACIÓN
+        // ================================================================
+        function goToModule(mod) {
+            if (mod < 1 || mod > totalModules + 1) return;
+            document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
+            const target = document.getElementById('mod' + mod);
+            if (target) target.classList.add('active');
+
+            if (mod <= totalModules) {
+                document.querySelectorAll('.dot-container').forEach(container => {
+                    const dots = container.querySelectorAll('.dot');
+                    dots.forEach((d, i) => {
+                        d.classList.remove('active', 'done');
+                        if (i === mod - 1) d.classList.add('active');
+                        if (i < mod - 1) d.classList.add('done');
+                    });
+                });
+                renderPractice(mod);
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ================================================================
+        // RESULTADOS Y REINICIO
+        // ================================================================
+        function showResults() {
+            document.getElementById('finalScore').textContent = score;
+            goToModule(5);
+        }
+
+        function restart() {
+            score = 0;
+            answers = {};
+            document.getElementById('scoreDisplay').textContent = score;
+            document.querySelectorAll('.btn-check').forEach(b => b.disabled = true);
+            goToModule(1);
+        }
+
+        // ================================================================
+        // EXPONER
+        // ================================================================
+        window.goToModule = goToModule;
+        window.showResults = showResults;
+        window.restart = restart;
+        window.checkQuestion = checkQuestion;
+        window.renderPractice = renderPractice;
+        window.updateCounter = updateCounter;
+
+        // ================================================================
+        // INICIALIZAR
+        // ================================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            renderPractice(1);
+            for (let i = 1; i <= totalModules; i++) updateCounter(i);
         });
+    </script>
 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // === MOSTRAR RESULTADOS ===
-    function showResults() {
-        document.getElementById('finalScore').textContent = score;
-        goToModule(5);
-    }
-
-    // === REINICIAR ===
-    function restart() {
-        score = 0;
-        answered = {};
-        updateScore();
-
-        document.querySelectorAll('.option').forEach(opt => {
-            opt.classList.remove('selected', 'correct', 'incorrect');
-        });
-        document.querySelectorAll('.feedback').forEach(fb => fb.innerHTML = '');
-
-        goToModule(1);
-    }
-
-    // === EXPONER FUNCIONES GLOBALES ===
-    window.checkAnswer = checkAnswer;
-    window.goToModule = goToModule;
-    window.showResults = showResults;
-    window.restart = restart;
-</script>
 </body>
 </html>
