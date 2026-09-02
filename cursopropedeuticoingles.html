@@ -427,14 +427,14 @@
                     <span class="desc">Ejercicios prácticos</span>
                 </div>
 
-                <!-- 5.Prácticas -->
-                <div class="menu-card" onclick="window.location.href='#page-practicas'; showPage('page-practicas')">
-             <span class="icon">📱</span>
-             <span class="label">Prácticas</span>
-            <span class="desc">Crea oraciones</span>
-              </div>
+                <!-- 5. Prácticas (CORREGIDO: quitado el window.location.href) -->
+                <div class="menu-card" onclick="showPage('page-practicas')">
+                    <span class="icon">📱</span>
+                    <span class="label">Prácticas</span>
+                    <span class="desc">Crea oraciones</span>
+                </div>
             </div>
-       
+        </div>
 
         <!-- ============================================================ -->
         <!-- PÁGINA: CONTENIDO (Estructura de la Oración)                 -->
@@ -470,11 +470,13 @@
                     <span class="num">6</span>
                     <span class="name">Presente Simple</span>
                 </a>
-                <a href="https://polyglots-at.github.io/contenido/adverviosnv.html" class="lesson-item">
+                <!-- Corregido: adverviosnv -> adverbiosnv -->
+                <a href="https://polyglots-at.github.io/contenido/adverbiosnv.html" class="lesson-item">
                     <span class="num">7</span>
                     <span class="name">Adverbios</span>
                 </a>
-                <a href="https://polyglots-at.github.io/contenido/prepocisionesdelugarytiemponv" class="lesson-item">
+                <!-- Corregido: prepocisiones -> preposiciones -->
+                <a href="https://polyglots-at.github.io/contenido/preposicionesdelugarytiemponv" class="lesson-item">
                     <span class="num">8</span>
                     <span class="name">Preposiciones</span>
                 </a>
@@ -556,125 +558,98 @@
             </div>
         </div>
 
-
-
-        
         <!-- ============================================================ -->
-<!-- PÁGINA: ACTIVIDADES                                          -->
-<!-- ============================================================ -->
-<div id="page-actividades" class="page">
-    <div class="page-header">
-        <button class="back-btn" onclick="showPage('page-home')">← Volver</button>
-        <h2>✏️ Actividades</h2>
-    </div>
+        <!-- PÁGINA: ACTIVIDADES                                          -->
+        <!-- ============================================================ -->
+        <div id="page-actividades" class="page">
+            <div class="page-header">
+                <button class="back-btn" onclick="showPage('page-home')">← Volver</button>
+                <h2>✏️ Actividades</h2>
+            </div>
 
-    <!-- SOLO EL NÚMERO 1 (como las otras secciones) -->
-   <div class="lessons-grid">
-    <div class="lesson-item" onclick="showPage('page-actividad1')">
-        <span class="num">1</span>
-        <span class="name">Actividad 1</span>
-    </div>
+            <div class="lessons-grid">
+                <div class="lesson-item" onclick="showPage('page-actividad1')">
+                    <span class="num">1</span>
+                    <span class="name">Actividad 1</span>
+                </div>
 
- <a href="https://polyglots-at.github.io/contenido/actividad2.html" class="lesson-item" style="text-decoration:none; color:inherit;">
-    <span class="num">2</span>
-    <span class="name">Actividad 2</span>
-</a>
+                <a href="https://polyglots-at.github.io/contenido/actividad2.html" class="lesson-item" style="text-decoration:none; color:inherit;">
+                    <span class="num">2</span>
+                    <span class="name">Actividad 2</span>
+                </a>
 
-   <a href="https://polyglots-at.github.io/contenido/actividad3.html" class="lesson-item" style="text-decoration:none; color:inherit;">
-    <span class="num">3</span>
-    <span class="name">Actividad 3</span>
-</a>
-
-
-        
-        <!-- Puedes agregar más números: 2, 3, etc. -->
-    </div>
-</div>
+                <a href="https://polyglots-at.github.io/contenido/actividad3.html" class="lesson-item" style="text-decoration:none; color:inherit;">
+                    <span class="num">3</span>
+                    <span class="name">Actividad 3</span>
+                </a>
+            </div>
+        </div>
 
         <!-- ============================================================ -->
-<!-- SUBPÁGINA: ACTIVIDAD 1 (con los 3 botones)                   -->
-<!-- ============================================================ -->
-<div id="page-actividad1" class="page">
-    <div class="page-header">
-        <button class="back-btn" onclick="showPage('page-actividades')">← Volver</button>
-        <h2>📝 Actividad 1</h2>
-    </div>
+        <!-- SUBPÁGINA: ACTIVIDAD 1 (con los 3 botones)                   -->
+        <!-- ============================================================ -->
+        <div id="page-actividad1" class="page">
+            <div class="page-header">
+                <button class="back-btn" onclick="showPage('page-actividades')">← Volver</button>
+                <h2>📝 Actividad 1</h2>
+            </div>
 
-  <!-- Menú de 3 opciones (TODAS ENLACES EXTERNOS) -->
-<div class="menu-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
-    <!-- 1. Traducir → ENLACE EXTERNO -->
-   <a href="https://polyglots-at.github.io/contenido/traduccion1.html" class="menu-card">
-        <span class="icon">📝</span>
-        <span class="label">Traducción I</span>
-        <span class="desc">Traduce oraciones</span>
-    </a>
+            <!-- Menú de 3 opciones (TODAS ENLACES EXTERNOS) -->
+            <div class="menu-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
+                <a href="https://polyglots-at.github.io/contenido/traduccion1.html" class="menu-card">
+                    <span class="icon">📝</span>
+                    <span class="label">Traducción I</span>
+                    <span class="desc">Traduce oraciones</span>
+                </a>
 
-    <!-- 2. Pronunciar → ENLACE EXTERNO -->
-    <a href="https://polyglots-at.github.io/contenido/traduccion2" class="menu-card">
-        <span class="icon">📝</span>
-        <span class="label">Traducción II</span>
-        <span class="desc">seleccina palabras</span>
-    </a>
+                <a href="https://polyglots-at.github.io/contenido/traduccion2" class="menu-card">
+                    <span class="icon">📝</span>
+                    <span class="label">Traducción II</span>
+                    <!-- Corregida la falta de ortografía -->
+                    <span class="desc">Selecciona palabras</span>
+                </a>
 
-    <!-- 3. Vocabulario → ENLACE EXTERNO -->
-    <a href="https://polyglots-at.github.io/contenido/dialogo" class="menu-card">
-        <span class="icon">📚</span>
-        <span class="label">Diálogo</span>
-        <span class="desc">Amplía tu vocabulario con ejercicios</span>
-    </a>
-</div>
-
-
-
-
-
-
-        
-        
-
-
+                <a href="https://polyglots-at.github.io/contenido/dialogo" class="menu-card">
+                    <span class="icon">📚</span>
+                    <span class="label">Diálogo</span>
+                    <span class="desc">Amplía tu vocabulario con ejercicios</span>
+                </a>
+            </div>
+        </div> <!-- ESTE CIERRE ES EL QUE FALTABA: page-actividad1 -->
 
         <!-- ============================================================ -->
-<!-- PÁGINA: PRÁCTICAS                                            -->
-<!-- ============================================================ -->
-<div id="page-practicas" class="page">
-    <div class="page-header">
-        <button class="back-btn" onclick="showPage('page-home')">← Volver</button>
-        <h2>📱 Prácticas</h2>
-    </div>
+        <!-- PÁGINA: PRÁCTICAS (AHORA ES HERMANA, NO HIJA)               -->
+        <!-- ============================================================ -->
+        <div id="page-practicas" class="page">
+            <div class="page-header">
+                <button class="back-btn" onclick="showPage('page-home')">← Volver</button>
+                <h2>📱 Prácticas</h2>
+            </div>
 
-    <div class="lessons-grid">
-        <a href="https://polyglots-at.github.io/contenido/practica1.html" class="lesson-item">
-            <span class="num">1</span>
-            <span class="name">Práctica 1</span>
-        </a>
+            <div class="lessons-grid">
+                <a href="https://polyglots-at.github.io/contenido/practica1.html" class="lesson-item">
+                    <span class="num">1</span>
+                    <span class="name">Práctica 1</span>
+                </a>
 
-        <a href="https://polyglots-at.github.io/contenido/practica2.html" class="lesson-item">
-            <span class="num">2</span>
-            <span class="name">Práctica 2</span>
-        </a>
+                <a href="https://polyglots-at.github.io/contenido/practica2.html" class="lesson-item">
+                    <span class="num">2</span>
+                    <span class="name">Práctica 2</span>
+                </a>
 
-        <a href="https://polyglots-at.github.io/contenido/practica3.html" class="lesson-item">
-            <span class="num">3</span>
-            <span class="name">Práctica 3</span>
-        </a>
-    </div>
-</div>
-
-
-
-
-
-
-
-            
+                <a href="https://polyglots-at.github.io/contenido/practica3.html" class="lesson-item">
+                    <span class="num">3</span>
+                    <span class="name">Práctica 3</span>
+                </a>
+            </div>
+        </div>
 
         <!-- ===== FOOTER ===== -->
         <div class="footer">
             <p>&copy; 2024 Proyecto Políglotas · Todos los derechos reservados</p>
         </div>
 
-    </div>
+    </div> <!-- cierre del container -->
 
     <script>
         function showPage(pageId) {
