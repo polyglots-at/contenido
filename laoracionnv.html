@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
     <title>La Oración en Inglés · Polyglots</title>
     <style>
         /* ===== RESET Y BASE ===== */
@@ -13,9 +13,9 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f1724, #1a2a4a);
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-            color: #f0f7ff;
+            background: #f0f4f8;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            color: #1e2f4a;
             line-height: 1.6;
             padding: 16px 12px;
             display: flex;
@@ -24,9 +24,13 @@
         }
 
         .app-wrapper {
-            max-width: 760px;
+            max-width: 820px;
             width: 100%;
             margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            padding: 24px 20px 32px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
         }
 
         /* ===== HEADER ===== */
@@ -34,33 +38,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            border-radius: 60px;
-            padding: 10px 18px;
+            border-bottom: 2px solid #e9eef6;
+            padding-bottom: 14px;
             margin-bottom: 22px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
             flex-wrap: wrap;
             gap: 8px;
         }
 
         .header h1 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #e8f3ff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0b1e3a;
         }
 
         .score {
-            background: rgba(255, 213, 79, 0.12);
-            border: 1px solid rgba(255, 213, 79, 0.15);
-            color: #ffd54f;
-            font-weight: 700;
-            padding: 6px 16px;
+            background: #f0f4fc;
+            border: 1px solid #dce3ef;
+            color: #1e3b6b;
+            font-weight: 600;
+            padding: 4px 16px;
             border-radius: 40px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -70,15 +68,14 @@
             font-size: 1.2rem;
         }
 
-        /* ===== BOTÓN VOLVER ===== */
         .back-row {
             margin-bottom: 18px;
         }
 
         .btn-back {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #b3e5fc;
+            background: #f0f4fc;
+            border: 1px solid #dce3ef;
+            color: #1d3557;
             padding: 8px 20px;
             border-radius: 40px;
             font-weight: 600;
@@ -92,8 +89,7 @@
         }
 
         .btn-back:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
+            background: #dce3ef;
         }
 
         /* ===== MÓDULOS ===== */
@@ -107,79 +103,74 @@
         }
 
         @keyframes fadeSlide {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ===== TARJETAS DE EXPLICACIÓN ===== */
         .explain-card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(4px);
+            background: #f8fafc;
             border-radius: 24px;
             padding: 24px 20px;
             margin-bottom: 22px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e9eef6;
         }
 
         .explain-card h2 {
             font-size: 1.4rem;
+            color: #0b1e3a;
             margin-bottom: 14px;
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #b3e5fc;
             flex-wrap: wrap;
         }
 
         .explain-card h2 .badge {
-            background: rgba(79, 195, 247, 0.12);
+            background: #dbeafe;
+            color: #1e40af;
             padding: 2px 14px;
             border-radius: 20px;
             font-size: 0.7rem;
-            color: #4fc3f7;
             font-weight: 600;
-            letter-spacing: 0.5px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .explain-text {
             font-size: 1rem;
-            margin-bottom: 14px;
+            color: #1e2f4a;
             line-height: 1.7;
-            color: #e3eaf0;
+            margin-bottom: 14px;
         }
 
         .explain-text strong {
-            color: #ffd54f;
-        }
-
-        .explain-text .highlight-en {
-            color: #81c784;
-            font-weight: 600;
-        }
-
-        .explain-text .highlight-es {
-            color: #90caf9;
-            font-weight: 600;
+            color: #1e40af;
         }
 
         .comparison-box {
-            background: rgba(255, 213, 79, 0.04);
-            border-radius: 16px;
-            padding: 16px 18px;
+            background: #eef3fc;
+            border-left: 4px solid #2b6df6;
+            padding: 14px 18px;
+            border-radius: 12px;
             margin: 14px 0;
-            border-left: 4px solid #ffd54f;
         }
 
         .comparison-box .en {
-            color: #81c784;
+            color: #1e40af;
             font-weight: 600;
         }
 
         .comparison-box .es {
-            color: #90caf9;
+            color: #4a5f82;
             font-weight: 600;
+            font-style: italic;
         }
 
         .example-grid {
@@ -196,102 +187,80 @@
         }
 
         .example-item {
-            background: rgba(255, 255, 255, 0.03);
+            background: white;
+            border: 1px solid #e9eef6;
             border-radius: 16px;
             padding: 14px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
             text-align: center;
         }
 
         .example-item .en {
             font-weight: 700;
-            color: #81c784;
+            color: #1e40af;
             font-size: 1.05rem;
         }
 
         .example-item .es {
-            color: #90a4ae;
+            color: #4a5f82;
             font-size: 0.9rem;
             font-style: italic;
         }
 
-        .example-item .pron {
-            color: #ffd54f;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
         .note-box {
-            background: rgba(255, 213, 79, 0.04);
+            background: #f0f7ff;
             border-radius: 14px;
             padding: 12px 16px;
-            color: #ffd54f;
+            color: #1e3a8a;
             font-size: 0.95rem;
             margin-top: 12px;
-            border: 1px solid rgba(255, 213, 79, 0.06);
+            border: 1px solid #dbeafe;
         }
 
-        /* ===== TABLAS ===== */
-        .article-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 14px 0;
-            font-size: 0.9rem;
+        .warning-box {
+            background: #fef2f2;
             border-radius: 14px;
-            overflow: hidden;
-        }
-
-        .article-table th {
-            background: rgba(79, 195, 247, 0.08);
-            padding: 10px 6px;
-            font-weight: 700;
-            color: #b3e5fc;
-            border-bottom: 2px solid rgba(79, 195, 247, 0.1);
-        }
-
-        .article-table td {
-            padding: 10px 6px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            text-align: center;
-            color: #e3eaf0;
-        }
-
-        .article-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .highlight {
-            color: #ffd54f;
-            font-weight: 700;
+            padding: 12px 16px;
+            color: #991b1b;
+            font-size: 0.95rem;
+            margin-top: 12px;
+            border: 1px solid #fecaca;
+            font-weight: 600;
         }
 
         /* ===== PRÁCTICA ===== */
         .practice-box {
-            background: rgba(255, 255, 255, 0.03);
+            background: #f8fafc;
             border-radius: 24px;
             padding: 22px 18px;
             margin: 20px 0;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid #e9eef6;
         }
 
         .practice-title {
-            font-size: 1.3rem;
-            color: #b3e5fc;
+            font-size: 1.2rem;
+            color: #0b1e3a;
             margin-bottom: 16px;
-            border-bottom: 2px solid rgba(79, 195, 247, 0.06);
+            border-bottom: 2px solid #e9eef6;
             padding-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .practice-title .counter {
+            font-size: 0.9rem;
+            color: #4a5f82;
+            font-weight: 400;
         }
 
         .question {
-            background: rgba(255, 255, 255, 0.03);
+            background: white;
             border-radius: 20px;
             padding: 18px 16px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            margin-bottom: 24px;
+            border: 1px solid #e9eef6;
         }
 
         .question:last-child {
@@ -301,113 +270,218 @@
         .q-text {
             font-size: 1.05rem;
             font-weight: 600;
-            color: #e8f3ff;
-            margin-bottom: 12px;
+            color: #0b1e3a;
+            margin-bottom: 6px;
         }
 
         .q-hint {
             font-size: 0.85rem;
-            color: #90a4ae;
-            text-align: center;
-            margin-bottom: 10px;
-            font-style: italic;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 6px 12px;
+            color: #4a5f82;
+            margin-bottom: 12px;
+            padding: 4px 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            display: inline-block;
+            border: 1px dashed #dce3ef;
+        }
+
+        /* ---- Banco de palabras (ordenar) ---- */
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px 14px;
+            background: #f8fafc;
             border-radius: 12px;
+            border: 2px dashed #dce3ef;
+            min-height: 50px;
+            margin: 8px 0 12px;
+            justify-content: center;
         }
 
-        .options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        @media (max-width: 480px) {
-            .options {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-        }
-
-        .option {
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px solid rgba(255, 255, 255, 0.06);
-            border-radius: 40px;
-            padding: 12px 6px;
-            text-align: center;
+        .word-chip {
+            background: white;
+            border: 2px solid #dce3ef;
+            border-radius: 30px;
+            padding: 8px 18px;
             font-size: 0.95rem;
             font-weight: 500;
-            color: #e3eaf0;
+            color: #0b1e3a;
             cursor: pointer;
             transition: 0.15s;
             touch-action: manipulation;
             user-select: none;
         }
 
-        .option:active {
-            transform: scale(0.96);
+        .word-chip:active {
+            transform: scale(0.95);
         }
 
-        .option.selected {
-            background: rgba(79, 195, 247, 0.12);
-            border-color: #4fc3f7;
-            font-weight: 700;
-            color: white;
+        .word-chip.used {
+            opacity: 0.3;
+            pointer-events: none;
+            transform: scale(0.9);
         }
 
-        .option.correct {
-            background: rgba(129, 199, 132, 0.12);
-            border-color: #81c784;
-            color: #81c784;
+        .sentence-builder {
+            padding: 12px 14px;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #e9eef6;
+            min-height: 45px;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #0b1e3a;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 10px;
         }
 
-        .option.incorrect {
-            background: rgba(229, 115, 115, 0.12);
-            border-color: #e57373;
-            color: #e57373;
+        .sentence-builder .word-slot {
+            background: #eef3fc;
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: 2px solid #dce3ef;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
         }
 
+        .sentence-builder .word-slot:active {
+            transform: scale(0.95);
+        }
+
+        .sentence-builder .word-slot.correct {
+            border-color: #22c55e;
+            background: #dcfce7;
+        }
+
+        .sentence-builder .word-slot.incorrect {
+            border-color: #ef4444;
+            background: #fecaca;
+        }
+
+        .sentence-builder .placeholder-text {
+            color: #aab7d0;
+            font-style: italic;
+        }
+
+        /* ---- Opción múltiple ---- */
+        .options-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 8px 0 12px;
+            justify-content: center;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #dce3ef;
+            border-radius: 40px;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #0b1e3a;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            user-select: none;
+            flex: 0 1 auto;
+        }
+
+        .option-btn:active {
+            transform: scale(0.95);
+        }
+
+        .option-btn.selected {
+            border-color: #2b6df6;
+            background: #eef3fc;
+        }
+
+        .option-btn.correct-answer {
+            border-color: #22c55e;
+            background: #dcfce7;
+        }
+
+        .option-btn.wrong-answer {
+            border-color: #ef4444;
+            background: #fecaca;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        /* ---- Botón verificar ---- */
         .btn-check {
-            background: linear-gradient(135deg, #1a3a6a, #2a5a9a);
+            background: #2b6df6;
             color: white;
             border: none;
             border-radius: 60px;
-            padding: 14px 18px;
-            font-size: 1rem;
+            padding: 12px 18px;
+            font-size: 0.95rem;
             font-weight: 600;
             width: 100%;
-            margin-top: 12px;
+            margin-top: 6px;
             cursor: pointer;
             transition: 0.2s;
         }
 
         .btn-check:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(79, 195, 247, 0.1);
+            background: #1a56d6;
         }
 
         .btn-check:active {
             transform: scale(0.97);
         }
 
+        .btn-check:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .feedback {
-            margin-top: 14px;
-            padding: 14px;
+            margin-top: 12px;
+            padding: 16px;
             border-radius: 16px;
-            background: rgba(255, 255, 255, 0.03);
+            background: #f8fafc;
             border-left: 4px solid;
-            color: #e3eaf0;
+            color: #1e2f4a;
             font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .feedback .title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .feedback .explanation {
+            margin-top: 4px;
         }
 
         .fb-good {
-            border-color: #81c784;
-            background: rgba(129, 199, 132, 0.04);
+            border-color: #22c55e;
+            background: #f0fdf4;
         }
 
         .fb-bad {
-            border-color: #e57373;
-            background: rgba(229, 115, 115, 0.04);
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .fb-good .title {
+            color: #166534;
+        }
+
+        .fb-bad .title {
+            color: #991b1b;
         }
 
         /* ===== NAVEGACIÓN ===== */
@@ -421,9 +495,9 @@
         }
 
         .nav-btn {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: white;
+            background: #f0f4fc;
+            border: 1px solid #dce3ef;
+            color: #1d3557;
             padding: 10px 22px;
             border-radius: 40px;
             font-weight: 600;
@@ -435,12 +509,13 @@
         }
 
         .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: #dce3ef;
         }
 
         .nav-btn:disabled {
-            opacity: 0.3;
+            opacity: 0.4;
             cursor: not-allowed;
+            pointer-events: none;
         }
 
         .dot-container {
@@ -454,26 +529,25 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
+            background: #dce3ef;
             transition: 0.2s;
         }
 
         .dot.active {
-            background: #ffd54f;
-            box-shadow: 0 0 15px rgba(255, 213, 79, 0.15);
+            background: #2b6df6;
         }
 
         .dot.done {
-            background: #81c784;
+            background: #22c55e;
         }
 
         /* ===== RESULTADOS ===== */
         .results-box {
-            background: rgba(255, 255, 255, 0.03);
+            background: #f8fafc;
             border-radius: 28px;
             padding: 32px 20px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid #e9eef6;
         }
 
         .results-box .trophy {
@@ -484,14 +558,14 @@
         .results-box h2 {
             font-size: 2rem;
             font-weight: 700;
-            color: #ffd54f;
+            color: #0b1e3a;
             margin-bottom: 4px;
         }
 
         .results-box .big-score {
             font-size: 3rem;
             font-weight: 700;
-            color: #4fc3f7;
+            color: #2b6df6;
             margin: 14px 0;
         }
 
@@ -499,23 +573,24 @@
             font-size: 1rem;
             line-height: 1.7;
             margin-bottom: 18px;
-            color: #e3eaf0;
+            color: #1e2f4a;
         }
 
         .results-box .learned-list {
             text-align: left;
-            background: rgba(255, 255, 255, 0.02);
+            background: white;
             border-radius: 18px;
             padding: 14px 18px;
             margin: 14px 0;
             list-style: none;
+            border: 1px solid #e9eef6;
         }
 
         .results-box .learned-list li {
             padding: 6px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid #e9eef6;
             font-size: 0.95rem;
-            color: #e3eaf0;
+            color: #1e2f4a;
         }
 
         .results-box .learned-list li:last-child {
@@ -524,13 +599,13 @@
 
         .results-box .learned-list li::before {
             content: "✅ ";
-            color: #81c784;
+            color: #22c55e;
         }
 
         .btn-restart {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: white;
+            background: #f0f4fc;
+            border: 1px solid #dce3ef;
+            color: #1d3557;
             padding: 12px 30px;
             border-radius: 40px;
             font-weight: 600;
@@ -541,81 +616,67 @@
         }
 
         .btn-restart:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: #dce3ef;
         }
 
-        /* ===== FOOTER ===== */
         .footer {
             text-align: center;
-            color: #546e7a;
+            color: #94a3b8;
             font-size: 0.85rem;
             margin-top: 22px;
         }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
+            .app-wrapper {
+                padding: 16px 14px;
+            }
             .explain-card {
                 padding: 18px 14px;
             }
-
             .explain-card h2 {
                 font-size: 1.2rem;
             }
-
             .practice-box {
                 padding: 16px 12px;
             }
-
             .practice-title {
                 font-size: 1.1rem;
             }
-
             .q-text {
                 font-size: 0.95rem;
             }
-
-            .option {
+            .word-chip {
                 font-size: 0.85rem;
-                padding: 10px 4px;
+                padding: 6px 14px;
             }
-
-            .btn-check {
-                padding: 12px 14px;
-                font-size: 0.9rem;
+            .option-btn {
+                font-size: 0.85rem;
+                padding: 8px 16px;
             }
-
-            .results-box h2 {
-                font-size: 1.6rem;
-            }
-
-            .results-box .big-score {
-                font-size: 2.4rem;
+            .question {
+                padding: 14px 12px;
             }
         }
 
         @media (max-width: 400px) {
-            .options {
-                grid-template-columns: 1fr 1fr;
-                gap: 6px;
-            }
-
-            .option {
-                font-size: 0.8rem;
-                padding: 8px 4px;
-                border-radius: 30px;
-            }
-
             .header h1 {
-                font-size: 0.95rem;
-            }
-
-            .score {
-                font-size: 0.8rem;
-                padding: 4px 12px;
-            }
-
-            .score span {
                 font-size: 1rem;
+            }
+            .score {
+                font-size: 0.75rem;
+                padding: 2px 12px;
+            }
+            .word-chip {
+                font-size: 0.8rem;
+                padding: 5px 10px;
+            }
+            .option-btn {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            .sentence-builder {
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -630,7 +691,7 @@
             <div class="score">⭐ <span id="scoreDisplay">0</span></div>
         </div>
 
-        <!-- ===== BOTÓN VOLVER ===== -->
+        <!-- ===== VOLVER ===== -->
         <div class="back-row">
             <a href="page-contenido" class="btn-back">← Volver al curso</a>
         </div>
@@ -645,36 +706,20 @@
                     Una <strong>oración</strong> en inglés necesita dos elementos esenciales:
                     un <strong>sujeto</strong> (quien realiza la acción) y un <strong>verbo</strong> (la acción en sí).
                 </div>
-
                 <div class="comparison-box">
                     <div class="es">🇪🇸 Español: <strong>"Corro"</strong> (el sujeto está implícito en el verbo)</div>
                     <div class="en">🇬🇧 Inglés: <strong>"I run"</strong> (el sujeto es <strong>obligatorio</strong>)</div>
                 </div>
-
                 <div class="explain-text">
                     En español, el verbo <em>"corro"</em> ya indica que el sujeto es "yo".
                     En inglés, <em>"run"</em> no nos dice quién corre, por eso <strong>siempre</strong> debemos incluir el sujeto.
                 </div>
-
                 <div class="example-grid">
-                    <div class="example-item">
-                        <div class="en">I eat</div>
-                        <div class="es">Yo como</div>
-                    </div>
-                    <div class="example-item">
-                        <div class="en">She sings</div>
-                        <div class="es">Ella canta</div>
-                    </div>
-                    <div class="example-item">
-                        <div class="en">They work</div>
-                        <div class="es">Ellos trabajan</div>
-                    </div>
-                    <div class="example-item">
-                        <div class="en">The dog barks</div>
-                        <div class="es">El perro ladra</div>
-                    </div>
+                    <div class="example-item"><div class="en">I eat</div><div class="es">Yo como</div></div>
+                    <div class="example-item"><div class="en">She sings</div><div class="es">Ella canta</div></div>
+                    <div class="example-item"><div class="en">They work</div><div class="es">Ellos trabajan</div></div>
+                    <div class="example-item"><div class="en">The dog barks</div><div class="es">El perro ladra</div></div>
                 </div>
-
                 <div class="note-box">
                     📌 <strong>Nota:</strong> El sujeto puede ser un pronombre (I, you, he), un nombre (Maria) o un sustantivo con artículo (the cat).
                 </div>
@@ -682,39 +727,19 @@
 
             <!-- PRÁCTICA 1 -->
             <div class="practice-box">
-                <div class="practice-title">✏️ Práctica 1</div>
+                <div class="practice-title">
+                    <span>✏️ Práctica 1 · Sujeto y Verbo</span>
+                    <span class="counter" id="counter1">0 / 5</span>
+                </div>
+                <div id="practice1"></div>
 
-                <div class="question" id="q1">
-                    <div class="q-text">1. ¿Cuál es el SUJETO en la oración <strong>"The children play"</strong>?</div>
-                    <div class="options">
-                        <div class="option" data-correct="true">The children</div>
-                        <div class="option" data-correct="false">play</div>
-                        <div class="option" data-correct="false">children</div>
-                        <div class="option" data-correct="false">the</div>
+                <div class="nav-row">
+                    <button class="nav-btn" disabled>← anterior</button>
+                    <div class="dot-container">
+                        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
                     </div>
-                    <button class="btn-check" onclick="checkAnswer(1)">Verificar</button>
-                    <div class="feedback" id="fb1"></div>
+                    <button class="nav-btn" onclick="goToModule(2)">siguiente →</button>
                 </div>
-
-                <div class="question" id="q2">
-                    <div class="q-text">2. En español decimos <strong>"Cocino pasta"</strong>. ¿Cómo se dice correctamente en inglés?</div>
-                    <div class="options">
-                        <div class="option" data-correct="false">Cook pasta</div>
-                        <div class="option" data-correct="true">I cook pasta</div>
-                        <div class="option" data-correct="false">Cooks pasta</div>
-                        <div class="option" data-correct="false">Pasta cook</div>
-                    </div>
-                    <button class="btn-check" onclick="checkAnswer(2)">Verificar</button>
-                    <div class="feedback" id="fb2"></div>
-                </div>
-            </div>
-
-            <div class="nav-row">
-                <button class="nav-btn" disabled>← anterior</button>
-                <div class="dot-container">
-                    <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                </div>
-                <button class="nav-btn" onclick="goToModule(2)">siguiente →</button>
             </div>
         </div>
 
@@ -726,38 +751,22 @@
                 <h2>⚡ 2. Orden SVO <span class="badge">Clave</span></h2>
                 <div class="explain-text">
                     En inglés, el orden de las palabras en una oración es <strong>SIEMPRE</strong>:
-                    <span style="background:rgba(79,195,247,0.1); padding:3px 12px; border-radius:8px; color:#4fc3f7; font-weight:700;">SUJETO → VERBO → OBJETO</span>
+                    <span style="background:#eef3fc; padding:3px 12px; border-radius:8px; color:#1e40af; font-weight:700;">SUJETO → VERBO → OBJETO</span>
                 </div>
-
                 <div class="comparison-box">
                     <div class="es">🇪🇸 Español: <strong>"Come manzanas María"</strong> (orden flexible)</div>
                     <div class="en">🇬🇧 Inglés: <strong>"Maria eats apples"</strong> (orden fijo)</div>
                 </div>
-
                 <div class="explain-text">
                     En español podemos cambiar el orden sin perder el significado.
                     En inglés, el orden es <strong>fijo</strong>; si lo cambiamos, la oración pierde sentido o cambia de significado.
                 </div>
-
                 <div class="example-grid">
-                    <div class="example-item">
-                        <div class="en">The boy reads a book</div>
-                        <div class="es">El niño lee un libro</div>
-                    </div>
-                    <div class="example-item">
-                        <div class="en">She buys a car</div>
-                        <div class="es">Ella compra un coche</div>
-                    </div>
-                    <div class="example-item">
-                        <div class="en">We eat pizza</div>
-                        <div class="es">Nosotros comemos pizza</div>
-                    </div>
-                    <div class="example-item">
-                        <div class="en">They watch TV</div>
-                        <div class="es">Ellos ven televisión</div>
-                    </div>
+                    <div class="example-item"><div class="en">The boy reads a book</div><div class="es">El niño lee un libro</div></div>
+                    <div class="example-item"><div class="en">She buys a car</div><div class="es">Ella compra un coche</div></div>
+                    <div class="example-item"><div class="en">We eat pizza</div><div class="es">Nosotros comemos pizza</div></div>
+                    <div class="example-item"><div class="en">They watch TV</div><div class="es">Ellos ven televisión</div></div>
                 </div>
-
                 <div class="note-box">
                     📌 <strong>Recuerda:</strong> Sujeto → Verbo → Objeto. ¡Este orden nunca cambia en inglés!
                 </div>
@@ -765,39 +774,19 @@
 
             <!-- PRÁCTICA 2 -->
             <div class="practice-box">
-                <div class="practice-title">✏️ Práctica 2 · Orden</div>
+                <div class="practice-title">
+                    <span>✏️ Práctica 2 · Orden SVO</span>
+                    <span class="counter" id="counter2">0 / 5</span>
+                </div>
+                <div id="practice2"></div>
 
-                <div class="question" id="q3">
-                    <div class="q-text">3. Ordena correctamente: <strong>"apples / eat / They"</strong></div>
-                    <div class="options">
-                        <div class="option" data-correct="false">Apples they eat</div>
-                        <div class="option" data-correct="true">They eat apples</div>
-                        <div class="option" data-correct="false">Eat they apples</div>
-                        <div class="option" data-correct="false">They apples eat</div>
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="goToModule(1)">← anterior</button>
+                    <div class="dot-container">
+                        <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
                     </div>
-                    <button class="btn-check" onclick="checkAnswer(3)">Verificar</button>
-                    <div class="feedback" id="fb3"></div>
+                    <button class="nav-btn" onclick="goToModule(3)">siguiente →</button>
                 </div>
-
-                <div class="question" id="q4">
-                    <div class="q-text">4. ¿Cuál es la traducción correcta de <strong>"Ella lee un libro"</strong>?</div>
-                    <div class="options">
-                        <div class="option" data-correct="false">She a book reads</div>
-                        <div class="option" data-correct="true">She reads a book</div>
-                        <div class="option" data-correct="false">Reads she a book</div>
-                        <div class="option" data-correct="false">A book she reads</div>
-                    </div>
-                    <button class="btn-check" onclick="checkAnswer(4)">Verificar</button>
-                    <div class="feedback" id="fb4"></div>
-                </div>
-            </div>
-
-            <div class="nav-row">
-                <button class="nav-btn" onclick="goToModule(1)">← anterior</button>
-                <div class="dot-container">
-                    <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
-                </div>
-                <button class="nav-btn" onclick="goToModule(3)">siguiente →</button>
             </div>
         </div>
 
@@ -807,37 +796,32 @@
         <div id="mod3" class="module">
             <div class="explain-card">
                 <h2>🔍 3. Diferencias Clave <span class="badge">Español vs Inglés</span></h2>
-
                 <div class="explain-text">
                     Estas son las <strong>tres diferencias más importantes</strong> entre la estructura de la oración en español e inglés:
                 </div>
-
                 <div style="display:grid; grid-template-columns:1fr; gap:14px; margin:14px 0;">
-                    <div style="background:rgba(255,255,255,0.03); border-radius:16px; padding:16px 18px; border:1px solid rgba(255,255,255,0.04);">
-                        <div style="font-weight:700; color:#ffd54f; margin-bottom:4px;">1️⃣ El sujeto es obligatorio</div>
-                        <div style="font-size:0.95rem; color:#e3eaf0;">
+                    <div style="background:#f8fafc; border-radius:16px; padding:16px 18px; border:1px solid #e9eef6;">
+                        <div style="font-weight:700; color:#1e40af; margin-bottom:4px;">1️⃣ El sujeto es obligatorio</div>
+                        <div style="font-size:0.95rem; color:#1e2f4a;">
                             <span class="es">🇪🇸 "Corro"</span> → <span class="en">🇬🇧 "I run"</span>
                         </div>
-                        <div style="font-size:0.85rem; color:#90a4ae;">En inglés, <strong>siempre</strong> debes decir quién realiza la acción.</div>
+                        <div style="font-size:0.85rem; color:#4a5f82;">En inglés, <strong>siempre</strong> debes decir quién realiza la acción.</div>
                     </div>
-
-                    <div style="background:rgba(255,255,255,0.03); border-radius:16px; padding:16px 18px; border:1px solid rgba(255,255,255,0.04);">
-                        <div style="font-weight:700; color:#ffd54f; margin-bottom:4px;">2️⃣ Orden fijo SVO</div>
-                        <div style="font-size:0.95rem; color:#e3eaf0;">
+                    <div style="background:#f8fafc; border-radius:16px; padding:16px 18px; border:1px solid #e9eef6;">
+                        <div style="font-weight:700; color:#1e40af; margin-bottom:4px;">2️⃣ Orden fijo SVO</div>
+                        <div style="font-size:0.95rem; color:#1e2f4a;">
                             <span class="es">🇪🇸 "Come manzanas María"</span> → <span class="en">🇬🇧 "Maria eats apples"</span>
                         </div>
-                        <div style="font-size:0.85rem; color:#90a4ae;">En inglés el orden <strong>nunca</strong> cambia. Siempre: Sujeto → Verbo → Objeto.</div>
+                        <div style="font-size:0.85rem; color:#4a5f82;">En inglés el orden <strong>nunca</strong> cambia. Siempre: Sujeto → Verbo → Objeto.</div>
                     </div>
-
-                    <div style="background:rgba(255,255,255,0.03); border-radius:16px; padding:16px 18px; border:1px solid rgba(255,255,255,0.04);">
-                        <div style="font-weight:700; color:#ffd54f; margin-bottom:4px;">3️⃣ Los adjetivos van antes del sustantivo</div>
-                        <div style="font-size:0.95rem; color:#e3eaf0;">
+                    <div style="background:#f8fafc; border-radius:16px; padding:16px 18px; border:1px solid #e9eef6;">
+                        <div style="font-weight:700; color:#1e40af; margin-bottom:4px;">3️⃣ Los adjetivos van antes del sustantivo</div>
+                        <div style="font-size:0.95rem; color:#1e2f4a;">
                             <span class="es">🇪🇸 "Una casa <strong>grande</strong>"</span> → <span class="en">🇬🇧 "A <strong>big</strong> house"</span>
                         </div>
-                        <div style="font-size:0.85rem; color:#90a4ae;">En inglés, el adjetivo <strong>siempre</strong> va antes del sustantivo.</div>
+                        <div style="font-size:0.85rem; color:#4a5f82;">En inglés, el adjetivo <strong>siempre</strong> va antes del sustantivo.</div>
                     </div>
                 </div>
-
                 <div class="note-box">
                     💡 <strong>Recuerda:</strong> Estas diferencias son las que más confunden a los hispanohablantes. ¡Practica hasta que sean automáticas!
                 </div>
@@ -845,145 +829,219 @@
 
             <!-- PRÁCTICA 3 -->
             <div class="practice-box">
-                <div class="practice-title">✏️ Práctica 3 · Diferencias</div>
+                <div class="practice-title">
+                    <span>✏️ Práctica 3 · Diferencias</span>
+                    <span class="counter" id="counter3">0 / 5</span>
+                </div>
+                <div id="practice3"></div>
 
-                <div class="question" id="q5">
-                    <div class="q-text">5. ¿Cuál es la traducción correcta de <strong>"Tengo un coche rojo"</strong>?</div>
-                    <div class="q-hint">💡 Recuerda: adjetivo antes del sustantivo</div>
-                    <div class="options">
-                        <div class="option" data-correct="true">I have a red car</div>
-                        <div class="option" data-correct="false">I have a car red</div>
-                        <div class="option" data-correct="false">Have a red car I</div>
-                        <div class="option" data-correct="false">A red car I have</div>
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="goToModule(2)">← anterior</button>
+                    <div class="dot-container">
+                        <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
                     </div>
-                    <button class="btn-check" onclick="checkAnswer(5)">Verificar</button>
-                    <div class="feedback" id="fb5"></div>
+                    <button class="nav-btn" onclick="goToModule(4)">siguiente →</button>
                 </div>
-
-                <div class="question" id="q6">
-                    <div class="q-text">6. Traduce al inglés: <strong>"Ella estudia todos los días"</strong></div>
-                    <div class="options">
-                        <div class="option" data-correct="false">Study she every day</div>
-                        <div class="option" data-correct="true">She studies every day</div>
-                        <div class="option" data-correct="false">She study every day</div>
-                        <div class="option" data-correct="false">Every day she study</div>
-                    </div>
-                    <button class="btn-check" onclick="checkAnswer(6)">Verificar</button>
-                    <div class="feedback" id="fb6"></div>
-                </div>
-            </div>
-
-            <div class="nav-row">
-                <button class="nav-btn" onclick="goToModule(2)">← anterior</button>
-                <div class="dot-container">
-                    <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
-                </div>
-                <button class="nav-btn" onclick="goToModule(4)">siguiente →</button>
             </div>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MÓDULO 4: AFIRMAR, NEGAR, PREGUNTAR                          -->
+        <!-- MÓDULO 4: DO / DOES (Acción)                                 -->
         <!-- ============================================================ -->
         <div id="mod4" class="module">
             <div class="explain-card">
-                <h2>🔄 4. Afirmar, Negar, Preguntar <span class="badge">Do / Does</span></h2>
+                <h2>🔄 4. DO / DOES para Acción <span class="badge">Negar y Preguntar</span></h2>
                 <div class="explain-text">
-                    Para <strong>negar</strong> o <strong>preguntar</strong> en inglés, usamos los auxiliares
-                    <span style="color:#ffd54f; font-weight:700;">do</span> y <span style="color:#ffd54f; font-weight:700;">does</span>.
-                    Recuerda: en estos casos, el verbo principal vuelve a su <strong>forma base</strong> (sin -s).
+                    Para <strong>negar</strong> o <strong>preguntar</strong> con <strong>verbos de acción</strong> (eat, play, work, etc.),
+                    usamos los auxiliares <span style="color:#1e40af; font-weight:700;">do</span> y <span style="color:#1e40af; font-weight:700;">does</span>.
+                    <br><br>
+                    <strong>¿Por qué usamos do / does?</strong> Porque en inglés, las negativas e interrogativas necesitan un <strong>verbo auxiliar</strong>.
+                    El verbo principal vuelve a su <strong>forma base</strong> (sin -s).
+                </div>
+
+                <div style="background:#f8fafc; border-radius:16px; padding:16px; margin:14px 0; border:1px solid #e9eef6;">
+                    <div style="font-weight:700; color:#1e40af;">📌 Regla de oro para verbos de acción:</div>
+                    <ul style="margin-left:20px; color:#1e2f4a;">
+                        <li><strong>Do</strong> se usa con <strong>I, you, we, they</strong></li>
+                        <li><strong>Does</strong> se usa con <strong>he, she, it</strong></li>
+                        <li>En negativa: <strong>do not (don't)</strong> / <strong>does not (doesn't)</strong> + verbo base</li>
+                        <li>En pregunta: <strong>Do / Does</strong> + sujeto + verbo base ?</li>
+                    </ul>
                 </div>
 
                 <div class="example-grid">
-                    <div class="example-item">
-                        <div class="en">You like coffee.</div>
-                        <div class="es">Afirmativa</div>
-                    </div>
-                    <div class="example-item">
-                        <div class="en">You don't like coffee.</div>
-                        <div class="es">Negativa</div>
-                    </div>
-                    <div class="example-item">
-                        <div class="en">Do you like coffee?</div>
-                        <div class="es">Pregunta</div>
-                    </div>
-                </div>
-
-                <div class="comparison-box">
-                    <div class="es">🇪🇸 Español: <strong>"¿Te gusta el café?"</strong> (cambia la entonación)</div>
-                    <div class="en">🇬🇧 Inglés: <strong>"Do you like coffee?"</strong> (cambia el orden y usa auxiliar)</div>
+                    <div class="example-item"><div class="en">You like coffee.</div><div class="es">Afirmativa</div></div>
+                    <div class="example-item"><div class="en">You don't like coffee.</div><div class="es">Negativa</div></div>
+                    <div class="example-item"><div class="en">Do you like coffee?</div><div class="es">Pregunta</div></div>
+                    <div class="example-item"><div class="en">She speaks English.</div><div class="es">Afirmativa</div></div>
+                    <div class="example-item"><div class="en">She doesn't speak English.</div><div class="es">Negativa</div></div>
+                    <div class="example-item"><div class="en">Does she speak English?</div><div class="es">Pregunta</div></div>
                 </div>
 
                 <div class="note-box">
-                    ⚠️ <strong>Importante:</strong> Usamos <span style="color:#ffd54f; font-weight:700;">does</span> para <strong>he / she / it</strong>.
-                    <br>Ejemplo: <span class="en">She does not speak English.</span>
+                    ⚠️ <strong>Importante:</strong> Cuando usamos <strong>do / does</strong>, el verbo principal <strong>pierde la -s</strong>.
+                    <br>Ejemplo: <span class="en">She <strong>speaks</strong> English</span> → <span class="en">She <strong>doesn't speak</strong> English</span>
+                    <br><br>
+                    📌 <strong>Este auxiliar SOLO se usa con verbos de acción. ¡No lo uses con el verbo TO BE!</strong> (Lo veremos en el siguiente módulo)
                 </div>
             </div>
 
             <!-- PRÁCTICA 4 -->
             <div class="practice-box">
-                <div class="practice-title">✏️ Práctica 4 · Afirmar, Negar, Preguntar</div>
+                <div class="practice-title">
+                    <span>✏️ Práctica 4 · DO / DOES</span>
+                    <span class="counter" id="counter4">0 / 5</span>
+                </div>
+                <div id="practice4"></div>
 
-                <div class="question" id="q7">
-                    <div class="q-text">7. Convierte a negativa: <strong>"She speaks English."</strong></div>
-                    <div class="options">
-                        <div class="option" data-correct="false">She not speaks English</div>
-                        <div class="option" data-correct="false">She doesn't speaks English</div>
-                        <div class="option" data-correct="true">She does not speak English</div>
-                        <div class="option" data-correct="false">She speak not English</div>
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="goToModule(3)">← anterior</button>
+                    <div class="dot-container">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
                     </div>
-                    <button class="btn-check" onclick="checkAnswer(7)">Verificar</button>
-                    <div class="feedback" id="fb7"></div>
+                    <button class="nav-btn" onclick="goToModule(5)">siguiente →</button>
                 </div>
-
-                <div class="question" id="q8">
-                    <div class="q-text">8. Forma la pregunta: <strong>"They work hard."</strong></div>
-                    <div class="options">
-                        <div class="option" data-correct="false">Work they hard?</div>
-                        <div class="option" data-correct="true">Do they work hard?</div>
-                        <div class="option" data-correct="false">They do work hard?</div>
-                        <div class="option" data-correct="false">Are they work hard?</div>
-                    </div>
-                    <button class="btn-check" onclick="checkAnswer(8)">Verificar</button>
-                    <div class="feedback" id="fb8"></div>
-                </div>
-            </div>
-
-            <div class="nav-row">
-                <button class="nav-btn" onclick="goToModule(3)">← anterior</button>
-                <div class="dot-container">
-                    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
-                </div>
-                <button class="nav-btn" onclick="showResults()">📊 finalizar</button>
             </div>
         </div>
 
         <!-- ============================================================ -->
-        <!-- MÓDULO 5: RESULTADOS                                         -->
+        <!-- MÓDULO 5: VERBO TO BE (NO USA DO / DOES)                     -->
         <!-- ============================================================ -->
         <div id="mod5" class="module">
+            <div class="explain-card">
+                <h2>🚫 5. El Verbo TO BE <span class="badge">¡No usa Do / Does!</span></h2>
+                <div class="explain-text">
+                    El verbo <strong>TO BE</strong> (am, is, are) es <strong>especial</strong>.
+                    <span style="background:#fef2f2; padding:2px 10px; border-radius:8px; color:#991b1b; font-weight:700;">NUNCA usa DO ni DOES</span> para negar o preguntar.
+                    <br><br>
+                    <strong>¿Por qué?</strong> Porque TO BE es un verbo <strong>estado</strong> (ser/estar) y ya tiene su propia forma para negar y preguntar.
+                    <span style="background:#eef3fc; padding:2px 10px; border-radius:8px; color:#1e40af; font-weight:700;">¡Se niega y pregunta a sí mismo!</span>
+                </div>
+
+                <div style="background:#f8fafc; border-radius:16px; padding:16px; margin:14px 0; border:1px solid #e9eef6;">
+                    <div style="font-weight:700; color:#1e40af;">📌 Regla de oro para TO BE:</div>
+                    <ul style="margin-left:20px; color:#1e2f4a;">
+                        <li><strong>Afirmativa:</strong> Sujeto + am/is/are + complemento</li>
+                        <li><strong>Negativa:</strong> Sujeto + am/is/are + <strong>not</strong> + complemento</li>
+                        <li><strong>Pregunta:</strong> <strong>Am/Is/Are</strong> + sujeto + complemento ?</li>
+                    </ul>
+                </div>
+
+                <div class="example-grid">
+                    <div class="example-item"><div class="en">She is a teacher.</div><div class="es">Afirmativa</div></div>
+                    <div class="example-item"><div class="en">She is not a teacher.</div><div class="es">Negativa</div></div>
+                    <div class="example-item"><div class="en">Is she a teacher?</div><div class="es">Pregunta</div></div>
+                    <div class="example-item"><div class="en">They are happy.</div><div class="es">Afirmativa</div></div>
+                    <div class="example-item"><div class="en">They are not happy.</div><div class="es">Negativa</div></div>
+                    <div class="example-item"><div class="en">Are they happy?</div><div class="es">Pregunta</div></div>
+                </div>
+
+                <div class="warning-box">
+                    ❌ <strong>ERROR COMÚN:</strong> "Does she is a teacher?" es INCORRECTO.
+                    <br>✅ Lo correcto es: <strong>"Is she a teacher?"</strong>
+                    <br><br>
+                    Recuerda: <strong>TO BE</strong> no necesita ayuda de <strong>DO / DOES</strong>.
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 5 -->
+            <div class="practice-box">
+                <div class="practice-title">
+                    <span>✏️ Práctica 5 · TO BE</span>
+                    <span class="counter" id="counter5">0 / 5</span>
+                </div>
+                <div id="practice5"></div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="goToModule(4)">← anterior</button>
+                    <div class="dot-container">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
+                    </div>
+                    <button class="nav-btn" onclick="goToModule(6)">siguiente →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MÓDULO 6: REPASO + PREGUNTAS Y RESPUESTAS (Why / Because)     -->
+        <!-- ============================================================ -->
+        <div id="mod6" class="module">
+            <div class="explain-card">
+                <h2>💬 6. Repaso + Preguntas y Respuestas <span class="badge">Why / Because</span></h2>
+                <div class="explain-text">
+                    Ahora combinaremos todo lo aprendido. Recuerda:
+                    <br><br>
+                    <strong>🔹 Verbos de acción</strong> → usan <strong>DO / DOES</strong> para preguntar y negar.
+                    <br><strong>🔹 Verbo TO BE</strong> → <strong>NO usa DO / DOES</strong>, se pregunta y niega solo.
+                    <br><br>
+                    <strong>¿Cómo respondemos preguntas?</strong> Usamos respuestas cortas (short answers).
+                </div>
+
+                <div style="background:#f8fafc; border-radius:16px; padding:16px; margin:14px 0; border:1px solid #e9eef6;">
+                    <div style="font-weight:700; color:#1e40af;">📌 Respuestas cortas:</div>
+                    <ul style="margin-left:20px; color:#1e2f4a;">
+                        <li><strong>Do you like pizza?</strong> → Yes, I do. / No, I don't.</li>
+                        <li><strong>Does she speak English?</strong> → Yes, she does. / No, she doesn't.</li>
+                        <li><strong>Are you happy?</strong> → Yes, I am. / No, I'm not.</li>
+                        <li><strong>Is he a doctor?</strong> → Yes, he is. / No, he isn't.</li>
+                        <li><strong>Why</strong> (¿Por qué?) → <strong>Because</strong> (Porque).</li>
+                    </ul>
+                </div>
+
+                <div class="note-box">
+                    💡 <strong>Consejo:</strong> Para preguntar "¿Por qué?" usamos <strong>"Why"</strong> al principio.
+                    <br>Ejemplo: <span class="en">"Why do you study English?"</span> → <span class="es">"¿Por qué estudias inglés?"</span>
+                    <br>Respondemos con <span class="en">"Because I like it."</span> → <span class="es">"Porque me gusta."</span>
+                </div>
+            </div>
+
+            <!-- PRÁCTICA 6 -->
+            <div class="practice-box">
+                <div class="practice-title">
+                    <span>✏️ Práctica 6 · Repaso y Respuestas</span>
+                    <span class="counter" id="counter6">0 / 5</span>
+                </div>
+                <div id="practice6"></div>
+
+                <div class="nav-row">
+                    <button class="nav-btn" onclick="goToModule(5)">← anterior</button>
+                    <div class="dot-container">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
+                    </div>
+                    <button class="nav-btn" onclick="showResults()">📊 finalizar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- MÓDULO 7: RESULTADOS                                         -->
+        <!-- ============================================================ -->
+        <div id="mod7" class="module">
             <div class="results-box">
                 <div class="trophy">🏆</div>
                 <h2>¡Excelente trabajo!</h2>
                 <div class="big-score" id="finalScore">0</div>
-                <p style="color:#90a4ae; font-size:1rem;">puntos obtenidos</p>
+                <p style="color:#4a5f82; font-size:1rem;">de 300 puntos posibles</p>
 
                 <div class="final-message">
-                    Has aprendido la <strong>estructura de la oración</strong> en inglés y sus diferencias con el español.
+                    Has completado los <strong>6 módulos</strong> con <strong>30 ejercicios</strong>.
+                    Ahora sabes:
                 </div>
 
                 <ul class="learned-list">
                     <li>El sujeto es <strong>obligatorio</strong> en inglés</li>
                     <li>Orden <strong>SVO</strong> (Sujeto → Verbo → Objeto)</li>
                     <li>Los adjetivos van <strong>antes</strong> del sustantivo</li>
-                    <li>Uso de <strong>do / does</strong> para negar y preguntar</li>
-                    <li>Diferencias clave entre español e inglés</li>
+                    <li>Uso de <strong>DO / DOES</strong> para verbos de acción (negar y preguntar)</li>
+                    <li>El verbo <strong>TO BE</strong> <span style="color:#991b1b; font-weight:700;">NO USA DO / DOES</span></li>
+                    <li>Cómo formar <strong>preguntas con Why</strong> y respuestas con <strong>Because</strong></li>
                 </ul>
 
-                <div style="background:rgba(255,213,79,0.04); border-radius:16px; padding:14px; margin:14px 0; border:1px solid rgba(255,213,79,0.06); text-align:left; color:#e3eaf0;">
-                    <strong style="color:#ffd54f;">💡 Consejo final:</strong> Practica creando tus propias oraciones. "I eat an apple", "She reads a book", "They play in the park".
-                    <br><br>
-                    <strong style="color:#4fc3f7;">🔑 Diferencia clave:</strong> En español decimos "Corro" (sin sujeto). En inglés SIEMPRE debes decir "I run".
+                <div style="background:#f0f7ff; border-radius:16px; padding:14px; margin:14px 0; border:1px solid #dbeafe; text-align:left; color:#1e2f4a;">
+                    <strong style="color:#1e40af;">🔑 Diferencia clave recordada:</strong>
+                    <br>✅ <strong>Does she eat pizza?</strong> (Acción) → usamos DOES.
+                    <br>❌ <strong>Does she is happy?</strong> (TO BE) → INCORRECTO.
+                    <br>✅ <strong>Is she happy?</strong> (TO BE) → CORRECTO.
                 </div>
 
                 <button class="btn-restart" onclick="restart()">🔄 Repetir lección</button>
@@ -995,156 +1053,563 @@
 
     <script>
         // ================================================================
-        // VARIABLES GLOBALES
+        // DATOS DE PRÁCTICAS (6 módulos, 5 preguntas cada uno)
         // ================================================================
-        let score = 0;
-        let answered = {};
-
-        // ================================================================
-        // RESPUESTAS CORRECTAS
-        // ================================================================
-        const correctAnswers = {
-            1: 'The children',
-            2: 'I cook pasta',
-            3: 'They eat apples',
-            4: 'She reads a book',
-            5: 'I have a red car',
-            6: 'She studies every day',
-            7: 'She does not speak English',
-            8: 'Do they work hard?'
+        const moduleData = {
+            1: {
+                title: 'Sujeto y Verbo',
+                questions: [{
+                    type: 'multiple',
+                    prompt: '¿Cuál es el SUJETO en "The children play"?',
+                    options: ['The children', 'play', 'children', 'the'],
+                    correct: 'The children',
+                    explanation: 'El sujeto es "The children" (quienes juegan). En inglés, el sujeto siempre es obligatorio.'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Traduce al inglés: "Cocino pasta"',
+                    options: ['Cook pasta', 'I cook pasta', 'Cooks pasta', 'Pasta cook'],
+                    correct: 'I cook pasta',
+                    explanation: 'En inglés necesitas incluir el sujeto "I". "Cook pasta" está incompleto.'
+                }, {
+                    type: 'multiple',
+                    prompt: 'En la oración "She sings well", el verbo es:',
+                    options: ['She', 'sings', 'well', 'sings well'],
+                    correct: 'sings',
+                    explanation: '"sings" es el verbo (la acción). "She" es el sujeto.'
+                }, {
+                    type: 'multiple',
+                    prompt: '¿Qué sujeto falta en "______ read a book"? (traducción: "Leo un libro")',
+                    options: ['You', 'We', 'I', 'They'],
+                    correct: 'I',
+                    explanation: '"Leo" en español significa "I read". El sujeto "I" es obligatorio.'
+                }, {
+                    type: 'order',
+                    prompt: 'Ordena: "like / pizza / I"',
+                    hint: 'Sujeto → Verbo → Objeto',
+                    correct: ['I', 'like', 'pizza'],
+                    bank: ['I', 'like', 'pizza', 'pasta'],
+                    explanation: 'El orden correcto es Sujeto ("I") + Verbo ("like") + Objeto ("pizza").'
+                }]
+            },
+            2: {
+                title: 'Orden SVO',
+                questions: [{
+                    type: 'order',
+                    prompt: 'Ordena: "apples / eat / They"',
+                    hint: 'Sujeto → Verbo → Objeto',
+                    correct: ['They', 'eat', 'apples'],
+                    bank: ['They', 'eat', 'apples', 'pizza'],
+                    explanation: '"They" (sujeto) + "eat" (verbo) + "apples" (objeto).'
+                }, {
+                    type: 'order',
+                    prompt: 'Ordena: "a book / reads / She"',
+                    hint: 'Sujeto → Verbo → Objeto',
+                    correct: ['She', 'reads', 'a', 'book'],
+                    bank: ['She', 'reads', 'a', 'book', 'magazine'],
+                    explanation: '"She" (sujeto) + "reads" (verbo) + "a book" (objeto).'
+                }, {
+                    type: 'order',
+                    prompt: 'Ordena: "TV / watch / They"',
+                    hint: 'Sujeto → Verbo → Objeto',
+                    correct: ['They', 'watch', 'TV'],
+                    bank: ['They', 'watch', 'TV', 'movies'],
+                    explanation: '"They" (sujeto) + "watch" (verbo) + "TV" (objeto).'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Traduce correctamente: "Ella come una manzana"',
+                    options: ['She an apple eats', 'She eats an apple', 'Eats she an apple', 'An apple she eats'],
+                    correct: 'She eats an apple',
+                    explanation: 'Orden SVO: She (sujeto) + eats (verbo) + an apple (objeto).'
+                }, {
+                    type: 'multiple',
+                    prompt: '¿Cuál es el orden correcto para "play / in the park / children / The"?',
+                    options: ['Play in the park the children', 'The children play in the park',
+                        'In the park play the children', 'The children in the park play'
+                    ],
+                    correct: 'The children play in the park',
+                    explanation: '"The children" (sujeto) + "play" (verbo) + "in the park" (complemento).'
+                }]
+            },
+            3: {
+                title: 'Diferencias clave',
+                questions: [{
+                    type: 'multiple',
+                    prompt: 'Traduce al inglés: "Tengo un coche rojo"',
+                    options: ['I have a car red', 'I have a red car', 'Have a red car I', 'A red car I have'],
+                    correct: 'I have a red car',
+                    explanation: 'En inglés el adjetivo ("red") va ANTES del sustantivo ("car").'
+                }, {
+                    type: 'multiple',
+                    prompt: '¿Por qué en inglés debemos decir "I run" y no solo "run"?',
+                    options: ['Porque el verbo es diferente', 'Porque el sujeto es obligatorio',
+                        'Porque es más corto', 'Porque el español lo permite'
+                    ],
+                    correct: 'Porque el sujeto es obligatorio',
+                    explanation: 'En inglés, el verbo "run" no indica quién corre. El sujeto es siempre obligatorio.'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Traduce al inglés: "Ella estudia todos los días"',
+                    options: ['Study she every day', 'She studies every day', 'She study every day',
+                        'Every day she study'
+                    ],
+                    correct: 'She studies every day',
+                    explanation: '"She" (sujeto) + "studies" (verbo) + "every day" (complemento).'
+                }, {
+                    type: 'multiple',
+                    prompt: 'En inglés, el adjetivo generalmente va...',
+                    options: ['Después del sustantivo', 'Antes del sustantivo', 'Al final de la oración',
+                        'No importa la posición'
+                    ],
+                    correct: 'Antes del sustantivo',
+                    explanation: 'Regla fija: adjetivo + sustantivo (e.g., "big house", "red car").'
+                }, {
+                    type: 'multiple',
+                    prompt: '¿Cuál es la traducción correcta de "They drink water"?',
+                    options: ['Ellos beben agua', 'Ellos beber agua', 'Beben agua', 'Agua beben'],
+                    correct: 'Ellos beben agua',
+                    explanation: 'Traducción directa con el sujeto "They" y el verbo "drink".'
+                }]
+            },
+            4: {
+                title: 'DO / DOES (Acción)',
+                questions: [{
+                    type: 'multiple',
+                    prompt: 'Convierte a negativa: "She speaks English."',
+                    options: ['She not speaks English', 'She doesn\'t speaks English',
+                        'She does not speak English', 'She speak not English'
+                    ],
+                    correct: 'She does not speak English',
+                    explanation: 'Con "She" usamos DOES + NOT + verbo base. La -s de "speaks" desaparece.'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Forma la pregunta: "They work hard."',
+                    options: ['Work they hard?', 'Do they work hard?', 'They do work hard?',
+                        'Are they work hard?'
+                    ],
+                    correct: 'Do they work hard?',
+                    explanation: 'Con "They" usamos DO + sujeto + verbo base. (work, no works).'
+                }, {
+                    type: 'multiple',
+                    prompt: '¿Cuál es la negativa de "He likes coffee"?',
+                    options: ['He not like coffee', 'He doesn\'t like coffee', 'He doesn\'t likes coffee',
+                        'He don\'t like coffee'
+                    ],
+                    correct: 'He doesn\'t like coffee',
+                    explanation: 'Con "He" usamos DOESN\'T + verbo base ("like"). La -s de "likes" desaparece.'
+                }, {
+                    type: 'multiple',
+                    prompt: '¿Cuál es la pregunta correcta para "She reads books"?',
+                    options: ['Does she read books?', 'Does she reads books?', 'Reads she books?',
+                        'She reads books?'
+                    ],
+                    correct: 'Does she read books?',
+                    explanation: 'Pregunta con DOES + sujeto + verbo base ("read"). La -s desaparece.'
+                }, {
+                    type: 'order',
+                    prompt: 'Ordena la pregunta: "you / do / like / coffee / ?"',
+                    hint: 'DO + sujeto + verbo base',
+                    correct: ['Do', 'you', 'like', 'coffee'],
+                    bank: ['Do', 'you', 'like', 'coffee', 'tea'],
+                    explanation: 'Estructura de pregunta con DO: DO + you + like + coffee.'
+                }]
+            },
+            5: {
+                title: 'TO BE (No usa DO/DOES)',
+                questions: [{
+                    type: 'multiple',
+                    prompt: 'Convierte a negativa: "She is a doctor."',
+                    options: ['She not is a doctor', 'She doesn\'t be a doctor', 'She is not a doctor',
+                        'She isn\'t doctor'
+                    ],
+                    correct: 'She is not a doctor',
+                    explanation: 'TO BE se niega solo: is + not. ¡NUNCA uses DOES con TO BE!'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Forma la pregunta: "They are happy."',
+                    options: ['Are they happy?', 'Do they are happy?', 'They are happy?',
+                        'Does they are happy?'
+                    ],
+                    correct: 'Are they happy?',
+                    explanation: 'TO BE se pregunta invirtiendo el orden: Are + they + happy. ¡NUNCA uses DO!'
+                }, {
+                    type: 'multiple',
+                    prompt: '¿Cuál es la forma correcta?',
+                    options: ['Does she is a teacher?', 'Is she a teacher?', 'She is a teacher?',
+                        'Does she be a teacher?'
+                    ],
+                    correct: 'Is she a teacher?',
+                    explanation: 'Con TO BE, la pregunta es: Is + she + teacher? NUNCA "Does she is".'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Elige la negativa correcta: "I am tired".',
+                    options: ['I am not tired', 'I don\'t be tired', 'I amn\'t tired', 'I do not tired'],
+                    correct: 'I am not tired',
+                    explanation: 'Negativa de TO BE: am + not. (La contracción es "I\'m not").'
+                }, {
+                    type: 'multiple',
+                    prompt: '¿Por qué "He doesn\'t is happy" es INCORRECTO?',
+                    options: ['Porque "happy" no es un verbo', 'Porque con TO BE no se usa DOES',
+                        'Porque "doesn\'t" es para plural', 'Porque falta la -s en "is"'
+                    ],
+                    correct: 'Porque con TO BE no se usa DOES',
+                    explanation: 'TO BE (is/am/are) se niega sin ayuda. "He is not happy" es lo correcto.'
+                }]
+            },
+            6: {
+                title: 'Repaso + Why / Because',
+                questions: [{
+                    type: 'order',
+                    prompt: 'Ordena la pregunta: "you / do / why / study / English / ?"',
+                    hint: 'Why + DO/DOES + sujeto + verbo base?',
+                    correct: ['Why', 'do', 'you', 'study', 'English'],
+                    bank: ['Why', 'do', 'you', 'study', 'English', 'Spanish'],
+                    explanation: 'Pregunta con "Why": Why + do + you + study + English? (Verbo de acción)'
+                }, {
+                    type: 'order',
+                    prompt: 'Ordena la pregunta: "she / is / why / happy / ?"',
+                    hint: 'Why + TO BE + sujeto?',
+                    correct: ['Why', 'is', 'she', 'happy'],
+                    bank: ['Why', 'is', 'she', 'happy', 'sad'],
+                    explanation: 'Pregunta con "Why" y TO BE: Why + is + she + happy? (NO usa DO)'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Responde a la pregunta: "Do you like cats?" (Respuesta negativa corta)',
+                    options: ['Yes, I do.', 'No, I don\'t.', 'No, I do.', 'Yes, I don\'t.'],
+                    correct: 'No, I don\'t.',
+                    explanation: 'Respuesta corta negativa para DO: No, + sujeto + don\'t.'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Responde a la pregunta: "Is he a student?" (Respuesta afirmativa corta)',
+                    options: ['Yes, he is.', 'Yes, he does.', 'No, he isn\'t.', 'Yes, he\'s.'],
+                    correct: 'Yes, he is.',
+                    explanation: 'Respuesta corta afirmativa para TO BE: Yes, + sujeto + am/is/are.'
+                }, {
+                    type: 'multiple',
+                    prompt: 'Traduce: "¿Por qué estudias inglés?"',
+                    options: ['Why study you English?', 'Why do you study English?',
+                        'Why you study English?', 'Why does you study English?'
+                    ],
+                    correct: 'Why do you study English?',
+                    explanation: '"Why" + DO (para "you") + sujeto + verbo base (study).'
+                }]
+            }
         };
 
         // ================================================================
-        // EVENTOS: selección de opciones
+        // ESTADO GLOBAL
         // ================================================================
-        document.querySelectorAll('.option').forEach(opt => {
-            opt.addEventListener('click', function() {
-                const questionDiv = this.closest('.question');
-                if (!questionDiv) return;
-                const qId = questionDiv.id.replace('q', '');
-                questionDiv.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-                this.classList.add('selected');
-                const fb = document.getElementById('fb' + qId);
-                if (fb) fb.innerHTML = '';
-                if (fb) fb.className = 'feedback';
+        let score = 0;
+        let answers = {}; // { "mod-question": { answered, correct, userAnswer } }
+        const totalModules = 6;
+
+        // ================================================================
+        // FUNCIONES DE RENDERIZADO
+        // ================================================================
+        function renderPractice(modId) {
+            const container = document.getElementById('practice' + modId);
+            if (!container) return;
+
+            const data = moduleData[modId];
+            if (!data) return;
+            const questions = data.questions;
+            let html = '';
+
+            questions.forEach((q, idx) => {
+                const key = modId + '-' + idx;
+                const state = answers[key] || { answered: false, correct: false, userAnswer: null };
+
+                html += `<div class="question" id="q-${key}">`;
+                html += `<div class="q-text">${idx+1}. ${q.prompt}</div>`;
+                if (q.hint) html += `<div class="q-hint">${q.hint}</div>`;
+
+                if (q.type === 'multiple') {
+                    html += renderMultipleQuestion(key, q, state);
+                } else if (q.type === 'order') {
+                    html += renderOrderQuestion(key, q, state);
+                }
+
+                if (!state.answered) {
+                    html += `<button class="btn-check" id="check-${key}" onclick="checkQuestion('${key}')">✓ Verificar</button>`;
+                } else {
+                    html += `<button class="btn-check" disabled>${state.correct ? '✅ Correcto' : '❌ Incorrecto'}</button>`;
+                }
+
+                const fbClass = state.answered ? (state.correct ? 'fb-good' : 'fb-bad') : '';
+                let fbTitle = state.answered ? (state.correct ? '✅ ¡Correcto!' : '❌ No es correcto.') : '';
+                let fbExplanation = '';
+                if (state.answered) {
+                    if (state.correct) {
+                        fbExplanation = q.explanation || '¡Bien hecho!';
+                    } else {
+                        fbExplanation = q.explanation || 'Revisa la estructura.';
+                    }
+                }
+
+                html += `<div class="feedback ${fbClass}" id="fb-${key}">`;
+                if (state.answered) {
+                    html += `<div class="title">${fbTitle}</div>`;
+                    html += `<div class="explanation">${fbExplanation}</div>`;
+                }
+                html += `</div>`;
+
+                html += `</div>`;
             });
-        });
+
+            container.innerHTML = html;
+
+            // Eventos
+            questions.forEach((q, idx) => {
+                const key = modId + '-' + idx;
+                const state = answers[key] || { answered: false, correct: false, userAnswer: null };
+                if (q.type === 'order' && !state.answered) {
+                    attachOrderEvents(key, modId);
+                }
+                if (q.type === 'multiple' && !state.answered) {
+                    attachMultipleEvents(key);
+                }
+            });
+
+            updateCounter(modId);
+        }
+
+        function renderMultipleQuestion(key, q, state) {
+            let html = `<div class="options-group" id="options-${key}">`;
+            q.options.forEach(opt => {
+                let cls = 'option-btn';
+                if (state.answered) {
+                    if (opt === q.correct) cls += ' correct-answer';
+                    if (state.userAnswer === opt && opt !== q.correct) cls += ' wrong-answer';
+                    if (state.userAnswer === opt && opt === q.correct) cls += ' correct-answer';
+                    cls += ' selected';
+                }
+                html += `<button class="${cls}" data-key="${key}" data-value="${opt}" ${state.answered ? 'disabled' : ''}>${opt}</button>`;
+            });
+            html += `</div>`;
+            return html;
+        }
+
+        function renderOrderQuestion(key, q, state) {
+            let html = '';
+            const words = state.userAnswer || [];
+
+            html += `<div class="sentence-builder" id="builder-${key}">`;
+            if (words.length === 0) {
+                html += `<span class="placeholder-text">👆 Toca las palabras del banco para formar la oración</span>`;
+            } else {
+                words.forEach((word, pos) => {
+                    let cls = 'word-slot';
+                    if (state.answered && state.correct && words[pos] === q.correct[pos]) cls += ' correct';
+                    if (state.answered && !state.correct && words[pos] !== q.correct[pos]) cls += ' incorrect';
+                    html += `<span class="${cls}" data-key="${key}" data-pos="${pos}">${word} ✕</span>`;
+                });
+            }
+            html += `</div>`;
+
+            html += `<div class="word-bank" id="bank-${key}">`;
+            const usedWords = words || [];
+            let available = q.bank.filter(w => {
+                const countInBank = q.bank.filter(b => b === w).length;
+                const countUsed = usedWords.filter(u => u === w).length;
+                return countUsed < countInBank;
+            });
+
+            if (state.answered) {
+                q.bank.forEach(w => {
+                    html += `<span class="word-chip used">${w}</span>`;
+                });
+            } else {
+                if (available.length === 0) {
+                    html += `<span style="color:#aab7d0; font-style:italic;">Todas las palabras seleccionadas</span>`;
+                } else {
+                    available.forEach(w => {
+                        html += `<span class="word-chip" data-word="${w}" data-key="${key}">${w}</span>`;
+                    });
+                }
+            }
+            html += `</div>`;
+            return html;
+        }
 
         // ================================================================
-        // FUNCIÓN PRINCIPAL: verificar respuesta
+        // EVENTOS
         // ================================================================
-        function checkAnswer(qId) {
-            const questionDiv = document.getElementById('q' + qId);
-            if (!questionDiv) return;
+        function attachOrderEvents(key, modId) {
+            const container = document.getElementById('practice' + modId);
+            if (!container) return;
 
-            const selected = questionDiv.querySelector('.option.selected');
-            const fbDiv = document.getElementById('fb' + qId);
+            container.querySelectorAll(`#bank-${key} .word-chip:not(.used)`).forEach(chip => {
+                chip.addEventListener('click', function() {
+                    const k = this.dataset.key;
+                    const word = this.dataset.word;
+                    if (!answers[k]) answers[k] = { answered: false, correct: false, userAnswer: [] };
+                    if (answers[k].answered) return;
+                    answers[k].userAnswer.push(word);
+                    renderPractice(modId);
+                    const checkBtn = document.getElementById('check-' + k);
+                    if (checkBtn && answers[k].userAnswer.length > 0) {
+                        checkBtn.disabled = false;
+                    }
+                    const fb = document.getElementById('fb-' + k);
+                    if (fb) {
+                        fb.innerHTML = '';
+                        fb.className = 'feedback';
+                    }
+                    updateCounter(modId);
+                });
+            });
 
-            if (!selected) {
-                fbDiv.innerHTML = '⚠️ Selecciona una opción primero.';
-                fbDiv.className = 'feedback fb-bad';
-                return;
+            container.querySelectorAll(`#builder-${key} .word-slot`).forEach(slot => {
+                slot.addEventListener('click', function() {
+                    const k = this.dataset.key;
+                    if (!answers[k]) answers[k] = { answered: false, correct: false, userAnswer: [] };
+                    if (answers[k].answered) return;
+                    const pos = parseInt(this.dataset.pos);
+                    if (!isNaN(pos) && answers[k].userAnswer && pos < answers[k].userAnswer.length) {
+                        answers[k].userAnswer.splice(pos, 1);
+                        renderPractice(modId);
+                        const checkBtn = document.getElementById('check-' + k);
+                        if (checkBtn && answers[k].userAnswer.length === 0) {
+                            checkBtn.disabled = true;
+                        }
+                        const fb = document.getElementById('fb-' + k);
+                        if (fb) {
+                            fb.innerHTML = '';
+                            fb.className = 'feedback';
+                        }
+                        updateCounter(modId);
+                    }
+                });
+            });
+        }
+
+        function attachMultipleEvents(key) {
+            const container = document.getElementById('options-' + key);
+            if (!container) return;
+            container.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const k = this.dataset.key;
+                    const val = this.dataset.value;
+                    if (!answers[k]) answers[k] = { answered: false, correct: false, userAnswer: null };
+                    if (answers[k].answered) return;
+                    container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    answers[k].userAnswer = val;
+                    const checkBtn = document.getElementById('check-' + k);
+                    if (checkBtn) checkBtn.disabled = false;
+                    const fb = document.getElementById('fb-' + k);
+                    if (fb) {
+                        fb.innerHTML = '';
+                        fb.className = 'feedback';
+                    }
+                });
+            });
+        }
+
+        // ================================================================
+        // VERIFICAR
+        // ================================================================
+        function checkQuestion(key) {
+            const [modId, qIdx] = key.split('-').map(Number);
+            const question = moduleData[modId].questions[qIdx];
+            const state = answers[key];
+            if (!state || state.answered) return;
+
+            let isCorrect = false;
+            if (question.type === 'order') {
+                const userWords = state.userAnswer || [];
+                const correctWords = question.correct;
+                isCorrect = (userWords.length === correctWords.length &&
+                    userWords.every((w, i) => w === correctWords[i]));
+            } else if (question.type === 'multiple') {
+                isCorrect = (state.userAnswer === question.correct);
             }
 
-            const isCorrect = selected.dataset.correct === 'true';
-            const allOpts = questionDiv.querySelectorAll('.option');
-
-            allOpts.forEach(opt => {
-                opt.classList.remove('correct', 'incorrect');
-                if (opt.dataset.correct === 'true') opt.classList.add('correct');
-                if (opt === selected && !isCorrect) opt.classList.add('incorrect');
-            });
-
-            if (!answered[qId]) {
-                if (isCorrect) score += 10;
-                answered[qId] = true;
-                updateScore();
+            state.answered = true;
+            state.correct = isCorrect;
+            if (isCorrect) {
+                score += 10;
+                document.getElementById('scoreDisplay').textContent = score;
             }
 
-            const explanation = getExplanation(qId, isCorrect);
-
-            fbDiv.innerHTML = `
-                <strong>${isCorrect ? '✅ Correcto' : '❌ Incorrecto'}</strong><br>
-                ${explanation}
-            `;
-            fbDiv.className = `feedback ${isCorrect ? 'fb-good' : 'fb-bad'}`;
+            renderPractice(modId);
+            updateCounter(modId);
         }
 
         // ================================================================
-        // EXPLICACIONES
+        // CONTADOR
         // ================================================================
-        function getExplanation(qId, correct) {
-            const texts = {
-                1: correct ? 'El sujeto es "The children" (quienes juegan).' : 'El sujeto es quien realiza la acción: "The children".',
-                2: correct ? 'En inglés necesitas el sujeto "I".' : 'Debes incluir "I": "I cook pasta".',
-                3: correct ? 'Orden correcto: They (sujeto) + eat (verbo) + apples (objeto).' : 'El orden es Sujeto → Verbo → Objeto: They eat apples.',
-                4: correct ? '"She reads a book" es el orden correcto (SVO).' : 'El orden correcto es She reads a book.',
-                5: correct ? 'El adjetivo "red" va antes del sustantivo "car".' : 'En inglés, el adjetivo va antes del sustantivo.',
-                6: correct ? '"She studies every day" es correcto (sujeto + verbo + complemento).' : 'No olvides incluir el sujeto "She".',
-                7: correct ? 'Negativa correcta: She + does + not + speak (verbo base).' : 'La estructura correcta es "She does not speak English".',
-                8: correct ? 'Pregunta correcta: Do + sujeto + verbo base.' : 'La pregunta correcta es "Do they work hard?"'
-            };
-            return texts[qId] || (correct ? 'Correcto.' : 'Revisa la respuesta correcta.');
+        function updateCounter(modId) {
+            const data = moduleData[modId];
+            if (!data) return;
+            const total = data.questions.length;
+            let done = 0;
+            for (let i = 0; i < total; i++) {
+                const key = modId + '-' + i;
+                if (answers[key] && answers[key].answered) done++;
+            }
+            const counterEl = document.getElementById('counter' + modId);
+            if (counterEl) {
+                counterEl.textContent = `${done} / ${total}`;
+            }
         }
 
         // ================================================================
-        // ACTUALIZAR PUNTUACIÓN
-        // ================================================================
-        function updateScore() {
-            document.getElementById('scoreDisplay').textContent = score;
-        }
-
-        // ================================================================
-        // NAVEGACIÓN ENTRE MÓDULOS
+        // NAVEGACIÓN
         // ================================================================
         function goToModule(mod) {
+            if (mod < 1 || mod > totalModules + 1) return;
             document.querySelectorAll('.module').forEach(m => m.classList.remove('active'));
-            document.getElementById('mod' + mod).classList.add('active');
+            const target = document.getElementById('mod' + mod);
+            if (target) target.classList.add('active');
 
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach((d, i) => {
-                d.classList.remove('active', 'done');
-                if (i === mod - 1) d.classList.add('active');
-                if (i < mod - 1) d.classList.add('done');
-            });
-
+            if (mod <= totalModules) {
+                document.querySelectorAll('.dot-container').forEach(container => {
+                    const dots = container.querySelectorAll('.dot');
+                    dots.forEach((d, i) => {
+                        d.classList.remove('active', 'done');
+                        if (i === mod - 1) d.classList.add('active');
+                        if (i < mod - 1) d.classList.add('done');
+                    });
+                });
+                renderPractice(mod);
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ================================================================
-        // MOSTRAR RESULTADOS
+        // RESULTADOS Y REINICIO
         // ================================================================
         function showResults() {
             document.getElementById('finalScore').textContent = score;
-            goToModule(5);
+            goToModule(7);
         }
 
-        // ================================================================
-        // REINICIAR
-        // ================================================================
         function restart() {
             score = 0;
-            answered = {};
-            updateScore();
-
-            document.querySelectorAll('.option').forEach(opt => {
-                opt.classList.remove('selected', 'correct', 'incorrect');
-            });
-            document.querySelectorAll('.feedback').forEach(fb => {
-                fb.innerHTML = '';
-                fb.className = 'feedback';
-            });
-
+            answers = {};
+            document.getElementById('scoreDisplay').textContent = score;
+            document.querySelectorAll('.btn-check').forEach(b => b.disabled = true);
             goToModule(1);
         }
 
         // ================================================================
-        // EXPONER FUNCIONES GLOBALES
+        // EXPONER
         // ================================================================
-        window.checkAnswer = checkAnswer;
         window.goToModule = goToModule;
         window.showResults = showResults;
         window.restart = restart;
+        window.checkQuestion = checkQuestion;
+        window.renderPractice = renderPractice;
+        window.updateCounter = updateCounter;
+
+        // ================================================================
+        // INICIALIZAR
+        // ================================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            renderPractice(1);
+            for (let i = 1; i <= totalModules; i++) updateCounter(i);
+        });
     </script>
+
 </body>
 </html>
