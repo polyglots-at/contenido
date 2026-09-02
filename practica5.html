@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Gramática Avanzada · Frases Cortas</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #eef2f7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 16px 12px 40px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .app-container {
+            max-width: 600px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            padding: 24px 20px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #f0f4fc;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .app-header h1 { font-size: 1.2rem; font-weight: 700; color: #0b1e3a; }
+        .app-header .badge {
+            background: #e8edf9; color: #1e3b6b; font-size: 0.7rem;
+            font-weight: 600; padding: 6px 14px; border-radius: 30px;
+        }
+
+        .progress-bar {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .progress-dot {
+            flex: 1;
+            min-width: 10px;
+            height: 6px;
+            border-radius: 6px;
+            background: #dee5ef;
+            transition: background 0.3s ease;
+        }
+
+        .progress-dot.active { background: #2b6df6; }
+        .progress-dot.done { background: #2b6df6; opacity: 0.4; }
+        .progress-dot.correct { background: #22c55e; }
+        .progress-dot.wrong { background: #ef4444; }
+
+        .session-content { animation: fadeSlide 0.3s ease; }
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-weight: 700; font-size: 1rem; color: #0b1e3a;
+            margin-bottom: 12px; padding-bottom: 6px;
+            border-bottom: 2px solid #2b6df6;
+            display: flex; align-items: center; gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .section-title .step {
+            background: #2b6df6; color: white; border-radius: 50%;
+            width: 24px; height: 24px; display: inline-flex;
+            align-items: center; justify-content: center;
+            font-size: 0.7rem; font-weight: 700;
+        }
+
+        .section-title .tag {
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .tag-passive { background: #dbeafe; color: #1e40af; }
+        .tag-reported { background: #fce7f3; color: #9d174d; }
+        .tag-conditional { background: #fef3c7; color: #92400e; }
+        .tag-comparative { background: #dcfce7; color: #166534; }
+        .tag-modal { background: #e0e7ff; color: #3730a3; }
+        .tag-structure { background: #f3e8ff; color: #6b21a8; }
+
+        .exercise-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 16px;
+            border: 2px solid #e9eef6;
+        }
+
+        .exercise-card .prompt {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #0b1e3a;
+            margin-bottom: 10px;
+        }
+
+        .exercise-card .prompt .base-sentence {
+            background: #f1f5f9;
+            padding: 8px 14px;
+            border-radius: 10px;
+            border-left: 4px solid #f59e0b;
+            display: block;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 6px;
+            color: #1e2f4a;
+            font-family: 'Courier New', monospace;
+        }
+
+        .exercise-card .prompt .meaning-text {
+            display: block;
+            margin-top: 4px;
+            font-size: 0.9rem;
+            color: #4a5f82;
+            font-style: italic;
+            background: #f8fafc;
+            padding: 4px 12px;
+            border-radius: 6px;
+            border-left: 3px solid #94a3b8;
+        }
+
+        .exercise-card .prompt .goal-text {
+            display: block;
+            margin-top: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1e3a8a;
+            background: #eef3ff;
+            padding: 6px 14px;
+            border-radius: 8px;
+            border-left: 4px solid #2b6df6;
+        }
+
+        .exercise-card .prompt .instruction-text {
+            display: block;
+            margin-top: 10px;
+            font-weight: 400;
+            color: #4a5f82;
+            font-size: 0.9rem;
+        }
+
+        .sentence-builder {
+            padding: 12px 14px;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 2px solid #e9eef6;
+            min-height: 45px;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #0b1e3a;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 4px;
+            margin-top: 10px;
+        }
+
+        .sentence-builder .word-slot {
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: 2px solid #dce3ef;
+            cursor: pointer;
+            transition: all 0.15s;
+            touch-action: manipulation;
+        }
+
+        .sentence-builder .word-slot:active { transform: scale(0.95); }
+        .sentence-builder .word-slot.correct { border-color: #22c55e; background: #dcfce7; }
+        .sentence-builder .word-slot.wrong { border-color: #ef4444; background: #fecaca; }
+        .sentence-builder .placeholder-text {
+            color: #aab7d0;
+            font-style: italic;
+        }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px 14px;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 2px dashed #dce3ef;
+            min-height: 50px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .word-chip {
+            background: #eef3fc;
+            border: 2px solid #dce3ef;
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #0b1e3a;
+            cursor: pointer;
+            transition: all 0.15s;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .word-chip:active { transform: scale(0.95); }
+        .word-chip.used {
+            opacity: 0.3;
+            pointer-events: none;
+            transform: scale(0.9);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            flex: 1;
+            min-width: 60px;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+
+        .btn-reset { background: #f0f4fc; color: #1d3557; flex: 0.5; }
+        .btn-reset:active { background: #dce3ef; transform: scale(0.97); }
+        .btn-check { background: #2b6df6; color: white; flex: 1; }
+        .btn-check:active { background: #1a56d6; transform: scale(0.97); }
+        .btn-check:disabled { opacity: 0.5; pointer-events: none; }
+
+        .feedback-box {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin: 10px 0;
+            border: 2px solid #e9eef6;
+            display: none;
+            animation: fadeSlide 0.3s ease;
+        }
+
+        .feedback-box.show { display: block; }
+        .feedback-box.success { border-color: #86efac; background: #f0fdf4; }
+        .feedback-box.error { border-color: #fca5a5; background: #fef2f2; }
+        .feedback-box .title { font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; }
+        .feedback-box .title.success { color: #166534; }
+        .feedback-box .title.error { color: #991b1b; }
+        .feedback-box .detail { font-size: 0.85rem; line-height: 1.5; color: #1e2f4a; }
+        .feedback-box .detail .correct-phrase {
+            display: block;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-top: 6px;
+            border: 2px solid #22c55e;
+            color: #0b1e3a;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .feedback-box .detail .correct-phrase .label {
+            color: #5a6f92;
+            font-weight: 400;
+            font-size: 0.8rem;
+        }
+        .feedback-box .detail .grammar-note {
+            margin-top: 6px;
+            padding: 8px 12px;
+            background: #eef3ff;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #1e3a8a;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 2px solid #f0f4fc;
+        }
+
+        .nav-buttons button {
+            flex: 1;
+            padding: 12px 10px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+
+        .btn-prev { background: #f0f4fc; color: #1d3557; flex: 0.5; }
+        .btn-prev:active { background: #dce3ef; transform: scale(0.97); }
+        .btn-next { background: #2b6df6; color: white; flex: 1; }
+        .btn-next:active { background: #1a56d6; transform: scale(0.97); }
+        .btn-next:disabled { opacity: 0.4; pointer-events: none; }
+        .btn-finish { background: #22c55e; color: white; flex: 1; }
+        .btn-finish:active { background: #16a34a; transform: scale(0.97); }
+        .btn-finish:disabled { opacity: 0.4; pointer-events: none; }
+
+        .completion-screen {
+            text-align: center;
+            padding: 30px 10px 10px;
+            animation: fadeSlide 0.5s ease;
+        }
+
+        .completion-screen .icon { font-size: 4rem; margin-bottom: 12px; }
+        .completion-screen h2 { color: #0b1e3a; font-size: 1.5rem; margin-bottom: 8px; }
+        .completion-screen p { color: #4a5f82; font-size: 0.95rem; line-height: 1.6; max-width: 340px; margin: 0 auto 16px; }
+        .completion-screen .btn-restart {
+            background: #eef3fc; color: #1d3557; border: none;
+            padding: 12px 30px; border-radius: 50px; font-weight: 700; font-size: 1rem;
+            cursor: pointer; transition: 0.2s; touch-action: manipulation;
+        }
+        .completion-screen .btn-restart:active { background: #dce3ef; transform: scale(0.97); }
+
+        .completion-screen .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+
+        .completion-screen .stat-item { text-align: center; }
+        .completion-screen .stat-item .number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+        }
+        .completion-screen .stat-item .number.green { color: #22c55e; }
+        .completion-screen .stat-item .number.red { color: #ef4444; }
+        .completion-screen .stat-item .number.blue { color: #2b6df6; }
+        .completion-screen .stat-item .label { font-size: 0.75rem; color: #5a6f92; }
+
+        @media (max-width: 450px) {
+            .app-container { padding: 16px 12px 20px; }
+            .exercise-card { padding: 14px 14px; }
+            .exercise-card .prompt { font-size: 0.9rem; }
+            .word-chip { font-size: 0.8rem; padding: 6px 10px; }
+            .sentence-builder { font-size: 0.85rem; padding: 10px 12px; }
+            .action-buttons button { font-size: 0.8rem; padding: 8px 10px; }
+            .nav-buttons button { font-size: 0.85rem; padding: 10px 8px; }
+            .section-title .tag { font-size: 0.5rem; padding: 1px 8px; }
+        }
+
+        @media (max-width: 380px) {
+            .app-container { padding: 12px 8px 16px; }
+            .exercise-card { padding: 10px 10px; }
+            .exercise-card .prompt { font-size: 0.85rem; }
+            .word-chip { font-size: 0.72rem; padding: 4px 8px; }
+            .sentence-builder { font-size: 0.8rem; padding: 8px 10px; }
+            .sentence-builder .word-slot { padding: 2px 8px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container" id="app">
+
+    <header class="app-header">
+        <h1>🔀 Gramática Compleja</h1>
+        <span class="badge">12 sesiones · B1-B2</span>
+    </header>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div id="contentArea"></div>
+
+</div>
+
+<script>
+    // ================================================================
+    //  SESIONES - Gramática Avanzada 
+    //  AHORA con: Frase original + Traducción + Transformación deseada
+    // ================================================================
+    const sessions = [
+        // 1. Passive Voice (Present)
+        {
+            id: 1,
+            topic: 'Voz Pasiva (Presente)',
+            tag: 'PASIVA',
+            tagClass: 'tag-passive',
+            baseSentence: 'The cat eats the fish.',
+            meaning: '🇪🇸 El gato come el pescado.',
+            goal: '🎯 Transformación deseada: "El pescado es comido por el gato."',
+            correct: ['The', 'fish', 'is', 'eaten', 'by', 'the', 'cat', '.'],
+            words: ['The', 'fish', 'cat', 'is', 'are', 'eaten', 'ate', 'by', 'with', 'the', 'cat', 'dog', '.'],
+            structure: 'Sujeto (objeto) + am/is/are + participio pasado (+ by + agente)'
+        },
+        // 2. Passive Voice (Past)
+        {
+            id: 2,
+            topic: 'Voz Pasiva (Pasado)',
+            tag: 'PASIVA',
+            tagClass: 'tag-passive',
+            baseSentence: 'The boy broke the window.',
+            meaning: '🇪🇸 El niño rompió la ventana.',
+            goal: '🎯 Transformación deseada: "La ventana fue rota por el niño."',
+            correct: ['The', 'window', 'was', 'broken', 'by', 'the', 'boy', '.'],
+            words: ['The', 'window', 'door', 'was', 'were', 'broken', 'broke', 'by', 'for', 'the', 'boy', 'girl', '.'],
+            structure: 'Sujeto (objeto) + was/were + participio pasado (+ by + agente)'
+        },
+        // 3. Reported Speech (Statement)
+        {
+            id: 3,
+            topic: 'Estilo Indirecto',
+            tag: 'REPORTADO',
+            tagClass: 'tag-reported',
+            baseSentence: '"I am tired."',
+            meaning: '🇪🇸 "Estoy cansado."',
+            goal: '🎯 Transformación deseada: "Ella dijo que estaba cansada."',
+            correct: ['She', 'said', 'she', 'was', 'tired', '.'],
+            words: ['She', 'He', 'said', 'told', 'she', 'he', 'is', 'was', 'tired', 'happy', '.'],
+            structure: 'Sujeto + said + (that) + sujeto + verbo en pasado'
+        },
+        // 4. Reported Speech (Question)
+        {
+            id: 4,
+            topic: 'Estilo Indirecto (pregunta)',
+            tag: 'REPORTADO',
+            tagClass: 'tag-reported',
+            baseSentence: '"Do you like pizza?"',
+            meaning: '🇪🇸 "¿Te gusta la pizza?"',
+            goal: '🎯 Transformación deseada: "Él preguntó si me gustaba la pizza."',
+            correct: ['He', 'asked', 'if', 'I', 'liked', 'pizza', '.'],
+            words: ['He', 'She', 'asked', 'told', 'if', 'whether', 'I', 'you', 'liked', 'like', 'pizza', 'pasta', '.'],
+            structure: 'Sujeto + asked + if/whether + sujeto + verbo en pasado'
+        },
+        // 5. Conditional Type 1
+        {
+            id: 5,
+            topic: 'Condicional Tipo 1',
+            tag: 'CONDICIONAL',
+            tagClass: 'tag-conditional',
+            baseSentence: 'If it rains, I stay home.',
+            meaning: '🇪🇸 Si llueve, me quedo en casa.',
+            goal: '🎯 Transformación deseada: "Si llueve, me quedaré en casa."',
+            correct: ['If', 'it', 'rains', ',', 'I', 'will', 'stay', 'home', '.'],
+            words: ['If', 'Unless', 'it', 'they', 'rains', 'rain', ',', 'I', 'will', 'would', 'stay', 'go', 'home', 'school', '.'],
+            structure: 'If + presente simple, + will + verbo base'
+        },
+        // 6. Conditional Type 2
+        {
+            id: 6,
+            topic: 'Condicional Tipo 2',
+            tag: 'CONDICIONAL',
+            tagClass: 'tag-conditional',
+            baseSentence: 'If I win the lottery, I travel.',
+            meaning: '🇪🇸 Si gano la lotería, viajo.',
+            goal: '🎯 Transformación deseada: "Si ganara la lotería, viajaría."',
+            correct: ['If', 'I', 'won', 'the', 'lottery', ',', 'I', 'would', 'travel', '.'],
+            words: ['If', 'When', 'I', 'you', 'won', 'win', 'the', 'lottery', 'game', ',', 'I', 'would', 'will', 'travel', 'buy', '.'],
+            structure: 'If + pasado simple, + would + verbo base'
+        },
+        // 7. Conditional Type 3
+        {
+            id: 7,
+            topic: 'Condicional Tipo 3',
+            tag: 'CONDICIONAL',
+            tagClass: 'tag-conditional',
+            baseSentence: 'If he studies, he passes.',
+            meaning: '🇪🇸 Si estudia, aprueba.',
+            goal: '🎯 Transformación deseada: "Si hubiera estudiado, habría aprobado."',
+            correct: ['If', 'he', 'had', 'studied', ',', 'he', 'would', 'have', 'passed', '.'],
+            words: ['If', 'Although', 'he', 'she', 'had', 'has', 'studied', 'studies', ',', 'he', 'would', 'will', 'have', 'has', 'passed', 'failed', '.'],
+            structure: 'If + past perfect, + would have + participio pasado'
+        },
+        // 8. Comparatives
+        {
+            id: 8,
+            topic: 'Comparativos',
+            tag: 'COMPARATIVO',
+            tagClass: 'tag-comparative',
+            baseSentence: 'Peter is 1.7m, John is 1.8m.',
+            meaning: '🇪🇸 Pedro mide 1.70m, Juan mide 1.80m.',
+            goal: '🎯 Transformación deseada: "Juan es más alto que Pedro."',
+            correct: ['John', 'is', 'taller', 'than', 'Peter', '.'],
+            words: ['John', 'Peter', 'is', 'are', 'taller', 'tall', 'than', 'as', 'Peter', 'Mary', '.'],
+            structure: 'Sujeto + verbo + adjetivo comparativo + than + objeto'
+        },
+        // 9. Superlatives
+        {
+            id: 9,
+            topic: 'Superlativos',
+            tag: 'SUPERLATIVO',
+            tagClass: 'tag-comparative',
+            baseSentence: 'Mount Everest is 8848m high.',
+            meaning: '🇪🇸 El Monte Everest mide 8848m de alto.',
+            goal: '🎯 Transformación deseada: "El Monte Everest es la montaña más alta."',
+            correct: ['Mount', 'Everest', 'is', 'the', 'highest', 'mountain', '.'],
+            words: ['Mount', 'Everest', 'K2', 'is', 'are', 'the', 'a', 'highest', 'higher', 'mountain', 'peak', '.'],
+            structure: 'Sujeto + verbo + the + adjetivo superlativo + sustantivo'
+        },
+        // 10. Modal "Must" (Obligation)
+        {
+            id: 10,
+            topic: 'Obligación (Must)',
+            tag: 'MODAL',
+            tagClass: 'tag-modal',
+            baseSentence: 'It is a rule. Wear a helmet.',
+            meaning: '🇪🇸 Es una regla. Usa un casco.',
+            goal: '🎯 Transformación deseada: "Debes usar un casco."',
+            correct: ['You', 'must', 'wear', 'a', 'helmet', '.'],
+            words: ['You', 'We', 'must', 'should', 'wear', 'wears', 'a', 'an', 'helmet', 'coat', '.'],
+            structure: 'Sujeto + must + verbo base + complemento'
+        },
+        // 11. "So ... that" (Result)
+        {
+            id: 11,
+            topic: 'Consecuencia (so...that)',
+            tag: 'ESTRUCTURA',
+            tagClass: 'tag-structure',
+            baseSentence: 'The box is heavy. I cannot lift it.',
+            meaning: '🇪🇸 La caja es pesada. No puedo levantarla.',
+            goal: '🎯 Transformación deseada: "La caja es tan pesada que no puedo levantarla."',
+            correct: ['The', 'box', 'is', 'so', 'heavy', 'that', 'I', 'cannot', 'lift', 'it', '.'],
+            words: ['The', 'box', 'bag', 'is', 'are', 'so', 'such', 'heavy', 'big', 'that', 'so', 'I', 'cannot', 'can', 'lift', 'carry', 'it', 'them', '.'],
+            structure: 'Sujeto + verbo + so + adjetivo + that + oración de resultado'
+        },
+        // 12. "Used to" (Past habits)
+        {
+            id: 12,
+            topic: 'Hábitos pasados (Used to)',
+            tag: 'ESTRUCTURA',
+            tagClass: 'tag-structure',
+            baseSentence: 'I played football when I was young.',
+            meaning: '🇪🇸 Jugaba al fútbol cuando era joven.',
+            goal: '🎯 Transformación deseada: "Solía jugar al fútbol."',
+            correct: ['I', 'used', 'to', 'play', 'football', '.'],
+            words: ['I', 'She', 'used', 'use', 'to', 'play', 'plays', 'football', 'tennis', '.'],
+            structure: 'Sujeto + used to + verbo base + complemento'
+        }
+    ];
+
+    // ================================================================
+    //  ESTADO
+    // ================================================================
+    let currentSession = 0;
+    const totalSessions = sessions.length;
+
+    const sessionStates = sessions.map(() => ({
+        selectedWords: [],
+        verified: false,
+        correct: false
+    }));
+
+    // ================================================================
+    //  REFERENCIAS DOM
+    // ================================================================
+    const contentArea = document.getElementById('contentArea');
+    const progressBar = document.getElementById('progressBar');
+
+    // ================================================================
+    //  FUNCIONES AUXILIARES
+    // ================================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    // ================================================================
+    //  RENDERIZAR PROGRESO
+    // ================================================================
+    function renderProgress() {
+        let html = '';
+        for (let i = 0; i < totalSessions; i++) {
+            const state = sessionStates[i];
+            let cls = 'progress-dot';
+            if (i === currentSession) cls += ' active';
+            else if (state.verified) {
+                cls += state.correct ? ' correct' : ' wrong';
+            } else if (i < currentSession) {
+                cls += ' done';
+            }
+            html += `<span class="${cls}"></span>`;
+        }
+        progressBar.innerHTML = html;
+    }
+
+    // ================================================================
+    //  RENDERIZAR SESIÓN
+    // ================================================================
+    function renderSession(index) {
+        const session = sessions[index];
+        const state = sessionStates[index];
+        const isVerified = state.verified;
+        const isLast = (index === totalSessions - 1);
+
+        const usedWords = state.selectedWords || [];
+
+        // ===== Calcular palabras disponibles (respetando duplicados) =====
+        let availableWords = [...session.words];
+        usedWords.forEach(word => {
+            const idx = availableWords.indexOf(word);
+            if (idx !== -1) availableWords.splice(idx, 1);
+        });
+
+        let html = `
+            <div class="session-content">
+                <div class="section-title">
+                    <span class="step">${index + 1}</span>
+                    ${session.topic}
+                    <span class="tag ${session.tagClass}">${session.tag}</span>
+                    <span style="font-weight:400; font-size:0.7rem; color:#4a5f82; margin-left:auto;">${session.correct.length} palabras</span>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="prompt">
+                        <span style="font-size:0.95rem; color:#0b1e3a;">📝 Transforma la siguiente oración:</span>
+                        <span class="base-sentence">📌 ${session.baseSentence}</span>
+                        <span class="meaning-text">${session.meaning}</span>
+                        <span class="goal-text">${session.goal}</span>
+                        <span class="instruction-text">✏️ Ahora, escribe esa frase en INGLÉS seleccionando las palabras en orden:</span>
+                    </div>
+
+                    <div class="sentence-builder" id="sentenceBuilder">
+        `;
+
+        if (usedWords.length === 0) {
+            html += `<span class="placeholder-text">👆 Toca las palabras del banco para formar la oración</span>`;
+        } else {
+            usedWords.forEach((word, idx) => {
+                let cls = 'word-slot';
+                if (isVerified) {
+                    cls += (session.correct[idx] === word) ? ' correct' : ' wrong';
+                }
+                html += `<span class="${cls}" data-pos="${idx}">${word} ✕</span>`;
+            });
+        }
+
+        html += `
+                    </div>
+
+                    <div class="word-bank" id="wordBank">
+        `;
+
+        if (isVerified) {
+            // Mostrar todas las palabras del banco (sin colores de acierto/error)
+            session.words.forEach(word => {
+                html += `<span class="word-chip">${word}</span>`;
+            });
+            const correctText = session.correct.join(' ');
+            html += `
+                </div>
+                <div style="margin-top:10px; padding:10px 14px; background:#f0fdf4; border-radius:10px; border:2px solid #86efac; font-size:0.9rem; color:#166534;">
+                    ✅ Frase correcta en inglés: <strong>${correctText}</strong>
+                </div>
+            `;
+        } else {
+            const shuffled = shuffleArray(availableWords);
+            if (shuffled.length === 0) {
+                html += `<span style="color:#94a3b8; font-style:italic;">Todas las palabras seleccionadas</span>`;
+            } else {
+                shuffled.forEach(word => {
+                    html += `<span class="word-chip" data-word="${word}">${word}</span>`;
+                });
+            }
+            html += `</div>`;
+        }
+
+        html += `
+                </div>
+
+                <div class="feedback-box ${isVerified ? 'show' : ''} ${isVerified && state.correct ? 'success' : isVerified ? 'error' : ''}" id="feedbackBox">
+                    <div class="title" id="feedbackTitle"></div>
+                    <div class="detail" id="feedbackDetail"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-reset" id="resetBtn">🔄 Reiniciar</button>
+                    <button class="btn-check" id="checkBtn" ${isVerified ? 'disabled' : ''}>
+                        ${isVerified ? '✅ Verificado' : '✓ Verificar'}
+                    </button>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn-prev" id="prevBtn" ${index === 0 ? 'disabled' : ''}>
+                        ◀ Anterior
+                    </button>
+                    ${isLast ? `
+                        <button class="btn-finish" id="finishBtn" ${!isVerified ? 'disabled' : ''}>
+                            🏁 Finalizar
+                        </button>
+                    ` : `
+                        <button class="btn-next" id="nextBtn" ${!isVerified ? 'disabled' : ''}>
+                            Siguiente ▶
+                        </button>
+                    `}
+                </div>
+            </div>
+        `;
+
+        contentArea.innerHTML = html;
+        renderProgress();
+
+        // ============================================================
+        //  EVENTOS
+        // ============================================================
+
+        if (!isVerified) {
+            const wordChips = document.querySelectorAll('#wordBank .word-chip');
+            wordChips.forEach(chip => {
+                chip.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const word = this.dataset.word;
+                    if (!state.selectedWords) state.selectedWords = [];
+                    state.selectedWords.push(word);
+                    renderSession(index);
+                    const checkBtn = document.getElementById('checkBtn');
+                    if (checkBtn && state.selectedWords.length > 0) {
+                        checkBtn.disabled = false;
+                    }
+                });
+            });
+
+            const slots = document.querySelectorAll('#sentenceBuilder .word-slot');
+            slots.forEach(slot => {
+                slot.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pos = parseInt(this.dataset.pos);
+                    if (!isNaN(pos) && state.selectedWords && pos >= 0 && pos < state.selectedWords.length) {
+                        state.selectedWords.splice(pos, 1);
+                        renderSession(index);
+                    }
+                });
+            });
+        }
+
+        const resetBtn = document.getElementById('resetBtn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                state.selectedWords = [];
+                state.verified = false;
+                state.correct = false;
+                renderSession(index);
+            });
+        }
+
+        const checkBtn = document.getElementById('checkBtn');
+        if (checkBtn && !isVerified) {
+            checkBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const userWords = state.selectedWords || [];
+                const correctWords = session.correct || [];
+
+                const isCorrect = (userWords.length === correctWords.length &&
+                    userWords.every((w, i) => w === correctWords[i]));
+
+                state.verified = true;
+                state.correct = isCorrect;
+
+                renderSession(index);
+
+                const box = document.getElementById('feedbackBox');
+                const title = document.getElementById('feedbackTitle');
+                const detail = document.getElementById('feedbackDetail');
+
+                if (box && title && detail) {
+                    box.classList.add('show');
+                    const correctText = session.correct.join(' ');
+
+                    if (isCorrect) {
+                        box.className = 'feedback-box show success';
+                        title.className = 'title success';
+                        title.textContent = '🎉 ¡Excelente! Transformación correcta.';
+                        detail.innerHTML = `
+                            Has construido la oración perfectamente.
+                            <div class="correct-phrase">
+                                <span class="label">✅ Respuesta correcta en inglés:</span>
+                                ${correctText}
+                            </div>
+                            <div class="grammar-note">
+                                📐 Regla: ${session.structure}
+                            </div>
+                        `;
+                    } else {
+                        box.className = 'feedback-box show error';
+                        title.className = 'title error';
+                        title.textContent = '❌ La transformación no es correcta';
+
+                        detail.innerHTML = `
+                            <div class="correct-phrase">
+                                <span class="label">✅ Respuesta correcta en inglés:</span>
+                                ${correctText}
+                            </div>
+                            <div class="grammar-note" style="margin-top:6px; background:#fef2f2; border-color:#fca5a5;">
+                                📐 Regla correcta: ${session.structure}
+                            </div>
+                            <div style="margin-top:6px; color:#5a6f92; font-size:0.85rem;">
+                                💡 Revisa el orden de los auxiliares, la concordancia y la estructura.
+                            </div>
+                        `;
+                    }
+                }
+
+                const nextBtn = document.getElementById('nextBtn');
+                const finishBtn = document.getElementById('finishBtn');
+                if (nextBtn) nextBtn.disabled = false;
+                if (finishBtn) finishBtn.disabled = false;
+            });
+        }
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const finishBtn = document.getElementById('finishBtn');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentSession > 0) {
+                    currentSession--;
+                    renderSession(currentSession);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentSession < totalSessions - 1) {
+                    currentSession++;
+                    renderSession(currentSession);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        if (finishBtn) {
+            finishBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                showCompletionScreen();
+            });
+        }
+    }
+
+    // ================================================================
+    //  PANTALLA DE FINALIZACIÓN
+    // ================================================================
+    function showCompletionScreen() {
+        let correctCount = 0;
+        let wrongCount = 0;
+
+        sessionStates.forEach(state => {
+            if (state.verified) {
+                if (state.correct) correctCount++;
+                else wrongCount++;
+            }
+        });
+
+        const total = correctCount + wrongCount;
+        const accuracy = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+
+        const tags = {};
+        sessions.forEach((s, i) => {
+            const state = sessionStates[i];
+            if (state.verified && state.correct) {
+                tags[s.tag] = (tags[s.tag] || 0) + 1;
+            }
+        });
+
+        const tagSummary = Object.entries(tags)
+            .map(([tag, count]) => `<span style="background:#eef3fc; padding:2px 12px; border-radius:20px; font-size:0.8rem; margin:2px;">${tag}: ${count}</span>`)
+            .join(' ');
+
+        contentArea.innerHTML = `
+            <div class="completion-screen">
+                <div class="icon">🎉</div>
+                <h2>¡Ejercicio completado!</h2>
+                <p>Has practicado estructuras gramaticales complejas viendo la transformación en español antes de escribir en inglés.</p>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="number green">${correctCount}</span>
+                        <span class="label">✅ Correctas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="number red">${wrongCount}</span>
+                        <span class="label">❌ Incorrectas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="number blue">${accuracy}%</span>
+                        <span class="label">🎯 Precisión</span>
+                    </div>
+                </div>
+
+                <div style="background:#f8fafc; border-radius:14px; padding:14px; margin:12px 0; text-align:center; border:1px solid #e9eef6;">
+                    <div style="font-weight:700; font-size:0.85rem; color:#0b1e3a; margin-bottom:6px;">📐 Resumen por tipo de estructura:</div>
+                    ${tagSummary || 'Ninguna sesión completada aún'}
+                </div>
+
+                <div style="background:#f8fafc; border-radius:14px; padding:14px; margin:12px 0; text-align:left; border:1px solid #e9eef6; max-height:200px; overflow-y:auto;">
+                    <div style="font-weight:700; font-size:0.85rem; color:#0b1e3a; margin-bottom:6px;">📊 Resumen de sesiones:</div>
+                    ${sessions.map((s, i) => {
+                        const state = sessionStates[i];
+                        const icon = state.verified ? (state.correct ? '✅' : '❌') : '⏳';
+                        return `<div style="font-size:0.8rem; padding:2px 0; border-bottom:1px solid #e9eef6; display:flex; justify-content:space-between;">
+                            <span>${i+1}. ${s.topic} (${s.tag})</span>
+                            <span>${icon}</span>
+                        </div>`;
+                    }).join('')}
+                </div>
+
+                <button class="btn-restart" id="restartBtn">🔄 Repetir actividad</button>
+            </div>
+        `;
+
+        const restartBtn = document.getElementById('restartBtn');
+        if (restartBtn) {
+            restartBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                sessionStates.forEach(state => {
+                    state.selectedWords = [];
+                    state.verified = false;
+                    state.correct = false;
+                });
+                currentSession = 0;
+                renderSession(0);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    }
+
+    // ================================================================
+    //  INICIALIZAR
+    // ================================================================
+    renderSession(0);
+</script>
+
+</body>
+</html>
