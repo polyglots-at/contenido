@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Construcción de Oraciones · SVO</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: #eef2f7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 16px 12px 40px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .app-container {
+            max-width: 600px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            padding: 24px 20px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #f0f4fc;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .app-header h1 { font-size: 1.2rem; font-weight: 700; color: #0b1e3a; }
+        .app-header .badge {
+            background: #e8edf9; color: #1e3b6b; font-size: 0.7rem;
+            font-weight: 600; padding: 6px 14px; border-radius: 30px;
+        }
+
+        .progress-bar {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .progress-dot {
+            flex: 1;
+            min-width: 10px;
+            height: 6px;
+            border-radius: 6px;
+            background: #dee5ef;
+            transition: background 0.3s ease;
+        }
+
+        .progress-dot.active { background: #2b6df6; }
+        .progress-dot.done { background: #2b6df6; opacity: 0.4; }
+        .progress-dot.correct { background: #22c55e; }
+        .progress-dot.wrong { background: #ef4444; }
+
+        .session-content { animation: fadeSlide 0.3s ease; }
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-weight: 700; font-size: 1rem; color: #0b1e3a;
+            margin-bottom: 12px; padding-bottom: 6px;
+            border-bottom: 2px solid #2b6df6;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        .section-title .step {
+            background: #2b6df6; color: white; border-radius: 50%;
+            width: 24px; height: 24px; display: inline-flex;
+            align-items: center; justify-content: center;
+            font-size: 0.7rem; font-weight: 700;
+        }
+
+        .section-title .tag {
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .tag-svo { background: #dbeafe; color: #1e3a8a; }
+        .tag-adj { background: #fce7f3; color: #9d174d; }
+        .tag-adv { background: #fef3c7; color: #92400e; }
+        .tag-prep { background: #dcfce7; color: #166534; }
+
+        .exercise-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 16px;
+            border: 2px solid #e9eef6;
+        }
+
+        .exercise-card .prompt {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #0b1e3a;
+            margin-bottom: 10px;
+        }
+
+        .exercise-card .prompt .spanish-text {
+            background: #f5f9ff;
+            padding: 8px 14px;
+            border-radius: 10px;
+            border-left: 4px solid #2b6df6;
+            display: block;
+            font-weight: 400;
+            font-size: 0.95rem;
+            margin-top: 6px;
+            color: #1e2f4a;
+        }
+
+        .exercise-card .prompt .structure-hint {
+            background: #fef9e7;
+            padding: 6px 14px;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 0.75rem;
+            color: #92400e;
+            margin-top: 6px;
+            font-weight: 400;
+        }
+
+        .sentence-builder {
+            padding: 12px 14px;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 2px solid #e9eef6;
+            min-height: 45px;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #0b1e3a;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 4px;
+            margin-top: 10px;
+        }
+
+        .sentence-builder .word-slot {
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: 2px solid #dce3ef;
+            cursor: pointer;
+            transition: all 0.15s;
+            touch-action: manipulation;
+        }
+
+        .sentence-builder .word-slot:active { transform: scale(0.95); }
+        .sentence-builder .word-slot.correct { border-color: #22c55e; background: #dcfce7; }
+        .sentence-builder .word-slot.wrong { border-color: #ef4444; background: #fecaca; }
+        .sentence-builder .placeholder-text {
+            color: #aab7d0;
+            font-style: italic;
+        }
+
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px 14px;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 2px dashed #dce3ef;
+            min-height: 50px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .word-chip {
+            background: #eef3fc;
+            border: 2px solid #dce3ef;
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #0b1e3a;
+            cursor: pointer;
+            transition: all 0.15s;
+            touch-action: manipulation;
+            user-select: none;
+        }
+
+        .word-chip:active { transform: scale(0.95); }
+        .word-chip.used {
+            opacity: 0.3;
+            pointer-events: none;
+            transform: scale(0.9);
+        }
+        .word-chip.correct { border-color: #22c55e; background: #dcfce7; color: #166534; }
+        .word-chip.wrong { border-color: #ef4444; background: #fecaca; color: #991b1b; }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            flex: 1;
+            min-width: 60px;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+
+        .btn-reset { background: #f0f4fc; color: #1d3557; flex: 0.5; }
+        .btn-reset:active { background: #dce3ef; transform: scale(0.97); }
+        .btn-check { background: #2b6df6; color: white; flex: 1; }
+        .btn-check:active { background: #1a56d6; transform: scale(0.97); }
+        .btn-check:disabled { opacity: 0.5; pointer-events: none; }
+
+        .feedback-box {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 12px 16px;
+            margin: 10px 0;
+            border: 2px solid #e9eef6;
+            display: none;
+            animation: fadeSlide 0.3s ease;
+        }
+
+        .feedback-box.show { display: block; }
+        .feedback-box.success { border-color: #86efac; background: #f0fdf4; }
+        .feedback-box.error { border-color: #fca5a5; background: #fef2f2; }
+        .feedback-box .title { font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; }
+        .feedback-box .title.success { color: #166534; }
+        .feedback-box .title.error { color: #991b1b; }
+        .feedback-box .detail { font-size: 0.85rem; line-height: 1.5; color: #1e2f4a; }
+        .feedback-box .detail .correct-phrase {
+            display: block;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-top: 6px;
+            border: 2px solid #22c55e;
+            color: #0b1e3a;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .feedback-box .detail .correct-phrase .label {
+            color: #5a6f92;
+            font-weight: 400;
+            font-size: 0.8rem;
+        }
+        .feedback-box .detail .grammar-note {
+            margin-top: 6px;
+            padding: 8px 12px;
+            background: #eef3ff;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #1e3a8a;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 2px solid #f0f4fc;
+        }
+
+        .nav-buttons button {
+            flex: 1;
+            padding: 12px 10px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+
+        .btn-prev { background: #f0f4fc; color: #1d3557; flex: 0.5; }
+        .btn-prev:active { background: #dce3ef; transform: scale(0.97); }
+        .btn-next { background: #2b6df6; color: white; flex: 1; }
+        .btn-next:active { background: #1a56d6; transform: scale(0.97); }
+        .btn-next:disabled { opacity: 0.4; pointer-events: none; }
+        .btn-finish { background: #22c55e; color: white; flex: 1; }
+        .btn-finish:active { background: #16a34a; transform: scale(0.97); }
+        .btn-finish:disabled { opacity: 0.4; pointer-events: none; }
+
+        .completion-screen {
+            text-align: center;
+            padding: 30px 10px 10px;
+            animation: fadeSlide 0.5s ease;
+        }
+
+        .completion-screen .icon { font-size: 4rem; margin-bottom: 12px; }
+        .completion-screen h2 { color: #0b1e3a; font-size: 1.5rem; margin-bottom: 8px; }
+        .completion-screen p { color: #4a5f82; font-size: 0.95rem; line-height: 1.6; max-width: 340px; margin: 0 auto 16px; }
+        .completion-screen .btn-restart {
+            background: #eef3fc; color: #1d3557; border: none;
+            padding: 12px 30px; border-radius: 50px; font-weight: 700; font-size: 1rem;
+            cursor: pointer; transition: 0.2s; touch-action: manipulation;
+        }
+        .completion-screen .btn-restart:active { background: #dce3ef; transform: scale(0.97); }
+
+        .completion-screen .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+
+        .completion-screen .stat-item { text-align: center; }
+        .completion-screen .stat-item .number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+        }
+        .completion-screen .stat-item .number.green { color: #22c55e; }
+        .completion-screen .stat-item .number.red { color: #ef4444; }
+        .completion-screen .stat-item .number.blue { color: #2b6df6; }
+        .completion-screen .stat-item .label { font-size: 0.75rem; color: #5a6f92; }
+
+        @media (max-width: 450px) {
+            .app-container { padding: 16px 12px 20px; }
+            .exercise-card { padding: 14px 14px; }
+            .exercise-card .prompt { font-size: 0.9rem; }
+            .word-chip { font-size: 0.82rem; padding: 6px 12px; }
+            .sentence-builder { font-size: 0.85rem; padding: 10px 12px; }
+            .action-buttons button { font-size: 0.8rem; padding: 8px 10px; }
+            .nav-buttons button { font-size: 0.85rem; padding: 10px 8px; }
+            .section-title .tag { font-size: 0.5rem; padding: 1px 8px; }
+        }
+
+        @media (max-width: 380px) {
+            .app-container { padding: 12px 8px 16px; }
+            .exercise-card { padding: 10px 10px; }
+            .exercise-card .prompt { font-size: 0.85rem; }
+            .word-chip { font-size: 0.75rem; padding: 4px 10px; }
+            .sentence-builder { font-size: 0.8rem; padding: 8px 10px; }
+            .sentence-builder .word-slot { padding: 2px 8px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container" id="app">
+
+    <header class="app-header">
+        <h1>🏗️ Construcción de Oraciones</h1>
+        <span class="badge">12 sesiones · SVO</span>
+    </header>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div id="contentArea"></div>
+
+</div>
+
+<script>
+    // ================================================================
+    //  SESIONES - Construcción de Oraciones (SVO + complementos)
+    //  Niveles A1-A2 · Con palabras extra para aumentar dificultad
+    //  Temas: familia, casa, escuela, comida, ropa, tiempo, animales
+    // ================================================================
+    const sessions = [
+        // ===== SESIÓN 1: SUJETO + VERBO + COMPLEMENTO =====
+        {
+            id: 1,
+            topic: 'Familia y Presentaciones',
+            tag: 'SVO',
+            tagClass: 'tag-svo',
+            spanish: 'Mi madre es enfermera.',
+            correct: ['My', 'mother', 'is', 'a', 'nurse', '.'],
+            words: ['My', 'mother', 'father', 'is', 'are', 'a', 'an', 'nurse', 'doctor', 'teacher', '.'],
+            structure: 'Sujeto + Verbo To Be + Complemento'
+        },
+        {
+            id: 2,
+            topic: 'Familia y Presentaciones',
+            tag: 'SVO',
+            tagClass: 'tag-svo',
+            spanish: 'Mi hermana trabaja en un hospital.',
+            correct: ['My', 'sister', 'works', 'in', 'a', 'hospital', '.'],
+            words: ['My', 'sister', 'brother', 'works', 'work', 'in', 'at', 'a', 'an', 'hospital', 'school', 'office', '.'],
+            structure: 'Sujeto + Verbo + Preposición + Artículo + Complemento'
+        },
+        {
+            id: 3,
+            topic: 'Familia y Presentaciones',
+            tag: 'SVO',
+            tagClass: 'tag-svo',
+            spanish: 'Mis padres viven en Madrid.',
+            correct: ['My', 'parents', 'live', 'in', 'Madrid', '.'],
+            words: ['My', 'parents', 'sisters', 'live', 'lives', 'in', 'at', 'Madrid', 'Barcelona', 'Spain', '.'],
+            structure: 'Sujeto + Verbo + Preposición + Lugar'
+        },
+
+        // ===== SESIÓN 4: SUJETO + VERBO + ADJETIVO =====
+        {
+            id: 4,
+            topic: 'Descripciones Físicas',
+            tag: 'ADJ',
+            tagClass: 'tag-adj',
+            spanish: 'Ella es alta y delgada.',
+            correct: ['She', 'is', 'tall', 'and', 'thin', '.'],
+            words: ['She', 'He', 'is', 'am', 'are', 'tall', 'short', 'thin', 'fat', 'and', 'but', 'beautiful', 'ugly', '.'],
+            structure: 'Sujeto + Verbo To Be + Adjetivo + Conjunción + Adjetivo'
+        },
+        {
+            id: 5,
+            topic: 'Descripciones Físicas',
+            tag: 'ADJ',
+            tagClass: 'tag-adj',
+            spanish: 'Él tiene el pelo castaño y los ojos verdes.',
+            correct: ['He', 'has', 'brown', 'hair', 'and', 'green', 'eyes', '.'],
+            words: ['He', 'She', 'has', 'have', 'brown', 'blonde', 'hair', 'and', 'but', 'green', 'blue', 'eyes', '.'],
+            structure: 'Sujeto + Verbo Have + Adjetivo + Sustantivo + Conjunción + Adjetivo + Sustantivo'
+        },
+        {
+            id: 6,
+            topic: 'Descripciones Físicas',
+            tag: 'ADJ',
+            tagClass: 'tag-adj',
+            spanish: 'Mi hermana es muy inteligente.',
+            correct: ['My', 'sister', 'is', 'very', 'intelligent', '.'],
+            words: ['My', 'sister', 'brother', 'is', 'are', 'very', 'so', 'intelligent', 'friendly', 'kind', 'nice', '.'],
+            structure: 'Sujeto + Verbo To Be + Adverbio + Adjetivo'
+        },
+
+        // ===== SESIÓN 7: SUJETO + VERBO + ADVERBIO =====
+        {
+            id: 7,
+            topic: 'Rutina y Actividades',
+            tag: 'ADV',
+            tagClass: 'tag-adv',
+            spanish: 'Ella siempre llega temprano.',
+            correct: ['She', 'always', 'arrives', 'early', '.'],
+            words: ['She', 'He', 'always', 'usually', 'never', 'arrives', 'arrive', 'early', 'late', 'on', 'time', '.'],
+            structure: 'Sujeto + Adverbio + Verbo + Complemento'
+        },
+        {
+            id: 8,
+            topic: 'Rutina y Actividades',
+            tag: 'ADV',
+            tagClass: 'tag-adv',
+            spanish: 'Yo como fruta todos los días.',
+            correct: ['I', 'eat', 'fruit', 'every', 'day', '.'],
+            words: ['I', 'We', 'eat', 'eats', 'fruit', 'vegetables', 'every', 'day', 'morning', 'afternoon', 'night', '.'],
+            structure: 'Sujeto + Verbo + Objeto + Adverbio de Frecuencia'
+        },
+        {
+            id: 9,
+            topic: 'Rutina y Actividades',
+            tag: 'ADV',
+            tagClass: 'tag-adv',
+            spanish: 'Estudio en mi habitación.',
+            correct: ['I', 'study', 'in', 'my', 'bedroom', '.'],
+            words: ['I', 'He', 'study', 'studies', 'work', 'in', 'at', 'my', 'your', 'bedroom', 'living', 'room', 'kitchen', '.'],
+            structure: 'Sujeto + Verbo + Preposición + Posesivo + Lugar'
+        },
+
+        // ===== SESIÓN 10: SUJETO + VERBO + PREPOSICIÓN + COMPLEMENTO =====
+        {
+            id: 10,
+            topic: 'Ubicación y Direcciones',
+            tag: 'PREP',
+            tagClass: 'tag-prep',
+            spanish: 'El libro está sobre la mesa.',
+            correct: ['The', 'book', 'is', 'on', 'the', 'table', '.'],
+            words: ['The', 'A', 'book', 'pen', 'is', 'are', 'on', 'under', 'in', 'the', 'table', 'chair', 'desk', 'floor', '.'],
+            structure: 'Artículo + Sustantivo + Verbo To Be + Preposición + Artículo + Sustantivo'
+        },
+        {
+            id: 11,
+            topic: 'Ubicación y Direcciones',
+            tag: 'PREP',
+            tagClass: 'tag-prep',
+            spanish: 'La escuela está cerca del parque.',
+            correct: ['The', 'school', 'is', 'near', 'the', 'park', '.'],
+            words: ['The', 'school', 'store', 'is', 'are', 'near', 'behind', 'in', 'the', 'park', 'library', 'hospital', 'bank', '.'],
+            structure: 'Artículo + Sustantivo + Verbo To Be + Preposición + Artículo + Sustantivo'
+        },
+        {
+            id: 12,
+            topic: 'Ubicación y Direcciones',
+            tag: 'PREP',
+            tagClass: 'tag-prep',
+            spanish: 'Camino al trabajo todas las mañanas.',
+            correct: ['I', 'walk', 'to', 'work', 'every', 'morning', '.'],
+            words: ['I', 'We', 'walk', 'drive', 'to', 'from', 'work', 'school', 'home', 'every', 'morning', 'day', 'week', '.'],
+            structure: 'Sujeto + Verbo + Preposición + Sustantivo + Adverbio de Frecuencia + Tiempo'
+        }
+    ];
+
+    // ================================================================
+    //  ESTADO
+    // ================================================================
+    let currentSession = 0;
+    const totalSessions = sessions.length;
+
+    const sessionStates = sessions.map(() => ({
+        selectedWords: [],
+        verified: false,
+        correct: false
+    }));
+
+    // ================================================================
+    //  REFERENCIAS DOM
+    // ================================================================
+    const contentArea = document.getElementById('contentArea');
+    const progressBar = document.getElementById('progressBar');
+
+    // ================================================================
+    //  FUNCIONES AUXILIARES
+    // ================================================================
+    function shuffleArray(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    // ================================================================
+    //  RENDERIZAR PROGRESO
+    // ================================================================
+    function renderProgress() {
+        let html = '';
+        for (let i = 0; i < totalSessions; i++) {
+            const state = sessionStates[i];
+            let cls = 'progress-dot';
+            if (i === currentSession) cls += ' active';
+            else if (state.verified) {
+                cls += state.correct ? ' correct' : ' wrong';
+            } else if (i < currentSession) {
+                cls += ' done';
+            }
+            html += `<span class="${cls}"></span>`;
+        }
+        progressBar.innerHTML = html;
+    }
+
+    // ================================================================
+    //  RENDERIZAR SESIÓN
+    // ================================================================
+    function renderSession(index) {
+        const session = sessions[index];
+        const state = sessionStates[index];
+        const isVerified = state.verified;
+        const isLast = (index === totalSessions - 1);
+
+        const usedWords = state.selectedWords || [];
+        // Todas las palabras disponibles (las que NO están seleccionadas)
+        const availableWords = session.words.filter(w => !usedWords.includes(w));
+
+        let html = `
+            <div class="session-content">
+                <div class="section-title">
+                    <span class="step">${index + 1}</span>
+                    ${session.topic}
+                    <span class="tag ${session.tagClass}">${session.tag}</span>
+                    <span style="font-weight:400; font-size:0.7rem; color:#4a5f82; margin-left:auto;">${session.correct.length - 1} palabras</span>
+                </div>
+
+                <div class="exercise-card">
+                    <div class="prompt">
+                        📖 Traducción al español:
+                        <span class="spanish-text">${session.spanish}</span>
+                        <span class="structure-hint">📐 Estructura: ${session.structure}</span>
+                    </div>
+
+                    <div style="margin-top:10px; font-weight:600; color:#0b1e3a; font-size:0.9rem;">
+                        🔹 Selecciona las palabras en el orden correcto:
+                    </div>
+
+                    <div class="sentence-builder" id="sentenceBuilder">
+        `;
+
+        if (usedWords.length === 0) {
+            html += `<span class="placeholder-text">👆 Toca las palabras del banco para formar la oración</span>`;
+        } else {
+            usedWords.forEach((word, idx) => {
+                let cls = 'word-slot';
+                if (isVerified) {
+                    cls += (session.correct[idx] === word) ? ' correct' : ' wrong';
+                }
+                html += `<span class="${cls}" data-pos="${idx}">${word} ✕</span>`;
+            });
+        }
+
+        html += `
+                    </div>
+
+                    <div class="word-bank" id="wordBank">
+        `;
+
+        if (isVerified) {
+            // Mostrar todas las palabras con colores (correctas/incorrectas)
+            const allWords = session.words;
+            allWords.forEach(word => {
+                const isInSelected = state.selectedWords.includes(word);
+                let cls = 'word-chip';
+                if (isInSelected) {
+                    const pos = state.selectedWords.indexOf(word);
+                    cls += (session.correct[pos] === word) ? ' correct' : ' wrong';
+                }
+                html += `<span class="${cls}">${word}</span>`;
+            });
+            // Mostrar la frase correcta completa
+            const correctText = session.correct.join(' ');
+            html += `
+                </div>
+                <div style="margin-top:10px; padding:10px 14px; background:#f0fdf4; border-radius:10px; border:2px solid #86efac; font-size:0.9rem; color:#166534;">
+                    ✅ Frase correcta: <strong>${correctText}</strong>
+                </div>
+            `;
+        } else {
+            // Mezclar las palabras disponibles para que se reordenen cada vez
+            const shuffled = shuffleArray(availableWords);
+            if (shuffled.length === 0) {
+                html += `<span style="color:#94a3b8; font-style:italic;">Todas las palabras seleccionadas</span>`;
+            } else {
+                shuffled.forEach(word => {
+                    html += `<span class="word-chip" data-word="${word}">${word}</span>`;
+                });
+            }
+            html += `</div>`;
+        }
+
+        html += `
+                </div>
+
+                <!-- FEEDBACK -->
+                <div class="feedback-box ${isVerified ? 'show' : ''} ${isVerified && state.correct ? 'success' : isVerified ? 'error' : ''}" id="feedbackBox">
+                    <div class="title" id="feedbackTitle"></div>
+                    <div class="detail" id="feedbackDetail"></div>
+                </div>
+
+                <!-- ACCIONES -->
+                <div class="action-buttons">
+                    <button class="btn-reset" id="resetBtn">🔄 Reiniciar</button>
+                    <button class="btn-check" id="checkBtn" ${isVerified ? 'disabled' : ''}>
+                        ${isVerified ? '✅ Verificado' : '✓ Verificar'}
+                    </button>
+                </div>
+
+                <!-- NAVEGACIÓN -->
+                <div class="nav-buttons">
+                    <button class="btn-prev" id="prevBtn" ${index === 0 ? 'disabled' : ''}>
+                        ◀ Anterior
+                    </button>
+                    ${isLast ? `
+                        <button class="btn-finish" id="finishBtn" ${!isVerified ? 'disabled' : ''}>
+                            🏁 Finalizar
+                        </button>
+                    ` : `
+                        <button class="btn-next" id="nextBtn" ${!isVerified ? 'disabled' : ''}>
+                            Siguiente ▶
+                        </button>
+                    `}
+                </div>
+            </div>
+        `;
+
+        contentArea.innerHTML = html;
+        renderProgress();
+
+        // ============================================================
+        //  EVENTOS
+        // ============================================================
+
+        // --- Seleccionar palabra del banco ---
+        if (!isVerified) {
+            const wordChips = document.querySelectorAll('#wordBank .word-chip');
+            wordChips.forEach(chip => {
+                chip.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const word = this.dataset.word;
+                    if (!state.selectedWords) state.selectedWords = [];
+                    state.selectedWords.push(word);
+                    renderSession(index);
+                    const checkBtn = document.getElementById('checkBtn');
+                    if (checkBtn && state.selectedWords.length > 0) {
+                        checkBtn.disabled = false;
+                    }
+                });
+            });
+
+            // --- Eliminar palabra de la frase ---
+            const slots = document.querySelectorAll('#sentenceBuilder .word-slot');
+            slots.forEach(slot => {
+                slot.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pos = parseInt(this.dataset.pos);
+                    if (!isNaN(pos) && state.selectedWords && pos >= 0 && pos < state.selectedWords.length) {
+                        state.selectedWords.splice(pos, 1);
+                        renderSession(index);
+                    }
+                });
+            });
+        }
+
+        // --- Reiniciar ---
+        const resetBtn = document.getElementById('resetBtn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                state.selectedWords = [];
+                state.verified = false;
+                state.correct = false;
+                renderSession(index);
+            });
+        }
+
+        // --- Verificar ---
+        const checkBtn = document.getElementById('checkBtn');
+        if (checkBtn && !isVerified) {
+            checkBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const userWords = state.selectedWords || [];
+                const correctWords = session.correct || [];
+
+                const isCorrect = (userWords.length === correctWords.length &&
+                    userWords.every((w, i) => w === correctWords[i]));
+
+                state.verified = true;
+                state.correct = isCorrect;
+
+                renderSession(index);
+
+                // Mostrar feedback
+                const box = document.getElementById('feedbackBox');
+                const title = document.getElementById('feedbackTitle');
+                const detail = document.getElementById('feedbackDetail');
+
+                if (box && title && detail) {
+                    box.classList.add('show');
+                    const correctText = session.correct.join(' ');
+
+                    if (isCorrect) {
+                        box.className = 'feedback-box show success';
+                        title.className = 'title success';
+                        title.textContent = '🎉 ¡Excelente! Oración correcta.';
+                        detail.innerHTML = `
+                            Has construido la oración perfectamente.
+                            <div class="correct-phrase">
+                                <span class="label">✅ Oración correcta:</span>
+                                ${correctText}
+                            </div>
+                            <div class="grammar-note">
+                                📐 Estructura: ${session.structure}
+                            </div>
+                        `;
+                    } else {
+                        box.className = 'feedback-box show error';
+                        title.className = 'title error';
+                        title.textContent = '❌ La oración no es correcta';
+
+                        detail.innerHTML = `
+                            <div class="correct-phrase">
+                                <span class="label">✅ Oración correcta:</span>
+                                ${correctText}
+                            </div>
+                            <div style="margin-top:6px; color:#5a6f92; font-size:0.85rem;">
+                                💡 Recuerda: La estructura es <strong>${session.structure}</strong>
+                            </div>
+                            <div class="grammar-note" style="margin-top:6px; background:#fef2f2; border-color:#fca5a5;">
+                                ⚠️ Revisa el orden de las palabras y asegúrate de usar las correctas.
+                            </div>
+                        `;
+                    }
+                }
+
+                const nextBtn = document.getElementById('nextBtn');
+                const finishBtn = document.getElementById('finishBtn');
+                if (nextBtn) nextBtn.disabled = false;
+                if (finishBtn) finishBtn.disabled = false;
+            });
+        }
+
+        // --- Navegación ---
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const finishBtn = document.getElementById('finishBtn');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentSession > 0) {
+                    currentSession--;
+                    renderSession(currentSession);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentSession < totalSessions - 1) {
+                    currentSession++;
+                    renderSession(currentSession);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        if (finishBtn) {
+            finishBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                showCompletionScreen();
+            });
+        }
+    }
+
+    // ================================================================
+    //  PANTALLA DE FINALIZACIÓN
+    // ================================================================
+    function showCompletionScreen() {
+        let correctCount = 0;
+        let wrongCount = 0;
+
+        sessionStates.forEach(state => {
+            if (state.verified) {
+                if (state.correct) correctCount++;
+                else wrongCount++;
+            }
+        });
+
+        const total = correctCount + wrongCount;
+        const accuracy = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+
+        contentArea.innerHTML = `
+            <div class="completion-screen">
+                <div class="icon">🎉</div>
+                <h2>¡Curso completado!</h2>
+                <p>Has practicado la construcción de oraciones con diferentes estructuras gramaticales.</p>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="number green">${correctCount}</span>
+                        <span class="label">✅ Correctas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="number red">${wrongCount}</span>
+                        <span class="label">❌ Incorrectas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="number blue">${accuracy}%</span>
+                        <span class="label">🎯 Precisión</span>
+                    </div>
+                </div>
+
+                <div style="background:#f8fafc; border-radius:14px; padding:14px; margin:12px 0; text-align:left; border:1px solid #e9eef6; max-height:250px; overflow-y:auto;">
+                    <div style="font-weight:700; font-size:0.85rem; color:#0b1e3a; margin-bottom:6px;">📊 Resumen de sesiones:</div>
+                    ${sessions.map((s, i) => {
+                        const state = sessionStates[i];
+                        const icon = state.verified ? (state.correct ? '✅' : '❌') : '⏳';
+                        return `<div style="font-size:0.82rem; padding:2px 0; border-bottom:1px solid #e9eef6; display:flex; justify-content:space-between;">
+                            <span>${i+1}. ${s.topic} (${s.tag})</span>
+                            <span>${icon}</span>
+                        </div>`;
+                    }).join('')}
+                </div>
+
+                <button class="btn-restart" id="restartBtn">🔄 Repetir actividad</button>
+            </div>
+        `;
+
+        const restartBtn = document.getElementById('restartBtn');
+        if (restartBtn) {
+            restartBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                sessionStates.forEach(state => {
+                    state.selectedWords = [];
+                    state.verified = false;
+                    state.correct = false;
+                });
+                currentSession = 0;
+                renderSession(0);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    }
+
+    // ================================================================
+    //  INICIALIZAR
+    // ================================================================
+    renderSession(0);
+</script>
+
+</body>
+</html>
