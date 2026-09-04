@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
-    <title>Práctica de Vocabulario · Modelo · Polyglots</title>
+    <title>Vocabulario · Saludos y Presentaciones · Polyglots</title>
     <style>
         /* ===== RESET Y BASE ===== */
         * {
@@ -11,10 +11,9 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background: #f0f4f8;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
             color: #1e2f4a;
             line-height: 1.6;
             padding: 16px 12px;
@@ -22,9 +21,8 @@
             justify-content: center;
             min-height: 100vh;
         }
-
         .app-wrapper {
-            max-width: 820px;
+            max-width: 880px;
             width: 100%;
             margin: 0 auto;
             background: white;
@@ -32,22 +30,25 @@
             padding: 24px 20px 32px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
         }
-
-        /* HEADER */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #e9eef6;
             padding-bottom: 14px;
-            margin-bottom: 22px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
             gap: 8px;
         }
         .header h1 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #0b1e3a;
+        }
+        .header .subtitle {
+            font-size: 0.9rem;
+            color: #4a5f82;
+            font-weight: 400;
         }
         .score-badge {
             background: #f0f4fc;
@@ -64,9 +65,8 @@
         .score-badge span {
             font-size: 1.2rem;
         }
-
         .back-row {
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
         .btn-back {
             background: #f0f4fc;
@@ -86,28 +86,50 @@
         .btn-back:hover {
             background: #dce3ef;
         }
-
-        /* SECCIONES */
-        .section {
-            background: #f8fafc;
-            border-radius: 24px;
-            padding: 22px 18px;
-            margin-bottom: 24px;
-            border: 1px solid #e9eef6;
+        .progress-bar {
+            background: #e9eef6;
+            border-radius: 40px;
+            height: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
         }
-        .section-title {
-            font-size: 1.2rem;
-            color: #0b1e3a;
-            margin-bottom: 16px;
-            border-bottom: 2px solid #e9eef6;
-            padding-bottom: 10px;
+        .progress-bar .fill {
+            height: 100%;
+            background: #2b6df6;
+            border-radius: 40px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        .session {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+        .session.active {
+            display: block;
+        }
+        @keyframes fadeSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .session-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
             flex-wrap: wrap;
             gap: 8px;
         }
-        .section-title .badge {
+        .session-header h2 {
+            font-size: 1.2rem;
+            color: #0b1e3a;
+        }
+        .session-header .badge {
             background: #dbeafe;
             color: #1e40af;
             padding: 2px 14px;
@@ -117,12 +139,23 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
+        .instructions {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 14px 18px;
+            margin-bottom: 18px;
+            border: 1px solid #e9eef6;
+            border-left: 4px solid #2b6df6;
+            font-size: 0.95rem;
+        }
+        .instructions strong {
+            color: #1e40af;
+        }
         .question-item {
             background: white;
             border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 16px;
+            padding: 16px 18px;
+            margin-bottom: 14px;
             border: 1px solid #e9eef6;
             display: flex;
             flex-wrap: wrap;
@@ -136,15 +169,21 @@
             font-weight: 700;
             color: #1e40af;
             min-width: 30px;
+            font-size: 0.95rem;
         }
         .question-item .q-text {
             flex: 1;
             min-width: 120px;
+            font-size: 0.95rem;
         }
         .question-item .q-text strong {
             color: #0b1e3a;
         }
-
+        .question-item .q-text .hint {
+            color: #6b7f8f;
+            font-style: italic;
+            font-size: 0.85rem;
+        }
         .options-group {
             display: flex;
             flex-wrap: wrap;
@@ -154,7 +193,7 @@
             background: white;
             border: 2px solid #dce3ef;
             border-radius: 40px;
-            padding: 6px 16px;
+            padding: 6px 18px;
             font-size: 0.9rem;
             font-weight: 500;
             color: #0b1e3a;
@@ -182,26 +221,62 @@
             cursor: default;
             opacity: 0.7;
         }
-
-        .audio-btn {
-            background: #eef3fc;
-            border: 2px solid #dce3ef;
+        .audio-player {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f0f7ff;
             border-radius: 40px;
-            padding: 6px 16px;
+            padding: 4px 14px 4px 8px;
+            border: 1px solid #dbeafe;
+            min-width: 140px;
+        }
+        .audio-player button {
+            background: #2b6df6;
+            border: none;
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            color: white;
             font-size: 0.9rem;
-            font-weight: 600;
-            color: #1e40af;
             cursor: pointer;
             transition: 0.15s;
-            touch-action: manipulation;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
-        .audio-btn:active {
-            transform: scale(0.95);
+        .audio-player button:hover {
+            background: #1a56d6;
         }
-        .audio-btn:hover {
+        .audio-player button:active {
+            transform: scale(0.9);
+        }
+        .audio-player button.playing {
+            background: #ef4444;
+        }
+        .audio-player .word-label {
+            font-weight: 600;
+            color: #1e40af;
+            font-size: 0.9rem;
+        }
+        .audio-player .play-icon {
+            font-size: 1.1rem;
+        }
+        .audio-player .progress-indicator {
+            flex: 1;
+            height: 4px;
             background: #dce3ef;
+            border-radius: 4px;
+            overflow: hidden;
+            min-width: 40px;
         }
-
+        .audio-player .progress-indicator .bar {
+            height: 100%;
+            background: #2b6df6;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
         .fill-input {
             border: 2px solid #dce3ef;
             border-radius: 12px;
@@ -212,6 +287,8 @@
             outline: none;
             transition: 0.2s;
             font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .fill-input:focus {
             border-color: #2b6df6;
@@ -224,7 +301,77 @@
             border-color: #ef4444;
             background: #fef2f2;
         }
-
+        .fill-input::placeholder {
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 0.85rem;
+            color: #aab7d0;
+        }
+        .letter-input {
+            border: 2px solid #dce3ef;
+            border-radius: 12px;
+            padding: 8px 6px;
+            font-size: 1rem;
+            width: 36px;
+            height: 40px;
+            text-align: center;
+            outline: none;
+            transition: 0.2s;
+            font-family: inherit;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .letter-input:focus {
+            border-color: #2b6df6;
+        }
+        .letter-input.correct {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+        .letter-input.incorrect {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        .letter-input:disabled {
+            opacity: 0.7;
+            cursor: default;
+        }
+        .word-hint {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+        }
+        .word-hint .letter-slot {
+            display: inline-flex;
+            width: 34px;
+            height: 38px;
+            border-bottom: 3px solid #1e40af;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0b1e3a;
+            background: #f8fafc;
+            border-radius: 4px 4px 0 0;
+            align-items: center;
+            justify-content: center;
+        }
+        .word-hint .letter-slot.filled {
+            background: #eef3fc;
+            border-color: #2b6df6;
+        }
+        .word-hint .letter-slot.correct {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+        .word-hint .letter-slot.wrong {
+            background: #fecaca;
+            border-color: #ef4444;
+        }
+        .word-hint .letter-slot.empty {
+            background: #f8fafc;
+            border-color: #dce3ef;
+        }
         .btn-check {
             background: #2b6df6;
             color: white;
@@ -247,7 +394,44 @@
             opacity: 0.4;
             cursor: not-allowed;
         }
-
+        .btn-continue {
+            background: #2b6df6;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 14px 32px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .btn-continue:hover {
+            background: #1a56d6;
+        }
+        .btn-continue:active {
+            transform: scale(0.97);
+        }
+        .btn-continue:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .btn-restart {
+            background: #f0f4fc;
+            border: 1px solid #dce3ef;
+            color: #1d3557;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+        .btn-restart:hover {
+            background: #dce3ef;
+        }
         .feedback {
             margin-top: 8px;
             padding: 10px 14px;
@@ -272,11 +456,10 @@
             color: #991b1b;
         }
 
-        /* RESULTADOS */
         .results-box {
             background: #f8fafc;
             border-radius: 24px;
-            padding: 22px 18px;
+            padding: 24px 20px;
             border: 1px solid #e9eef6;
             margin-top: 20px;
             display: none;
@@ -285,7 +468,7 @@
             display: block;
         }
         .results-box .big-score {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
             color: #2b6df6;
             text-align: center;
@@ -308,6 +491,10 @@
             font-weight: 700;
             color: #0b1e3a;
         }
+        .results-box .score-detail .label {
+            font-size: 0.8rem;
+            color: #4a5f82;
+        }
         .results-box .fail-list {
             background: white;
             border-radius: 16px;
@@ -328,23 +515,13 @@
             content: "❌ ";
             color: #ef4444;
         }
-
-        .btn-restart {
-            background: #f0f4fc;
-            border: 1px solid #dce3ef;
-            color: #1d3557;
-            padding: 10px 24px;
-            border-radius: 40px;
+        .results-box .final-message {
+            text-align: center;
+            font-size: 1.05rem;
             font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 10px;
+            color: #1e40af;
+            margin: 12px 0;
         }
-        .btn-restart:hover {
-            background: #dce3ef;
-        }
-
         .footer {
             text-align: center;
             color: #94a3b8;
@@ -356,12 +533,10 @@
             .app-wrapper {
                 padding: 16px 14px;
             }
-            .section {
-                padding: 16px 12px;
-            }
             .question-item {
                 flex-direction: column;
                 align-items: stretch;
+                padding: 14px;
             }
             .options-group {
                 justify-content: center;
@@ -372,8 +547,24 @@
             .results-box .score-detail {
                 grid-template-columns: 1fr;
             }
+            .audio-player {
+                width: 100%;
+                justify-content: center;
+            }
+            .word-hint .letter-slot {
+                width: 28px;
+                height: 32px;
+                font-size: 0.95rem;
+            }
+            .letter-input {
+                width: 30px;
+                height: 34px;
+                font-size: 0.9rem;
+            }
+            .session-header h2 {
+                font-size: 1rem;
+            }
         }
-
         @media (max-width: 400px) {
             .header h1 {
                 font-size: 1rem;
@@ -381,6 +572,16 @@
             .opt-btn {
                 font-size: 0.8rem;
                 padding: 4px 12px;
+            }
+            .word-hint .letter-slot {
+                width: 24px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+            .letter-input {
+                width: 26px;
+                height: 30px;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -391,7 +592,10 @@
 
         <!-- ===== HEADER ===== -->
         <div class="header">
-            <h1>📚 Práctica de Vocabulario</h1>
+            <div>
+                <h1>👋 Saludos y Presentaciones</h1>
+                <div class="subtitle">25 palabras · 6 sesiones · Puntaje sobre 100</div>
+            </div>
             <div class="score-badge">⭐ <span id="scoreDisplay">0</span></div>
         </div>
 
@@ -400,51 +604,108 @@
             <a href="page-contenido" class="btn-back">← Volver al curso</a>
         </div>
 
-        <!-- ============================================================ -->
-        <!-- SECCIÓN 1: EMPAREJAR                                          -->
-        <!-- ============================================================ -->
-        <div class="section">
-            <div class="section-title">
-                <span>🔗 Sección 1: Empareja</span>
-                <span class="badge">5 preguntas</span>
-            </div>
-            <div id="matchSection"></div>
+        <!-- ===== BARRA DE PROGRESO ===== -->
+        <div class="progress-bar">
+            <div class="fill" id="progressFill"></div>
         </div>
 
         <!-- ============================================================ -->
-        <!-- SECCIÓN 2: ESCUCHA Y ESCRIBE                                  -->
+        <!-- SESIÓN 1: PRONUNCIACIÓN (25 palabras)                         -->
         <!-- ============================================================ -->
-        <div class="section">
-            <div class="section-title">
-                <span>🎧 Sección 2: Escucha y escribe</span>
-                <span class="badge">5 preguntas</span>
+        <div id="session1" class="session active">
+            <div class="session-header">
+                <h2>🗣️ Sesión 1: Pronunciación</h2>
+                <span class="badge">25 palabras</span>
             </div>
-            <div id="listenSection"></div>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- SECCIÓN 3: COMPLETA LA ORACIÓN                                -->
-        <!-- ============================================================ -->
-        <div class="section">
-            <div class="section-title">
-                <span>✏️ Sección 3: Completa la oración</span>
-                <span class="badge">5 preguntas</span>
-            </div>
-            <div id="fillSection"></div>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- SECCIÓN 4: PRONUNCIACIÓN (práctica en voz alta)              -->
-        <!-- ============================================================ -->
-        <div class="section">
-            <div class="section-title">
-                <span>🗣️ Sección 4: Pronunciación</span>
-                <span class="badge">5 palabras</span>
+            <div class="instructions">
+                <strong>📌 Instrucción:</strong> Escucha la pronunciación de cada palabra y repítela en voz alta <strong>3 veces</strong>.
+                <br><span style="color:#6b7f8f; font-size:0.9rem;">💡 La pronunciación está escrita en letras españolas. El significado en español te ayuda a saber lo que estás diciendo.</span>
+                <br><span style="color:#1e40af; font-weight:600;">🎯 Objetivo: Familiarizarte con el sonido antes de escribir o leer.</span>
             </div>
             <div id="pronSection"></div>
-            <div style="margin-top:12px; padding:12px 16px; background:#f0f7ff; border-radius:14px; border:1px solid #dbeafe; font-size:0.95rem;">
-                💡 <strong>Consejo:</strong> Repite cada palabra en voz alta 3 veces. Grábate y compárala con el audio.
+            <button class="btn-continue" onclick="goToSession(2)">Continuar → Sesión 2: Emparejar</button>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SESIÓN 2: EMPAREJAR (25 preguntas)                            -->
+        <!-- ============================================================ -->
+        <div id="session2" class="session">
+            <div class="session-header">
+                <h2>🔗 Sesión 2: Empareja la palabra</h2>
+                <span class="badge">25 preguntas</span>
             </div>
+            <div class="instructions">
+                <strong>📌 Instrucción:</strong> Selecciona la palabra en inglés que corresponde a cada definición en español.
+                <br><span style="color:#6b7f8f; font-size:0.9rem;">💡 Si dudas, recuerda lo que escuchaste en la sesión de pronunciación.</span>
+            </div>
+            <div id="matchSection"></div>
+            <button class="btn-continue" onclick="goToSession(3)">Continuar → Sesión 3: Escuchar y escribir</button>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SESIÓN 3: ESCUCHA Y ESCRIBE (25 palabras)                     -->
+        <!-- ============================================================ -->
+        <div id="session3" class="session">
+            <div class="session-header">
+                <h2>🎧 Sesión 3: Escucha y escribe</h2>
+                <span class="badge">25 palabras</span>
+            </div>
+            <div class="instructions">
+                <strong>📌 Instrucción:</strong> Haz clic en ▶️ para escuchar la palabra en inglés, luego escríbela en <strong>MAYÚSCULAS</strong>.
+                <br><span style="color:#6b7f8f; font-size:0.9rem;">💡 La pista en español te ayuda a identificar la palabra. El audio NO deletrea, dice la palabra completa.</span>
+                <br><span style="background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:4px 12px; display:inline-block; margin-top:4px; font-weight:700; color:#991b1b; font-size:0.9rem;">⚠️ Escribe en MAYÚSCULAS</span>
+            </div>
+            <div id="listenSection"></div>
+            <button class="btn-continue" onclick="goToSession(4)">Continuar → Sesión 4: Completar oraciones</button>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SESIÓN 4: COMPLETA LA ORACIÓN (25 preguntas)                  -->
+        <!-- ============================================================ -->
+        <div id="session4" class="session">
+            <div class="session-header">
+                <h2>✏️ Sesión 4: Completa la oración</h2>
+                <span class="badge">25 preguntas</span>
+            </div>
+            <div class="instructions">
+                <strong>📌 Instrucción:</strong> Lee la oración y escribe la palabra que falta en <strong>MAYÚSCULAS</strong>.
+                <br><span style="color:#6b7f8f; font-size:0.9rem;">💡 La pista entre paréntesis te dice la palabra en español. Piensa en la palabra en inglés.</span>
+                <br><span style="background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:4px 12px; display:inline-block; margin-top:4px; font-weight:700; color:#991b1b; font-size:0.9rem;">⚠️ Escribe en MAYÚSCULAS</span>
+            </div>
+            <div id="fillSection"></div>
+            <button class="btn-continue" onclick="goToSession(5)">Continuar → Sesión 5: Crucigrama</button>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SESIÓN 5: CRUCIGRAMA (20 palabras)                            -->
+        <!-- ============================================================ -->
+        <div id="session5" class="session">
+            <div class="session-header">
+                <h2>🧩 Sesión 5: Crucigrama</h2>
+                <span class="badge">20 palabras</span>
+            </div>
+            <div class="instructions">
+                <strong>📌 Instrucción:</strong> Completa las letras que faltan en cada palabra según la definición.
+                <br><span style="color:#6b7f8f; font-size:0.9rem;">💡 Algunas letras ya están reveladas para ayudarte. Piensa en la palabra completa.</span>
+            </div>
+            <div id="crosswordSection"></div>
+            <button class="btn-continue" onclick="goToSession(6)">Continuar → Sesión 6: Ordenar letras</button>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SESIÓN 6: ORDENAR LETRAS (20 palabras)                        -->
+        <!-- ============================================================ -->
+        <div id="session6" class="session">
+            <div class="session-header">
+                <h2>🔀 Sesión 6: Ordenar letras</h2>
+                <span class="badge">20 palabras</span>
+            </div>
+            <div class="instructions">
+                <strong>📌 Instrucción:</strong> Las letras están desordenadas. Escríbelas en el orden correcto.
+                <br><span style="color:#6b7f8f; font-size:0.9rem;">💡 Todas son palabras que has visto en las sesiones anteriores. ¡Piensa en el sonido!</span>
+            </div>
+            <div id="scrambleSection"></div>
+            <button class="btn-continue" onclick="showResults()">📊 Ver resultados finales</button>
         </div>
 
         <!-- ============================================================ -->
@@ -452,59 +713,265 @@
         <!-- ============================================================ -->
         <div class="results-box" id="resultsBox">
             <h3 style="text-align:center; margin-bottom:8px;">📊 ¡Práctica completada!</h3>
-            <div class="big-score" id="finalScore">0 / 15</div>
+            <div class="big-score" id="finalScore">0 / 100</div>
             <div class="score-detail">
-                <div><div class="num" id="matchScore">0</div>Emparejar</div>
-                <div><div class="num" id="listenScore">0</div>Escuchar</div>
-                <div><div class="num" id="fillScore">0</div>Completar</div>
+                <div><div class="num" id="pronScore">25</div><div class="label">Pronunciación</div></div>
+                <div><div class="num" id="matchScore">0</div><div class="label">Emparejar</div></div>
+                <div><div class="num" id="listenScore">0</div><div class="label">Escuchar</div></div>
+                <div><div class="num" id="fillScore">0</div><div class="label">Completar</div></div>
+                <div><div class="num" id="crosswordScore">0</div><div class="label">Crucigrama</div></div>
+                <div><div class="num" id="scrambleScore">0</div><div class="label">Ordenar</div></div>
             </div>
-            <div style="text-align:center; font-weight:600; color:#1e40af; margin-top:8px;" id="finalMessage"></div>
+            <div class="final-message" id="finalMessage"></div>
             <ul class="fail-list" id="failList"></ul>
             <div style="text-align:center; margin-top:14px;">
                 <button class="btn-restart" onclick="restartPractice()">🔄 Repetir práctica</button>
+                <br>
+                <button class="btn-restart" onclick="window.location.href='page-contenido'" style="margin-top:8px;">📚 Volver al curso</button>
             </div>
         </div>
 
-        <!-- ===== BOTÓN FINALIZAR ===== -->
-        <div style="text-align:center; margin-top:20px;">
-            <button class="btn-check" onclick="showResults()" style="padding:14px 40px; font-size:1.1rem;">📊 Finalizar práctica</button>
-        </div>
+        <!-- ===== FOOTER ===== -->
+        <div class="footer">Polyglots · Aprende inglés fácil · Sesión 1 de 6</div>
 
-        <div class="footer">Polyglots · Aprende inglés fácil</div>
     </div>
 
     <script>
         // ================================================================
-        // DATOS DE LA PRÁCTICA (¡CAMBIA ESTOS DATOS PARA CADA LECCIÓN!)
+        // LISTA COMPLETA DE 25 PALABRAS
         // ================================================================
-        const practiceData = {
-            // SECCIÓN 1: Emparejar (palabra → definición)
-            match: [
-                { word: "big", definition: "Grande", options: ["big", "small", "tall"] },
-                { word: "happy", definition: "Feliz", options: ["sad", "happy", "tired"] },
-                { word: "red", definition: "Rojo", options: ["red", "blue", "green"] },
-                { word: "house", definition: "Casa", options: ["house", "car", "book"] },
-                { word: "teacher", definition: "Profesor/a", options: ["student", "teacher", "doctor"] }
-            ],
-            // SECCIÓN 2: Escuchar y escribir (palabra → audio simulado)
-            listen: [
-                { word: "apple", audio: "🎵 manzana" },
-                { word: "school", audio: "🎵 escuela" },
-                { word: "happy", audio: "🎵 feliz" },
-                { word: "book", audio: "🎵 libro" },
-                { word: "car", audio: "🎵 coche" }
-            ],
-            // SECCIÓN 3: Completar oración (contexto → palabra)
-            fill: [
-                { sentence: "She is a _____", answer: "teacher", hint: "profesión" },
-                { sentence: "I have a _____ car", answer: "red", hint: "color" },
-                { sentence: "They are _____", answer: "happy", hint: "emoción" },
-                { sentence: "We live in a _____ house", answer: "big", hint: "tamaño" },
-                { sentence: "He eats an _____", answer: "apple", hint: "fruta" }
-            ],
-            // SECCIÓN 4: Pronunciación (palabras para practicar)
-            pron: ["big", "happy", "red", "house", "teacher"]
-        };
+        const allWords = [
+            "HELLO", "HI", "HEY", "GOOD MORNING", "GOOD AFTERNOON",
+            "GOOD EVENING", "GOOD NIGHT", "HOW ARE YOU", "I AM FINE",
+            "NICE TO MEET YOU", "PLEASURE", "LIKEWISE", "SEE YOU LATER",
+            "SEE YOU SOON", "TAKE CARE", "GOODBYE", "BYE", "MY NAME IS",
+            "WHAT IS YOUR NAME", "WHERE ARE YOU FROM", "I AM FROM",
+            "HOW OLD ARE YOU", "THANK YOU", "PLEASE", "SORRY"
+        ];
+
+        // ================================================================
+        // DATOS - PRONUNCIACIÓN (25 palabras)
+        // ================================================================
+        const pronData = [
+            { word: "HELLO", es: "jelóu", meaning: "Hola" },
+            { word: "HI", es: "jái", meaning: "Hola (informal)" },
+            { word: "HEY", es: "jéi", meaning: "Oye / Hola" },
+            { word: "GOOD MORNING", es: "gud mórning", meaning: "Buenos días" },
+            { word: "GOOD AFTERNOON", es: "gud áfternun", meaning: "Buenas tardes" },
+            { word: "GOOD EVENING", es: "gud ívnin", meaning: "Buenas noches (al llegar)" },
+            { word: "GOOD NIGHT", es: "gud náit", meaning: "Buenas noches (al despedirse)" },
+            { word: "HOW ARE YOU", es: "jáu ar iu", meaning: "¿Cómo estás?" },
+            { word: "I AM FINE", es: "ái am fáin", meaning: "Estoy bien" },
+            { word: "NICE TO MEET YOU", es: "náis tu mít iu", meaning: "Mucho gusto" },
+            { word: "PLEASURE", es: "pléshur", meaning: "Placer (mucho gusto)" },
+            { word: "LIKEWISE", es: "láikwais", meaning: "Igualmente" },
+            { word: "SEE YOU LATER", es: "sí iu léiter", meaning: "Hasta luego" },
+            { word: "SEE YOU SOON", es: "sí iu sun", meaning: "Hasta pronto" },
+            { word: "TAKE CARE", es: "téik kér", meaning: "Cuídate" },
+            { word: "GOODBYE", es: "gudbái", meaning: "Adiós" },
+            { word: "BYE", es: "bái", meaning: "Chao / Adiós (informal)" },
+            { word: "MY NAME IS", es: "mái néim is", meaning: "Mi nombre es" },
+            { word: "WHAT IS YOUR NAME", es: "uót is ior néim", meaning: "¿Cómo te llamas?" },
+            { word: "WHERE ARE YOU FROM", es: "wér ar iu from", meaning: "¿De dónde eres?" },
+            { word: "I AM FROM", es: "ái am from", meaning: "Soy de..." },
+            { word: "HOW OLD ARE YOU", es: "jáu óuld ar iu", meaning: "¿Cuántos años tienes?" },
+            { word: "THANK YOU", es: "zánk iu", meaning: "Gracias" },
+            { word: "PLEASE", es: "plís", meaning: "Por favor" },
+            { word: "SORRY", es: "sári", meaning: "Perdón / Lo siento" }
+        ];
+
+        // ================================================================
+        // DATOS - EMPAREJAR (25 preguntas con opciones desordenadas)
+        // ================================================================
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Generar opciones desordenadas para cada palabra
+        const matchData = [
+            { word: "HELLO", definition: "Hola", options: ["HELLO", "GOODBYE", "THANK YOU", "PLEASE"] },
+            { word: "HI", definition: "Hola (informal)", options: ["HI", "HELLO", "HEY", "GOODBYE"] },
+            { word: "HEY", definition: "Oye / Hola", options: ["HEY", "HI", "HELLO", "GOODBYE"] },
+            { word: "GOOD MORNING", definition: "Buenos días", options: ["GOOD MORNING", "GOOD AFTERNOON",
+                    "GOOD EVENING", "GOOD NIGHT"
+                ] },
+            { word: "GOOD AFTERNOON", definition: "Buenas tardes", options: ["GOOD AFTERNOON", "GOOD MORNING",
+                    "GOOD EVENING", "GOOD NIGHT"
+                ] },
+            { word: "GOOD EVENING", definition: "Buenas noches (al llegar)", options: ["GOOD EVENING", "GOOD MORNING",
+                    "GOOD AFTERNOON", "GOOD NIGHT"
+                ] },
+            { word: "GOOD NIGHT", definition: "Buenas noches (al despedirse)", options: ["GOOD NIGHT", "GOOD EVENING",
+                    "GOODBYE", "HELLO"
+                ] },
+            { word: "HOW ARE YOU", definition: "¿Cómo estás?", options: ["HOW ARE YOU", "HOW OLD ARE YOU",
+                    "WHERE ARE FROM", "WHAT IS YOUR NAME"
+                ] },
+            { word: "I AM FINE", definition: "Estoy bien", options: ["I AM FINE", "I AM FROM", "MY NAME IS",
+                    "NICE TO MEET YOU"
+                ] },
+            { word: "NICE TO MEET YOU", definition: "Mucho gusto", options: ["NICE TO MEET YOU", "PLEASURE",
+                    "LIKEWISE", "HELLO"
+                ] },
+            { word: "PLEASURE", definition: "Placer (mucho gusto)", options: ["PLEASURE", "NICE TO MEET YOU",
+                    "LIKEWISE", "GOODBYE"
+                ] },
+            { word: "LIKEWISE", definition: "Igualmente", options: ["LIKEWISE", "PLEASURE", "NICE TO MEET YOU",
+                    "GOODBYE"
+                ] },
+            { word: "SEE YOU LATER", definition: "Hasta luego", options: ["SEE YOU LATER", "SEE YOU SOON",
+                    "TAKE CARE", "GOODBYE"
+                ] },
+            { word: "SEE YOU SOON", definition: "Hasta pronto", options: ["SEE YOU SOON", "SEE YOU LATER",
+                    "TAKE CARE", "GOODBYE"
+                ] },
+            { word: "TAKE CARE", definition: "Cuídate", options: ["TAKE CARE", "GOODBYE", "SEE YOU LATER",
+                    "SEE YOU SOON"
+                ] },
+            { word: "GOODBYE", definition: "Adiós", options: ["GOODBYE", "BYE", "BYE BYE", "SEE YOU"] },
+            { word: "BYE", definition: "Chao / Adiós (informal)", options: ["BYE", "GOODBYE", "BYE BYE", "HELLO"] },
+            { word: "MY NAME IS", definition: "Mi nombre es", options: ["MY NAME IS", "I AM FROM", "HOW OLD ARE YOU",
+                    "WHAT IS YOUR NAME"
+                ] },
+            { word: "WHAT IS YOUR NAME", definition: "¿Cómo te llamas?", options: ["WHAT IS YOUR NAME",
+                    "MY NAME IS", "WHERE ARE FROM", "HOW ARE YOU"
+                ] },
+            { word: "WHERE ARE YOU FROM", definition: "¿De dónde eres?", options: ["WHERE ARE YOU FROM",
+                    "I AM FROM", "HOW OLD ARE YOU", "WHAT IS YOUR NAME"
+                ] },
+            { word: "I AM FROM", definition: "Soy de...", options: ["I AM FROM", "WHERE ARE YOU FROM", "MY NAME IS",
+                    "I AM FINE"
+                ] },
+            { word: "HOW OLD ARE YOU", definition: "¿Cuántos años tienes?", options: ["HOW OLD ARE YOU", "I AM YEARS OLD",
+                    "HOW ARE YOU", "WHERE ARE FROM"
+                ] },
+            { word: "THANK YOU", definition: "Gracias", options: ["THANK YOU", "THANKS", "PLEASE", "SORRY"] },
+            { word: "PLEASE", definition: "Por favor", options: ["PLEASE", "THANK YOU", "SORRY", "EXCUSE ME"] },
+            { word: "SORRY", definition: "Perdón / Lo siento", options: ["SORRY", "EXCUSE ME", "PARDON ME", "PLEASE"] }
+        ];
+
+        // Desordenar opciones de cada pregunta
+        matchData.forEach(item => {
+            item.options = shuffleArray([...item.options]);
+        });
+
+        // ================================================================
+        // DATOS - ESCUCHAR (25 palabras)
+        // ================================================================
+        const listenData = [
+            { word: "HELLO", hint: "hola" },
+            { word: "HI", hint: "hola informal" },
+            { word: "HEY", hint: "oye" },
+            { word: "GOOD MORNING", hint: "buenos días" },
+            { word: "GOOD AFTERNOON", hint: "buenas tardes" },
+            { word: "GOOD EVENING", hint: "buenas noches (llegada)" },
+            { word: "GOOD NIGHT", hint: "buenas noches (despedida)" },
+            { word: "HOW ARE YOU", hint: "cómo estás" },
+            { word: "I AM FINE", hint: "estoy bien" },
+            { word: "NICE TO MEET YOU", hint: "mucho gusto" },
+            { word: "PLEASURE", hint: "placer" },
+            { word: "LIKEWISE", hint: "igualmente" },
+            { word: "SEE YOU LATER", hint: "hasta luego" },
+            { word: "SEE YOU SOON", hint: "hasta pronto" },
+            { word: "TAKE CARE", hint: "cuídate" },
+            { word: "GOODBYE", hint: "adiós" },
+            { word: "BYE", hint: "chao" },
+            { word: "MY NAME IS", hint: "mi nombre es" },
+            { word: "WHAT IS YOUR NAME", hint: "cómo te llamas" },
+            { word: "WHERE ARE YOU FROM", hint: "de dónde eres" },
+            { word: "I AM FROM", hint: "soy de" },
+            { word: "HOW OLD ARE YOU", hint: "cuántos años tienes" },
+            { word: "THANK YOU", hint: "gracias" },
+            { word: "PLEASE", hint: "por favor" },
+            { word: "SORRY", hint: "perdón" }
+        ];
+
+        // ================================================================
+        // DATOS - COMPLETAR ORACIONES (25 preguntas)
+        // ================================================================
+        const fillData = [
+            { sentence: "_____! How are you?", answer: "HELLO", hint: "hola" },
+            { sentence: "Good _____, see you tomorrow", answer: "BYE", hint: "chao (good + ?)" },
+            { sentence: "_____ you for your help", answer: "THANK", hint: "gracias (primera parte)" },
+            { sentence: "_____, come in", answer: "PLEASE", hint: "por favor" },
+            { sentence: "I am _____ for the mistake", answer: "SORRY", hint: "perdón" },
+            { sentence: "_____, is this seat taken?", answer: "EXCUSE ME", hint: "disculpe" },
+            { sentence: "_____ is the answer", answer: "YES", hint: "sí" },
+            { sentence: "_____, I don't think so", answer: "NO", hint: "no" },
+            { sentence: "What is your _____?", answer: "NAME", hint: "nombre" },
+            { sentence: "How old are you? What is your _____?", answer: "AGE", hint: "edad" },
+            { sentence: "_____ I'm Maria", answer: "HELLO", hint: "hola (presentación)" },
+            { sentence: "_____ to meet you", answer: "NICE", hint: "mucho gusto (primera palabra)" },
+            { sentence: "Good _____, good afternoon", answer: "MORNING", hint: "buenos días (primera palabra)" },
+            { sentence: "Good _____, see you at night", answer: "EVENING", hint: "buenas noches (llegada)" },
+            { sentence: "_____ are you?", answer: "HOW", hint: "cómo (primera palabra)" },
+            { sentence: "I'm _____, thank you", answer: "FINE", hint: "bien" },
+            { sentence: "Where are you _____?", answer: "FROM", hint: "de (dónde eres)" },
+            { sentence: "I _____ from Colombia", answer: "AM", hint: "soy (verbo)" },
+            { sentence: "How _____ are you?", answer: "OLD", hint: "años (primera palabra)" },
+            { sentence: "I am 25 years _____", answer: "OLD", hint: "años (al final)" },
+            { sentence: "_____ is your name?", answer: "WHAT", hint: "qué" },
+            { sentence: "_____ are you from?", answer: "WHERE", hint: "dónde" },
+            { sentence: "Nice to _____ you", answer: "MEET", hint: "conocer" },
+            { sentence: "_____ care!", answer: "TAKE", hint: "cuídate (primera palabra)" },
+            { sentence: "See you _____", answer: "LATER", hint: "luego" }
+        ];
+
+        // ================================================================
+        // DATOS - CRUCIGRAMA (20 palabras)
+        // ================================================================
+        const crosswordData = [
+            { word: "HELLO", definition: "Saludo informal", reveal: [1, 3] },
+            { word: "GOODBYE", definition: "Despedida", reveal: [0, 4, 6] },
+            { word: "THANKYOU", definition: "Agradecimiento", reveal: [2, 5, 7] },
+            { word: "PLEASURE", definition: "Placer (mucho gusto)", reveal: [1, 4, 6] },
+            { word: "WELCOME", definition: "Bienvenida", reveal: [1, 4] },
+            { word: "MORNING", definition: "Mañana (parte del día)", reveal: [0, 3] },
+            { word: "EVENING", definition: "Tarde/noche (llegada)", reveal: [1, 4] },
+            { word: "AFTERNOON", definition: "Tarde (después del mediodía)", reveal: [0, 4, 7] },
+            { word: "GOODNIGHT", definition: "Buenas noches (despedida)", reveal: [2, 5, 8] },
+            { word: "INTRODUCE", definition: "Presentar", reveal: [0, 3, 5, 8] },
+            { word: "LIKEWISE", definition: "Igualmente", reveal: [1, 4, 7] },
+            { word: "SEEYOULATER", definition: "Hasta luego", reveal: [0, 3, 6, 9] },
+            { word: "TAKECARE", definition: "Cuídate", reveal: [1, 4, 7] },
+            { word: "YOURNAME", definition: "Tu nombre", reveal: [0, 4, 6] },
+            { word: "HOWAREYOU", definition: "Cómo estás", reveal: [0, 3, 6] },
+            { word: "IAMFROM", definition: "Soy de", reveal: [0, 3, 5] },
+            { word: "NICETOMEETYOU", definition: "Mucho gusto", reveal: [1, 4, 7, 10] },
+            { word: "EXCUSEME", definition: "Disculpe", reveal: [0, 4, 6] },
+            { word: "PARDONME", definition: "Perdóneme", reveal: [1, 3, 6] },
+            { word: "GOODAFTERNOON", definition: "Buenas tardes", reveal: [0, 4, 8, 12] }
+        ];
+
+        // ================================================================
+        // DATOS - ORDENAR LETRAS (20 palabras)
+        // ================================================================
+        const scrambleData = [
+            { word: "HELLO", scrambled: "OLLHE" },
+            { word: "GOODBYE", scrambled: "YEBDOOG" },
+            { word: "THANKYOU", scrambled: "YOKUTNAH" },
+            { word: "PLEASURE", scrambled: "RSUEPALE" },
+            { word: "WELCOME", scrambled: "ECOLMEW" },
+            { word: "MORNING", scrambled: "NNGIROM" },
+            { word: "EVENING", scrambled: "NIGEENV" },
+            { word: "AFTERNOON", scrambled: "NOOFRTENA" },
+            { word: "GOODNIGHT", scrambled: "HGITNDOOG" },
+            { word: "INTRODUCE", scrambled: "CEDTUONRI" },
+            { word: "LIKEWISE", scrambled: "ISKEWEIL" },
+            { word: "SEEYOULATER", scrambled: "AEYSUOETRL" },
+            { word: "TAKECARE", scrambled: "ERACETKA" },
+            { word: "YOURNAME", scrambled: "EMANRUOY" },
+            { word: "HOWAREYOU", scrambled: "OARYHEWUO" },
+            { word: "IAMFROM", scrambled: "RAIMMFO" },
+            { word: "NICETOMEETYOU", scrambled: "CMENOITYEUOT" },
+            { word: "EXCUSEME", scrambled: "MECSEUEX" },
+            { word: "PARDONME", scrambled: "NDPOAEMR" },
+            { word: "GOODAFTERNOON", scrambled: "FATRNOOGOEDON" }
+        ];
 
         // ================================================================
         // ESTADO
@@ -512,25 +979,120 @@
         let answers = {
             match: [],
             listen: [],
-            fill: []
+            fill: [],
+            crossword: [],
+            scramble: []
         };
-        let score = { match: 0, listen: 0, fill: 0 };
+        let score = { match: 0, listen: 0, fill: 0, crossword: 0, scramble: 0 };
         let totalScore = 0;
+        let currentSession = 1;
+        const totalSessions = 6;
 
         // ================================================================
-        // RENDERIZAR SECCIÓN 1: EMPAREJAR
+        // AUDIO MEJORADO
+        // ================================================================
+        function playAudioWord(word, hint, meaning) {
+            if (window.speechSynthesis) {
+                if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+
+                let textToSpeak = word;
+                // Corrección para que "I AM FINE" y "I AM FROM" suenen naturales
+                if (word === "I AM FINE") textToSpeak = "I am fine";
+                if (word === "I AM FROM") textToSpeak = "I am from";
+
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.7;
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
+
+                const voices = window.speechSynthesis.getVoices();
+                const preferred = voices.find(v =>
+                    v.lang.startsWith('en') &&
+                    (v.name.includes('Google') || v.name.includes('Microsoft') || v.name.includes('Samantha') || v.name
+                        .includes('Zira'))
+                ) || voices.find(v => v.lang.startsWith('en')) || null;
+
+                if (preferred) utterance.voice = preferred;
+
+                const fb = document.getElementById('audioFeedback');
+                if (fb) {
+                    fb.textContent = `🎧 Escuchando... (${meaning || hint || word})`;
+                    fb.style.display = 'block';
+                }
+
+                window.speechSynthesis.speak(utterance);
+
+                const btn = document.querySelector(`[data-audio="${word}"]`);
+                if (btn) {
+                    btn.classList.add('playing');
+                    btn.innerHTML = '⏹';
+                }
+
+                setTimeout(() => {
+                    if (fb) fb.style.display = 'none';
+                    if (btn) {
+                        btn.classList.remove('playing');
+                        btn.innerHTML = '▶';
+                    }
+                }, 3500);
+            } else {
+                alert('⚠️ Tu navegador no soporta pronunciación por voz. Usa Chrome o Edge.');
+            }
+        }
+
+        // Precarga de voces
+        if (window.speechSynthesis) {
+            window.speechSynthesis.getVoices();
+            window.speechSynthesis.onvoiceschanged = () => {
+                window.speechSynthesis.getVoices();
+            };
+        }
+
+        // ================================================================
+        // RENDER - PRONUNCIACIÓN
+        // ================================================================
+        function renderPron() {
+            const container = document.getElementById('pronSection');
+            let html = '';
+            pronData.forEach((item, idx) => {
+                html += `
+                    <div class="question-item" style="justify-content:space-between;">
+                        <span class="q-num">${idx+1}.</span>
+                        <span class="q-text" style="font-weight:700; font-size:1.05rem; color:#1e40af;">
+                            ${item.word}
+                            <span style="font-weight:400; font-size:0.85rem; color:#6b7f8f; display:block;">
+                                ${item.meaning}
+                            </span>
+                        </span>
+                        <div class="audio-player">
+                            <button data-audio="${item.word}" onclick="playAudioWord('${item.word}', '${item.meaning}', '${item.meaning}')" title="Escuchar">
+                                <span class="play-icon">▶</span>
+                            </button>
+                            <span class="word-label" style="font-size:0.8rem; color:#6b7f8f;">${item.es}</span>
+                        </div>
+                        <span style="font-size:0.85rem; color:#6b7f8f;">Repite 3 veces</span>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            document.getElementById('pronScore').textContent = 25;
+            updateProgress();
+        }
+
+        // ================================================================
+        // RENDER - EMPAREJAR (con opciones desordenadas)
         // ================================================================
         function renderMatch() {
             const container = document.getElementById('matchSection');
             let html = '';
-            practiceData.match.forEach((item, idx) => {
+            matchData.forEach((item, idx) => {
                 const key = 'match-' + idx;
                 const state = answers.match[idx] || { selected: null, checked: false };
-
                 html += `
                     <div class="question-item" id="q-${key}">
                         <span class="q-num">${idx+1}.</span>
-                        <span class="q-text"><strong>${item.definition}</strong> →</span>
+                        <span class="q-text"><strong>${item.definition}</strong></span>
                         <div class="options-group" id="opts-${key}">
                             ${item.options.map(opt => `
                                 <button class="opt-btn ${state.selected === opt ? 'selected' : ''} ${state.checked ? (opt === item.word ? 'correct' : (state.selected === opt ? 'wrong' : '')) : ''}" 
@@ -541,8 +1103,8 @@
                                 </button>
                             `).join('')}
                         </div>
-                        <button class="btn-check" id="check-${key}" onclick="checkMatch('${key}')" ${state.checked ? 'disabled' : ''}>
-                            ${state.checked ? '✅ Listo' : '✓ Verificar'}
+                        <button class="btn-check" onclick="checkMatch('${key}')" ${state.checked ? 'disabled' : ''}>
+                            ${state.checked ? '✅' : '✓ Verificar'}
                         </button>
                         <div class="feedback ${state.checked ? (state.selected === item.word ? 'fb-good' : 'fb-bad') : ''}" id="fb-${key}">
                             ${state.checked ? (state.selected === item.word ? '✅ ¡Correcto!' : `❌ La respuesta correcta es "${item.word}"`) : ''}
@@ -551,6 +1113,7 @@
                 `;
             });
             container.innerHTML = html;
+            updateProgress();
         }
 
         function selectMatch(key, value) {
@@ -563,217 +1126,354 @@
 
         function checkMatch(key) {
             const idx = parseInt(key.split('-')[1]);
-            const item = practiceData.match[idx];
+            const item = matchData[idx];
             const state = answers.match[idx];
             if (!state || state.checked) return;
             state.checked = true;
-            if (state.selected === item.word) {
-                score.match++;
-                totalScore++;
-            }
+            if (state.selected === item.word) { score.match++;
+                totalScore++; }
             renderMatch();
             updateScoreDisplay();
+            updateProgress();
         }
 
         // ================================================================
-        // RENDERIZAR SECCIÓN 2: ESCUCHAR Y ESCRIBIR
+        // RENDER - ESCUCHAR Y ESCRIBIR
         // ================================================================
         function renderListen() {
             const container = document.getElementById('listenSection');
             let html = '';
-            practiceData.listen.forEach((item, idx) => {
+            listenData.forEach((item, idx) => {
                 const key = 'listen-' + idx;
                 const state = answers.listen[idx] || { userAnswer: '', checked: false };
-
                 html += `
                     <div class="question-item" id="q-${key}">
                         <span class="q-num">${idx+1}.</span>
                         <span class="q-text">
-                            <button class="audio-btn" onclick="playAudio('${item.audio}')">▶️ Escuchar</button>
+                            <div class="audio-player">
+                                <button data-audio="${item.word}" onclick="playAudioWord('${item.word}', '${item.hint}', '${item.hint}')" title="Escuchar">
+                                    <span class="play-icon">▶</span>
+                                </button>
+                                <span class="word-label">${item.hint}</span>
+                                <div class="progress-indicator"><div class="bar" id="progress-${key}"></div></div>
+                            </div>
                         </span>
-                        <input class="fill-input ${state.checked ? (state.userAnswer.toLowerCase() === item.word ? 'correct' : 'incorrect') : ''}" 
-                               type="text" placeholder="Escribe la palabra..." 
+                        <input class="fill-input ${state.checked ? (state.userAnswer.toUpperCase() === item.word ? 'correct' : 'incorrect') : ''}" 
+                               type="text" placeholder="MAYÚSCULAS..." 
                                value="${state.userAnswer}" 
                                ${state.checked ? 'disabled' : ''}
-                               onchange="updateListen('${key}', this.value)">
+                               oninput="updateListen('${key}', this.value)">
                         <button class="btn-check" onclick="checkListen('${key}')" ${state.checked ? 'disabled' : ''}>
-                            ${state.checked ? '✅ Listo' : '✓ Verificar'}
+                            ${state.checked ? '✅' : '✓ Verificar'}
                         </button>
-                        <div class="feedback ${state.checked ? (state.userAnswer.toLowerCase() === item.word ? 'fb-good' : 'fb-bad') : ''}" id="fb-${key}">
-                            ${state.checked ? (state.userAnswer.toLowerCase() === item.word ? '✅ ¡Correcto!' : `❌ La palabra era "${item.word}"`) : ''}
+                        <div class="feedback ${state.checked ? (state.userAnswer.toUpperCase() === item.word ? 'fb-good' : 'fb-bad') : ''}" id="fb-${key}">
+                            ${state.checked ? (state.userAnswer.toUpperCase() === item.word ? '✅ ¡Correcto!' : `❌ La palabra era "${item.word}"`) : ''}
                         </div>
                     </div>
                 `;
             });
             container.innerHTML = html;
+            updateProgress();
         }
 
         function updateListen(key, value) {
             const idx = parseInt(key.split('-')[1]);
             if (!answers.listen[idx]) answers.listen[idx] = { userAnswer: '', checked: false };
-            answers.listen[idx].userAnswer = value;
+            answers.listen[idx].userAnswer = value.toUpperCase();
         }
 
         function checkListen(key) {
             const idx = parseInt(key.split('-')[1]);
-            const item = practiceData.listen[idx];
+            const item = listenData[idx];
             const state = answers.listen[idx];
             if (!state || state.checked) return;
             state.checked = true;
-            if (state.userAnswer.toLowerCase() === item.word) {
-                score.listen++;
-                totalScore++;
-            }
+            if (state.userAnswer.toUpperCase() === item.word) { score.listen++;
+                totalScore++; }
             renderListen();
             updateScoreDisplay();
-        }
-
-        function playAudio(text) {
-            // Simulación de audio - en una versión real, aquí iría un reproductor
-            alert(`🔊 Escucha: ${text.replace('🎵 ', '')} (pronunciación: /${text.replace('🎵 ', '')}/)`);
+            updateProgress();
         }
 
         // ================================================================
-        // RENDERIZAR SECCIÓN 3: COMPLETAR ORACIÓN
+        // RENDER - COMPLETAR ORACIONES
         // ================================================================
         function renderFill() {
             const container = document.getElementById('fillSection');
             let html = '';
-            practiceData.fill.forEach((item, idx) => {
+            fillData.forEach((item, idx) => {
                 const key = 'fill-' + idx;
                 const state = answers.fill[idx] || { userAnswer: '', checked: false };
-
                 html += `
                     <div class="question-item" id="q-${key}">
                         <span class="q-num">${idx+1}.</span>
-                        <span class="q-text"><strong>${item.sentence}</strong> <span style="color:#6b7f8f; font-size:0.85rem;">(${item.hint})</span></span>
-                        <input class="fill-input ${state.checked ? (state.userAnswer.toLowerCase() === item.answer ? 'correct' : 'incorrect') : ''}" 
-                               type="text" placeholder="Escribe la palabra..." 
+                        <span class="q-text">
+                            <strong>${item.sentence}</strong>
+                            <span class="hint">(${item.hint})</span>
+                        </span>
+                        <input class="fill-input ${state.checked ? (state.userAnswer.toUpperCase() === item.answer ? 'correct' : 'incorrect') : ''}" 
+                               type="text" placeholder="MAYÚSCULAS" 
                                value="${state.userAnswer}" 
                                ${state.checked ? 'disabled' : ''}
-                               onchange="updateFill('${key}', this.value)">
+                               oninput="updateFill('${key}', this.value)">
                         <button class="btn-check" onclick="checkFill('${key}')" ${state.checked ? 'disabled' : ''}>
-                            ${state.checked ? '✅ Listo' : '✓ Verificar'}
+                            ${state.checked ? '✅' : '✓ Verificar'}
                         </button>
-                        <div class="feedback ${state.checked ? (state.userAnswer.toLowerCase() === item.answer ? 'fb-good' : 'fb-bad') : ''}" id="fb-${key}">
-                            ${state.checked ? (state.userAnswer.toLowerCase() === item.answer ? '✅ ¡Correcto!' : `❌ La palabra correcta es "${item.answer}"`) : ''}
+                        <div class="feedback ${state.checked ? (state.userAnswer.toUpperCase() === item.answer ? 'fb-good' : 'fb-bad') : ''}" id="fb-${key}">
+                            ${state.checked ? (state.userAnswer.toUpperCase() === item.answer ? '✅ ¡Correcto!' : `❌ La palabra correcta es "${item.answer}"`) : ''}
                         </div>
                     </div>
                 `;
             });
             container.innerHTML = html;
+            updateProgress();
         }
 
         function updateFill(key, value) {
             const idx = parseInt(key.split('-')[1]);
             if (!answers.fill[idx]) answers.fill[idx] = { userAnswer: '', checked: false };
-            answers.fill[idx].userAnswer = value;
+            answers.fill[idx].userAnswer = value.toUpperCase();
         }
 
         function checkFill(key) {
             const idx = parseInt(key.split('-')[1]);
-            const item = practiceData.fill[idx];
+            const item = fillData[idx];
             const state = answers.fill[idx];
             if (!state || state.checked) return;
             state.checked = true;
-            if (state.userAnswer.toLowerCase() === item.answer) {
-                score.fill++;
-                totalScore++;
-            }
+            if (state.userAnswer.toUpperCase() === item.answer) { score.fill++;
+                totalScore++; }
             renderFill();
             updateScoreDisplay();
+            updateProgress();
         }
 
         // ================================================================
-        // RENDERIZAR SECCIÓN 4: PRONUNCIACIÓN
+        // RENDER - CRUCIGRAMA
         // ================================================================
-        function renderPron() {
-            const container = document.getElementById('pronSection');
+        function renderCrossword() {
+            const container = document.getElementById('crosswordSection');
             let html = '';
-            practiceData.pron.forEach((word, idx) => {
+            crosswordData.forEach((item, idx) => {
+                const key = 'crossword-' + idx;
+                const state = answers.crossword[idx] || { letters: [], checked: false };
+                if (!state.letters || state.letters.length === 0) {
+                    state.letters = item.word.split('').map((l, i) => item.reveal.includes(i) ? l : '');
+                }
                 html += `
-                    <div class="question-item" style="justify-content:space-between;">
-                        <span class="q-num">${idx+1}.</span>
-                        <span class="q-text" style="font-weight:700; font-size:1.1rem; color:#1e40af;">${word}</span>
-                        <button class="audio-btn" onclick="playPron('${word}')">▶️ Escuchar</button>
-                        <span style="font-size:0.85rem; color:#6b7f8f;">Repite en voz alta 3 veces</span>
+                    <div class="question-item" id="q-${key}" style="flex-direction:column; align-items:stretch;">
+                        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                            <span class="q-num">${idx+1}.</span>
+                            <span class="q-text"><strong>${item.definition}</strong></span>
+                            <span style="font-size:0.8rem; color:#6b7f8f;">(${item.word.length} letras)</span>
+                        </div>
+                        <div class="word-hint" id="word-${key}">
+                            ${item.word.split('').map((letter, pos) => {
+                                let cls = 'letter-slot';
+                                if (state.letters[pos]) cls += ' filled';
+                                if (state.checked && state.letters[pos] === letter) cls += ' correct';
+                                if (state.checked && state.letters[pos] && state.letters[pos] !== letter) cls += ' wrong';
+                                return `<span class="${cls}" id="slot-${key}-${pos}">${state.letters[pos] || ''}</span>`;
+                            }).join('')}
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;">
+                            ${item.word.split('').map((letter, pos) => {
+                                if (item.reveal.includes(pos)) return '';
+                                return `<input class="letter-input ${state.checked ? (state.letters[pos] === letter ? 'correct' : (state.letters[pos] ? 'incorrect' : '')) : ''}" 
+                                           type="text" maxlength="1" 
+                                           value="${state.letters[pos] || ''}" 
+                                           ${state.checked ? 'disabled' : ''}
+                                           data-key="${key}" data-pos="${pos}"
+                                           oninput="updateCrossword('${key}', ${pos}, this.value)">`;
+                            }).join('')}
+                        </div>
+                        <button class="btn-check" onclick="checkCrossword('${key}')" ${state.checked ? 'disabled' : ''}>
+                            ${state.checked ? '✅' : '✓ Verificar'}
+                        </button>
+                        <div class="feedback ${state.checked ? (state.letters.join('') === item.word ? 'fb-good' : 'fb-bad') : ''}" id="fb-${key}">
+                            ${state.checked ? (state.letters.join('') === item.word ? '✅ ¡Correcto!' : `❌ La palabra era "${item.word}"`) : ''}
+                        </div>
                     </div>
                 `;
             });
             container.innerHTML = html;
+            updateProgress();
         }
 
-        function playPron(word) {
-            // Simulación de audio - en una versión real, aquí iría un reproductor
-            const pronMap = {
-                'big': '/bɪg/ (se pronuncia "big")',
-                'happy': '/ˈhæpi/ (se pronuncia "jápi")',
-                'red': '/rɛd/ (se pronuncia "red")',
-                'house': '/haʊs/ (se pronuncia "jáus")',
-                'teacher': '/ˈtiːtʃər/ (se pronuncia "tícher")'
-            };
-            alert(`🔊 Pronunciación de "${word}": ${pronMap[word] || 'escucha la palabra'}`);
+        function updateCrossword(key, pos, value) {
+            const idx = parseInt(key.split('-')[1]);
+            if (!answers.crossword[idx]) answers.crossword[idx] = { letters: [], checked: false };
+            const state = answers.crossword[idx];
+            if (state.checked) return;
+            const item = crosswordData[idx];
+            if (!state.letters || state.letters.length === 0) {
+                state.letters = item.word.split('').map((l, i) => item.reveal.includes(i) ? l : '');
+            }
+            state.letters[pos] = value.toUpperCase().slice(0, 1);
+            const slot = document.getElementById(`slot-${key}-${pos}`);
+            if (slot) slot.textContent = state.letters[pos] || '';
+            if (state.letters[pos]) slot.classList.add('filled');
+        }
+
+        function checkCrossword(key) {
+            const idx = parseInt(key.split('-')[1]);
+            const item = crosswordData[idx];
+            const state = answers.crossword[idx];
+            if (!state || state.checked) return;
+            state.checked = true;
+            if (state.letters.join('') === item.word) { score.crossword++;
+                totalScore++; }
+            renderCrossword();
+            updateScoreDisplay();
+            updateProgress();
         }
 
         // ================================================================
-        // ACTUALIZAR PUNTUACIÓN
+        // RENDER - ORDENAR LETRAS
         // ================================================================
+        function renderScramble() {
+            const container = document.getElementById('scrambleSection');
+            let html = '';
+            scrambleData.forEach((item, idx) => {
+                const key = 'scramble-' + idx;
+                const state = answers.scramble[idx] || { userAnswer: '', checked: false };
+                html += `
+                    <div class="question-item" id="q-${key}">
+                        <span class="q-num">${idx+1}.</span>
+                        <span class="q-text">
+                            <strong>Ordena:</strong> 
+                            <span style="background:#f8fafc; padding:4px 14px; border-radius:8px; border:1px dashed #dce3ef; font-weight:700; letter-spacing:2px; font-size:1.1rem;">${item.scrambled}</span>
+                            <span style="font-size:0.8rem; color:#6b7f8f;">(${item.word.length} letras)</span>
+                        </span>
+                        <input class="fill-input ${state.checked ? (state.userAnswer.toUpperCase() === item.word ? 'correct' : 'incorrect') : ''}" 
+                               type="text" placeholder="Escribe..." 
+                               value="${state.userAnswer}" 
+                               ${state.checked ? 'disabled' : ''}
+                               oninput="updateScramble('${key}', this.value)">
+                        <button class="btn-check" onclick="checkScramble('${key}')" ${state.checked ? 'disabled' : ''}>
+                            ${state.checked ? '✅' : '✓ Verificar'}
+                        </button>
+                        <div class="feedback ${state.checked ? (state.userAnswer.toUpperCase() === item.word ? 'fb-good' : 'fb-bad') : ''}" id="fb-${key}">
+                            ${state.checked ? (state.userAnswer.toUpperCase() === item.word ? '✅ ¡Correcto!' : `❌ La palabra correcta es "${item.word}"`) : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            updateProgress();
+        }
+
+        function updateScramble(key, value) {
+            const idx = parseInt(key.split('-')[1]);
+            if (!answers.scramble[idx]) answers.scramble[idx] = { userAnswer: '', checked: false };
+            answers.scramble[idx].userAnswer = value.toUpperCase();
+        }
+
+        function checkScramble(key) {
+            const idx = parseInt(key.split('-')[1]);
+            const item = scrambleData[idx];
+            const state = answers.scramble[idx];
+            if (!state || state.checked) return;
+            state.checked = true;
+            if (state.userAnswer.toUpperCase() === item.word) { score.scramble++;
+                totalScore++; }
+            renderScramble();
+            updateScoreDisplay();
+            updateProgress();
+        }
+
+        // ================================================================
+        // NAVEGACIÓN
+        // ================================================================
+        function goToSession(sessionNum) {
+            document.querySelectorAll('.session').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById('session' + sessionNum);
+            if (target) {
+                target.classList.add('active');
+                currentSession = sessionNum;
+                updateProgress();
+                document.querySelector('.footer').textContent =
+                    `Polyglots · Aprende inglés fácil · Sesión ${sessionNum} de ${totalSessions}`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // ================================================================
+        // PROGRESO Y PUNTUACIÓN
+        // ================================================================
+        function updateProgress() {
+            const totalQuestions = matchData.length + listenData.length + fillData.length +
+                crosswordData.length + scrambleData.length;
+            let answered = 0;
+            for (let i = 0; i < matchData.length; i++) { if (answers.match[i] && answers.match[i].checked) answered++; }
+            for (let i = 0; i < listenData.length; i++) { if (answers.listen[i] && answers.listen[i].checked) answered++; }
+            for (let i = 0; i < fillData.length; i++) { if (answers.fill[i] && answers.fill[i].checked) answered++; }
+            for (let i = 0; i < crosswordData.length; i++) { if (answers.crossword[i] && answers.crossword[i].checked)
+                answered++; }
+            for (let i = 0; i < scrambleData.length; i++) { if (answers.scramble[i] && answers.scramble[i].checked)
+                answered++; }
+            const total = totalQuestions + pronData.length;
+            const pct = total > 0 ? Math.round(((answered + 25) / total) * 100) : 0;
+            document.getElementById('progressFill').style.width = pct + '%';
+        }
+
         function updateScoreDisplay() {
-            document.getElementById('scoreDisplay').textContent = totalScore;
+            document.getElementById('scoreDisplay').textContent = totalScore + 25;
         }
 
         // ================================================================
-        // MOSTRAR RESULTADOS FINALES
+        // RESULTADOS FINALES (sobre 100)
         // ================================================================
         function showResults() {
-            const allDone = checkAllDone();
-            if (!allDone) {
-                alert('⚠️ Completa todas las preguntas antes de finalizar.');
-                return;
-            }
+            const totalQ = matchData.length + listenData.length + fillData.length +
+                crosswordData.length + scrambleData.length;
+            // Puntuación ponderada: 25 (pron) + 15 (match) + 15 (listen) + 15 (fill) + 20 (cross) + 10 (scramble) = 100
+            const weightedScore = Math.round((score.match / matchData.length) * 15) +
+                Math.round((score.listen / listenData.length) * 15) +
+                Math.round((score.fill / fillData.length) * 15) +
+                Math.round((score.crossword / crosswordData.length) * 20) +
+                Math.round((score.scramble / scrambleData.length) * 10) + 25;
 
-            document.getElementById('finalScore').textContent = `${totalScore} / 15`;
+            document.getElementById('finalScore').textContent = `${weightedScore} / 100`;
             document.getElementById('matchScore').textContent = score.match;
             document.getElementById('listenScore').textContent = score.listen;
             document.getElementById('fillScore').textContent = score.fill;
+            document.getElementById('crosswordScore').textContent = score.crossword;
+            document.getElementById('scrambleScore').textContent = score.scramble;
 
-            const percentage = Math.round((totalScore / 15) * 100);
-            let message = '';
-            if (percentage >= 80) message = '🌟 ¡Excelente trabajo! Dominas este vocabulario.';
-            else if (percentage >= 60) message = '📖 ¡Bien! Revisa las palabras que fallaste para mejorar.';
-            else message = '💪 ¡Sigue practicando! Repasa las palabras que fallaste.';
-            document.getElementById('finalMessage').textContent = message;
+            const pct = Math.round((weightedScore / 100) * 100);
+            let msg = '';
+            if (pct >= 80) msg = '🌟 ¡Excelente! Dominas el vocabulario de saludos y presentaciones.';
+            else if (pct >= 60) msg = '📖 ¡Bien! Revisa las palabras que fallaste.';
+            else msg = '💪 ¡Sigue practicando! Repasa las palabras que fallaste.';
+            document.getElementById('finalMessage').textContent = msg;
 
-            // Lista de fallos
             const failList = document.getElementById('failList');
             let fails = [];
-
-            // Revisar fallos en emparejar
-            practiceData.match.forEach((item, idx) => {
-                const state = answers.match[idx];
-                if (state && state.checked && state.selected !== item.word) {
-                    fails.push(`${item.word} (${item.definition})`);
-                }
+            matchData.forEach((item, idx) => {
+                const st = answers.match[idx];
+                if (st && st.checked && st.selected !== item.word) fails.push(`${item.word} (emparejar)`);
             });
-
-            // Revisar fallos en escuchar
-            practiceData.listen.forEach((item, idx) => {
-                const state = answers.listen[idx];
-                if (state && state.checked && state.userAnswer.toLowerCase() !== item.word) {
-                    fails.push(`${item.word} (escuchar)`);
-                }
+            listenData.forEach((item, idx) => {
+                const st = answers.listen[idx];
+                if (st && st.checked && st.userAnswer.toUpperCase() !== item.word) fails.push(`${item.word} (escuchar)`);
             });
-
-            // Revisar fallos en completar
-            practiceData.fill.forEach((item, idx) => {
-                const state = answers.fill[idx];
-                if (state && state.checked && state.userAnswer.toLowerCase() !== item.answer) {
-                    fails.push(`${item.answer} (${item.sentence})`);
-                }
+            fillData.forEach((item, idx) => {
+                const st = answers.fill[idx];
+                if (st && st.checked && st.userAnswer.toUpperCase() !== item.answer) fails.push(`${item.answer} (completar)`);
+            });
+            crosswordData.forEach((item, idx) => {
+                const st = answers.crossword[idx];
+                if (st && st.checked && st.letters.join('') !== item.word) fails.push(`${item.word} (crucigrama)`);
+            });
+            scrambleData.forEach((item, idx) => {
+                const st = answers.scramble[idx];
+                if (st && st.checked && st.userAnswer.toUpperCase() !== item.word) fails.push(`${item.word} (ordenar)`);
             });
 
             if (fails.length > 0) {
-                failList.innerHTML = `<li style="font-weight:600; list-style:none; padding-bottom:8px;">📝 Palabras para repasar:</li>` +
+                failList.innerHTML =
+                    `<li style="font-weight:600; list-style:none; padding-bottom:8px;">📝 Palabras para repasar (${fails.length}):</li>` +
                     fails.map(f => `<li>${f}</li>`).join('');
                 failList.style.display = 'block';
             } else {
@@ -781,39 +1481,32 @@
                 failList.style.display = 'block';
             }
 
+            document.querySelectorAll('.session').forEach(s => s.classList.remove('active'));
             document.getElementById('resultsBox').classList.add('visible');
-            document.getElementById('resultsBox').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function checkAllDone() {
-            // Verificar sección 1
-            for (let i = 0; i < practiceData.match.length; i++) {
-                if (!answers.match[i] || !answers.match[i].checked) return false;
-            }
-            // Verificar sección 2
-            for (let i = 0; i < practiceData.listen.length; i++) {
-                if (!answers.listen[i] || !answers.listen[i].checked) return false;
-            }
-            // Verificar sección 3
-            for (let i = 0; i < practiceData.fill.length; i++) {
-                if (!answers.fill[i] || !answers.fill[i].checked) return false;
-            }
-            return true;
+            document.querySelector('.footer').textContent = 'Polyglots · Aprende inglés fácil · ¡Práctica completada!';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ================================================================
         // REINICIAR
         // ================================================================
         function restartPractice() {
-            answers = { match: [], listen: [], fill: [] };
-            score = { match: 0, listen: 0, fill: 0 };
+            answers = { match: [], listen: [], fill: [], crossword: [], scramble: [] };
+            score = { match: 0, listen: 0, fill: 0, crossword: 0, scramble: 0 };
             totalScore = 0;
             document.getElementById('resultsBox').classList.remove('visible');
             document.getElementById('scoreDisplay').textContent = '0';
+            document.querySelectorAll('.session').forEach(s => s.classList.remove('active'));
+            document.getElementById('session1').classList.add('active');
+            currentSession = 1;
+            document.querySelector('.footer').textContent = 'Polyglots · Aprende inglés fácil · Sesión 1 de 6';
+            renderPron();
             renderMatch();
             renderListen();
             renderFill();
-            renderPron();
+            renderCrossword();
+            renderScramble();
+            updateProgress();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -821,11 +1514,25 @@
         // INICIALIZAR
         // ================================================================
         document.addEventListener('DOMContentLoaded', function() {
+            const fbAudio = document.createElement('div');
+            fbAudio.id = 'audioFeedback';
+            fbAudio.style.cssText = `
+                position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+                background:#0b1e3a; color:white; padding:12px 24px; border-radius:40px;
+                font-size:0.95rem; font-weight:600; display:none; z-index:1000;
+                max-width:90%; text-align:center; box-shadow:0 8px 30px rgba(0,0,0,0.3);
+            `;
+            document.body.appendChild(fbAudio);
+
+            renderPron();
             renderMatch();
             renderListen();
             renderFill();
-            renderPron();
+            renderCrossword();
+            renderScramble();
+            updateProgress();
         });
     </script>
+
 </body>
 </html>
