@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+    <title>La Familia en Inglés · Polyglots</title>
+    <style>
+        /* ===== RESET Y BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f0f4f8;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            color: #1e2f4a;
+            line-height: 1.6;
+            padding: 16px 12px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .app-wrapper {
+            max-width: 880px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            padding: 24px 20px 32px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e9eef6;
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0b1e3a;
+        }
+        .header .subtitle {
+            font-size: 0.9rem;
+            color: #4a5f82;
+            font-weight: 400;
+        }
+        .score-badge {
+            background: #f0f4fc;
+            border: 1px solid #dce3ef;
+            color: #1e3b6b;
+            font-weight: 600;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .score-badge span {
+            font-size: 1.2rem;
+        }
+        .back-row {
+            margin-bottom: 16px;
+        }
+        .btn-back {
+            background: #f0f4fc;
+            border: 1px solid #dce3ef;
+            color: #1d3557;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-back:hover {
+            background: #dce3ef;
+        }
+        .progress-bar {
+            background: #e9eef6;
+            border-radius: 40px;
+            height: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            background: #2b6df6;
+            border-radius: 40px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        .session {
+            display: none;
+            animation: fadeSlide 0.4s ease;
+        }
+        .session.active {
+            display: block;
+        }
+        @keyframes fadeSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .session-header h2 {
+            font-size: 1.2rem;
+            color: #0b1e3a;
+        }
+        .session-header .badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .instructions {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 14px 18px;
+            margin-bottom: 18px;
+            border: 1px solid #e9eef6;
+            border-left: 4px solid #2b6df6;
+            font-size: 0.95rem;
+        }
+        .instructions strong {
+            color: #1e40af;
+        }
+        .question-item {
+            background: white;
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 14px;
+            border: 1px solid #e9eef6;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+        }
+        .question-item:last-child {
+            margin-bottom: 0;
+        }
+        .question-item .q-num {
+            font-weight: 700;
+            color: #1e40af;
+            min-width: 30px;
+            font-size: 0.95rem;
+        }
+        .question-item .q-text {
+            flex: 1;
+            min-width: 120px;
+            font-size: 0.95rem;
+        }
+        .question-item .q-text strong {
+            color: #0b1e3a;
+        }
+        .question-item .q-text .hint {
+            color: #6b7f8f;
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+        .options-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .opt-btn {
+            background: white;
+            border: 2px solid #dce3ef;
+            border-radius: 40px;
+            padding: 6px 18px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #0b1e3a;
+            cursor: pointer;
+            transition: 0.15s;
+            touch-action: manipulation;
+            user-select: none;
+        }
+        .opt-btn:active {
+            transform: scale(0.95);
+        }
+        .opt-btn.selected {
+            border-color: #2b6df6;
+            background: #eef3fc;
+        }
+        .opt-btn.correct {
+            border-color: #22c55e;
+            background: #dcfce7;
+        }
+        .opt-btn.wrong {
+            border-color: #ef4444;
+            background: #fecaca;
+        }
+        .opt-btn:disabled {
+            cursor: default;
+            opacity: 0.7;
+        }
+        .audio-player {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f0f7ff;
+            border-radius: 40px;
+            padding: 4px 14px 4px 8px;
+            border: 1px solid #dbeafe;
+            min-width: 140px;
+        }
+        .audio-player button {
+            background: #2b6df6;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            touch-action: manipulation;
+        }
+        .audio-player button:hover {
+            background: #1a56d6;
+        }
+        .audio-player button:active {
+            transform: scale(0.9);
+        }
+        .audio-player button.playing {
+            background: #ef4444;
+        }
+        .audio-player .word-label {
+            font-weight: 600;
+            color: #1e40af;
+            font-size: 0.9rem;
+        }
+        .audio-player .play-icon {
+            font-size: 1.1rem;
+        }
+        .audio-player .progress-indicator {
+            flex: 1;
+            height: 4px;
+            background: #dce3ef;
+            border-radius: 4px;
+            overflow: hidden;
+            min-width: 40px;
+        }
+        .audio-player .progress-indicator .bar {
+            height: 100%;
+            background: #2b6df6;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        .fill-input {
+            border: 2px solid #dce3ef;
+            border-radius: 12px;
+            padding: 8px 14px;
+            font-size: 0.95rem;
+            width: 100%;
+            max-width: 200px;
+            outline: none;
+            transition: 0.2s;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .fill-input:focus {
+            border-color: #2b6df6;
+        }
+        .fill-input.correct {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+        .fill-input.incorrect {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        .fill-input::placeholder {
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 0.85rem;
+            color: #aab7d0;
+        }
+        .letter-input {
+            border: 2px solid #dce3ef;
+            border-radius: 12px;
+            padding: 8px 6px;
+            font-size: 1rem;
+            width: 36px;
+            height: 40px;
+            text-align: center;
+            outline: none;
+            transition: 0.2s;
+            font-family: inherit;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .letter-input:focus {
+            border-color: #2b6df6;
+        }
+        .letter-input.correct {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+        .letter-input.incorrect {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        .letter-input:disabled {
+            opacity: 0.7;
+            cursor: default;
+        }
+        .word-hint {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+        }
+        .word-hint .letter-slot {
+            display: inline-flex;
+            width: 34px;
+            height: 38px;
+            border-bottom: 3px solid #1e40af;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0b1e3a;
+            background: #f8fafc;
+            border-radius: 4px 4px 0 0;
+            align-items: center;
+            justify-content: center;
+        }
+        .word-hint .letter-slot.filled {
+            background: #eef3fc;
+            border-color: #2b6df6;
+        }
+        .word-hint .letter-slot.correct {
+            background: #dcfce7;
+            border-color: #22c55e;
+        }
+        .word-hint .letter-slot.wrong {
+            background: #fecaca;
+            border-color: #ef4444;
+        }
+        .word-hint .letter-slot.empty {
+            background: #f8fafc;
+            border-color: #dce3ef;
+        }
+        .btn-check {
+            background: #2b6df6;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            touch-action: manipulation;
+        }
+        .btn-check:hover {
+            background: #1a56d6;
+        }
+        .btn-check:active {
+            transform: scale(0.95);
+        }
+        .btn-check:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .btn-continue {
+            background: #2b6df6;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 14px 32px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            margin-top: 20px;
+            touch-action: manipulation;
+        }
+        .btn-continue:hover {
+            background: #1a56d6;
+        }
+        .btn-continue:active {
+            transform: scale(0.97);
+        }
+        .btn-continue:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .btn-restart {
+            background: #f0f4fc;
+            border: 1px solid #dce3ef;
+            color: #1d3557;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+            touch-action: manipulation;
+        }
+        .btn-restart:hover {
+            background: #dce3ef;
+        }
+        .feedback {
+            margin-top: 8px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: #f8fafc;
+            border-left: 4px solid;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+        .fb-good {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+        .fb-bad {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        .fb-good .title {
+            color: #166534;
+        }
+        .fb-bad .title {
+            color: #991b1b;
+        }
+
+        .results-box {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 24px 20px;
+            border: 1px solid #e9eef6;
+            margin-top: 20px;
+            display: none;
+        }
+        .results-box.visible {
+            display: block;
+        }
+        .results-box .big-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #2b6df6;
+            text-align: center;
+        }
+        .results-box .score-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin: 16px 0;
+            text-align: center;
+        }
+        .results-box .score-detail div {
+            background: white;
+            border-radius: 16px;
+            padding: 12px;
+            border: 1px solid #e9eef6;
+        }
+        .results-box .score-detail .num {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0b1e3a;
+        }
+        .results-box .score-detail .label {
+            font-size: 0.8rem;
+            color: #4a5f82;
+        }
+        .results-box .fail-list {
+            background: white;
+            border-radius: 16px;
+            padding: 12px 16px;
+            border: 1px solid #e9eef6;
+            list-style: none;
+            margin-top: 12px;
+        }
+        .results-box .fail-list li {
+            padding: 4px 0;
+            border-bottom: 1px solid #e9eef6;
+            font-size: 0.95rem;
+        }
+        .results-box .fail-list li:last-child {
+            border-bottom: none;
+        }
+        .results-box .fail-list li::before {
+            content: "❌ ";
+            color: #ef4444;
+        }
+        .results-box .final-message {
+            text-align: center;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin: 12px 0;
+        }
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 22px;
+        }
+
+        @media (max-width: 600px) {
+            .app-wrapper {
+                padding: 16px 14px;
+            }
+            .question-item {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 14px;
+            }
+            .options-group {
+                justify-content: center;
+            }
+            .fill-input {
+                max-width: 100%;
+            }
+            .results-box .score-detail {
+                grid-template-columns: 1fr;
+            }
+            .audio-player {
+                width: 100%;
+                justify-content: center;
+            }
+            .word-hint .letter-slot {
+                width: 28px;
+                height: 32px;
+                font-size: 0.95rem;
+            }
+            .letter-input {
+                width: 30px;
+                height: 34px;
+                font-size: 0.9rem;
+            }
+            .session-header h2 {
+                font-size: 1rem;
+            }
+            .header h1 {
+                font-size: 1.1rem;
+            }
+        }
+        @media (max-width: 400px) {
+            .header h1 {
+                font-size: 0.95rem;
+            }
+            .opt-btn {
+                font-size: 0.8rem;
+                padding: 4px 12px;
+            }
+            .word-hint .letter-slot {
+                width: 24px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+            .letter-input {
+                width: 26px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-wrapper">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <div>
+                <h1>👨‍👩‍👧‍👦 La Familia en Inglés</h1>
+                <div class="subtitle">24 miembros · 6 sesiones · Puntaje sobre 100</div>
+            </div>
+            <div class="score-badge">⭐ <span id="scoreDisplay">0</span></div>
+        </div>
+
+        <!-- ===== VOLVER ===== -->
+        <div class="back-row">
+            <a href="page-contenido" class="btn-back">← Volver al curso</a>
+        </div>
+
+        <!-- ===== BARRA DE PROGRESO ===== -->
+        <div class="progress-bar">
+            <div class="fill" id="progressFill"></div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SESIÓN 1: PRONUNCIACIÓN (24 miembros)                         -->
+        <!-- ============================================================ -->
+        <div id="session1" class="session active">
+            <div class="session-header">
+                <h2>🗣️ Sesión 1: Pronunciación</h2>
+                <span class="badge">24 miembros</span>
+            </div>
+            <div class="instructions">
+                <strong>📌 Instrucción:</strong> Escucha la pronunciación de cada miembro de la familia y repítelo en voz alta <strong>3 veces</strong>.
+                <br><span style="color:#6b7f8f; font-size:0.9rem;">💡 La pronunciación está escrita en <strong>español latino</strong> para que sea más fácil.</span>
+                <br><span style="color:#1e40af; font-weight:600;">👨‍👩‍👧‍👦 Aprende a nombrar a todos los miembros de tu familia.</span>
+            </div>
+            <div id="pronSection"></div>
+            <button class="btn-continue" onclick="goToSession(2)">Continuar → Sesión 2: Emparejar</button>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SESIÓN 2: EMPAREJAR (24 preguntas)                            -->
+        <!-- ============================================================ -->
+        <div id="session2" class="session">
+            <div class="session-header">
+                <h2>🔗 Sesión 2: Empareja el miembro</h2>
+                <span class="badge">24 preguntas</span>
+            </div>
+            <div class="instructions">
+                <strong>📌 Instrucción:</strong> Selecciona el miembro de la familia en inglés que corresponde a cada definición en español.
+                <br><span style="color:#6b7f8f; font-size:0.9rem;">💡 Recuerda lo que escuchaste en la sesión de pronunciación.</span>
+            </div>
+            <div id="matchSection"></div>
+            <button class="btn-continue" onclick="goToSession(3)">Continuar → Sesión 3: Escuchar y escribir</button>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SESIÓN 3: ESCUCHA Y ESCRIBE (24 miembros)                     -->
+        <!-- ============================================================ -->
+        <div id="session3" class="session">
+            <div class="session-header">
+                <h2>🎧 Sesión 3: Escucha y escribe</h2>
+                <span class="badge">24 miembros</span>
+            </div>
+            <div class="instructions">
+                <strong>📌 Instrucción:</strong> Haz clic en ▶️ para escuchar el miembro de la familia en inglés, luego escríbelo en <strong>MAYÚSCULAS</strong>.
+                <br><span style="color:#6b7f8f; font-size:0.9rem;">💡 La pista en español te ayuda a identificar la palabra.</span>
+                <br><span style="background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:4px 12px; display:inline-block; margin-top:4px; font-weight:700; color:#991b1b; font-size:0.9rem;">⚠️ Escribe en MAYÚSCULAS</span>
+            </div>
+            <div id="listenSection"></div>
+            <button class="btn-continue" onclick="goToSession(4)">Continuar → Sesión 4: Completar oraciones</button>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SESIÓN 4: COMPLETA LA ORACIÓN (24 preguntas)                  -->
+        <!-- ============================================================ -->
+        <div id="session4" class="session">
+            <div class="session-header">
+                <h2>✏️ Sesión 4: Completa la oración</h2>
+                <span class="badge">24 preguntas</span>
+            </div>
+            <div class="instructions">
+                <strong>📌 Instrucción:</strong> Lee la oración y escribe el miembro de la familia que falta en <strong>MAYÚSCULAS</strong>.
+                <br><span style="color:#6b7f8f; font-size:0.9rem;">💡 La pista entre paréntesis te dice la palabra en español.</span>
+                <br><span style="background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:4px 12px; display:inline-block; margin-top:4px; font-weight:700; color:#991b1b; font-size:0.9rem;">⚠️ Escribe en MAYÚSCULAS</span>
+            </div>
+            <div id="fillSection"></div>
+            <button class="btn-continue" onclick="goToSession(5)">Continuar → Sesión 5: Crucigrama</button>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SESIÓN 5: CRUCIGRAMA (20 miembros largos)                     -->
+        <!-- ============================================================ -->
+        <div id="session5" class="session">
+            <div class="session-header">
+                <h2>🧩 Sesión 5: Crucigrama</h2>
+                <span class="badge">20 miembros</span>
+            </div>
+            <div class="instructions">
+                <strong>📌 Instrucción:</strong> Completa las letras que faltan en cada miembro de la familia según la definición.
+                <br><span style="color:#6b7f8f; font-size:0.9rem;">💡 Algunas letras ya están reveladas para ayudarte.</span>
+            </div>
+            <div id="crosswordSection"></div>
+            <button class="btn-continue" onclick="goToSession(6)">Continuar → Sesión 6: Ordenar letras</button>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SESIÓN 6: ORDENAR LETRAS (20 miembros)                        -->
+        <!-- ============================================================ -->
+        <div id="session6" class="session">
+            <div class="session-header">
+                <h2>🔀 Sesión 6: Ordenar letras</h2>
+                <span class="badge">20 miembros</span>
+            </div>
+            <div class="instructions">
+                <strong>📌 Instrucción:</strong> Las letras están desordenadas. Escríbelas en el orden correcto.
+                <br><span style="color:#6b7f8f; font-size:0.9rem;">💡 Todas son miembros de la familia que has visto en las sesiones anteriores.</span>
+            </div>
+            <div id="scrambleSection"></div>
+            <button class="btn-continue" onclick="showResults()">📊 Ver resultados finales</button>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- RESULTADOS                                                    -->
+        <!-- ============================================================ -->
+        <div class="results-box" id="resultsBox">
+            <h3 style="text-align:center; margin-bottom:8px;">📊 ¡Práctica completada!</h3>
+            <div class="big-score" id="finalScore">0 / 100</div>
+            <div class="score-detail">
+                <div><div class="num" id="pronScore">24</div><div class="label">Pronunciación</div></div>
+                <div><div class="num" id="matchScore">0</div><div class="label">Emparejar</div></div>
+                <div><div class="num" id="listenScore">0</div><div class="label">Escuchar</div></div>
+                <div><div class="num" id="fillScore">0</div><div class="label">Completar</div></div>
+                <div><div class="num" id="crosswordScore">0</div><div class="label">Crucigrama</div></div>
+                <div><div class="num" id="scrambleScore">0</div><div class="label">Ordenar</div></div>
+            </div>
+            <div class="final-message" id="finalMessage"></div>
+            <ul class="fail-list" id="failList"></ul>
+            <div style="text-align:center; margin-top:14px;">
+                <button class="btn-restart" onclick="restartPractice()">🔄 Repetir práctica</button>
+                <br>
+                <button class="btn-restart" onclick="window.location.href='page-contenido'" style="margin-top:8px;">📚 Volver al curso</button>
+            </div>
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <div class="footer">Polyglots · Aprende inglés fácil · Sesión 1 de 6</div>
+
+    </div>
+
+    <script>
+        // ================================================================
+        // LISTA COMPLETA DE MIEMBROS DE LA FAMILIA (24)
+        // ================================================================
+        const allFamily = [
+            // Familia inmediata
+            { word: "MOTHER", es: "máder", meaning: "Madre" },
+            { word: "FATHER", es: "fáder", meaning: "Padre" },
+            { word: "SISTER", es: "síster", meaning: "Hermana" },
+            { word: "BROTHER", es: "bróder", meaning: "Hermano" },
+            { word: "DAUGHTER", es: "dóter", meaning: "Hija" },
+            { word: "SON", es: "san", meaning: "Hijo" },
+            { word: "HUSBAND", es: "jásband", meaning: "Esposo" },
+            { word: "WIFE", es: "wáif", meaning: "Esposa" },
+            // Familia extendida
+            { word: "GRANDMOTHER", es: "grándmader", meaning: "Abuela" },
+            { word: "GRANDFATHER", es: "grándfader", meaning: "Abuelo" },
+            { word: "GRANDDAUGHTER", es: "gránddóter", meaning: "Nieta" },
+            { word: "GRANDSON", es: "grándsan", meaning: "Nieto" },
+            { word: "AUNT", es: "ant", meaning: "Tía" },
+            { word: "UNCLE", es: "áncol", meaning: "Tío" },
+            { word: "NIECE", es: "nís", meaning: "Sobrina" },
+            { word: "NEPHEW", es: "néfiu", meaning: "Sobrino" },
+            // Familia política
+            { word: "MOTHER-IN-LAW", es: "máder in ló", meaning: "Suegra" },
+            { word: "FATHER-IN-LAW", es: "fáder in ló", meaning: "Suegro" },
+            { word: "SISTER-IN-LAW", es: "síster in ló", meaning: "Cuñada" },
+            { word: "BROTHER-IN-LAW", es: "bróder in ló", meaning: "Cuñado" },
+            // Relacionados
+            { word: "FAMILY", es: "fámili", meaning: "Familia" },
+            { word: "PARENTS", es: "pérents", meaning: "Padres" },
+            { word: "CHILDREN", es: "chíldren", meaning: "Hijos" },
+            { word: "COUSIN", es: "cósin", meaning: "Primo/a" }
+        ];
+
+        const pronData = allFamily.map(w => ({ ...w }));
+
+        // ================================================================
+        // DATOS - EMPAREJAR (24 preguntas)
+        // ================================================================
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        const matchData = allFamily.map(item => {
+            const allOptions = allFamily.map(w => w.word);
+            const others = allOptions.filter(w => w !== item.word);
+            const shuffledOthers = shuffleArray([...others]);
+            const options = [item.word, ...shuffledOthers.slice(0, 3)];
+            return {
+                word: item.word,
+                definition: item.meaning,
+                options: shuffleArray(options)
+            };
+        });
+
+        // ================================================================
+        // DATOS - ESCUCHAR (24 miembros)
+        // ================================================================
+        const listenData = allFamily.map(item => ({
+            word: item.word,
+            hint: item.meaning
+        }));
+
+        // ================================================================
+        // DATOS - COMPLETAR ORACIONES (24 preguntas)
+        // ================================================================
+        const fillData = allFamily.map(item => ({
+            sentence: `My _____ is my family member (${item.meaning})`,
+            answer: item.word,
+            hint: item.meaning
+        }));
+
+        // ================================================================
+        // DATOS - CRUCIGRAMA (20 miembros largos)
+        // ================================================================
+        const longFamily = allFamily.filter(w => w.word.length >= 4);
+        const crosswordData = longFamily.slice(0, 20).map((item, idx) => {
+            const word = item.word;
+            const reveal = [];
+            for (let i = 0; i < word.length; i++) {
+                if (i % 2 === 0 || i === word.length - 1) reveal.push(i);
+            }
+            return {
+                word: word,
+                definition: item.meaning,
+                reveal: reveal.slice(0, Math.min(3, reveal.length))
+            };
+        });
+
+        // ================================================================
+        // DATOS - ORDENAR LETRAS (20 miembros)
+        // ================================================================
+        const scrambleData = allFamily.slice(0, 20).map(item => {
+            const word = item.word;
+            const scrambled = shuffleArray(word.split('')).join('');
+            return { word: word, scrambled: scrambled };
+        });
+
+        // ================================================================
+        // AUDIO OPTIMIZADO PARA MÓVILES
+        // ================================================================
+        function playAudioWord(word, hint, meaning) {
+            if (window.speechSynthesis) {
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                }
+
+                let textToSpeak = word.toLowerCase();
+
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.7;
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
+
+                const voices = window.speechSynthesis.getVoices();
+                const preferred = voices.find(v =>
+                    v.lang.startsWith('en') &&
+                    (v.name.includes('Google') || v.name.includes('Samantha') ||
+                        v.name.includes('Zira') || v.name.includes('Microsoft'))
+                ) || voices.find(v => v.lang.startsWith('en')) || null;
+
+                if (preferred) utterance.voice = preferred;
+
+                const fb = document.getElementById('audioFeedback');
+                if (fb) {
+                    fb.textContent = `🎧 Escuchando... (${meaning || hint || word})`;
+                    fb.style.display = 'block';
+                }
+
+                window.speechSynthesis.speak(utterance);
+
+                const btn = document.querySelector(`[data-audio="${word}"]`);
+                if (btn) {
+                    btn.classList.add('playing');
+                    btn.innerHTML = '⏹';
+                }
+
+                setTimeout(() => {
+                    if (fb) fb.style.display = 'none';
+                    if (btn) {
+                        btn.classList.remove('playing');
+                        btn.innerHTML = '▶';
+                    }
+                }, 4000);
+            } else {
+                alert('⚠️ Tu navegador no soporta pronunciación por voz. Usa Chrome, Edge o Safari.');
+            }
+        }
+
+        // Precarga de voces
+        if (window.speechSynthesis) {
+            window.speechSynthesis.getVoices();
+            window.speechSynthesis.onvoiceschanged = () => {
+                window.speechSynthesis.getVoices();
+            };
+        }
+
+        // ================================================================
+        // RENDER - PRONUNCIACIÓN
+        // ================================================================
+        function renderPron() {
+            const container = document.getElementById('pronSection');
+            let html = '';
+            pronData.forEach((item, idx) => {
+                html += `
+                    <div class="question-item" style="justify-content:space-between;">
+                        <span class="q-num">${idx+1}.</span>
+                        <span class="q-text" style="font-weight:700; font-size:1.05rem; color:#1e40af;">
+                            ${item.word}
+                            <span style="font-weight:400; font-size:0.85rem; color:#6b7f8f; display:block;">
+                                ${item.meaning}
+                            </span>
+                        </span>
+                        <div class="audio-player">
+                            <button data-audio="${item.word}" onclick="playAudioWord('${item.word}', '${item.meaning}', '${item.meaning}')" title="Escuchar">
+                                <span class="play-icon">▶</span>
+                            </button>
+                            <span class="word-label" style="font-size:0.8rem; color:#6b7f8f;">${item.es}</span>
+                        </div>
+                        <span style="font-size:0.85rem; color:#6b7f8f;">Repite 3 veces</span>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            document.getElementById('pronScore').textContent = pronData.length;
+            updateProgress();
+        }
+
+        // ================================================================
+        // RENDER - EMPAREJAR
+        // ================================================================
+        function renderMatch() {
+            const container = document.getElementById('matchSection');
+            let html = '';
+            matchData.forEach((item, idx) => {
+                const key = 'match-' + idx;
+                const state = answers.match[idx] || { selected: null, checked: false };
+                html += `
+                    <div class="question-item" id="q-${key}">
+                        <span class="q-num">${idx+1}.</span>
+                        <span class="q-text"><strong>${item.definition}</strong></span>
+                        <div class="options-group" id="opts-${key}">
+                            ${item.options.map(opt => `
+                                <button class="opt-btn ${state.selected === opt ? 'selected' : ''} ${state.checked ? (opt === item.word ? 'correct' : (state.selected === opt ? 'wrong' : '')) : ''}" 
+                                        data-key="${key}" data-value="${opt}" 
+                                        ${state.checked ? 'disabled' : ''}
+                                        onclick="selectMatch('${key}', '${opt}')">
+                                    ${opt}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <button class="btn-check" onclick="checkMatch('${key}')" ${state.checked ? 'disabled' : ''}>
+                            ${state.checked ? '✅' : '✓ Verificar'}
+                        </button>
+                        <div class="feedback ${state.checked ? (state.selected === item.word ? 'fb-good' : 'fb-bad') : ''}" id="fb-${key}">
+                            ${state.checked ? (state.selected === item.word ? '✅ ¡Correcto!' : `❌ La respuesta correcta es "${item.word}"`) : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            updateProgress();
+        }
+
+        function selectMatch(key, value) {
+            const idx = parseInt(key.split('-')[1]);
+            if (answers.match[idx] && answers.match[idx].checked) return;
+            if (!answers.match[idx]) answers.match[idx] = { selected: null, checked: false };
+            answers.match[idx].selected = value;
+            renderMatch();
+        }
+
+        function checkMatch(key) {
+            const idx = parseInt(key.split('-')[1]);
+            const item = matchData[idx];
+            const state = answers.match[idx];
+            if (!state || state.checked) return;
+            state.checked = true;
+            if (state.selected === item.word) { score.match++;
+                totalScore++; }
+            renderMatch();
+            updateScoreDisplay();
+            updateProgress();
+        }
+
+        // ================================================================
+        // RENDER - ESCUCHAR Y ESCRIBIR
+        // ================================================================
+        function renderListen() {
+            const container = document.getElementById('listenSection');
+            let html = '';
+            listenData.forEach((item, idx) => {
+                const key = 'listen-' + idx;
+                const state = answers.listen[idx] || { userAnswer: '', checked: false };
+                html += `
+                    <div class="question-item" id="q-${key}">
+                        <span class="q-num">${idx+1}.</span>
+                        <span class="q-text">
+                            <div class="audio-player">
+                                <button data-audio="${item.word}" onclick="playAudioWord('${item.word}', '${item.hint}', '${item.hint}')" title="Escuchar">
+                                    <span class="play-icon">▶</span>
+                                </button>
+                                <span class="word-label">${item.hint}</span>
+                                <div class="progress-indicator"><div class="bar" id="progress-${key}"></div></div>
+                            </div>
+                        </span>
+                        <input class="fill-input ${state.checked ? (state.userAnswer.toUpperCase() === item.word ? 'correct' : 'incorrect') : ''}" 
+                               type="text" placeholder="MAYÚSCULAS..." 
+                               value="${state.userAnswer}" 
+                               ${state.checked ? 'disabled' : ''}
+                               oninput="updateListen('${key}', this.value)">
+                        <button class="btn-check" onclick="checkListen('${key}')" ${state.checked ? 'disabled' : ''}>
+                            ${state.checked ? '✅' : '✓ Verificar'}
+                        </button>
+                        <div class="feedback ${state.checked ? (state.userAnswer.toUpperCase() === item.word ? 'fb-good' : 'fb-bad') : ''}" id="fb-${key}">
+                            ${state.checked ? (state.userAnswer.toUpperCase() === item.word ? '✅ ¡Correcto!' : `❌ La palabra era "${item.word}"`) : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            updateProgress();
+        }
+
+        function updateListen(key, value) {
+            const idx = parseInt(key.split('-')[1]);
+            if (!answers.listen[idx]) answers.listen[idx] = { userAnswer: '', checked: false };
+            answers.listen[idx].userAnswer = value.toUpperCase();
+        }
+
+        function checkListen(key) {
+            const idx = parseInt(key.split('-')[1]);
+            const item = listenData[idx];
+            const state = answers.listen[idx];
+            if (!state || state.checked) return;
+            state.checked = true;
+            if (state.userAnswer.toUpperCase() === item.word) { score.listen++;
+                totalScore++; }
+            renderListen();
+            updateScoreDisplay();
+            updateProgress();
+        }
+
+        // ================================================================
+        // RENDER - COMPLETAR ORACIONES
+        // ================================================================
+        function renderFill() {
+            const container = document.getElementById('fillSection');
+            let html = '';
+            fillData.forEach((item, idx) => {
+                const key = 'fill-' + idx;
+                const state = answers.fill[idx] || { userAnswer: '', checked: false };
+                html += `
+                    <div class="question-item" id="q-${key}">
+                        <span class="q-num">${idx+1}.</span>
+                        <span class="q-text">
+                            <strong>${item.sentence}</strong>
+                            <span class="hint">(${item.hint})</span>
+                        </span>
+                        <input class="fill-input ${state.checked ? (state.userAnswer.toUpperCase() === item.answer ? 'correct' : 'incorrect') : ''}" 
+                               type="text" placeholder="MAYÚSCULAS" 
+                               value="${state.userAnswer}" 
+                               ${state.checked ? 'disabled' : ''}
+                               oninput="updateFill('${key}', this.value)">
+                        <button class="btn-check" onclick="checkFill('${key}')" ${state.checked ? 'disabled' : ''}>
+                            ${state.checked ? '✅' : '✓ Verificar'}
+                        </button>
+                        <div class="feedback ${state.checked ? (state.userAnswer.toUpperCase() === item.answer ? 'fb-good' : 'fb-bad') : ''}" id="fb-${key}">
+                            ${state.checked ? (state.userAnswer.toUpperCase() === item.answer ? '✅ ¡Correcto!' : `❌ El miembro correcto es "${item.answer}"`) : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            updateProgress();
+        }
+
+        function updateFill(key, value) {
+            const idx = parseInt(key.split('-')[1]);
+            if (!answers.fill[idx]) answers.fill[idx] = { userAnswer: '', checked: false };
+            answers.fill[idx].userAnswer = value.toUpperCase();
+        }
+
+        function checkFill(key) {
+            const idx = parseInt(key.split('-')[1]);
+            const item = fillData[idx];
+            const state = answers.fill[idx];
+            if (!state || state.checked) return;
+            state.checked = true;
+            if (state.userAnswer.toUpperCase() === item.answer) { score.fill++;
+                totalScore++; }
+            renderFill();
+            updateScoreDisplay();
+            updateProgress();
+        }
+
+        // ================================================================
+        // RENDER - CRUCIGRAMA
+        // ================================================================
+        function renderCrossword() {
+            const container = document.getElementById('crosswordSection');
+            let html = '';
+            crosswordData.forEach((item, idx) => {
+                const key = 'crossword-' + idx;
+                const state = answers.crossword[idx] || { letters: [], checked: false };
+                if (!state.letters || state.letters.length === 0) {
+                    state.letters = item.word.split('').map((l, i) => item.reveal.includes(i) ? l : '');
+                }
+                html += `
+                    <div class="question-item" id="q-${key}" style="flex-direction:column; align-items:stretch;">
+                        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                            <span class="q-num">${idx+1}.</span>
+                            <span class="q-text"><strong>${item.definition}</strong></span>
+                            <span style="font-size:0.8rem; color:#6b7f8f;">(${item.word.length} letras)</span>
+                        </div>
+                        <div class="word-hint" id="word-${key}">
+                            ${item.word.split('').map((letter, pos) => {
+                                let cls = 'letter-slot';
+                                if (state.letters[pos]) cls += ' filled';
+                                if (state.checked && state.letters[pos] === letter) cls += ' correct';
+                                if (state.checked && state.letters[pos] && state.letters[pos] !== letter) cls += ' wrong';
+                                return `<span class="${cls}" id="slot-${key}-${pos}">${state.letters[pos] || ''}</span>`;
+                            }).join('')}
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;">
+                            ${item.word.split('').map((letter, pos) => {
+                                if (item.reveal.includes(pos)) return '';
+                                return `<input class="letter-input ${state.checked ? (state.letters[pos] === letter ? 'correct' : (state.letters[pos] ? 'incorrect' : '')) : ''}" 
+                                           type="text" maxlength="1" 
+                                           value="${state.letters[pos] || ''}" 
+                                           ${state.checked ? 'disabled' : ''}
+                                           data-key="${key}" data-pos="${pos}"
+                                           oninput="updateCrossword('${key}', ${pos}, this.value)">`;
+                            }).join('')}
+                        </div>
+                        <button class="btn-check" onclick="checkCrossword('${key}')" ${state.checked ? 'disabled' : ''}>
+                            ${state.checked ? '✅' : '✓ Verificar'}
+                        </button>
+                        <div class="feedback ${state.checked ? (state.letters.join('') === item.word ? 'fb-good' : 'fb-bad') : ''}" id="fb-${key}">
+                            ${state.checked ? (state.letters.join('') === item.word ? '✅ ¡Correcto!' : `❌ La palabra era "${item.word}"`) : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            updateProgress();
+        }
+
+        function updateCrossword(key, pos, value) {
+            const idx = parseInt(key.split('-')[1]);
+            if (!answers.crossword[idx]) answers.crossword[idx] = { letters: [], checked: false };
+            const state = answers.crossword[idx];
+            if (state.checked) return;
+            const item = crosswordData[idx];
+            if (!state.letters || state.letters.length === 0) {
+                state.letters = item.word.split('').map((l, i) => item.reveal.includes(i) ? l : '');
+            }
+            state.letters[pos] = value.toUpperCase().slice(0, 1);
+            const slot = document.getElementById(`slot-${key}-${pos}`);
+            if (slot) slot.textContent = state.letters[pos] || '';
+            if (state.letters[pos]) slot.classList.add('filled');
+        }
+
+        function checkCrossword(key) {
+            const idx = parseInt(key.split('-')[1]);
+            const item = crosswordData[idx];
+            const state = answers.crossword[idx];
+            if (!state || state.checked) return;
+            state.checked = true;
+            if (state.letters.join('') === item.word) { score.crossword++;
+                totalScore++; }
+            renderCrossword();
+            updateScoreDisplay();
+            updateProgress();
+        }
+
+        // ================================================================
+        // RENDER - ORDENAR LETRAS
+        // ================================================================
+        function renderScramble() {
+            const container = document.getElementById('scrambleSection');
+            let html = '';
+            scrambleData.forEach((item, idx) => {
+                const key = 'scramble-' + idx;
+                const state = answers.scramble[idx] || { userAnswer: '', checked: false };
+                html += `
+                    <div class="question-item" id="q-${key}">
+                        <span class="q-num">${idx+1}.</span>
+                        <span class="q-text">
+                            <strong>Ordena:</strong> 
+                            <span style="background:#f8fafc; padding:4px 14px; border-radius:8px; border:1px dashed #dce3ef; font-weight:700; letter-spacing:2px; font-size:1.1rem;">${item.scrambled}</span>
+                            <span style="font-size:0.8rem; color:#6b7f8f;">(${item.word.length} letras)</span>
+                        </span>
+                        <input class="fill-input ${state.checked ? (state.userAnswer.toUpperCase() === item.word ? 'correct' : 'incorrect') : ''}" 
+                               type="text" placeholder="Escribe..." 
+                               value="${state.userAnswer}" 
+                               ${state.checked ? 'disabled' : ''}
+                               oninput="updateScramble('${key}', this.value)">
+                        <button class="btn-check" onclick="checkScramble('${key}')" ${state.checked ? 'disabled' : ''}>
+                            ${state.checked ? '✅' : '✓ Verificar'}
+                        </button>
+                        <div class="feedback ${state.checked ? (state.userAnswer.toUpperCase() === item.word ? 'fb-good' : 'fb-bad') : ''}" id="fb-${key}">
+                            ${state.checked ? (state.userAnswer.toUpperCase() === item.word ? '✅ ¡Correcto!' : `❌ La palabra correcta es "${item.word}"`) : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            updateProgress();
+        }
+
+        function updateScramble(key, value) {
+            const idx = parseInt(key.split('-')[1]);
+            if (!answers.scramble[idx]) answers.scramble[idx] = { userAnswer: '', checked: false };
+            answers.scramble[idx].userAnswer = value.toUpperCase();
+        }
+
+        function checkScramble(key) {
+            const idx = parseInt(key.split('-')[1]);
+            const item = scrambleData[idx];
+            const state = answers.scramble[idx];
+            if (!state || state.checked) return;
+            state.checked = true;
+            if (state.userAnswer.toUpperCase() === item.word) { score.scramble++;
+                totalScore++; }
+            renderScramble();
+            updateScoreDisplay();
+            updateProgress();
+        }
+
+        // ================================================================
+        // NAVEGACIÓN
+        // ================================================================
+        let answers = {
+            match: [],
+            listen: [],
+            fill: [],
+            crossword: [],
+            scramble: []
+        };
+        let score = { match: 0, listen: 0, fill: 0, crossword: 0, scramble: 0 };
+        let totalScore = 0;
+        let currentSession = 1;
+        const totalSessions = 6;
+
+        function goToSession(sessionNum) {
+            document.querySelectorAll('.session').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById('session' + sessionNum);
+            if (target) {
+                target.classList.add('active');
+                currentSession = sessionNum;
+                updateProgress();
+                document.querySelector('.footer').textContent =
+                    `Polyglots · Aprende inglés fácil · Sesión ${sessionNum} de ${totalSessions}`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function updateProgress() {
+            const totalQuestions = matchData.length + listenData.length + fillData.length +
+                crosswordData.length + scrambleData.length;
+            let answered = 0;
+            for (let i = 0; i < matchData.length; i++) { if (answers.match[i] && answers.match[i].checked) answered++; }
+            for (let i = 0; i < listenData.length; i++) { if (answers.listen[i] && answers.listen[i].checked) answered++; }
+            for (let i = 0; i < fillData.length; i++) { if (answers.fill[i] && answers.fill[i].checked) answered++; }
+            for (let i = 0; i < crosswordData.length; i++) { if (answers.crossword[i] && answers.crossword[i].checked)
+                answered++; }
+            for (let i = 0; i < scrambleData.length; i++) { if (answers.scramble[i] && answers.scramble[i].checked)
+                answered++; }
+            const total = totalQuestions + pronData.length;
+            const pct = total > 0 ? Math.round(((answered + pronData.length) / total) * 100) : 0;
+            document.getElementById('progressFill').style.width = pct + '%';
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('scoreDisplay').textContent = totalScore + pronData.length;
+        }
+
+        // ================================================================
+        // RESULTADOS FINALES
+        // ================================================================
+        function showResults() {
+            const totalQ = matchData.length + listenData.length + fillData.length +
+                crosswordData.length + scrambleData.length;
+            const weightedScore = Math.round((score.match / matchData.length) * 15) +
+                Math.round((score.listen / listenData.length) * 15) +
+                Math.round((score.fill / fillData.length) * 15) +
+                Math.round((score.crossword / crosswordData.length) * 20) +
+                Math.round((score.scramble / scrambleData.length) * 10) + pronData.length;
+
+            document.getElementById('finalScore').textContent = `${weightedScore} / 100`;
+            document.getElementById('matchScore').textContent = score.match;
+            document.getElementById('listenScore').textContent = score.listen;
+            document.getElementById('fillScore').textContent = score.fill;
+            document.getElementById('crosswordScore').textContent = score.crossword;
+            document.getElementById('scrambleScore').textContent = score.scramble;
+
+            const pct = Math.round((weightedScore / 100) * 100);
+            let msg = '';
+            if (pct >= 80) msg = '🌟 ¡Excelente! Dominas los miembros de la familia en inglés.';
+            else if (pct >= 60) msg = '📖 ¡Bien! Revisa los miembros que fallaste.';
+            else msg = '💪 ¡Sigue practicando! Repasa los miembros que fallaste.';
+            document.getElementById('finalMessage').textContent = msg;
+
+            const failList = document.getElementById('failList');
+            let fails = [];
+            matchData.forEach((item, idx) => {
+                const st = answers.match[idx];
+                if (st && st.checked && st.selected !== item.word) fails.push(`${item.word} (${item.definition})`);
+            });
+            listenData.forEach((item, idx) => {
+                const st = answers.listen[idx];
+                if (st && st.checked && st.userAnswer.toUpperCase() !== item.word) fails.push(`${item.word} (escuchar)`);
+            });
+            fillData.forEach((item, idx) => {
+                const st = answers.fill[idx];
+                if (st && st.checked && st.userAnswer.toUpperCase() !== item.answer) fails.push(`${item.answer} (completar)`);
+            });
+            crosswordData.forEach((item, idx) => {
+                const st = answers.crossword[idx];
+                if (st && st.checked && st.letters.join('') !== item.word) fails.push(`${item.word} (crucigrama)`);
+            });
+            scrambleData.forEach((item, idx) => {
+                const st = answers.scramble[idx];
+                if (st && st.checked && st.userAnswer.toUpperCase() !== item.word) fails.push(`${item.word} (ordenar)`);
+            });
+
+            if (fails.length > 0) {
+                failList.innerHTML =
+                    `<li style="font-weight:600; list-style:none; padding-bottom:8px;">📝 Miembros para repasar (${fails.length}):</li>` +
+                    fails.map(f => `<li>${f}</li>`).join('');
+                failList.style.display = 'block';
+            } else {
+                failList.innerHTML = '<li style="list-style:none;">🎉 ¡Sin errores! ¡Perfecto!</li>';
+                failList.style.display = 'block';
+            }
+
+            document.querySelectorAll('.session').forEach(s => s.classList.remove('active'));
+            document.getElementById('resultsBox').classList.add('visible');
+            document.querySelector('.footer').textContent = 'Polyglots · Aprende inglés fácil · ¡Práctica completada!';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ================================================================
+        // REINICIAR
+        // ================================================================
+        function restartPractice() {
+            answers = { match: [], listen: [], fill: [], crossword: [], scramble: [] };
+            score = { match: 0, listen: 0, fill: 0, crossword: 0, scramble: 0 };
+            totalScore = 0;
+            document.getElementById('resultsBox').classList.remove('visible');
+            document.getElementById('scoreDisplay').textContent = '0';
+            document.querySelectorAll('.session').forEach(s => s.classList.remove('active'));
+            document.getElementById('session1').classList.add('active');
+            currentSession = 1;
+            document.querySelector('.footer').textContent = 'Polyglots · Aprende inglés fácil · Sesión 1 de 6';
+            renderPron();
+            renderMatch();
+            renderListen();
+            renderFill();
+            renderCrossword();
+            renderScramble();
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ================================================================
+        // INICIALIZAR
+        // ================================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const fbAudio = document.createElement('div');
+            fbAudio.id = 'audioFeedback';
+            fbAudio.style.cssText = `
+                position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+                background:#0b1e3a; color:white; padding:12px 24px; border-radius:40px;
+                font-size:0.95rem; font-weight:600; display:none; z-index:1000;
+                max-width:90%; text-align:center; box-shadow:0 8px 30px rgba(0,0,0,0.3);
+            `;
+            document.body.appendChild(fbAudio);
+
+            renderPron();
+            renderMatch();
+            renderListen();
+            renderFill();
+            renderCrossword();
+            renderScramble();
+            updateProgress();
+        });
+    </script>
+
+</body>
+</html>
